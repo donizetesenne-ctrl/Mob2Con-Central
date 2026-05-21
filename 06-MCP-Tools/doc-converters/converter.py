@@ -42,20 +42,27 @@ def convert_marker(input_path: Path, output_format: str = "md") -> str:
 def convert_mineru(input_path: Path, output_format: str = "md") -> str:
     """MinerU: melhor para documentos científicos com fórmulas e gráficos."""
     from magic_pdf.data.data_reader_writer import FileBasedDataWriter, FileBasedDataReader
-    from magic_pdf.pipe.UNIPipe import UNIPipe
+    from magic_pdf.model.doc_analyze_by_custom_model import doc_analyze
+    from magic_pdf.pdf_parse_union_core_v2 import pdf_parse_union
 
     output_dir = input_path.parent / f"{input_path.stem}_mineru"
     output_dir.mkdir(exist_ok=True)
 
-    reader = FileBasedDataReader("")
-    pdf_bytes = reader.read(str(input_path))
+    pdf_bytes = input_path.read_bytes()
+    image_writer = FileBasedDataWriter(str(output_dir / "images"))
 
-    pipe = UNIPipe(pdf_bytes, [], image_writer=FileBasedDataWriter(str(output_dir)))
-    pipe.pipe_classify()
-    pipe.pipe_analyze()
-    pipe.pipe_parse()
+    # Análise do layout
+    model_list = doc_analyze(pdf_bytes)
 
-    md_content = pipe.pipe_mk_markdown("", str(output_dir))
+    # Parse e extração
+    result = pdf_parse_union(
+        pdf_bytes,
+        model_list,
+        imageWriter=image_writer,
+        parse_mode="auto",
+    )
+
+    md_content = result.get("md_content", "")
 
     if output_format == "json":
         return json.dumps({"content": md_content, "source": str(input_path)}, ensure_ascii=False, indent=2)

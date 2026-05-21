@@ -18,6 +18,13 @@ temp_webapp.html
 # Node
 node_modules/
 
+# Python cache
+__pycache__/
+*.pyc
+
+# Outputs gerados
+**/converted/
+
 # Logs
 *.log
 
@@ -41,6 +48,7 @@ agent-manager-for-q-cli/
 08-Automacao/maestro/
 08-Automacao/n8n-workflows/
 08-Automacao/steel-mcp-server/
+08-Automacao/wexflow/
 
 # 09-Integracao-Dados — sub-repos clonados
 09-Integracao-Dados/airbyte/

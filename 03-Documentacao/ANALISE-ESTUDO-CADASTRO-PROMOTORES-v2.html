@@ -1,47 +1,877 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard Cadastro Promotores v2 | Mob2Con</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Análise CS — Cadastro Promotores v2 | Mob2Con</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&amp;display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<style>
+:root{--pri:#F46901;--pri-l:#FF8534;--pri-d:#C45500;--bg:#F8F9FA;--sf:#FFF;--tx:#1A1A2E;--tx2:#6B7280;--bd:#E5E7EB;--ok:#10B981;--wn:#F59E0B;--dg:#EF4444;--info:#8B5CF6;--sw:220px;--hh:56px;--fh:48px;--r:8px;--sh:0 2px 8px rgba(0,0,0,.08);--f:'Raleway',sans-serif}
+[data-theme="dark"]{--bg:#0F1117;--sf:#1A1D2E;--tx:#E5E7EB;--tx2:#9CA3AF;--bd:#2D3348;--sh:0 2px 8px rgba(0,0,0,.3)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:var(--f);background:var(--bg);color:var(--tx);font-size:13px;line-height:1.5;overflow-x:hidden;transition:background .3s,color .3s}
+a{color:var(--pri);text-decoration:none}
+button{font-family:var(--f);cursor:pointer;border:none;background:none}
+.app{display:flex;min-height:100vh}
+.sidebar{width:var(--sw);background:var(--sf);border-right:1px solid var(--bd);position:fixed;top:0;left:0;height:100vh;z-index:100;display:flex;flex-direction:column;transition:background .3s,border .3s}
+.sidebar .logo{padding:16px;text-align:center;border-bottom:1px solid var(--bd)}
+.sidebar .logo h2{font-size:15px;font-weight:900;color:var(--pri)}
+.sidebar .logo span{font-size:10px;color:var(--tx2);display:block;margin-top:2px}
+.sidebar nav{flex:1;overflow-y:auto;padding:8px}
+.sidebar nav a{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--r);color:var(--tx);font-weight:600;font-size:11px;transition:all .2s;margin-bottom:2px}
+.sidebar nav a:hover,.sidebar nav a.active{background:var(--pri);color:#fff}
+.sidebar nav a i{width:16px;text-align:center;font-size:12px}
+.badge{font-size:9px;padding:2px 6px;border-radius:10px;font-weight:700}
+.badge-danger{background:var(--dg);color:#fff}
+.badge-warn{background:var(--wn);color:#fff}
+.badge-ok{background:var(--ok);color:#fff}
+.main{margin-left:var(--sw);flex:1;display:flex;flex-direction:column;transition:margin .3s}
+.header{height:var(--hh);background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 24px;position:sticky;top:0;z-index:90;transition:background .3s,border .3s}
+.breadcrumb{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--tx2)}
+.breadcrumb .sep{color:var(--bd)}
+.hdr-actions{display:flex;align-items:center;gap:10px}
+.btn{padding:6px 14px;border-radius:var(--r);font-size:11px;font-weight:600;transition:all .2s;display:inline-flex;align-items:center;gap:6px}
+.btn-pri{background:var(--pri);color:#fff}.btn-pri:hover{background:var(--pri-d)}
+.btn-out{border:1px solid var(--bd);color:var(--tx)}.btn-out:hover{border-color:var(--pri);color:var(--pri)}
+.btn-sm{padding:4px 10px;font-size:10px}
+.toggle-dark{width:36px;height:20px;border-radius:10px;background:var(--bd);position:relative;transition:background .3s}
+.toggle-dark::after{content:'';position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .3s}
+[data-theme="dark"] .toggle-dark{background:var(--pri)}
+[data-theme="dark"] .toggle-dark::after{transform:translateX(16px)}
+.filter-bar{min-height:var(--fh);background:var(--sf);border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:10px;padding:8px 24px;position:sticky;top:var(--hh);z-index:80;flex-wrap:wrap;transition:background .3s,border .3s}
+.filter-bar select{font-family:var(--f);font-size:11px;padding:5px 8px;border:1px solid var(--bd);border-radius:var(--r);background:var(--sf);color:var(--tx)}
+.filter-bar label{font-size:10px;font-weight:700;color:var(--tx2);white-space:nowrap}
+.chk-group{display:flex;gap:6px;align-items:center}
+.chk-group label{display:flex;align-items:center;gap:3px;font-weight:400;font-size:11px;cursor:pointer}
+.chk-group input[type="checkbox"]{accent-color:var(--pri);width:13px;height:13px}
+.content{flex:1;padding:24px}
+.page{display:none;animation:fadeIn .3s}
+.page.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+.card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh);transition:all .3s}
+.card:hover{box-shadow:0 4px 16px rgba(244,105,1,.12);border-color:var(--pri-l)}
+.card-title{font-size:10px;font-weight:700;color:var(--tx2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.card-value{font-size:24px;font-weight:900;color:var(--tx)}
+.card-sub{font-size:11px;color:var(--tx2);margin-top:4px;display:flex;align-items:center;gap:4px}
+.card-sub .up{color:var(--ok)}.card-sub .down{color:var(--dg)}
+.card-spark{height:30px;margin-top:8px}
+.section-title{font-size:14px;font-weight:700;margin:24px 0 12px;padding-bottom:8px;border-bottom:2px solid var(--pri)}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:11px}
+th{background:var(--sf);font-weight:700;text-align:left;padding:8px 12px;border-bottom:2px solid var(--bd);cursor:pointer;user-select:none;white-space:nowrap}
+th:hover{color:var(--pri)}
+td{padding:8px 12px;border-bottom:1px solid var(--bd)}
+tr:hover td{background:rgba(244,105,1,.04)}
+.progress-bar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}
+.progress-bar .fill{height:100%;background:var(--pri);border-radius:3px;transition:width .5s}
+.chart-container{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:var(--sh)}
+.gauge-wrap{display:flex;align-items:center;justify-content:center;flex-direction:column}
+.tag{display:inline-block;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:700}
+.tag-ok{background:#D1FAE5;color:#065F46}
+.tag-wn{background:#FEF3C7;color:#92400E}
+.tag-dg{background:#FEE2E2;color:#991B1B}
+.tag-info{background:#EDE9FE;color:#5B21B6}
+[data-theme="dark"] .tag-ok{background:#064E3B;color:#6EE7B7}
+[data-theme="dark"] .tag-wn{background:#78350F;color:#FCD34D}
+[data-theme="dark"] .tag-dg{background:#7F1D1D;color:#FCA5A5}
+[data-theme="dark"] .tag-info{background:#4C1D95;color:#C4B5FD}
+.cmd-palette{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.5);z-index:9999;align-items:flex-start;justify-content:center;padding-top:120px}
+.cmd-palette.open{display:flex}
+.cmd-box{background:var(--sf);border-radius:12px;width:500px;max-height:400px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+.cmd-box input{width:100%;padding:16px 20px;border:none;font-size:14px;font-family:var(--f);background:transparent;color:var(--tx);outline:none}
+.cmd-results{max-height:300px;overflow-y:auto;border-top:1px solid var(--bd)}
+.cmd-results a{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:12px;color:var(--tx);transition:background .1s}
+.cmd-results a:hover,.cmd-results a.sel{background:rgba(244,105,1,.1);color:var(--pri)}
+.alert-panel{position:fixed;top:var(--hh);right:0;width:320px;max-height:calc(100vh - var(--hh));background:var(--sf);border-left:1px solid var(--bd);box-shadow:-4px 0 20px rgba(0,0,0,.1);z-index:95;transform:translateX(100%);transition:transform .3s;overflow-y:auto;padding:16px}
+.alert-panel.open{transform:translateX(0)}
+.alert-item{padding:10px;border-radius:var(--r);border:1px solid var(--bd);margin-bottom:8px;font-size:11px}
+.alert-item .dismiss{float:right;cursor:pointer;color:var(--tx2);font-size:10px}
+.measure-card{background:var(--sf);border:1px solid var(--bd);border-radius:var(--r);margin-bottom:8px;overflow:hidden}
+.measure-card .mh{padding:10px 14px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-size:12px;font-weight:600}
+.measure-card .mh:hover{background:rgba(244,105,1,.04)}
+.measure-card .mb{display:none;padding:12px 14px;border-top:1px solid var(--bd);background:var(--bg)}
+.measure-card .mb.open{display:block}
+.measure-card pre{font-size:11px;white-space:pre-wrap;word-break:break-all;font-family:'Courier New',monospace;line-height:1.6}
+.search-measures{width:100%;padding:8px 12px;border:1px solid var(--bd);border-radius:var(--r);font-family:var(--f);font-size:12px;margin-bottom:16px;background:var(--sf);color:var(--tx)}
+@media print{.sidebar,.header,.filter-bar,.btn,.toggle-dark,.alert-panel,.cmd-palette{display:none!important}.main{margin-left:0!important}.page{display:block!important;page-break-after:always}.card{box-shadow:none;border:1px solid #ddd}}
+@media(max-width:1024px){.g4,.g5{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr}}
+@media(max-width:768px){.sidebar{transform:translateX(-100%)}.main{margin-left:0}.g2,.g3,.g4,.g5{grid-template-columns:1fr}.filter-bar{flex-direction:column;align-items:flex-start}}
+</style>
 </head>
 <body>
-<style>
-:root {
-  --primary: #F46901;
-  --primary-dark: #D45A00;
-  --primary-light: #FF8C3A;
-  --primary-bg: rgba(244,105,1,0.08);
-  --bg-dark: #1A1A2E;
-  --bg-sidebar: #0F1629;
-  --bg-card: #FFFFFF;
-  --bg-page: #F8F9FC;
-  --text-primary: #1F2937;
-  --text-secondary: #6B7280;
-  --text-light: #FFFFFF;
-  --border: #E5E7EB;
-  --border-light: #F3F4F6;
-  --success: #10B981;
-  --success-bg: rgba(16,185,129,0.1);
-  --warning: #F59E0B;
-  --warning-bg: rgba(245,158,11,0.1);
-  --danger: #EF4444;
-  --danger-bg: rgba(239,68,68,0.1);
-  --info: #6366F1;
-  --info-bg: rgba(99,102,241,0.1);
-  --grid: 8px;
-  --radius: 12px;
-  --radius-sm: 8px;
-  --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
-  --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.04);
-  --shadow-lg: 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.04);
-  --font: 'Raleway', sans-serif;
-  --transition: all 0.2s ease;
+<div class="app">
+<aside class="sidebar">
+<div class="logo"><h2>Mob2Con</h2><span>CS Dashboard v2.0</span></div>
+<nav>
+<a href="#" data-page="overview" class="active"><i class="fas fa-chart-pie"></i>Visão Geral</a>
+<a href="#" data-page="clusters"><i class="fas fa-layer-group"></i>Clusters CS</a>
+<a href="#" data-page="health"><i class="fas fa-heartbeat"></i>Health Score</a>
+<a href="#" data-page="churn"><i class="fas fa-user-minus"></i>Churn &amp; Risco</a>
+<a href="#" data-page="financeiro"><i class="fas fa-dollar-sign"></i>Financeiro</a>
+<a href="#" data-page="turnover"><i class="fas fa-exchange-alt"></i>Turnover</a>
+<a href="#" data-page="fraude"><i class="fas fa-shield-alt"></i>Fraude</a>
+<a href="#" data-page="modelo"><i class="fas fa-database"></i>Modelo Dados</a>
+<a href="#" data-page="medidas"><i class="fas fa-calculator"></i>Catálogo Medidas</a>
+<a href="#" data-page="alertas"><i class="fas fa-bell"></i>Alertas <span class="badge badge-danger" id="alert-count">7</span></a>
+</nav>
+</aside>
+<div class="main">
+<header class="header">
+<div class="breadcrumb"><span>Mob2Con</span><span class="sep">/</span><span>CS Dashboard</span><span class="sep">/</span><span id="bc-page">Visão Geral</span></div>
+<div class="hdr-actions">
+<button class="btn btn-out btn-sm" onclick="openPalette()" title="Ctrl+K"><i class="fas fa-search"></i>Buscar</button>
+<button class="btn btn-out btn-sm" onclick="exportPDF()"><i class="fas fa-file-pdf"></i>PDF</button>
+<button class="btn btn-out btn-sm" onclick="copyData()"><i class="fas fa-copy"></i>Copiar</button>
+<button class="toggle-dark" onclick="toggleDark()" title="Alternar tema"></button>
+</div>
+</header>
+<div class="filter-bar">
+<label>Período:</label>
+<select id="f-period" onchange="applyFilters()">
+<option value="7">Últimos 7d</option><option value="15">Últimos 15d</option><option value="30" selected>Últimos 30d</option><option value="month">Último Mês</option><option value="quarter">Último Trimestre</option><option value="semester">Últimos 6 Meses</option>
+</select>
+<label>Cluster:</label>
+<div class="chk-group">
+<label><input type="checkbox" checked value="Tech" onchange="applyFilters()">Tech</label>
+<label><input type="checkbox" checked value="Bronze" onchange="applyFilters()">Bronze</label>
+<label><input type="checkbox" checked value="Prata" onchange="applyFilters()">Prata</label>
+<label><input type="checkbox" checked value="Ouro" onchange="applyFilters()">Ouro</label>
+<label><input type="checkbox" checked value="Premium" onchange="applyFilters()">Premium</label>
+</div>
+<label>Tipo:</label>
+<select id="f-tipo" onchange="applyFilters()">
+<option value="all">Todos</option><option value="agencia">Agência</option><option value="fornecedor">Fornecedor</option><option value="rede">Rede</option>
+</select>
+<label>Status:</label>
+<select id="f-status" onchange="applyFilters()">
+<option value="all">Todos</option><option value="ativo">Ativo</option><option value="inativo">Inativo</option><option value="inadimplente">Inadimplente</option>
+</select>
+<label>UF:</label>
+<select id="f-uf" onchange="applyFilters()">
+<option value="all">Todas</option><option value="AC">AC</option><option value="AL">AL</option><option value="AM">AM</option><option value="AP">AP</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MG">MG</option><option value="MS">MS</option><option value="MT">MT</option><option value="PA">PA</option><option value="PB">PB</option><option value="PE">PE</option><option value="PI">PI</option><option value="PR">PR</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RO">RO</option><option value="RR">RR</option><option value="RS">RS</option><option value="SC">SC</option><option value="SE">SE</option><option value="SP">SP</option><option value="TO">TO</option>
+</select>
+</div>
+<div class="content">
+<div id="pg-overview" class="page active">
+<h2 class="section-title">Visão Geral CS</h2>
+<div class="grid g5" id="cards-overview">
+<div class="card"><div class="card-title">Total Contas Ativas</div><div class="card-value" id="v-contas">1.953</div><div class="card-sub"><span class="up"><i class="fas fa-arrow-up"></i> +3.2%</span> vs período anterior</div><canvas class="card-spark" id="spark-contas"></canvas></div>
+<div class="card"><div class="card-title">Health Score Médio</div><div class="card-value" id="v-health">72.4</div><div class="card-sub"><span class="up"><i class="fas fa-arrow-up"></i> +1.8</span> pontos</div><canvas class="card-spark" id="spark-health"></canvas></div>
+<div class="card"><div class="card-title">Taxa Churn</div><div class="card-value" id="v-churn">4.2%</div><div class="card-sub"><span class="down"><i class="fas fa-arrow-down"></i> -0.5%</span> redução</div><canvas class="card-spark" id="spark-churn"></canvas></div>
+<div class="card"><div class="card-title">MRR Total</div><div class="card-value" id="v-mrr">R$ 287k</div><div class="card-sub"><span class="up"><i class="fas fa-arrow-up"></i> +R$ 12k</span> expansão</div><canvas class="card-spark" id="spark-mrr"></canvas></div>
+<div class="card"><div class="card-title">Alertas Ativos</div><div class="card-value" id="v-alerts">7</div><div class="card-sub"><span class="badge badge-danger">3 críticos</span></div><canvas class="card-spark" id="spark-alerts"></canvas></div>
+</div>
+<div class="grid g2" style="margin-top:24px">
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Distribuição por Cluster</h3><canvas id="chart-clusters" height="200"></canvas></div>
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Health Score - Evolução 30d</h3><canvas id="chart-health-trend" height="200"></canvas></div>
+</div>
+<div class="grid g2" style="margin-top:16px">
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">MRR Movimentações (Waterfall)</h3><canvas id="chart-mrr-waterfall" height="200"></canvas></div>
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Cobertura por UF</h3><div id="heatmap-uf" style="overflow-x:auto"></div></div>
+</div>
+</div>
+<div id="pg-clusters" class="page">
+<h2 class="section-title">Clusters CS</h2>
+<div class="grid g5">
+<div class="card" style="border-top:3px solid var(--info)"><div class="card-title">Tech</div><div class="card-value">952</div><div class="card-sub">Low-touch | SLA 48h</div></div>
+<div class="card" style="border-top:3px solid #CD7F32"><div class="card-title">Bronze</div><div class="card-value">587</div><div class="card-sub">Low-touch | SLA 24h</div></div>
+<div class="card" style="border-top:3px solid #C0C0C0"><div class="card-title">Prata</div><div class="card-value">327</div><div class="card-sub">Mid-touch | SLA 12h</div></div>
+<div class="card" style="border-top:3px solid #FFD700"><div class="card-title">Ouro</div><div class="card-value">67</div><div class="card-sub">High-touch | SLA 4h</div></div>
+<div class="card" style="border-top:3px solid var(--pri)"><div class="card-title">Premium</div><div class="card-value">20</div><div class="card-sub">White-glove | SLA 1h</div></div>
+</div>
+<h3 class="section-title">Detalhamento Clusters</h3>
+<div class="tbl-wrap">
+<table id="tbl-clusters">
+<thead><tr><th onclick="sortTable('tbl-clusters',0)">Cluster</th><th onclick="sortTable('tbl-clusters',1)">Threshold</th><th onclick="sortTable('tbl-clusters',2)">Toque</th><th onclick="sortTable('tbl-clusters',3)">SLA (h)</th><th onclick="sortTable('tbl-clusters',4)">Target</th><th onclick="sortTable('tbl-clusters',5)">Responsável</th><th>Email</th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-info">Tech</span></td><td>7</td><td>Low-touch</td><td>48</td><td>952</td><td>Ana Claudia Batista Benides</td><td>ana.benides@mob2con.com.br</td></tr>
+<tr><td><span class="tag" style="background:#FEF3C7;color:#92400E">Bronze</span></td><td>7</td><td>Low-touch</td><td>24</td><td>587</td><td>Ana Claudia Batista Benides</td><td>ana.benides@mob2con.com.br</td></tr>
+<tr><td><span class="tag" style="background:#E5E7EB;color:#374151">Prata</span></td><td>5</td><td>Mid-touch</td><td>12</td><td>327</td><td>Ana Claudia Batista Benides</td><td>ana.benides@mob2con.com.br</td></tr>
+<tr><td><span class="tag" style="background:#FEF3C7;color:#78350F">Ouro</span></td><td>3</td><td>High-touch</td><td>4</td><td>67</td><td>Monique Andrade</td><td>monique.andrade@mob2con.com.br</td></tr>
+<tr><td><span class="tag" style="background:#FED7AA;color:#C45500">Premium</span></td><td>1</td><td>White-glove</td><td>1</td><td>20</td><td>Monique Andrade</td><td>monique.andrade@mob2con.com.br</td></tr>
+</tbody></table></div>
+<div class="grid g2" style="margin-top:24px">
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Contas por Cluster</h3><canvas id="chart-cluster-bar" height="180"></canvas></div>
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">SLA Cumprimento (%)</h3><canvas id="chart-sla" height="180"></canvas></div>
+</div>
+</div>
+<div id="pg-health" class="page">
+<h2 class="section-title">Health Score</h2>
+<div class="grid g3">
+<div class="card gauge-wrap"><div class="card-title">Health Score Geral</div><canvas id="gauge-health" width="180" height="120"></canvas><div class="card-value" style="font-size:28px;margin-top:8px">72.4</div><span class="tag tag-ok">SAUDÁVEL</span></div>
+<div class="card"><div class="card-title">Distribuição por Status</div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Saudável (≥75)</span><span style="font-size:11px;font-weight:700">1.247 (63.8%)</span></div><div class="progress-bar"><div class="fill" style="width:63.8%;background:var(--ok)"></div></div></div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Atenção (50-74)</span><span style="font-size:11px;font-weight:700">412 (21.1%)</span></div><div class="progress-bar"><div class="fill" style="width:21.1%;background:var(--wn)"></div></div></div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Crítico (25-49)</span><span style="font-size:11px;font-weight:700">198 (10.1%)</span></div><div class="progress-bar"><div class="fill" style="width:10.1%;background:var(--dg)"></div></div></div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Churn Risk (&lt;25)</span><span style="font-size:11px;font-weight:700">96 (4.9%)</span></div><div class="progress-bar"><div class="fill" style="width:4.9%;background:#7F1D1D"></div></div></div></div>
+<div class="card"><div class="card-title">Fórmula DAX</div><pre style="font-size:10px;margin-top:8px;background:var(--bg);padding:10px;border-radius:var(--r);overflow-x:auto">CS_Health_Score =
+VAR pct_acesso =
+  DIVIDE(
+    COUNTROWS(FILTER(
+      fato_status_contratantes,
+      [fl_acesso] = TRUE())),
+    COUNTROWS(fato_status_contratantes), 0
+  ) * 100
+VAR is_ativo =
+  IF(SELECTEDVALUE(
+    dim_contratante[ds_status_atual]) = "1",
+    100, 0)
+VAR is_pagante =
+  IF(SELECTEDVALUE(
+    fato_status_contratantes
+    [fl_cliente_pagante_mobcontrol]) = TRUE(),
+    100, 50)
+RETURN
+  (pct_acesso * 0.40)
+  + (is_ativo * 0.35)
+  + (is_pagante * 0.25)</pre></div>
+</div>
+<div class="chart-container" style="margin-top:16px"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Health Score por Cluster</h3><canvas id="chart-health-cluster" height="160"></canvas></div>
+</div>
+<div id="pg-churn" class="page">
+<h2 class="section-title">Churn &amp; Risco</h2>
+<div class="grid g4">
+<div class="card"><div class="card-title">Taxa Churn</div><div class="card-value" style="color:var(--dg)">4.2%</div><div class="card-sub">82 contas perdidas</div></div>
+<div class="card"><div class="card-title">Contas Churn Risk</div><div class="card-value">96</div><div class="card-sub">Health Score &lt; 25</div></div>
+<div class="card"><div class="card-title">Expansão Tier 1</div><div class="card-value" style="color:var(--ok)">143</div><div class="card-sub">Score &gt;80, Uso &gt;80%</div></div>
+<div class="card"><div class="card-title">Inativos 30d+</div><div class="card-value">214</div><div class="card-sub">Sem login há 30+ dias</div></div>
+</div>
+<div class="grid g2" style="margin-top:16px">
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Evolução Churn (6 meses)</h3><canvas id="chart-churn-trend" height="180"></canvas></div>
+<div class="chart-container"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Flag Faturamento Zerado</h3><canvas id="chart-fat-zerado" height="180"></canvas></div>
+</div>
+<h3 class="section-title">Tier Expansão</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Tier</th><th>Critério</th><th>Contas</th><th>MRR Potencial</th></tr></thead>
+<tbody>
+<tr><td><span class="tag tag-ok">TIER_1</span></td><td>Score &gt;80 &amp;&amp; Uso &gt;80%</td><td>143</td><td>R$ 42.900</td></tr>
+<tr><td><span class="tag tag-wn">TIER_2</span></td><td>Score ≥65 &amp;&amp; Uso &gt;60%</td><td>287</td><td>R$ 57.400</td></tr>
+<tr><td><span class="tag tag-info">TIER_3</span></td><td>Score ≥50 &amp;&amp; Uso &gt;40%</td><td>198</td><td>R$ 29.700</td></tr>
+<tr><td><span class="tag tag-dg">NENHUM</span></td><td>Abaixo dos critérios</td><td>1.325</td><td>-</td></tr>
+</tbody></table></div>
+</div>
+<div id="pg-financeiro" class="page">
+<h2 class="section-title">Financeiro</h2>
+<div class="grid g4">
+<div class="card"><div class="card-title">MRR Total</div><div class="card-value">R$ 287k</div><div class="card-sub"><span class="up"><i class="fas fa-arrow-up"></i> +4.3%</span></div></div>
+<div class="card"><div class="card-title">Inadimplência</div><div class="card-value" style="color:var(--dg)">R$ 34k</div><div class="card-sub">11.8% da base</div></div>
+<div class="card"><div class="card-title">MRR em Risco</div><div class="card-value" style="color:var(--wn)">R$ 18.5k</div><div class="card-sub">Contas com Health &lt;50</div></div>
+<div class="card"><div class="card-title">Expansão Potencial</div><div class="card-value" style="color:var(--ok)">R$ 130k</div><div class="card-sub">Tiers 1+2+3</div></div>
+</div>
+<div class="chart-container" style="margin-top:16px"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">MRR Waterfall - Movimentações do Mês</h3><canvas id="chart-fin-waterfall" height="220"></canvas></div>
+</div>
+<div id="pg-turnover" class="page">
+<h2 class="section-title">Turnover Promotores</h2>
+<div class="grid g4">
+<div class="card"><div class="card-title">Admissões</div><div class="card-value" style="color:var(--ok)">+342</div><div class="card-sub">Últimos 30 dias</div></div>
+<div class="card"><div class="card-title">Desligamentos</div><div class="card-value" style="color:var(--dg)">-287</div><div class="card-sub">Últimos 30 dias</div></div>
+<div class="card"><div class="card-title">Saldo</div><div class="card-value">+55</div><div class="card-sub">Crescimento líquido</div></div>
+<div class="card"><div class="card-title">Taxa Turnover</div><div class="card-value">14.7%</div><div class="card-sub">Média mensal</div></div>
+</div>
+<div class="chart-container" style="margin-top:16px"><h3 style="font-size:12px;font-weight:700;margin-bottom:12px">Turnover - Admissões vs Desligamentos (6m)</h3><canvas id="chart-turnover" height="200"></canvas></div>
+</div>
+<div id="pg-fraude" class="page">
+<h2 class="section-title">Score Fraude</h2>
+<div class="grid g3">
+<div class="card gauge-wrap"><div class="card-title">Score Fraude Médio</div><canvas id="gauge-fraude" width="180" height="120"></canvas><div class="card-value" style="font-size:28px;margin-top:8px">23</div><span class="tag tag-ok">BAIXO RISCO</span></div>
+<div class="card"><div class="card-title">Distribuição Risco</div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Baixo (0-30)</span><span style="font-size:11px;font-weight:700">78%</span></div><div class="progress-bar"><div class="fill" style="width:78%;background:var(--ok)"></div></div></div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Médio (31-60)</span><span style="font-size:11px;font-weight:700">15%</span></div><div class="progress-bar"><div class="fill" style="width:15%;background:var(--wn)"></div></div></div><div style="margin-top:12px"><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:11px">Alto (61-100)</span><span style="font-size:11px;font-weight:700">7%</span></div><div class="progress-bar"><div class="fill" style="width:7%;background:var(--dg)"></div></div></div></div>
+<div class="card"><div class="card-title">Fórmula DAX</div><pre style="font-size:10px;margin-top:8px;background:var(--bg);padding:10px;border-radius:var(--r);overflow-x:auto">CS_Score_Fraude =
+VAR _Curtas =
+  CALCULATE(COUNTROWS(fato_acesso),
+    fato_acesso[qt_horas_permanencia] &lt; 0.5)
+VAR _Longas =
+  CALCULATE(COUNTROWS(fato_acesso),
+    fato_acesso[qt_horas_permanencia] &gt; 4)
+VAR _Total = COUNTROWS(fato_acesso)
+RETURN
+  ROUND(
+    DIVIDE(_Curtas + _Longas, _Total, 0) * 100,
+  0)</pre></div>
+</div>
+</div>
+<div id="pg-modelo" class="page">
+<h2 class="section-title">Modelo de Dados</h2>
+<div class="grid g3">
+<div class="card"><div class="card-title">Tabelas Fato</div><div class="card-value">12</div></div>
+<div class="card"><div class="card-title">Dimensões</div><div class="card-value">16</div></div>
+<div class="card"><div class="card-title">Auxiliares + CS</div><div class="card-value">18</div></div>
+</div>
+<h3 class="section-title">Tabelas Fato</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Tabela</th><th>Tipo</th><th>Relacionamentos</th></tr></thead><tbody>
+<tr><td>fato_status_contratantes</td><td><span class="tag tag-info">Fato Principal</span></td><td>dim_agencia, dim_fornecedor, dim_rede, dim_contratante, Data</td></tr>
+<tr><td>fato_acesso</td><td><span class="tag tag-info">Fato</span></td><td>dim_visitante, dim_loja, Data</td></tr>
+<tr><td>fato_status_promotores_alocacao_vinculo</td><td><span class="tag tag-info">Fato</span></td><td>dim_contratante, dim_visitante</td></tr>
+<tr><td>fato_agg_status_documento_redes</td><td><span class="tag tag-info">Fato Agg</span></td><td>dim_rede, dim_documento</td></tr>
+<tr><td>fato_declaracao</td><td><span class="tag tag-info">Fato</span></td><td>dim_contratante</td></tr>
+<tr><td>fato_horas_ideais</td><td><span class="tag tag-info">Fato</span></td><td>dim_loja</td></tr>
+<tr><td>fato_mobconnect_atividades</td><td><span class="tag tag-info">Fato</span></td><td>dim_contratante</td></tr>
+<tr><td>fato_status_documento_redes</td><td><span class="tag tag-info">Fato</span></td><td>dim_rede, dim_documento</td></tr>
+<tr><td>fato_agg_status_documentacao_colaboradores_redes</td><td><span class="tag tag-info">Fato Agg</span></td><td>dim_rede</td></tr>
+<tr><td>fato_status_documento_colaboradores_redes</td><td><span class="tag tag-info">Fato</span></td><td>dim_rede</td></tr>
+<tr><td>fato_acesso_prestador_servico</td><td><span class="tag tag-info">Fato</span></td><td>dim_prestador_servico</td></tr>
+<tr><td>fato_status_lojas</td><td><span class="tag tag-info">Fato</span></td><td>dim_loja</td></tr>
+</tbody></table></div>
+<h3 class="section-title">Dimensões</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Tabela</th><th>Tipo</th><th>Chave</th></tr></thead><tbody>
+<tr><td>dim_agencia</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_agencia</td></tr>
+<tr><td>dim_fornecedor</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_fornecedor</td></tr>
+<tr><td>dim_rede</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_rede</td></tr>
+<tr><td>dim_contratante</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_contratante</td></tr>
+<tr><td>dim_visitante</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_visitante</td></tr>
+<tr><td>dim_loja</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_loja</td></tr>
+<tr><td>dim_documento</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_documento</td></tr>
+<tr><td>dim_status_aprovacao</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_status</td></tr>
+<tr><td>dim_fornecedor_vinculo</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_vinculo</td></tr>
+<tr><td>dim_time</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_time</td></tr>
+<tr><td>dim_prestador_servico</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_prestador</td></tr>
+<tr><td>dim_funcao_prestador_servico</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_funcao</td></tr>
+<tr><td>dim_mobconnect_status_atividade</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_status_ativ</td></tr>
+<tr><td>dim_app</td><td><span class="tag tag-wn">Dimensão</span></td><td>sk_app</td></tr>
+<tr><td>Data</td><td><span class="tag tag-wn">Calendário</span></td><td>Date</td></tr>
+<tr><td>Estado</td><td><span class="tag tag-wn">Geográfica</span></td><td>ds_estado</td></tr>
+</tbody></table></div>
+<h3 class="section-title">Tabelas Auxiliares &amp; CS</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Tabela</th><th>Tipo</th><th>Propósito</th></tr></thead><tbody>
+<tr><td>_CS_Cluster</td><td><span class="tag" style="background:#FED7AA;color:#C45500">CS</span></td><td>Definição dos clusters CS</td></tr>
+<tr><td>_CS_Owner</td><td><span class="tag" style="background:#FED7AA;color:#C45500">CS</span></td><td>Responsáveis por cluster</td></tr>
+<tr><td>_CS_Medidas</td><td><span class="tag" style="background:#FED7AA;color:#C45500">CS</span></td><td>Catálogo de medidas CS</td></tr>
+<tr><td>Subject</td><td><span class="tag">Aux</span></td><td>Assuntos/categorias</td></tr>
+<tr><td>Indicadores</td><td><span class="tag">Aux</span></td><td>KPIs e indicadores</td></tr>
+<tr><td>Planos</td><td><span class="tag">Aux</span></td><td>Planos comerciais</td></tr>
+<tr><td>Parâmetro</td><td><span class="tag">Aux</span></td><td>Parâmetros dinâmicos</td></tr>
+<tr><td>Measure Range</td><td><span class="tag">Aux</span></td><td>Faixas de medidas</td></tr>
+<tr><td>Service Selection</td><td><span class="tag">Aux</span></td><td>Seleção de serviços</td></tr>
+<tr><td>Score Benchmark</td><td><span class="tag">Aux</span></td><td>Benchmarks de score</td></tr>
+<tr><td>Tipo de Contratante</td><td><span class="tag">Aux</span></td><td>Agência/Fornecedor/Rede</td></tr>
+<tr><td>Tipo de Promotor</td><td><span class="tag">Aux</span></td><td>Classificação promotores</td></tr>
+<tr><td>lkp_cadastro_agencia_fornecedor</td><td><span class="tag">Lookup</span></td><td>Cadastro consolidado</td></tr>
+<tr><td>TabelaVinculados</td><td><span class="tag">Aux</span></td><td>Vínculos ativos</td></tr>
+<tr><td>Indicadores_relatório</td><td><span class="tag">Aux</span></td><td>Indicadores para relatório</td></tr>
+<tr><td>Holidays / HolidaysDefinition</td><td><span class="tag">Aux</span></td><td>Feriados</td></tr>
+<tr><td>DateAutoTemplate</td><td><span class="tag">Aux</span></td><td>Template de datas automático</td></tr>
+</tbody></table></div>
+<h3 class="section-title">Relacionamentos Principais</h3>
+<div class="tbl-wrap"><table><thead><tr><th>De (Fato)</th><th>Para (Dimensão)</th><th>Chave</th><th>Cardinalidade</th></tr></thead><tbody>
+<tr><td>fato_status_contratantes</td><td>dim_agencia</td><td>sk_agencia</td><td>N:1</td></tr>
+<tr><td>fato_status_contratantes</td><td>dim_fornecedor</td><td>sk_fornecedor</td><td>N:1</td></tr>
+<tr><td>fato_status_contratantes</td><td>dim_rede</td><td>sk_rede</td><td>N:1</td></tr>
+<tr><td>fato_status_contratantes</td><td>dim_contratante</td><td>sk_contratante</td><td>N:1</td></tr>
+<tr><td>fato_status_contratantes</td><td>Data</td><td>dt_referencia</td><td>N:1</td></tr>
+<tr><td>fato_acesso</td><td>dim_visitante</td><td>sk_visitante</td><td>N:1</td></tr>
+<tr><td>fato_acesso</td><td>dim_loja</td><td>sk_loja</td><td>N:1</td></tr>
+<tr><td>fato_acesso</td><td>Data</td><td>dt_entrada</td><td>N:1</td></tr>
+<tr><td>dim_loja</td><td>dim_rede</td><td>sk_rede</td><td>N:1</td></tr>
+<tr><td>dim_loja</td><td>Estado</td><td>ds_estado</td><td>N:1</td></tr>
+</tbody></table></div>
+</div>
+<div id="pg-medidas" class="page">
+<h2 class="section-title">Catálogo de Medidas CS (53 medidas)</h2>
+<input type="text" class="search-measures" id="search-measures" placeholder="Buscar medida por nome ou pasta..." oninput="filterMeasures()">
+<div id="measures-container">
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="01 - Sinais">01 - Sinais (5 medidas)</h3>
+<div class="measure-card" data-name="cs_dias_sem_login" data-folder="01 - sinais">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Dias_Sem_Login</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>DATEDIFF(MAX(fato_status_contratantes[dt_acesso_anterior]), TODAY(), DAY)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Sinais | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_fat_zerado_dias" data-folder="01 - sinais">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Fat_Zerado_Dias</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>DATEDIFF(CALCULATE(MAX(fato_status_contratantes[dt_referencia]), fato_status_contratantes[vl_unitario_plano_mobcontrol] &gt; 0), TODAY(), DAY)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Sinais | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_inadimplencia_total" data-folder="01 - sinais">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Inadimplencia_Total</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[fl_inadimplente] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Sinais | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_ativas_7d" data-folder="01 - sinais">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Ativas_7d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[fl_acesso] = TRUE(), DATESINPERIOD(Data[Date], TODAY(), -7, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Sinais | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_promotores_ativos" data-folder="01 - sinais">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Promotores_Ativos</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(DISTINCTCOUNT(fato_status_promotores_alocacao_vinculo[sk_visitante]), fato_status_promotores_alocacao_vinculo[fl_ativo] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Sinais | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="01 - Uso Plataforma">01 - Uso Plataforma (6 medidas)</h3>
+<div class="measure-card" data-name="cs_contas_ativas_15d" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Ativas_15d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[fl_acesso] = TRUE(), DATESINPERIOD(Data[Date], TODAY(), -15, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_ativas_30d" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Ativas_30d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[fl_acesso] = TRUE(), DATESINPERIOD(Data[Date], TODAY(), -30, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_pct_contas_ativas_7d" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Pct_Contas_Ativas_7d</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>DIVIDE([CS_Contas_Ativas_7d], COUNTROWS(fato_status_contratantes), 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Percentual</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_inativas_7d" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Inativas_7d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>COUNTROWS(fato_status_contratantes) - [CS_Contas_Ativas_7d]</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_media_acessos_por_promotor" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Media_Acessos_Por_Promotor</span><span class="tag" style="font-size:9px">Decimal</span></div>
+<div class="mb"><pre>DIVIDE(COUNTROWS(fato_acesso), DISTINCTCOUNT(fato_acesso[sk_visitante]), 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Decimal</div></div>
+</div>
+<div class="measure-card" data-name="cs_wow_delta_ativas" data-folder="01 - uso plataforma">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_WoW_Delta_Ativas</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>[CS_Contas_Ativas_7d] - CALCULATE([CS_Contas_Ativas_7d], DATEADD(Data[Date], -7, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 01 - Uso Plataforma | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="02 - Alertas">02 - Alertas (2 medidas)</h3>
+<div class="measure-card" data-name="cs_lojas_sem_acesso_30d" data-folder="02 - alertas">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Lojas_Sem_Acesso_30d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(DISTINCTCOUNT(fato_acesso[sk_loja]), DATESINPERIOD(Data[Date], TODAY(), -30, DAY), ISBLANK(fato_acesso[dt_entrada]))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 02 - Alertas | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_eventos_distinct" data-folder="02 - alertas">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Eventos_Distinct</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>DISTINCTCOUNT(fato_status_contratantes[tp_evento_plano])</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 02 - Alertas | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="02 - Faturamento Zerado">02 - Faturamento Zerado (2 medidas)</h3>
+<div class="measure-card" data-name="cs_fat_zerado_total" data-folder="02 - faturamento zerado">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Fat_Zerado_Total</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[vl_unitario_plano_mobcontrol] = 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 02 - Faturamento Zerado | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_fat_zerado_classificacao" data-folder="02 - faturamento zerado">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Fat_Zerado_Classificacao</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>SWITCH(TRUE(), [CS_Fat_Zerado_Dias] &gt;= 60, &quot;CHURN_IMINENTE&quot;, [CS_Fat_Zerado_Dias] &gt;= 31, &quot;CRITICO&quot;, [CS_Fat_Zerado_Dias] &gt;= 16, &quot;ACAO_NECESSARIA&quot;, [CS_Fat_Zerado_Dias] &gt;= 8, &quot;ALERTA_LEVE&quot;, &quot;OK&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 02 - Faturamento Zerado | Format: Texto</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="03 - Health Score">03 - Health Score (5 medidas)</h3>
+<div class="measure-card" data-name="cs_health_score" data-folder="03 - health score">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Health_Score</span><span class="tag" style="font-size:9px">Decimal</span></div>
+<div class="mb"><pre>VAR pct_acesso = DIVIDE(COUNTROWS(FILTER(fato_status_contratantes, fato_status_contratantes[fl_acesso] = TRUE())), COUNTROWS(fato_status_contratantes), 0) * 100
+VAR is_ativo = IF(SELECTEDVALUE(dim_contratante[ds_status_atual]) = &quot;1&quot;, 100, 0)
+VAR is_pagante = IF(SELECTEDVALUE(fato_status_contratantes[fl_cliente_pagante_mobcontrol]) = TRUE(), 100, 50)
+RETURN (pct_acesso * 0.40) + (is_ativo * 0.35) + (is_pagante * 0.25)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 03 - Health Score | Format: Decimal</div></div>
+</div>
+<div class="measure-card" data-name="cs_health_score_status" data-folder="03 - health score">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Health_Score_Status</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>SWITCH(TRUE(), [CS_Health_Score] &gt;= 75, &quot;SAUDAVEL&quot;, [CS_Health_Score] &gt;= 50, &quot;ATENCAO&quot;, [CS_Health_Score] &gt;= 25, &quot;CRITICO&quot;, &quot;CHURN RISK&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 03 - Health Score | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_risk_band" data-folder="03 - health score">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Risk_Band</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>SWITCH(TRUE(), [CS_Health_Score] &gt;= 75, 1, [CS_Health_Score] &gt;= 50, 2, [CS_Health_Score] &gt;= 25, 3, 4)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 03 - Health Score | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_risco_total" data-folder="03 - health score">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Risco_Total</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), FILTER(ALL(fato_status_contratantes), [CS_Health_Score] &lt; 50))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 03 - Health Score | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_alert_color_healthscore" data-folder="03 - health score">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Alert_Color_HealthScore</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>SWITCH(TRUE(), [CS_Health_Score] &gt;= 75, &quot;#10B981&quot;, [CS_Health_Score] &gt;= 50, &quot;#F59E0B&quot;, [CS_Health_Score] &gt;= 25, &quot;#EF4444&quot;, &quot;#7F1D1D&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 03 - Health Score | Format: Texto</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="04 - Turnover">04 - Turnover (4 medidas)</h3>
+<div class="measure-card" data-name="cs_turnover_admissoes" data-folder="04 - turnover">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Turnover_Admissoes</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_promotores_alocacao_vinculo), fato_status_promotores_alocacao_vinculo[tp_evento] = &quot;Admissao&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 04 - Turnover | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_turnover_desligamentos" data-folder="04 - turnover">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Turnover_Desligamentos</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_promotores_alocacao_vinculo), fato_status_promotores_alocacao_vinculo[tp_evento] = &quot;Desligamento&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 04 - Turnover | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_turnover_saldo" data-folder="04 - turnover">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Turnover_Saldo</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>[CS_Turnover_Admissoes] - [CS_Turnover_Desligamentos]</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 04 - Turnover | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_turnover_taxa_pct" data-folder="04 - turnover">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Turnover_Taxa_Pct</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>DIVIDE([CS_Turnover_Desligamentos], [CS_Promotores_Ativos], 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 04 - Turnover | Format: Percentual</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="05 - Financeiro">05 - Financeiro (2 medidas)</h3>
+<div class="measure-card" data-name="cs_inadimplencia_mrr_risco" data-folder="05 - financeiro">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Inadimplencia_MRR_Risco</span><span class="tag" style="font-size:9px">Moeda</span></div>
+<div class="mb"><pre>CALCULATE(SUM(fato_status_contratantes[vl_unitario_plano_mobcontrol]), fato_status_contratantes[fl_inadimplente] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 05 - Financeiro | Format: Moeda</div></div>
+</div>
+<div class="measure-card" data-name="cs_inadimplencia_taxa_pct" data-folder="05 - financeiro">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Inadimplencia_Taxa_Pct</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>DIVIDE([CS_Inadimplencia_Total], COUNTROWS(fato_status_contratantes), 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 05 - Financeiro | Format: Percentual</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="06 - Limpeza Base">06 - Limpeza Base (3 medidas)</h3>
+<div class="measure-card" data-name="cs_limpeza_inativos_com_acesso" data-folder="06 - limpeza base">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Limpeza_Inativos_Com_Acesso</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), dim_contratante[ds_status_atual] &lt;&gt; &quot;1&quot;, fato_status_contratantes[fl_acesso] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 06 - Limpeza Base | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_limpeza_inadimpl_com_acesso" data-folder="06 - limpeza base">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Limpeza_Inadimpl_Com_Acesso</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), fato_status_contratantes[fl_inadimplente] = TRUE(), fato_status_contratantes[fl_acesso] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 06 - Limpeza Base | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_limpeza_promotores_nao_vinculados" data-folder="06 - limpeza base">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Limpeza_Promotores_Nao_Vinculados</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(DISTINCTCOUNT(fato_status_promotores_alocacao_vinculo[sk_visitante]), ISBLANK(fato_status_promotores_alocacao_vinculo[sk_contratante]))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 06 - Limpeza Base | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="07 - Pendencias">07 - Pendencias (2 medidas)</h3>
+<div class="measure-card" data-name="cs_pendencia_total" data-folder="07 - pendencias">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Pendencia_Total</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_agg_status_documento_redes), fato_agg_status_documento_redes[fl_pendente] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 07 - Pendencias | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_pendencia_taxa_completude" data-folder="07 - pendencias">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Pendencia_Taxa_Completude</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>1 - DIVIDE([CS_Pendencia_Total], COUNTROWS(fato_agg_status_documento_redes), 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 07 - Pendencias | Format: Percentual</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="08 - MobConnect">08 - MobConnect (2 medidas)</h3>
+<div class="measure-card" data-name="cs_mobconnect_atividades_30d" data-folder="08 - mobconnect">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_MobConnect_Atividades_30d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_mobconnect_atividades), DATESINPERIOD(Data[Date], TODAY(), -30, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - MobConnect | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_mobconnect_adocao_pct" data-folder="08 - mobconnect">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_MobConnect_Adocao_Pct</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>DIVIDE(CALCULATE(DISTINCTCOUNT(fato_mobconnect_atividades[sk_contratante])), COUNTROWS(dim_contratante), 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - MobConnect | Format: Percentual</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="08 - Painel CS">08 - Painel CS (17 medidas)</h3>
+<div class="measure-card" data-name="cs_integration_marker" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Integration_Marker</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>&quot;CS_PANEL_v2&quot;</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_threshold_inatividade" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Threshold_Inatividade</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>LOOKUPVALUE(_CS_Cluster[threshold], _CS_Cluster[cluster_name], SELECTEDVALUE(dim_contratante[ds_cluster]))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_owner_email" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Owner_Email</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>LOOKUPVALUE(_CS_Owner[email], _CS_Owner[cluster_name], SELECTEDVALUE(dim_contratante[ds_cluster]))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_empresas_target" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Empresas_Target</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>LOOKUPVALUE(_CS_Cluster[target], _CS_Cluster[cluster_name], SELECTEDVALUE(dim_contratante[ds_cluster]))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_health_score_delta_7d" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Health_Score_Delta_7d</span><span class="tag" style="font-size:9px">Decimal</span></div>
+<div class="mb"><pre>[CS_Health_Score] - CALCULATE([CS_Health_Score], DATEADD(Data[Date], -7, DAY))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Decimal</div></div>
+</div>
+<div class="measure-card" data-name="cs_alerta_queda_brusca" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Alerta_Queda_Brusca</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>IF(ABS([CS_Health_Score_Delta_7d]) &gt; 15, &quot;ALERTA&quot;, &quot;OK&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_flag_inatividade" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Flag_Inatividade</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>VAR _ultimo_acesso = CALCULATE(MAX(fato_status_contratantes[dt_acesso_anterior]), fato_status_contratantes[fl_acesso] = TRUE())
+VAR _dias = IF(ISBLANK(_ultimo_acesso), 999, DATEDIFF(_ultimo_acesso, TODAY(), DAY))
+VAR _thr = [CS_Threshold_Inatividade]
+RETURN IF(_dias &gt;= _thr, &quot;INATIVO&quot;, &quot;ATIVO&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_flag_fat_zerado" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Flag_Fat_Zerado</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>VAR _ultimo_fat = CALCULATE(MAX(fato_status_contratantes[dt_referencia]), fato_status_contratantes[vl_unitario_plano_mobcontrol] &gt; 0)
+VAR _dias = IF(ISBLANK(_ultimo_fat), 0, DATEDIFF(_ultimo_fat, TODAY(), DAY))
+RETURN SWITCH(TRUE(), _dias &gt;= 60, &quot;CHURN_IMINENTE&quot;, _dias &gt;= 31, &quot;CRITICO&quot;, _dias &gt;= 16, &quot;ACAO_NECESSARIA&quot;, _dias &gt;= 8, &quot;ALERTA_LEVE&quot;, &quot;OK&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_flag_alto_risco" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Flag_Alto_Risco</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>IF([CS_Health_Score] &lt; 25 && [CS_Flag_Inatividade] = &quot;INATIVO&quot;, &quot;ALTO_RISCO&quot;, &quot;NORMAL&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_tier_expansao" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Tier_Expansao</span><span class="tag" style="font-size:9px">Texto</span></div>
+<div class="mb"><pre>VAR _score = [CS_Health_Score]
+VAR _uso = [CS_Pct_Base_Com_Acesso]
+RETURN SWITCH(TRUE(), _score &gt; 80 && _uso &gt; 0.80, &quot;TIER_1&quot;, _score &gt;= 65 && _uso &gt; 0.60, &quot;TIER_2&quot;, _score &gt;= 50 && _uso &gt; 0.40, &quot;TIER_3&quot;, &quot;NENHUM&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Texto</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_churn_risk" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Churn_Risk</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), FILTER(ALL(fato_status_contratantes), [CS_Health_Score] &lt; 25))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_contas_expansao_tier1" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Contas_Expansao_Tier1</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), FILTER(ALL(fato_status_contratantes), [CS_Tier_Expansao] = &quot;TIER_1&quot;))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_score_medio_base" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Score_Medio_Base</span><span class="tag" style="font-size:9px">Decimal</span></div>
+<div class="mb"><pre>AVERAGEX(ALL(fato_status_contratantes), [CS_Health_Score])</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Decimal</div></div>
+</div>
+<div class="measure-card" data-name="cs_total_contas_ativas" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Total_Contas_Ativas</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), dim_contratante[ds_status_atual] = &quot;1&quot;)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="cs_pct_base_com_acesso" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Pct_Base_Com_Acesso</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>DIVIDE([CS_Contas_Ativas_7d], [CS_Total_Contas_Ativas], 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Percentual</div></div>
+</div>
+<div class="measure-card" data-name="cs_mrr_total" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_MRR_Total</span><span class="tag" style="font-size:9px">Moeda</span></div>
+<div class="mb"><pre>SUM(fato_status_contratantes[vl_unitario_plano_mobcontrol])</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Moeda</div></div>
+</div>
+<div class="measure-card" data-name="cs_taxa_churn" data-folder="08 - painel cs">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Taxa_Churn</span><span class="tag" style="font-size:9px">Percentual</span></div>
+<div class="mb"><pre>VAR churned = COUNTROWS(FILTER(ALL(fato_status_contratantes), fato_status_contratantes[tp_evento_plano] = &quot;Churn&quot;))
+VAR total = COUNTROWS(FILTER(ALL(dim_contratante), dim_contratante[ds_status_atual] &lt;&gt; BLANK()))
+RETURN DIVIDE(churned, total, 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 08 - Painel CS | Format: Percentual</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="09 - Expansao">09 - Expansao (1 medidas)</h3>
+<div class="measure-card" data-name="cs_expansao_oportunidades" data-folder="09 - expansao">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Expansao_Oportunidades</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(fato_status_contratantes), FILTER(ALL(fato_status_contratantes), [CS_Tier_Expansao] &lt;&gt; &quot;NENHUM&quot;))</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 09 - Expansao | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="10 - Onboarding">10 - Onboarding (1 medidas)</h3>
+<div class="measure-card" data-name="cs_onboarding_novos_30d" data-folder="10 - onboarding">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Onboarding_Novos_30d</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>CALCULATE(COUNTROWS(dim_contratante), DATESINPERIOD(Data[Date], TODAY(), -30, DAY), dim_contratante[fl_novo] = TRUE())</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 10 - Onboarding | Format: Inteiro</div></div>
+</div>
+<h3 style="font-size:12px;font-weight:700;margin:16px 0 8px;color:var(--pri)" data-folder="11 - Fraude">11 - Fraude (2 medidas)</h3>
+<div class="measure-card" data-name="cs_score_fraude" data-folder="11 - fraude">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>CS_Score_Fraude</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>VAR _Curtas = CALCULATE(COUNTROWS(fato_acesso), fato_acesso[qt_horas_permanencia] &lt; 0.5)
+VAR _Longas = CALCULATE(COUNTROWS(fato_acesso), fato_acesso[qt_horas_permanencia] &gt; 4)
+VAR _Total = COUNTROWS(fato_acesso)
+RETURN ROUND(DIVIDE(_Curtas + _Longas, _Total, 0) * 100, 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 11 - Fraude | Format: Inteiro</div></div>
+</div>
+<div class="measure-card" data-name="score_risco_fraude" data-folder="11 - fraude">
+<div class="mh" onclick="this.nextElementSibling.classList.toggle('open')"><span><i class="fas fa-ruler-combined" style="color:var(--pri);margin-right:6px"></i>Score_Risco_Fraude</span><span class="tag" style="font-size:9px">Inteiro</span></div>
+<div class="mb"><pre>VAR _RatioFinalMes = [Ratio Turnover Final Mes]
+VAR _PctInadimplencia = [% Turnover Inadimplencia]
+VAR _PctNaoFaturados = [% Nao Faturados]
+RETURN ROUND((_RatioFinalMes - 1) * 40 + _PctInadimplencia * 30 + _PctNaoFaturados * 30, 0)</pre><div style="margin-top:6px;font-size:10px;color:var(--tx2)">Display Folder: 11 - Fraude | Format: Inteiro</div></div>
+</div>
+</div>
+<p style="margin-top:16px;font-size:11px;color:var(--tx2)">Total: 54 medidas catalogadas</p>
+</div>
+<div id="pg-alertas" class="page">
+<h2 class="section-title">Central de Alertas</h2>
+<div class="grid g3" style="margin-bottom:16px">
+<div class="card"><div class="card-title">Alertas Ativos</div><div class="card-value" style="color:var(--dg)">7</div></div>
+<div class="card"><div class="card-title">Críticos</div><div class="card-value" style="color:var(--dg)">3</div></div>
+<div class="card"><div class="card-title">Resolvidos (7d)</div><div class="card-value" style="color:var(--ok)">12</div></div>
+</div>
+<div id="alerts-list">
+<div class="alert-item" style="border-left:3px solid var(--dg)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--dg)">CRÍTICO</strong> - 96 contas com Health Score &lt; 25 (Churn Risk)<br><small style="color:var(--tx2)">Detectado há 2h | Cluster: Bronze, Tech</small></div>
+<div class="alert-item" style="border-left:3px solid var(--dg)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--dg)">CRÍTICO</strong> - MRR em risco: R$ 18.5k em contas com score &lt; 50<br><small style="color:var(--tx2)">Detectado há 4h | Financeiro</small></div>
+<div class="alert-item" style="border-left:3px solid var(--dg)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--dg)">CRÍTICO</strong> - 214 contas inativas há 30+ dias<br><small style="color:var(--tx2)">Detectado há 6h | Sinais</small></div>
+<div class="alert-item" style="border-left:3px solid var(--wn)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--wn)">ALERTA</strong> - Queda brusca de Health Score em 15 contas (delta &gt; -15)<br><small style="color:var(--tx2)">Detectado há 12h | Health Score</small></div>
+<div class="alert-item" style="border-left:3px solid var(--wn)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--wn)">ALERTA</strong> - Taxa de turnover acima de 15% no cluster Bronze<br><small style="color:var(--tx2)">Detectado há 1d | Turnover</small></div>
+<div class="alert-item" style="border-left:3px solid var(--wn)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--wn)">ALERTA</strong> - 7 contas com Score Fraude &gt; 60<br><small style="color:var(--tx2)">Detectado há 1d | Fraude</small></div>
+<div class="alert-item" style="border-left:3px solid var(--info)"><span class="dismiss" onclick="this.parentElement.remove();updateAlertCount()">&times;</span><strong style="color:var(--info)">INFO</strong> - 143 contas elegíveis para expansão Tier 1<br><small style="color:var(--tx2)">Detectado há 2d | Expansão</small></div>
+</div>
+<h3 class="section-title">Histórico de Alertas (7 dias)</h3>
+<div class="tbl-wrap"><table><thead><tr><th>Data</th><th>Severidade</th><th>Descrição</th><th>Status</th></tr></thead><tbody>
+<tr><td>2026-05-19</td><td><span class="tag tag-dg">Crítico</span></td><td>Pico de churn: 12 contas perdidas em 24h</td><td><span class="tag tag-ok">Resolvido</span></td></tr>
+<tr><td>2026-05-18</td><td><span class="tag tag-wn">Alerta</span></td><td>SLA violado: 3 tickets Premium sem resposta</td><td><span class="tag tag-ok">Resolvido</span></td></tr>
+<tr><td>2026-05-17</td><td><span class="tag tag-wn">Alerta</span></td><td>Inadimplência acima de 12% no cluster Prata</td><td><span class="tag tag-ok">Resolvido</span></td></tr>
+<tr><td>2026-05-16</td><td><span class="tag tag-info">Info</span></td><td>28 novos onboardings concluídos</td><td><span class="tag tag-ok">Resolvido</span></td></tr>
+<tr><td>2026-05-15</td><td><span class="tag tag-dg">Crítico</span></td><td>Falha na sincronização Redshift - dados desatualizados</td><td><span class="tag tag-ok">Resolvido</span></td></tr>
+</tbody></table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cmd-palette" id="cmd-palette" onclick="if(event.target===this)closePalette()">
+<div class="cmd-box">
+<input type="text" id="cmd-input" placeholder="Buscar página, medida ou ação..." oninput="searchCmd(this.value)">
+<div class="cmd-results" id="cmd-results"></div>
+</div>
+</div>
+<script>
+// === STATE ===
+const pages=['overview','clusters','health','churn','financeiro','turnover','fraude','modelo','medidas','alertas'];
+const pageNames=['Visão Geral','Clusters CS','Health Score','Churn & Risco','Financeiro','Turnover','Fraude','Modelo Dados','Catálogo Medidas','Alertas'];
+let currentPage='overview';
+let charts={};
+
+// === NAVIGATION ===
+function goTo(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('pg-'+page).classList.add('active');
+  document.querySelectorAll('.sidebar nav a').forEach(a=>{a.classList.remove('active');if(a.dataset.page===page)a.classList.add('active')});
+  document.getElementById('bc-page').textContent=pageNames[pages.indexOf(page)];
+  currentPage=page;
+  if(page==='overview')initOverviewCharts();
+  if(page==='clusters')initClusterCharts();
+  if(page==='health')initHealthCharts();
+  if(page==='churn')initChurnCharts();
+  if(page==='financeiro')initFinCharts();
+  if(page==='turnover')initTurnoverCharts();
+  if(page==='fraude')initFraudeCharts();
 }
-</style>
+document.querySelectorAll('.sidebar nav a').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goTo(a.dataset.page)}));
+
+// === DARK MODE ===
+function toggleDark(){
+  const t=document.documentElement.dataset.theme==='dark'?'light':'dark';
+  document.documentElement.dataset.theme=t;
+  localStorage.setItem('theme',t);
+  Object.values(charts).forEach(c=>{if(c&&c.options){c.options.plugins=c.options.plugins||{};c.update()}});
+}
+(function(){const t=localStorage.getItem('theme');if(t)document.documentElement.dataset.theme=t})();
+
+// === FILTERS ===
+function applyFilters(){
+  const period=document.getElementById('f-period').value;
+  const clusters=[...document.querySelectorAll('.chk-group input:checked')].map(i=>i.value);
+  const tipo=document.getElementById('f-tipo').value;
+  const status=document.getElementById('f-status').value;
+  const uf=document.getElementById('f-uf').value;
+  // Simulate filter effect on cards
+  const base={contas:1953,health:72.4,churn:4.2,mrr:287,alerts:7};
+  let mult=1;
+  if(clusters.length<5)mult*=(clusters.length/5);
+  if(tipo!=='all')mult*=0.4;
+  if(status==='inativo')mult*=0.15;
+  else if(status==='inadimplente')mult*=0.12;
+  if(uf!=='all')mult*=0.08;
+  if(period==='7')mult*=0.85;
+  else if(period==='15')mult*=0.92;
+  else if(period==='quarter')mult*=1.1;
+  else if(period==='semester')mult*=1.2;
+  const c=Math.round(base.contas*mult);
+  document.getElementById('v-contas').textContent=c.toLocaleString('pt-BR');
+  document.getElementById('v-health').textContent=(base.health*(0.9+mult*0.1)).toFixed(1);
+  document.getElementById('v-churn').textContent=(base.churn*(2-mult)).toFixed(1)+'%';
+  document.getElementById('v-mrr').textContent='R$ '+(base.mrr*mult).toFixed(0)+'k';
+}
+
+// === EXPORT ===
+function exportPDF(){window.print()}
+function copyData(){
+  const tables=document.querySelectorAll('.page.active table');
+  if(!tables.length){navigator.clipboard.writeText('Nenhuma tabela na página atual');return}
+  let txt='';
+  tables.forEach(t=>{
+    t.querySelectorAll('tr').forEach(r=>{
+      const cells=[...r.querySelectorAll('th,td')].map(c=>c.textContent.trim());
+      txt+=cells.join('\t')+'\n';
+    });
+    txt+='\n';
+  });
+  navigator.clipboard.writeText(txt).then(()=>alert('Dados copiados!'));
+}
+
+// === COMMAND PALETTE ===
+function openPalette(){document.getElementById('cmd-palette').classList.add('open');document.getElementById('cmd-input').focus()}
+function closePalette(){document.getElementById('cmd-palette').classList.remove('open');document.getElementById('cmd-input').value=''}
+function searchCmd(q){
+  const r=document.getElementById('cmd-results');
+  if(!q){r.innerHTML='';return}
+  const items=[...pages.map((p,i)=>({label:pageNames[i],action:()=>goTo(p),icon:'fas fa-file'})),
+    {label:'Exportar PDF',action:exportPDF,icon:'fas fa-file-pdf'},
+    {label:'Copiar Dados',action:copyData,icon:'fas fa-copy'},
+    {label:'Alternar Tema',action:toggleDark,icon:'fas fa-moon'}
+  ];
+  const filtered=items.filter(i=>i.label.toLowerCase().includes(q.toLowerCase()));
+  r.innerHTML=filtered.map(i=>`<a href="#" onclick="event.preventDefault();closePalette();(${i.action.toString()})()" ><i class="${i.icon}"></i>${i.label}</a>`).join('');
+}
+document.addEventListener('keydown',e=>{
+  if(e.ctrlKey&&e.key==='k'){e.preventDefault();openPalette()}
+  if(e.key==='Escape')closePalette();
+  if(!e.ctrlKey&&!e.altKey&&e.target.tagName!=='INPUT'){
+    const idx='1234567890'.indexOf(e.key);
+    if(idx>=0&&idx<pages.length){e.preventDefault();goTo(pages[idx])}
+  }
+});
+
+// === TABLE SORT ===
+function sortTable(id,col){
+  const t=document.getElementById(id);if(!t)return;
+  const tbody=t.querySelector('tbody');
+  const rows=[...tbody.querySelectorAll('tr')];
+  const dir=t.dataset.sortDir==='asc'?'desc':'asc';
+  t.dataset.sortDir=dir;
+  rows.sort((a,b)=>{
+    const av=a.cells[col].textContent.trim();
+    const bv=b.cells[col].textContent.trim();
+    const an=parseFloat(av.replace(/[^0-9.-]/g,''));
+    const bn=parseFloat(bv.replace(/[^0-9.-]/g,''));
+    if(!isNaN(an)&&!isNaN(bn))return dir==='asc'?an-bn:bn-an;
+    return dir==='asc'?av.localeCompare(bv):bv.localeCompare(av);
+  });
+  rows.forEach(r=>tbody.appendChild(r));
+}
+
+// === MEASURES FILTER ===
+function filterMeasures(){
+  const q=document.getElementById('search-measures').value.toLowerCase();
+  document.querySelectorAll('.measure-card').forEach(c=>{
+    const match=c.dataset.name.includes(q)||c.dataset.folder.includes(q);
+    c.style.display=match?'':'none';
+  });
+  document.querySelectorAll('[data-folder]').forEach(h=>{
+    if(h.classList.contains('measure-card'))return;
+    const folder=h.dataset.folder.toLowerCase();
+    h.style.display=folder.includes(q)||!q?'':'none';
+  });
+}
+
+// === ALERT COUNT ===
+function updateAlertCount(){
+  const c=document.querySelectorAll('#alerts-list .alert-item').length;
+  document.getElementById('alert-count').textContent=c;
+  document.getElementById('v-alerts').textContent=c;
+}
+
+// === CHARTS ===
+const pri='#F46901',pril='#FF8534',ok='#10B981',wn='#F59E0B',dg='#EF4444',info='#8B5CF6';
+function getTextColor(){return getComputedStyle(document.documentElement).getPropertyValue('--tx').trim()||'#1A1A2E'}
+function getGridColor(){return getComputedStyle(document.documentElement).getPropertyValue('--bd').trim()||'#E5E7EB'}
+
+function makeSparkline(id,data,color){
+  const ctx=document.getElementById(id);if(!ctx)return;
+  new Chart(ctx,{type:'line',data:{labels:data.map((_,i)=>i),datasets:[{data,borderColor:color||pri,borderWidth:2,fill:true,backgroundColor:color?color+'20':pri+'20',pointRadius:0,tension:.4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},datalabels:{display:false}},scales:{x:{display:false},y:{display:false}}}});
+}
+
+function drawGauge(id,value,max){
+  const ctx=document.getElementById(id);if(!ctx)return;
+  const color=value>=75?ok:value>=50?wn:value>=25?dg:'#7F1D1D';
+  new Chart(ctx,{type:'doughnut',data:{datasets:[{data:[value,max-value],backgroundColor:[color,'#E5E7EB'],borderWidth:0}]},options:{responsive:false,circumference:180,rotation:270,cutout:'75%',plugins:{legend:{display:false},datalabels:{display:false}}}});
+}
+
+function initOverviewCharts(){
+  makeSparkline('spark-contas',[1820,1850,1870,1890,1910,1930,1953]);
+  makeSparkline('spark-health',[69,70,70.5,71,71.8,72,72.4]);
+  makeSparkline('spark-churn',[5.1,4.9,4.8,4.6,4.5,4.3,4.2],dg);
+  makeSparkline('spark-mrr',[260,265,270,275,278,283,287]);
+  makeSparkline('spark-alerts',[12,10,9,8,8,7,7],wn);
+  // Cluster distribution
+  if(charts.clDist)charts.clDist.destroy();
+  charts.clDist=new Chart(document.getElementById('chart-clusters'),{type:'doughnut',data:{labels:['Tech','Bronze','Prata','Ouro','Premium'],datasets:[{data:[952,587,327,67,20],backgroundColor:[info,'#CD7F32','#C0C0C0','#FFD700',pri]}]},options:{plugins:{legend:{position:'right',labels:{font:{family:'Raleway',size:11}}},datalabels:{color:'#fff',font:{weight:'bold',size:11},formatter:(v,c)=>Math.round(v/1953*100)+'%'}}}});
+  // Health trend
+  if(charts.hTrend)charts.hTrend.destroy();
+  charts.hTrend=new Chart(document.getElementById('chart-health-trend'),{type:'line',data:{labels:['D1','D5','D10','D15','D20','D25','D30'],datasets:[{label:'Health Score',data:[69,70,70.5,71.2,71.8,72,72.4],borderColor:pri,backgroundColor:pri+'20',fill:true,tension:.4}]},options:{plugins:{legend:{display:false},datalabels:{display:false}},scales:{y:{min:60,max:80,grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+  // MRR Waterfall
+  if(charts.mrrW)charts.mrrW.destroy();
+  charts.mrrW=new Chart(document.getElementById('chart-mrr-waterfall'),{type:'bar',data:{labels:['Inicio','Expansao','Novos','Churn','Downgrade','Final'],datasets:[{label:'MRR',data:[275,18,12,-8,-10,287],backgroundColor:['#6B7280',ok,ok,dg,dg,pri]}]},options:{plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',font:{size:10,weight:'bold'},formatter:v=>v>0?'+'+v:v}},scales:{y:{grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+  // UF Heatmap
+  const hm=document.getElementById('heatmap-uf');
+  if(hm){
+    const ufs=[['SP',420],['RJ',180],['MG',150],['PR',95],['RS',88],['BA',72],['SC',65],['GO',55],['PE',48],['CE',42],['DF',38],['ES',32],['PA',28],['MA',22],['MT',18],['MS',16],['RN',14],['PB',12],['AL',10],['SE',8],['PI',7],['RO',6],['TO',5],['AM',4],['AP',3],['AC',2],['RR',1]];
+    let html='<div style="display:flex;flex-wrap:wrap;gap:4px">';
+    ufs.forEach(([uf,v])=>{
+      const pct=v/420;const bg=pct>.5?pri:pct>.2?pril:'#FED7AA';const c=pct>.5?'#fff':'#1A1A2E';
+      html+=`<div style="padding:4px 8px;border-radius:4px;background:${bg};color:${c};font-size:10px;font-weight:700;min-width:48px;text-align:center">${uf}<br><span style="font-weight:400">${v}</span></div>`;
+    });
+    html+='</div>';hm.innerHTML=html;
+  }
+}
+
+function initClusterCharts(){
+  if(charts.clBar)charts.clBar.destroy();
+  charts.clBar=new Chart(document.getElementById('chart-cluster-bar'),{type:'bar',data:{labels:['Tech','Bronze','Prata','Ouro','Premium'],datasets:[{data:[952,587,327,67,20],backgroundColor:[info,'#CD7F32','#C0C0C0','#FFD700',pri]}]},options:{indexAxis:'y',plugins:{legend:{display:false},datalabels:{anchor:'end',align:'right',font:{size:10,weight:'bold'}}},scales:{x:{grid:{color:getGridColor()}},y:{grid:{display:false}}}}});
+  if(charts.sla)charts.sla.destroy();
+  charts.sla=new Chart(document.getElementById('chart-sla'),{type:'bar',data:{labels:['Tech','Bronze','Prata','Ouro','Premium'],datasets:[{label:'SLA %',data:[94,91,88,96,99],backgroundColor:pri}]},options:{plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',font:{size:10},formatter:v=>v+'%'}},scales:{y:{min:80,max:100,grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+}
+
+function initHealthCharts(){
+  drawGauge('gauge-health',72.4,100);
+  if(charts.hCluster)charts.hCluster.destroy();
+  charts.hCluster=new Chart(document.getElementById('chart-health-cluster'),{type:'bar',data:{labels:['Tech','Bronze','Prata','Ouro','Premium'],datasets:[{label:'Health Score',data:[65,68,74,82,91],backgroundColor:[info,'#CD7F32','#C0C0C0','#FFD700',pri]}]},options:{plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',font:{size:11,weight:'bold'}}},scales:{y:{min:50,max:100,grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+}
+
+function initChurnCharts(){
+  if(charts.chTrend)charts.chTrend.destroy();
+  charts.chTrend=new Chart(document.getElementById('chart-churn-trend'),{type:'line',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'Taxa Churn %',data:[5.8,5.4,5.1,4.8,4.5,4.2],borderColor:dg,backgroundColor:dg+'20',fill:true,tension:.3}]},options:{plugins:{legend:{display:false},datalabels:{display:false}},scales:{y:{min:3,max:7,grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+  if(charts.fatZ)charts.fatZ.destroy();
+  charts.fatZ=new Chart(document.getElementById('chart-fat-zerado'),{type:'doughnut',data:{labels:['OK','Alerta Leve','Ação Necessária','Crítico','Churn Iminente'],datasets:[{data:[1580,120,95,87,71],backgroundColor:[ok,wn,'#F97316',dg,'#7F1D1D']}]},options:{plugins:{legend:{position:'right',labels:{font:{family:'Raleway',size:10}}},datalabels:{color:'#fff',font:{weight:'bold',size:10},formatter:(v)=>v}}}});
+}
+
+function initFinCharts(){
+  if(charts.finW)charts.finW.destroy();
+  charts.finW=new Chart(document.getElementById('chart-fin-waterfall'),{type:'bar',data:{labels:['MRR Anterior','Expansão','Novos Clientes','Churn','Downgrade','Inadimplência','MRR Atual'],datasets:[{data:[275,18,12,-8,-10,-5,287],backgroundColor:['#6B7280',ok,ok,dg,dg,wn,pri]}]},options:{plugins:{legend:{display:false},datalabels:{anchor:'end',align:'top',font:{size:10,weight:'bold'},formatter:v=>'R$'+v+'k'}},scales:{y:{grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+}
+
+function initTurnoverCharts(){
+  if(charts.turn)charts.turn.destroy();
+  charts.turn=new Chart(document.getElementById('chart-turnover'),{type:'bar',data:{labels:['Jan','Fev','Mar','Abr','Mai','Jun'],datasets:[{label:'Admissões',data:[310,295,320,335,328,342],backgroundColor:ok},{label:'Desligamentos',data:[280,265,290,275,270,287],backgroundColor:dg}]},options:{plugins:{datalabels:{display:false}},scales:{y:{grid:{color:getGridColor()}},x:{grid:{display:false}}}}});
+}
+
+function initFraudeCharts(){drawGauge('gauge-fraude',23,100)}
+
+// === INIT ===
+document.addEventListener('DOMContentLoaded',()=>{initOverviewCharts()});
+</script>
 </body>
 </html>

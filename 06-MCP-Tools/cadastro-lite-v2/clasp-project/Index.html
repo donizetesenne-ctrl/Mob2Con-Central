@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Cadastro Lite - Mob2Con CS</title>
+<title>Indicadores de Performance - Cadastro Lite | Mob2Con</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
 :root{--orange:#f46901;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--bg:#f6f7f9;--card:#fff;--green:#15803d;--red:#b91c1c;--blue:#1d4ed8;--purple:#6b21a8}
@@ -76,7 +76,7 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
 
 <header>
   <div class="mark">M</div>
-  <div><h1>Cadastro Lite – Monitoramento CS</h1><div class="sub" id="hdr-sub">Fonte: Base Power BI | desde 2025-10-01</div></div>
+  <div><h1>Indicadores de Performance – Cadastro Lite</h1><div class="sub" id="hdr-sub">Fonte: Redshift mc2-production | desde 2025-10-01 | Confrontado com PBI</div></div>
   <div class="hdr-right" id="hdr-updated"></div>
 </header>
 <nav class="report-nav" id="reportNav">
@@ -104,13 +104,19 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
 
 <!-- PAGE: VISAO GERAL -->
 <div class="page active" id="page-visao">
-  <div class="grid2">
-    <div class="card"><div class="card-title"><h2>Evolucao Mensal – Cadastros Lite</h2></div><canvas id="ch-evolucao"></canvas></div>
-    <div class="card"><div class="card-title"><h2>Lite vs Convencional (promotores)</h2></div><canvas id="ch-litevconv"></canvas></div>
+  <!-- MINI-FUNIL: equivalente ao funil do PBI -->
+  <div class="card" id="card-funil" style="display:none">
+    <div class="card-title"><h2>Funil de Conversao</h2><span id="funil-updated"></span></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:8px;text-align:center" id="funil-bars"></div>
+    <p class="note">Funil: Total → Cadastro Promotor → Alocacao → Sem Efeito | Promotores Ativos vs Descartados</p>
   </div>
   <div class="grid2">
-    <div class="card"><div class="card-title"><h2>Distribuicao por Tipo</h2></div><canvas id="ch-tipo"></canvas></div>
-    <div class="card"><div class="card-title"><h2>Top 10 Nao Clientes</h2></div><canvas id="ch-top10nc"></canvas></div>
+    <div class="card"><div class="card-title"><h2>Evolucao Mensal – Requisicoes Lite</h2></div><canvas id="ch-evolucao"></canvas></div>
+    <div class="card"><div class="card-title"><h2>CPFs Lite vs Convencional</h2></div><canvas id="ch-litevconv"></canvas></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-title"><h2>Agencia vs Fornecedor</h2></div><canvas id="ch-tipo"></canvas></div>
+    <div class="card"><div class="card-title"><h2>Top 10 Nao Clientes por CPFs</h2></div><canvas id="ch-top10nc"></canvas></div>
   </div>
 </div>
 <!-- PAGE: NAO CLIENTES -->
@@ -120,12 +126,12 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
     <div class="card-title"><h2>Empresas Nao Cliente com Cadastro Lite</h2><span id="cnt-nc"></span></div>
     <div class="tbl-wrap"><table><thead><tr>
       <th onclick="sortTbl('tnc',0)">Empresa</th><th onclick="sortTbl('tnc',1)">Tipo</th>
-      <th class="num" onclick="sortTbl('tnc',2)">Cadastros</th><th class="num" onclick="sortTbl('tnc',3)">Promotores</th>
+      <th class="num" onclick="sortTbl('tnc',2)">Requisicoes</th><th class="num" onclick="sortTbl('tnc',3)">CPFs</th>
       <th class="num" onclick="sortTbl('tnc',4)">Score</th><th onclick="sortTbl('tnc',5)">Class.</th>
       <th onclick="sortTbl('tnc',6)">Primeiro</th><th onclick="sortTbl('tnc',7)">Ultimo</th>
     </tr></thead><tbody id="tnc-body"></tbody></table></div>
     <div class="pager" id="pager-tnc"></div>
-    <p class="note">Score v2: NC +25 | &gt;200 prom +25 | &gt;50 +15 | &gt;10 +5 | Agencia +5 | Fornecedor +10 | &gt;5 redes +5</p>
+    <p class="note">Score: NC +25 | &gt;200 CPFs +25 | &gt;50 +15 | &gt;10 +5 | Agencia +5 | Fornecedor +10 | &gt;5 redes +5</p>
   </div>
 </div>
 <!-- PAGE: CLIENTES -->
@@ -135,7 +141,7 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
     <div class="card-title"><h2>Empresas Cliente com Cadastro Lite</h2><span id="cnt-cl"></span></div>
     <div class="tbl-wrap"><table><thead><tr>
       <th onclick="sortTbl('tcl',0)">Empresa</th><th onclick="sortTbl('tcl',1)">Tipo</th>
-      <th class="num" onclick="sortTbl('tcl',2)">Cadastros</th><th class="num" onclick="sortTbl('tcl',3)">Promotores</th>
+      <th class="num" onclick="sortTbl('tcl',2)">Requisicoes</th><th class="num" onclick="sortTbl('tcl',3)">CPFs</th>
       <th class="num" onclick="sortTbl('tcl',4)">Score</th><th onclick="sortTbl('tcl',5)">Class.</th>
       <th onclick="sortTbl('tcl',6)">Primeiro</th><th onclick="sortTbl('tcl',7)">Ultimo</th>
     </tr></thead><tbody id="tcl-body"></tbody></table></div>
@@ -151,7 +157,7 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
     <p class="note" style="margin-bottom:12px">Score v2: NC +25 | &gt;200 prom +25 | &gt;50 +15 | &gt;10 +5 | Agencia +5 | Fornecedor +10 | &gt;5 redes +5</p>
     <div class="tbl-wrap"><table><thead><tr>
       <th>#</th><th onclick="sortTbl('tprio',1)">Empresa</th><th onclick="sortTbl('tprio',2)">Tipo</th>
-      <th onclick="sortTbl('tprio',3)">Status</th><th class="num" onclick="sortTbl('tprio',4)">Prom.</th>
+      <th onclick="sortTbl('tprio',3)">Status</th><th class="num" onclick="sortTbl('tprio',4)">CPFs</th>
       <th class="num" onclick="sortTbl('tprio',5)">Score</th><th onclick="sortTbl('tprio',6)">Class.</th>
       <th class="num" onclick="sortTbl('tprio',7)">Impacto R$/mes</th>
     </tr></thead><tbody id="tprio-body"></tbody></table></div>
@@ -215,32 +221,32 @@ canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{displ
 </main>
 
 <script>
-const DATA={kpis:{},empresas:[],mensal:[],convMensal:[],convencional:[],redes:[],acoes:[]};
+const DATA={kpis:{},empresas:[],mensal:[],convMensal:[],convencional:[],redes:[],acoes:[],funil:[]};
 let FILTERED=[];const TBL={};const PAGE_SIZE=100;const SORT={};let charts={};
 const TIPS={
-  'Total Cadastros Lite':'Soma de registros com origem_cadastro=lite desde 01/10/2025',
-  'Promotores Unicos Lite':'Contagem distinta de id_promotor com pelo menos 1 cadastro Lite',
+  'Total Cadastros Lite':'PBI: DISTINCTCOUNT(lite_visitor_id). Requisicoes Lite desde 01/10/2025. DSN: mc2-production',
+  'Promotores Unicos Lite':'PBI: DISTINCTCOUNT(lite_visitor_cpf). CPFs unicos com cadastro Lite aprovado',
   'Empresas no Filtro':'Empresas visiveis com os filtros atuais',
-  'Nao Clientes (filtro)':'Empresas que usam Lite mas NAO pagam',
-  'Clientes (filtro)':'Empresas clientes pagantes com cadastros Lite',
-  'Novos Lite (7d)':'Cadastros criados nos ultimos 7 dias',
-  'Impacto R$/mes (NC)':'Promotores NC x R$12,10 (ticket medio)',
-  'Promotores Conv':'Promotores convencionais (snapshot)',
-  'Empresas (filtro)':'Empresas no filtro atual',
-  'Promotores':'Promotores unicos nestas empresas',
-  'Impacto Mensal R$':'Promotores x R$12,10 - receita potencial',
-  'Criticos (score>80)':'Score de suspeita acima de 80',
-  'Cadastros':'Registros de cadastro Lite',
-  'Promotores Lite':'Promotores Lite acumulado',
-  'Registros Conv':'Registros convencionais no periodo',
-  'Razao Lite/Conv':'% promotores Lite vs convencional',
-  'Empresas com Rede':'Empresas com vinculo a redes',
-  'Total Redes':'Soma vinculos empresa-rede',
-  '% Lite/Total':'Lite / (Lite+Conv) para clientes',
+  'Nao Clientes (filtro)':'PBI: tabela Nao Clientes. common_client_info.status=0 (Nao Cliente)',
+  'Clientes (filtro)':'PBI: tabela Clientes. common_client_info.status=1 (Cliente Ativo)',
+  'Novos Lite (7d)':'lite_visitor_created_at >= D-7. Cadastros aprovados nos ultimos 7 dias',
+  'Impacto R$/mes (NC)':'CPFs NC x R$12,10 (ticket medio por promotor/mes). Receita perdida',
+  'Promotores Conv':'Promotores convencionais ativos (snapshot tabela visitors)',
+  'Empresas (filtro)':'Empresas no filtro atual (company_id unico)',
+  'Promotores':'PBI: DISTINCTCOUNT(lite_visitor_cpf). CPFs unicos por empresa',
+  'Impacto Mensal R$':'CPFs NC x R$12,10. Receita potencial perdida por mes',
+  'Criticos (score>80)':'Score de suspeita acima de 80. Prioridade comercial imediata',
+  'Cadastros':'PBI: DISTINCTCOUNT(lite_visitor_id). Requisicoes por empresa',
+  'Promotores Lite':'CPFs Lite acumulado desde 01/10/2025',
+  'Registros Conv':'Registros convencionais no periodo (visitors ativos)',
+  'Razao Lite/Conv':'% CPFs Lite vs convencional. Indica migracao/canibalizacao',
+  'Empresas com Rede':'Empresas com vinculo a redes (retailer_trade_name no PBI)',
+  'Total Redes':'Soma vinculos empresa-rede (retailer_id)',
+  '% Lite/Total':'Lite / (Lite+Conv). Taxa de canibalizacao do convencional',
   'Novos NC (7d)':'Cadastros Lite de Nao Clientes criados nos ultimos 7 dias',
   'Score Medio':'Media do score de suspeita de todas as empresas no filtro',
   'Atencao':'Empresas com classificacao Atencao (score 20-40)',
-  'Impacto Total R$':'Receita potencial total: promotores NC x R$12,10'
+  'Impacto Total R$':'Receita potencial total: CPFs NC x R$12,10/mes'
 };
 window.onload=()=>{
   document.getElementById('reportNav').addEventListener('click',e=>{
@@ -262,7 +268,10 @@ function loadData(){
   google.script.run.withSuccessHandler(cm=>{DATA.convMensal=cm;
   google.script.run.withSuccessHandler(cv=>{DATA.convencional=cv;
   google.script.run.withSuccessHandler(rd=>{DATA.redes=rd;
-  google.script.run.withSuccessHandler(ac=>{DATA.acoes=ac||[];boot();})
+  google.script.run.withSuccessHandler(ac=>{DATA.acoes=ac||[];
+  google.script.run.withSuccessHandler(fn=>{DATA.funil=fn||[];boot();})
+    .withFailureHandler(()=>boot()).getFunil();
+  })
     .withFailureHandler(()=>boot()).getAcoesCS();
   }).withFailureHandler(()=>boot()).getRedes();
   }).withFailureHandler(()=>boot()).getConvencional();
@@ -279,8 +288,8 @@ function boot(){
     var d=gen.replace('T',' ').slice(0,16).split(/[- :]/);
     var fmtGen=d[2]+'/'+d[1]+'/'+d[0]+' '+d[3]+':'+d[4];
     document.getElementById('hdr-updated').textContent='Atualizado: '+fmtGen;
-    document.getElementById('hdr-sub').textContent='Fonte: Base Power BI | desde 01/10/2025 | atualizado '+fmtGen;}
-  applyFilters();renderCharts();renderComparativo();renderAcoes();
+    document.getElementById('hdr-sub').textContent='Fonte: Redshift mc2-production | desde 01/10/2025 | atualizado '+fmtGen;}
+  applyFilters();renderCharts();renderComparativo();renderAcoes();renderFunil();
 }
 </script>
 
@@ -402,14 +411,14 @@ function renderRedesTab(){
 function renderComparativo(){
   const liteProm=DATA.empresas.reduce((s,c)=>s+(+c.promotores||0),0);
   const convProm=DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
-  const convReg=DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
-  kpiHtml('kpis-comp',[{l:'Promotores Lite',v:fmt(liteProm)},{l:'Promotores Conv',v:fmt(convProm)},{l:'Total Conv',v:fmt(convReg)},{l:'Razao Lite/Conv',v:convProm?((liteProm/convProm)*100).toFixed(1)+'%':'--'}]);
+  const convReg=DATA.convencional.reduce((s,c)=>s+(+c.registros_conv||0),0);
+  kpiHtml('kpis-comp',[{l:'Promotores Lite',v:fmt(liteProm)},{l:'Promotores Conv',v:fmt(convProm)},{l:'Registros Conv',v:fmt(convReg)},{l:'Razao Lite/Conv',v:convProm?((liteProm/convProm)*100).toFixed(1)+'%':'--'}]);
   const mAll=[...new Set([...DATA.mensal,...DATA.convMensal].map(m=>String(m.mes||'')).filter(Boolean))].sort();
   const liteCad=mAll.map(m=>DATA.mensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.cadastros||0),0));
-  const convCad=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores_conv||0),0));
+  const convCad=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.registros_conv||0),0));
   mkChart('ch-comp-linha',{type:'line',data:{labels:mAll.map(m=>m.slice(0,7)),datasets:[
     {label:'Cadastros Lite',data:liteCad,borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.2)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y'},
-    {label:'Promotores Conv',data:convCad,borderColor:'#1d4ed8',backgroundColor:'rgba(29,78,216,0.1)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y1'}
+    {label:'Registros Conv',data:convCad,borderColor:'#1d4ed8',backgroundColor:'rgba(29,78,216,0.1)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y1'}
   ]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
   const lP=mAll.map(m=>DATA.mensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores||0),0));
   const cP=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores_conv||0),0));
@@ -475,6 +484,27 @@ function esc(s){const d=document.createElement('div');d.textContent=s||'';return
 function pillTipo(t){return t==='Agencia'?'<span class="pill p-ag">Agencia</span>':t==='Fornecedor'?'<span class="pill p-forn">Fornecedor</span>':'<span class="pill p-dir">Direto</span>';}
 function scoreClass(c){return{Normal:'score-normal',Atencao:'score-atencao',Suspeito:'score-suspeito','Alta Suspeita':'score-alta',Critico:'score-critico'}[c]||'score-normal';}
 function scoreColor(s){if(s<=20)return'#0369a1';if(s<=40)return'#92400e';if(s<=60)return'#c2410c';if(s<=80)return'#b91c1c';return'#6b21a8';}
+function renderFunil(){
+  if(!DATA.funil||!DATA.funil.length){return;}
+  var card=document.getElementById('card-funil');
+  if(!card)return;
+  card.style.display='';
+  var get=function(m){var r=DATA.funil.find(function(x){return x.metrica===m;});return r||{valor:0,percentual:''};};
+  var total=get('Total Requisicoes');
+  var cad=get('Cadastro Promotor');
+  var aloc=get('Alocacao');
+  var sem=get('Sem Efeito');
+  var ativos=get('Promotores Ativos');
+  var upd=get('Atualizado em');
+  document.getElementById('funil-updated').textContent=upd.valor||'';
+  var bar=function(label,val,pct,color){return '<div><div style="font-size:10px;color:var(--muted);text-transform:uppercase;font-weight:700">'+label+'</div><div style="font-size:22px;font-weight:800;color:'+color+'">'+fmt(+val.valor||0)+'</div><div style="font-size:11px;color:var(--muted)">'+(pct||val.percentual||'')+'</div></div>';};
+  document.getElementById('funil-bars').innerHTML=
+    bar('Total Req.',total,'100%','var(--ink)')+
+    bar('Cadastro',cad,'','var(--orange)')+
+    bar('Alocacao',aloc,'','var(--blue)')+
+    bar('Sem Efeito',sem,'','var(--red)')+
+    bar('Ativos',ativos,'','var(--green)');
+}
 </script>
 </body>
 </html>
