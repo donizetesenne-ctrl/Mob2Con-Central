@@ -1,0 +1,15 @@
+# Doc Converters - Mob2Con
+# Ferramentas de conversão de documentos para Markdown/JSON (alimentar LLMs)
+
+# 1. Docling - PDFs, Word, PPT, planilhas, web → Markdown/JSON
+docling>=2.0.0
+
+# 2. Marker - PDFs, imagens → Markdown/JSON/HTML (remove artefatos, extrai imagens)
+marker-pdf>=1.0.0
+
+# 3. MinerU - PDFs, imagens, Office → Markdown/JSON (foco científico)
+magic-pdf>=0.9.0
+
+# Dependências comuns
+torch>=2.0.0
+Pillow>=10.0.0

@@ -13,6 +13,7 @@ Thumbs.db
 desktop.ini
 *.tmp
 ~$*
+temp_webapp.html
 
 # Node
 node_modules/
@@ -27,7 +28,22 @@ node_modules/
 07-AI-Tools/cpc/
 07-AI-Tools/langfuse/
 07-AI-Tools/semantic-cache-py/
+07-AI-Tools/SuperAGI/
+07-AI-Tools/SurfSense/
+07-AI-Tools/adk-python/
+07-AI-Tools/deer-flow/
+07-AI-Tools/e2b/
+07-AI-Tools/mempalace/
+07-AI-Tools/onyx/
 agent-manager-for-q-cli/
+
+# 08-Automacao — sub-repos clonados
+08-Automacao/maestro/
+08-Automacao/n8n-workflows/
+08-Automacao/steel-mcp-server/
+
+# 09-Integracao-Dados — sub-repos clonados
+09-Integracao-Dados/airbyte/
 
 # ZIPs grandes (frameworks externos)
 SurfSense-main.zip

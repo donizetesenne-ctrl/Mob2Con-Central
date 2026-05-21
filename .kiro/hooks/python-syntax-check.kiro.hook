@@ -1,4 +1,5 @@
 {
+  "enabled": true,
   "name": "Python Expert - Verificar sintaxe",
   "description": "Quando um arquivo Python é editado, valida imports, encoding UTF-8, e verifica se segue o padrão do projeto (snake_case, docstrings, tratamento de erros).",
   "version": "1.0.0",
