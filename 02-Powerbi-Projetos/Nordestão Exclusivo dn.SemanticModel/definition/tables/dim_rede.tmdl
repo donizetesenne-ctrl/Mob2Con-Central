@@ -1,0 +1,209 @@
+table dim_rede
+	lineageTag: 814cd50d-e027-48ea-8fb2-d19fee132f84
+	sourceLineageTag: 9774bc8f-8b5e-40b3-b6b0-9ad53eee44bd
+
+	column sk_rede
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: 64f20502-c006-4e40-bbbd-adce81daecf0
+		sourceLineageTag: 8ace8626-1349-4fae-b6a7-ebe0b43f31b3
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_rede
+
+		annotation SummarizationSetBy = User
+
+	column cd_cnpj
+		dataType: string
+		lineageTag: f6d96079-1814-4493-bec6-2d963932de52
+		sourceLineageTag: 256dfe6a-771c-45ed-97fe-43d772b3742a
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_cnpj
+
+		annotation SummarizationSetBy = User
+
+	column id_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: 5819fa1a-6c5a-4b5a-bb0b-138dc2dbc6d2
+		sourceLineageTag: fbcded2a-99d1-4ae2-aff1-b3b637303d20
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_razao_social
+		dataType: string
+		lineageTag: e453411d-1d07-49f2-85e4-c03b6fb330fe
+		sourceLineageTag: 222d1871-aadf-48fe-8f81-f93f280dfa2d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_razao_social
+
+		annotation SummarizationSetBy = User
+
+	column nm_rede
+		dataType: string
+		isNullable: false
+		lineageTag: 98eeddf5-3c96-4698-addb-808577b66e49
+		sourceLineageTag: be93d41c-f173-4ad6-953f-af702699ed10
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_rede
+
+		annotation SummarizationSetBy = User
+
+	column cd_nivel_permissao
+		dataType: int64
+		formatString: 0
+		lineageTag: fdbaf69a-9f3c-4498-8422-adb62053f978
+		sourceLineageTag: 20e12006-4b5a-4178-939b-6cb609b85b5b
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: cd_nivel_permissao
+
+		annotation SummarizationSetBy = User
+
+	column ds_status_integracao
+		dataType: string
+		lineageTag: ebaa34ac-101a-4b42-a455-e764f5417434
+		sourceLineageTag: 0027b23b-45de-4c74-bf99-cb3482e70bbb
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_status_integracao
+
+		annotation SummarizationSetBy = User
+
+	column ds_email_customer_success
+		dataType: string
+		lineageTag: cf392a69-4c19-4e9c-9b9b-12f9f611a2b8
+		sourceLineageTag: 9cc3c801-cf85-465e-8f3f-85b4569671e0
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_email_customer_success
+
+		annotation SummarizationSetBy = User
+
+	column nm_customer_success
+		dataType: string
+		lineageTag: e70445a9-8d31-4b6f-8e01-38bd4339efae
+		sourceLineageTag: 13f68b27-d527-4015-a3b5-f0b3c4cabaa8
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_customer_success
+
+		annotation SummarizationSetBy = User
+
+	column ds_status_cliente
+		dataType: string
+		lineageTag: 0b45c846-28fa-4730-9649-35bc6dec7c5f
+		sourceLineageTag: c4f01689-7477-44da-ba1d-d323ad8cba08
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_status_cliente
+
+		annotation SummarizationSetBy = User
+
+	column dt_discarded_at
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 9a488691-f342-4eda-9870-6241682b45c0
+		sourceLineageTag: 801c78d2-7585-4ec0-85c7-2089717efb6c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_discarded_at
+
+		annotation SummarizationSetBy = User
+
+	column dt_assinatura
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 53a3c27e-168e-4b24-a152-97458afe6642
+		sourceLineageTag: 88ca1c62-1651-4aa0-b9bc-e065bbdffb40
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_assinatura
+
+		annotation SummarizationSetBy = User
+
+	column id_plano_cliente
+		dataType: int64
+		formatString: 0
+		lineageTag: e02e8416-6cbd-429f-8a66-2568ff8cf8bf
+		sourceLineageTag: c5384265-e267-4f41-9735-622fa7cc15f9
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_plano_cliente
+
+		annotation SummarizationSetBy = User
+
+	column nm_status
+		dataType: string
+		lineageTag: 3c2d0746-2450-4ad9-a0f8-38654b283090
+		sourceLineageTag: c8223483-e9e6-44a5-8842-e6c46b9fb7ed
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_status
+
+		annotation SummarizationSetBy = User
+
+	column vl_unitario_plano_cliente
+		dataType: double
+		lineageTag: 16932eef-fb7a-4b1c-b4cb-229d6ed4712d
+		sourceLineageTag: 487a6843-8728-43e7-9e6f-c92b11f1244e
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_unitario_plano_cliente
+
+		annotation SummarizationSetBy = User
+
+	column cd_cnpj_formatado
+		dataType: string
+		lineageTag: b5a8f208-b665-441e-90bf-da232eaaefba
+		sourceLineageTag: a830e31d-45fd-4b5c-9fce-1a2ab4ad1e18
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_cnpj_formatado
+
+		annotation SummarizationSetBy = User
+
+	column nm_carteira_customer_success
+		dataType: string
+		lineageTag: 769378e0-1505-4665-a49e-f5fe91a5b6e0
+		sourceLineageTag: bcadb1a4-9b7a-4291-9770-06c02c986255
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_carteira_customer_success
+
+		annotation SummarizationSetBy = User
+
+	column dt_inicio_projeto
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: c1848130-d1d2-4b19-b739-dacd10513b87
+		sourceLineageTag: 4eb9036e-a206-4555-a49d-7d688602aed7
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_inicio_projeto
+
+		annotation SummarizationSetBy = User
+
+	column uuid_rede
+		dataType: string
+		lineageTag: b44bfe7e-6896-482f-971e-81a3d0f60aa2
+		sourceLineageTag: 102a2c5a-b62a-40fa-b0dc-959b1ae87bb8
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: uuid_rede
+
+		annotation SummarizationSetBy = User
+
+	partition dim_rede = entity
+		mode: directQuery
+		source
+			entityName: dim_rede
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

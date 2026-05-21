@@ -1,0 +1,26 @@
+{
+  "mcpServers": {
+    "nvidia-nim": {
+      "command": "python",
+      "args": [
+        "-u",
+        "C:\\Users\\Donizete Senne\\Desktop\\Mob2Con-Central\\06-MCP-Tools\\nvidia-nim\\mcp_nvidia_server.py"
+      ],
+      "env": {
+        "PYTHONUNBUFFERED": "1"
+      },
+      "disabled": false,
+      "autoApprove": [
+        "nvidia_analisar",
+        "nvidia_gerar_codigo",
+        "nvidia_analisar_layout"
+      ]
+    },
+    "power-aws-devops-agent-aws-mcp": {
+      "disabled": true
+    },
+    "powerbi-bridge-82b1391c": {
+      "disabled": false
+    }
+  }
+}

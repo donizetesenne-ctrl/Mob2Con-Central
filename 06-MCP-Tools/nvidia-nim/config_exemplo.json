@@ -1,0 +1,29 @@
+{
+  "nvidia_api_key": "nvapi-COLE_SUA_KEY_AQUI",
+  "base_url": "https://integrate.api.nvidia.com/v1",
+  "modelos": {
+    "analise": {
+      "nome": "nvidia/llama-3.1-nemotron-ultra-253b-v1",
+      "descricao": "Análise profunda de dados, raciocínio, KPIs, lógica de negócio",
+      "max_tokens": 4096,
+      "temperature": 0.3
+    },
+    "codigo": {
+      "nome": "nvidia/llama-3.3-nemotron-super-49b-v1",
+      "descricao": "Geração de código, apps, integrações, SQL, DAX",
+      "max_tokens": 4096,
+      "temperature": 0.2
+    },
+    "layout": {
+      "nome": "nvidia/nemotron-nano-12b-v2-vl",
+      "descricao": "Análise visual, leitura de imagens, wireframes, layout",
+      "max_tokens": 2048,
+      "temperature": 0.4
+    }
+  },
+  "system_prompts": {
+    "analise": "Você é um analista de dados especialista em logística e varejo brasileiro. Responda sempre em português. Foque em KPIs, SLA, tendências e recomendações acionáveis.",
+    "codigo": "Você é um desenvolvedor Python/Streamlit/FastAPI especialista. Gere código limpo, comentado e pronto para produção. Use português nos comentários.",
+    "layout": "Você é um designer de dashboards Power BI. Analise layouts, sugira melhorias de UX e identifique problemas visuais. A identidade visual usa laranja #F46901 como cor primária e fonte Raleway."
+  }
+}

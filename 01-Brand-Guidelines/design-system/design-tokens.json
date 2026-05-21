@@ -1,0 +1,250 @@
+{
+    "canvas":  {
+                   "executive":  {
+                                     "description":  "C-suite, KPIs alto nivel",
+                                     "width":  1600,
+                                     "height":  900
+                                 },
+                   "analytical":  {
+                                      "description":  "Drill-down detalhado",
+                                      "width":  1920,
+                                      "height":  1080
+                                  },
+                   "operational":  {
+                                       "description":  "Monitoramento diario",
+                                       "width":  1280,
+                                       "height":  720
+                                   },
+                   "cover":  {
+                                 "description":  "Capa/home",
+                                 "width":  1600,
+                                 "height":  900
+                             },
+                   "mobile":  {
+                                  "description":  "Power BI Mobile",
+                                  "width":  320,
+                                  "height":  568
+                              }
+               },
+    "color":  {
+                  "brand":  {
+                                "blueConnect":  {
+                                                    "value":  "#4285F4",
+                                                    "description":  "EXCLUSIVO MobConnect"
+                                                },
+                                "graphite":  {
+                                                 "value":  "#434343",
+                                                 "description":  "Titulos, bordas"
+                                             },
+                                "purple":  {
+                                               "value":  "#6F05D4",
+                                               "description":  "Acento secundario"
+                                           },
+                                "black":  {
+                                              "value":  "#111111",
+                                              "description":  "Texto alto contraste, valores de KPI"
+                                          },
+                                "orange":  {
+                                               "value":  "#F46901",
+                                               "description":  "Primaria Mob2Con"
+                                           }
+                            },
+                  "semantic":  {
+                                   "danger":  {
+                                                  "value":  "#C00000"
+                                              },
+                                   "warning":  {
+                                                   "value":  "#FFC107"
+                                               },
+                                   "info":  {
+                                                "value":  "#4285F4"
+                                            },
+                                   "success":  {
+                                                   "value":  "#107C41"
+                                               }
+                               },
+                  "neutral":  {
+                                  "gray100":  {
+                                                  "value":  "#F3F2F1"
+                                              },
+                                  "gray200":  {
+                                                  "value":  "#E2E8F0"
+                                              },
+                                  "gray700":  {
+                                                  "value":  "#434343"
+                                              },
+                                  "gray400":  {
+                                                  "value":  "#F0F0F0",
+                                                  "description":  "Gridlines"
+                                              },
+                                  "gray150":  {
+                                                  "value":  "#F3F6FA",
+                                                  "description":  "Background padrao"
+                                              },
+                                  "gray300":  {
+                                                  "value":  "#E0E0E0"
+                                              },
+                                  "gray50":  {
+                                                 "value":  "#F8F8F8"
+                                             },
+                                  "gray900":  {
+                                                  "value":  "#111111"
+                                              },
+                                  "gray500":  {
+                                                  "value":  "#605E5C",
+                                                  "description":  "Texto secundario"
+                                              },
+                                  "white":  {
+                                                "value":  "#FFFFFF"
+                                            }
+                              },
+                  "kpi":  {
+                              "altRow":  {
+                                             "value":  "#FFF8F2"
+                                         },
+                              "totalRow":  {
+                                               "value":  "#FFF0E0"
+                                           }
+                          }
+              },
+    "border":  {
+                   "subtle":  {
+                                  "value":  "1px solid #E2E8F0"
+                              },
+                   "card":  {
+                                "value":  "1px solid #E0E0E0"
+                            },
+                   "divider":  {
+                                   "value":  "1px solid #F0F0F0"
+                               }
+               },
+    "_meta":  {
+                  "fallbackChain":  [
+                                        "1. design-tokens.json (este arquivo) - lido por MCPs e codigo",
+                                        "2. mob2con.css - usa as mesmas cores via custom properties",
+                                        "3. index.html / templates/*.html - preview visual e fallback",
+                                        "4. Mob2Con-Brand-Theme.json - tema oficial Power BI"
+                                    ],
+                  "description":  "Fonte unica de verdade da identidade visual Mob2Con. Camada 1 do sistema complementar JSON + CSS + HTML.",
+                  "name":  "Mob2Con Design Tokens",
+                  "version":  "1.0.0",
+                  "updated":  "2026-05-14"
+              },
+    "shadow":  {
+                   "card":  {
+                                "value":  "0 1px 3px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04)"
+                            },
+                   "modal":  {
+                                 "value":  "0 8px 24px rgba(17,17,17,0.20)"
+                             },
+                   "hover":  {
+                                 "value":  "0 4px 12px rgba(244,105,1,0.18)"
+                             }
+               },
+    "font":  {
+                 "weight":  {
+                                "bold":  {
+                                             "value":  700
+                                         },
+                                "regular":  {
+                                                "value":  400
+                                            },
+                                "black":  {
+                                              "value":  900
+                                          }
+                            },
+                 "family":  {
+                                "primary":  {
+                                                "value":  "Raleway, \u0027Segoe UI\u0027, Arial, sans-serif"
+                                            },
+                                "monospace":  {
+                                                  "value":  "Consolas, \u0027Courier New\u0027, monospace"
+                                              }
+                            },
+                 "size":  {
+                              "base":  {
+                                           "unit":  "pt",
+                                           "value":  11
+                                       },
+                              "sm":  {
+                                         "unit":  "pt",
+                                         "value":  10
+                                     },
+                              "kpi":  {
+                                          "unit":  "pt",
+                                          "description":  "Valor de KPI",
+                                          "value":  28
+                                      },
+                              "md":  {
+                                         "unit":  "pt",
+                                         "value":  12
+                                     },
+                              "xs":  {
+                                         "unit":  "pt",
+                                         "value":  9
+                                     },
+                              "xxl":  {
+                                          "unit":  "pt",
+                                          "description":  "Titulo de pagina",
+                                          "value":  20
+                                      },
+                              "lg":  {
+                                         "unit":  "pt",
+                                         "description":  "Titulo de visual",
+                                         "value":  14
+                                     },
+                              "xl":  {
+                                         "unit":  "pt",
+                                         "value":  18
+                                     }
+                          }
+             },
+    "spacing":  {
+                    "8":  {
+                              "unit":  "px",
+                              "description":  "Header desktop",
+                              "value":  64
+                          },
+                    "1":  {
+                              "unit":  "px",
+                              "value":  8
+                          },
+                    "2":  {
+                              "unit":  "px",
+                              "description":  "Gap padrao entre visuais",
+                              "value":  16
+                          },
+                    "_base":  8,
+                    "4":  {
+                              "unit":  "px",
+                              "value":  32
+                          },
+                    "3":  {
+                              "unit":  "px",
+                              "value":  24
+                          },
+                    "0":  {
+                              "unit":  "px",
+                              "value":  0
+                          },
+                    "6":  {
+                              "unit":  "px",
+                              "value":  48
+                          }
+                },
+    "radius":  {
+                   "sm":  {
+                              "unit":  "px",
+                              "value":  4
+                          },
+                   "lg":  {
+                              "unit":  "px",
+                              "description":  "Padrao de cards",
+                              "value":  8
+                          },
+                   "md":  {
+                              "unit":  "px",
+                              "value":  6
+                          }
+               }
+}

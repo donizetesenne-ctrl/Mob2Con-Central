@@ -1,0 +1,19 @@
+{
+  "nvidia_nim": {
+    "base_url": "https://integrate.api.nvidia.com/v1",
+    "api_key": "COLE_SUA_NVAPI_KEY_AQUI",
+    "models": {
+      "chat_principal": "nvidia/nemotron-3-super-120b-a12b",
+      "chat_rapido": "deepseek-ai/deepseek-v4-flash",
+      "codigo": "mistralai/mistral-small-4-119b-2603",
+      "ocr": "nvidia/nemotron-ocr-v1",
+      "moderacao": "nvidia/nemotron-3-content-safety",
+      "multimodal": "google/gemma-4-31b-it"
+    },
+    "defaults": {
+      "max_tokens": 1024,
+      "temperature": 0.7,
+      "top_p": 0.9
+    }
+  }
+}

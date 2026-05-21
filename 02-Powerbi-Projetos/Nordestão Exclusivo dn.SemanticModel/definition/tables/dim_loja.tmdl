@@ -1,0 +1,206 @@
+table dim_loja
+	lineageTag: 4bd34b5d-2c7d-440c-9742-81b2515d279d
+	sourceLineageTag: 514a03a0-d0ac-4efe-a130-3e210a8f3f1c
+
+	column sk_loja
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: e09309e2-fab2-4325-8870-dedb89f54116
+		sourceLineageTag: bce30e15-7b34-4088-b0de-9a781b1d721f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: 4101fb52-a9c7-4c3e-9d9c-8377a1626441
+		sourceLineageTag: 7eb07f63-2587-4e09-a40d-cbc10d88378b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_rede
+
+		annotation SummarizationSetBy = User
+
+	column cd_cnpj
+		dataType: string
+		lineageTag: 74f30f38-ad6c-42cd-8a28-2dfbfc1073cc
+		sourceLineageTag: 8ebdd3c7-0c87-4f23-b0f4-15f50bc0f0b6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_cnpj
+
+		annotation SummarizationSetBy = User
+
+	column id_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 493407b9-7729-43e0-8ddd-784eb7ca4170
+		sourceLineageTag: 61b58dbd-c9fc-418f-8e9e-7ac60c9bb915
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_loja
+
+		annotation SummarizationSetBy = User
+
+	column id_loja_local
+		dataType: string
+		lineageTag: 67fec84a-21ac-4d50-97a8-8787db771b5e
+		sourceLineageTag: b7f8702b-20f5-4327-b472-ec7c97766404
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: id_loja_local
+
+		annotation SummarizationSetBy = User
+
+	column nm_loja_completo
+		dataType: string
+		lineageTag: f6a8ce28-1ae2-481e-b135-43c1d0356453
+		sourceLineageTag: c7106ce9-3657-4162-8e17-c1b0398f50cd
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_loja_completo
+
+		annotation SummarizationSetBy = User
+
+	column nm_loja
+		dataType: string
+		lineageTag: 3b296e78-1412-4eba-8bbb-2c246632e58c
+		sourceLineageTag: cc76f1f2-db65-4712-9245-9a1a3a1a4264
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_loja
+
+		annotation SummarizationSetBy = User
+
+	column nm_bandeira
+		dataType: string
+		lineageTag: 30b9b95c-6f12-43d1-8fdb-f90507da9371
+		sourceLineageTag: 7442823f-e16b-4c54-b950-37f409164da9
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_bandeira
+
+		annotation SummarizationSetBy = User
+
+	column ds_regional
+		dataType: string
+		lineageTag: c9a88b5f-feef-47db-b0ba-2ecf517bf102
+		sourceLineageTag: 094f1d45-82d0-4f26-ad0b-e8bdf68e1418
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_regional
+
+		annotation SummarizationSetBy = User
+
+	column ds_tipo
+		dataType: string
+		lineageTag: 8446d1e8-5f58-4c55-882b-7d98fef10d0f
+		sourceLineageTag: 3ca20dc7-1587-4e43-b090-3d82d3935d06
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_tipo
+
+		annotation SummarizationSetBy = User
+
+	column ds_tamanho
+		dataType: string
+		lineageTag: 76cfa8d8-3f52-4cc8-b431-0c93d61b337b
+		sourceLineageTag: f5bfd471-66e9-4403-b58a-457be3e006df
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_tamanho
+
+		annotation SummarizationSetBy = User
+
+	column ds_cidade
+		dataType: string
+		lineageTag: 636301fc-7938-4698-8e14-5a3f09d06111
+		sourceLineageTag: 238e4997-d2fc-4ea0-b1bb-ff83165973ac
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_cidade
+
+		annotation SummarizationSetBy = User
+
+	column cd_uf
+		dataType: string
+		lineageTag: 521111aa-c82f-4de5-99c5-32fb10547433
+		sourceLineageTag: 111b205b-283b-406d-a5b7-30ea471d82ae
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_uf
+
+		annotation SummarizationSetBy = User
+
+	column cd_cep
+		dataType: string
+		lineageTag: 44319ece-3e8d-4093-a446-67db4b0987f9
+		sourceLineageTag: 5c259632-a224-4f5e-98a7-a22b4facfe99
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_cep
+
+		annotation SummarizationSetBy = User
+
+	column dt_discarded_at
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 467994c6-b4d1-4f5c-ac89-04a035754567
+		sourceLineageTag: 4e0da099-4ff3-4abe-ae94-ebdb31ef84c2
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_discarded_at
+
+		annotation SummarizationSetBy = User
+
+	column ds_status
+		dataType: string
+		lineageTag: a9829a06-4d1b-48c6-80da-d7217bd25115
+		sourceLineageTag: 79f5112d-0965-48c1-b8a4-e8085635ede7
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_status
+
+		annotation SummarizationSetBy = User
+
+	column ts_ultima_sincronizacao
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: a6c3d499-8960-426d-85f3-3ab891424a38
+		sourceLineageTag: c92717d0-47df-4a90-8af0-da1e9ce77047
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ts_ultima_sincronizacao
+
+		annotation SummarizationSetBy = User
+
+	column tp_cluster
+		dataType: string
+		lineageTag: 7c3f4406-dd96-4091-9a59-a1e516d08e70
+		sourceLineageTag: 3ddb59b3-f1ff-4409-9598-4da3f21b0201
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tp_cluster
+
+		annotation SummarizationSetBy = User
+
+	column uuid_loja
+		dataType: string
+		lineageTag: 3b586469-6217-40a0-97a3-e20e0a8bd2fc
+		sourceLineageTag: 65b98ebf-bb7a-4102-98e6-2c4fd59d70b6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: uuid_loja
+
+		annotation SummarizationSetBy = User
+
+	partition dim_loja = entity
+		mode: directQuery
+		source
+			entityName: dim_loja
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Dashboard — Mob2Con</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.dashboard { max-width: 1600px; margin: 0 auto; min-height: 100vh; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); padding: var(--sp-2); }
+.charts-row { display: grid; grid-template-columns: 60% 1fr; gap: var(--sp-2); padding: 0 var(--sp-2); }
+.bottom-row { display: grid; grid-template-columns: 60% 1fr; gap: var(--sp-2); padding: var(--sp-2); }
+.chart-placeholder { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-lg); padding: var(--sp-3); box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
+.chart-placeholder h3 { margin-bottom: var(--sp-2); }
+.chart-area { flex: 1; background: var(--gray-50); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--gray-500); font-size: 12px; min-height: 200px; }
+.filter-bar { display: flex; gap: 8px; align-items: center; }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">Mob<span class="accent">2</span>Con</div>
+    <div class="spacer"></div>
+    <div class="filter-bar">
+      <input type="date" class="input" style="width:150px;height:32px;font-size:11px">
+      <select class="input" style="width:150px;height:32px;font-size:11px"><option>Todas regionais</option></select>
+    </div>
+  </header>
+
+  <!-- KPIs -->
+  <div class="kpi-row">
+    <div class="card kpi">
+      <div class="kpi-label">Faturamento</div>
+      <div class="kpi-value">R$ 2.4M</div>
+      <div class="kpi-trend up">▲ 12.3% vs mês anterior</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Lojas Ativas</div>
+      <div class="kpi-value">847</div>
+      <div class="kpi-trend up">▲ 23 novas este mês</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Ruptura Média</div>
+      <div class="kpi-value">3.2%</div>
+      <div class="kpi-trend down">▼ -0.8pp vs meta</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">SLA Atendimento</div>
+      <div class="kpi-value">94.7%</div>
+      <div class="kpi-trend up">▲ Meta: 92%</div>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="charts-row">
+    <div class="chart-placeholder">
+      <h3>Evolução Mensal</h3>
+      <div class="chart-area">📈 Gráfico de linha — Faturamento × Mês</div>
+    </div>
+    <div class="chart-placeholder">
+      <h3>Mix por Regional</h3>
+      <div class="chart-area">🍩 Donut — % por regional</div>
+    </div>
+  </div>
+
+  <!-- BOTTOM -->
+  <div class="bottom-row">
+    <div class="chart-placeholder">
+      <h3>Detalhamento por Loja</h3>
+      <table class="table">
+        <thead><tr><th>Loja</th><th>Regional</th><th>Fat.</th><th>SLA</th></tr></thead>
+        <tbody>
+          <tr><td>Nordestão 01</td><td>NE</td><td>R$ 45K</td><td><span class="badge badge-success">97%</span></td></tr>
+          <tr><td>Atacadão SP</td><td>SE</td><td>R$ 38K</td><td><span class="badge badge-success">95%</span></td></tr>
+          <tr><td>Rede Sul 03</td><td>S</td><td>R$ 22K</td><td><span class="badge badge-danger">88%</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="chart-placeholder">
+      <h3>Top 5 Produtos</h3>
+      <div class="chart-area">📊 Barras horizontais</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

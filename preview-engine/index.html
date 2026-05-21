@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Kiro High-Agility Editor | Mob2Con</title>
+    <script src="https://cdn.jsdelivr.net/npm/interactjs/dist/interact.min.js"></script>
+    <style>
+        body { background-color: #1e1e1e; font-family: 'Segoe UI', sans-serif; margin: 0; color: white; overflow: hidden; }
+        #toolbar { background: #2d2d2d; padding: 10px 20px; display: flex; gap: 15px; align-items: center; border-bottom: 1px solid #3d3d3d; }
+        #canvas-container { position: relative; margin: 20px auto; background: white; width: 1280px; height: 720px; box-shadow: 0 0 30px rgba(0,0,0,0.5); overflow: hidden; }
+        #grid-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; background-image: linear-gradient(to right, rgba(0,0,0,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.05) 1px, transparent 1px); background-size: 8px 8px; z-index: 5; }
+        .visual { position: absolute; border: 1px solid #0078d4; background: rgba(0, 120, 212, 0.1); color: #0078d4; cursor: move; user-select: none; z-index: 10; font-size: 11px; box-sizing: border-box; display: flex; flex-direction: column; }
+        .visual.selected { border: 2px solid #ffaa00; background: rgba(255, 170, 0, 0.1); z-index: 100 !important; }
+        .visual-header { background: rgba(0, 120, 212, 0.2); padding: 2px 5px; font-weight: bold; pointer-events: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .visual-body { flex: 1; display: flex; align-items: center; justify-content: center; text-align: center; pointer-events: none; padding: 5px; }
+        button { background: #0078d4; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        button:hover { background: #005a9e; }
+        button.secondary { background: #444; }
+        .status-badge { font-size: 12px; color: #aaa; }
+        #heatmap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1000; display: none; background: radial-gradient(circle at 10% 10%, rgba(255,0,0,0.2) 0%, transparent 50%); }
+    </style>
+</head>
+<body>
+    <div id="toolbar">
+        <strong>KIRO AGILITY</strong>
+        <select id="page-select" style="background: #444; color: white; border: 1px solid #555; padding: 4px;"></select>
+        <div style="flex: 1"></div>
+        <button onclick="saveLayout()" style="background: #28a745;">💾 Salvar Local</button>
+        <button class="secondary" onclick="alignLeft()">⬅️ Alinhar Esq.</button>
+        <button class="secondary" onclick="fixGrid()">🎯 Forçar Grid 8px</button>
+        <button class="secondary" onclick="toggleHeatmap()">🔥 Z-Pattern</button>
+        <span id="status" class="status-badge">Conectado</span>
+    </div>
+
+    <div id="canvas-container">
+        <div id="grid-overlay"></div>
+        <div id="heatmap"></div>
+        <div id="visuals-layer"></div>
+    </div>
+
+    <script>
+        let currentData = null;
+        let selectedVisuals = new Set();
+        let visualsState = {}; // { folderName: { x, y, width, height, z } }
+
+        async function loadLayout() {
+            try {
+                const res = await fetch('/api/layout');
+                currentData = await res.json();
+                updatePageSelect();
+                renderPage();
+                document.getElementById('status').textContent = 'Sincronizado';
+            } catch (e) {
+                document.getElementById('status').textContent = 'Erro de Conexão';
+            }
+        }
+
+        function updatePageSelect() {
+            const select = document.getElementById('page-select');
+            const currentVal = select.value;
+            select.innerHTML = '';
+            currentData.pages.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.name;
+                opt.textContent = p.displayName;
+                select.appendChild(opt);
+            });
+            if (currentVal) select.value = currentVal;
+        }
+
+        function renderPage() {
+            const pageName = document.getElementById('page-select').value;
+            const page = currentData.pages.find(p => p.name === pageName);
+            const layer = document.getElementById('visuals-layer');
+            layer.innerHTML = '';
+            visualsState = {};
+
+            if (!page) return;
+
+            page.visuals.forEach(v => {
+                const pos = v.position;
+                if (!pos) return;
+
+                visualsState[v.folderName] = { ...pos };
+
+                const div = document.createElement('div');
+                div.className = 'visual';
+                div.id = `v-${v.folderName}`;
+                div.setAttribute('data-folder', v.folderName);
+                
+                updateVisualElement(div, pos);
+
+                div.innerHTML = `
+                    <div class="visual-header">${v.name || v.folderName}</div>
+                    <div class="visual-body">${v.visualType}<br>${pos.x},${pos.y}</div>
+                `;
+
+                div.onclick = (e) => {
+                    if (!e.ctrlKey) {
+                        document.querySelectorAll('.visual').forEach(el => el.classList.remove('selected'));
+                        selectedVisuals.clear();
+                    }
+                    div.classList.toggle('selected');
+                    if (div.classList.contains('selected')) selectedVisuals.add(v.folderName);
+                    else selectedVisuals.delete(v.folderName);
+                    e.stopPropagation();
+                };
+
+                layer.appendChild(div);
+            });
+
+            setupInteractions();
+        }
+
+        function updateVisualElement(el, pos) {
+            el.style.left = pos.x + 'px';
+            el.style.top = pos.y + 'px';
+            el.style.width = pos.width + 'px';
+            el.style.height = pos.height + 'px';
+            el.style.zIndex = pos.z;
+        }
+
+        function setupInteractions() {
+            interact('.visual').draggable({
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.snap({
+                        targets: [ interact.snappers.grid({ x: 8, y: 8 }) ],
+                        range: Infinity,
+                        relativePoints: [ { x: 0, y: 0 } ]
+                    }),
+                    interact.modifiers.restrictRect({
+                        restriction: 'parent',
+                        endOnly: true
+                    })
+                ],
+                onmove: event => {
+                    const folder = event.target.getAttribute('data-folder');
+                    visualsState[folder].x += event.dx;
+                    visualsState[folder].y += event.dy;
+                    updateVisualElement(event.target, visualsState[folder]);
+                    event.target.querySelector('.visual-body').innerHTML = `${folder}<br>${visualsState[folder].x},${visualsState[folder].y}`;
+                }
+            }).resizable({
+                edges: { left: true, right: true, bottom: true, top: true },
+                modifiers: [
+                    interact.modifiers.snap({
+                        targets: [ interact.snappers.grid({ x: 8, y: 8 }) ],
+                        range: Infinity
+                    })
+                ],
+                onmove: event => {
+                    const folder = event.target.getAttribute('data-folder');
+                    Object.assign(visualsState[folder], {
+                        x: event.rect.left - document.getElementById('canvas-container').offsetLeft,
+                        y: event.rect.top - document.getElementById('canvas-container').offsetTop,
+                        width: event.rect.width,
+                        height: event.rect.height
+                    });
+                    updateVisualElement(event.target, visualsState[folder]);
+                }
+            });
+        }
+
+        async function saveLayout() {
+            const pageName = document.getElementById('page-select').value;
+            const updates = Object.keys(visualsState).map(folder => ({
+                folderName: folder,
+                position: visualsState[folder]
+            }));
+
+            const res = await fetch('/api/update-layout', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ pageName, updates })
+            });
+
+            if (res.ok) alert('Layout salvo com sucesso nos arquivos locais!');
+            else alert('Erro ao salvar layout.');
+        }
+
+        function alignLeft() {
+            if (selectedVisuals.size < 2) return alert('Selecione ao menos 2 visuais (Ctrl + Clique)');
+            let minX = Infinity;
+            selectedVisuals.forEach(f => minX = Math.min(minX, visualsState[f].x));
+            selectedVisuals.forEach(f => {
+                visualsState[f].x = minX;
+                updateVisualElement(document.getElementById(`v-${f}`), visualsState[f]);
+            });
+        }
+
+        function fixGrid() {
+            Object.keys(visualsState).forEach(f => {
+                visualsState[f].x = Math.round(visualsState[f].x / 8) * 8;
+                visualsState[f].y = Math.round(visualsState[f].y / 8) * 8;
+                updateVisualElement(document.getElementById(`v-${f}`), visualsState[f]);
+            });
+        }
+
+        function toggleHeatmap() {
+            const h = document.getElementById('heatmap');
+            h.style.display = h.style.display === 'none' ? 'block' : 'none';
+        }
+
+        document.getElementById('page-select').addEventListener('change', renderPage);
+        loadLayout();
+    </script>
+</body>
+</html>

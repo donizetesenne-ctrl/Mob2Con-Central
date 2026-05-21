@@ -1,0 +1,171 @@
+{
+  "name": "Mob2con Theme",
+  "dataColors": [
+    "#6F05D4",
+    "#F46901",
+    "#4285F4",
+    "#9900FF",
+    "#434343",
+    "#FFFFFF",
+    "#111111",
+    "#0097A7"
+  ],
+  "background": "#111111",
+  "foreground": "#FFFFFF",
+  "tableAccent": "#6F05D4",
+  "maximum": "#6F05D4",
+  "minimum": "#F46901",
+  "null": "#434343",
+  "bad": "#F46901",
+  "neutral": "#434343",
+  "good": "#6F05D4",
+  "visualStyles": {
+    "*": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "fontSize": [{ "value": 11 }],
+        "fontColor": [{ "solid": { "color": "#FFFFFF" } }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "card": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "fontSize": [{ "value": 28 }],
+        "fontColor": [{ "solid": { "color": "#FFFFFF" } }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "clusteredColumnChart": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "lineStackedColumnComboChart": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "gauge": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "background": [{ "solid": { "color": "#111111" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 15
+          }
+        ],
+        "dropShadow": [{ "show": true }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway" }],
+        "fontColor": [{ "solid": { "color": "#FFFFFF" } }],
+        "background": [{ "solid": { "color": "#222222" } }],
+        "border": [
+          {
+            "show": true,
+            "color": { "solid": { "color": "#6F05D4" } },
+            "radius": 8
+          }
+        ]
+      }
+    },
+    "title": {
+      "*": {
+        "fontFamily": [{ "value": "Raleway Black" }],
+        "fontSize": [{ "value": 14 }],
+        "fontColor": [{ "solid": { "color": "#FFFFFF" } }],
+        "background": [{ "solid": { "color": "transparent" } }],
+        "alignment": [{ "value": "center" }]
+      }
+    }
+  },
+  "textClasses": {
+    "callout": {
+      "fontSize": 45,
+      "fontFace": "Raleway Black",
+      "color": "#FFFFFF"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Raleway Black",
+      "color": "#FFFFFF"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Raleway",
+      "color": "#FFFFFF"
+    },
+    "label": {
+      "fontSize": 11,
+      "fontFace": "Raleway",
+      "color": "#FFFFFF"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+{
+  "name": "Mob2Con - Mob2Con",
+  "dataColors": [
+    "#f46901",
+    "#6f05d4",
+    "#434343",
+    "#4285f4",
+    "#111111",
+    "#ff8c3a",
+    "#9b4dca",
+    "#666666",
+    "#5a9ff5",
+    "#333333",
+    "#ffb074",
+    "#c49ae8",
+    "#999999",
+    "#8bb8f7",
+    "#555555"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#111111",
+  "tableAccent": "#f46901",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Raleway",
+      "color": "#111111"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Raleway",
+      "color": "#111111",
+      "fontWeight": "Bold"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Raleway",
+      "color": "#434343"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Raleway",
+      "color": "#434343"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [
+          {
+            "color": {
+              "solid": {
+                "color": "#FFFFFF"
+              }
+            },
+            "transparency": 0
+          }
+        ],
+        "title": [
+          {
+            "show": true,
+            "fontColor": {
+              "solid": {
+                "color": "#111111"
+              }
+            },
+            "fontFamily": "Raleway",
+            "fontSize": 12,
+            "bold": true
+          }
+        ]
+      }
+    },
+    "card": {
+      "*": {
+        "labels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#f46901"
+              }
+            },
+            "fontSize": 24,
+            "fontFamily": "Raleway"
+          }
+        ],
+        "categoryLabels": [
+          {
+            "color": {
+              "solid": {
+                "color": "#434343"
+              }
+            },
+            "fontSize": 10,
+            "fontFamily": "Raleway"
+          }
+        ]
+      }
+    }
+  }
+}

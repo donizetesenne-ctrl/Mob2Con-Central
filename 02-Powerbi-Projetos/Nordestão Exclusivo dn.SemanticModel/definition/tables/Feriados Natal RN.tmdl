@@ -1,0 +1,62 @@
+/// Calendário completo de feriados de Natal/RN 2026
+table 'Feriados Natal RN'
+	lineageTag: 9a85c7dc-f2e1-4474-b70e-aeb2950a8d61
+
+	column dt_feriado
+		lineageTag: 2f1af15a-0e12-4a5c-a47f-f9e1213a67c0
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [dt_feriado]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_feriado
+		lineageTag: db951f72-762b-49ee-a251-15814c1abb2d
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [nm_feriado]
+
+		annotation SummarizationSetBy = Automatic
+
+	column tp_feriado
+		lineageTag: 39f1f5b8-a731-41fb-b94b-3727d04a0810
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [tp_feriado]
+
+		annotation SummarizationSetBy = Automatic
+
+	column nm_dia_semana
+		lineageTag: 37856b72-e38a-4820-97a3-0f9cf323df79
+		summarizeBy: none
+		isNameInferred
+		sourceColumn: [nm_dia_semana]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Feriados Natal RN' = calculated
+		mode: import
+		source =
+				UNION(
+				    ROW("dt_feriado", DATE(2026,1,1),  "nm_feriado", "Confraternização Universal",  "tp_feriado", "Nacional",    "nm_dia_semana", "Quinta"  ),
+				    ROW("dt_feriado", DATE(2026,1,6),  "nm_feriado", "Dia de Reis",                 "tp_feriado", "Municipal",   "nm_dia_semana", "Terça"   ),
+				    ROW("dt_feriado", DATE(2026,2,16), "nm_feriado", "Carnaval",                    "tp_feriado", "Facultativo", "nm_dia_semana", "Segunda" ),
+				    ROW("dt_feriado", DATE(2026,2,17), "nm_feriado", "Carnaval",                    "tp_feriado", "Facultativo", "nm_dia_semana", "Terça"   ),
+				    ROW("dt_feriado", DATE(2026,2,18), "nm_feriado", "Quarta de Cinzas",            "tp_feriado", "Facultativo", "nm_dia_semana", "Quarta"  ),
+				    ROW("dt_feriado", DATE(2026,4,3),  "nm_feriado", "Sexta-feira Santa",           "tp_feriado", "Nacional",    "nm_dia_semana", "Sexta"   ),
+				    ROW("dt_feriado", DATE(2026,4,5),  "nm_feriado", "Páscoa",                      "tp_feriado", "Facultativo", "nm_dia_semana", "Domingo" ),
+				    ROW("dt_feriado", DATE(2026,4,21), "nm_feriado", "Tiradentes",                  "tp_feriado", "Nacional",    "nm_dia_semana", "Terça"   ),
+				    ROW("dt_feriado", DATE(2026,5,1),  "nm_feriado", "Dia do Trabalho",             "tp_feriado", "Nacional",    "nm_dia_semana", "Sexta"   ),
+				    ROW("dt_feriado", DATE(2026,6,4),  "nm_feriado", "Corpus Christi",              "tp_feriado", "Facultativo", "nm_dia_semana", "Quinta"  ),
+				    ROW("dt_feriado", DATE(2026,8,7),  "nm_feriado", "Dia do RN",                   "tp_feriado", "Estadual",    "nm_dia_semana", "Sexta"   ),
+				    ROW("dt_feriado", DATE(2026,9,7),  "nm_feriado", "Independência",               "tp_feriado", "Nacional",    "nm_dia_semana", "Segunda" ),
+				    ROW("dt_feriado", DATE(2026,10,3), "nm_feriado", "Mártires de Cunhaú",          "tp_feriado", "Estadual",    "nm_dia_semana", "Sábado"  ),
+				    ROW("dt_feriado", DATE(2026,10,12),"nm_feriado", "Nossa Sra. Aparecida",        "tp_feriado", "Nacional",    "nm_dia_semana", "Segunda" ),
+				    ROW("dt_feriado", DATE(2026,11,2), "nm_feriado", "Finados",                     "tp_feriado", "Nacional",    "nm_dia_semana", "Segunda" ),
+				    ROW("dt_feriado", DATE(2026,11,15),"nm_feriado", "Proclamação da República",    "tp_feriado", "Nacional",    "nm_dia_semana", "Domingo" ),
+				    ROW("dt_feriado", DATE(2026,11,20),"nm_feriado", "Consciência Negra",           "tp_feriado", "Nacional",    "nm_dia_semana", "Sexta"   ),
+				    ROW("dt_feriado", DATE(2026,11,21),"nm_feriado", "Padroeira de Natal",          "tp_feriado", "Municipal",   "nm_dia_semana", "Sábado"  ),
+				    ROW("dt_feriado", DATE(2026,12,25),"nm_feriado", "Natal",                       "tp_feriado", "Nacional",    "nm_dia_semana", "Sexta"   ),
+				    ROW("dt_feriado", DATE(2026,12,31),"nm_feriado", "Véspera Ano Novo",            "tp_feriado", "Facultativo", "nm_dia_semana", "Quinta"  )
+				)
+

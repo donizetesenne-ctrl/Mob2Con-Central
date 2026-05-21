@@ -1,0 +1,6 @@
+/// Acesso total ao modelo Nordestão com permissão de atualização.
+role 'Nordestão - Executivo'
+	modelPermission: readRefresh
+
+	annotation PBI_Id = c97d5a2332fc4dbf9ea99939d7564869
+

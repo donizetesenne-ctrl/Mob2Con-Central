@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gestão de Performance — Análise Executiva Mob2Con</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* Padrão Mob2Con Design System */
+:root{
+  --orange:#F46901; --orange-dark:#D85901; --orange-light:#FFE5CC; --orange-soft:#FFF0E0;
+  --graphite:#434343; --black:#111111; --blue-mc:#4285F4; --purple:#6F05D4;
+  --green:#107C41; --red:#C00000; --warn:#FFC107;
+  --bg:#FFFFFF; --bg-soft:#FAFAFA; --bg-card:#FFFFFF;
+  --gray-100:#EEEEEE; --gray-200:#E0E0E0; --gray-300:#CCCCCC;
+  --gray-500:#595959; --gray-700:#434343;
+  --border:#E0E0E0; --border-soft:#EEEEEE;
+  --text:#111111; --text2:#595959; --text3:#9E9E9E;
+  --shadow:0 1px 3px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-hover:0 4px 12px rgba(244,105,1,0.18);
+  --f:'Raleway','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg-soft);color:var(--text);font-family:var(--f);font-size:11pt;line-height:1.5;-webkit-font-smoothing:antialiased;}
+
+/* Header */
+.hdr{background:#fff;border-bottom:3px solid var(--orange);padding:20px 32px;box-shadow:var(--shadow);margin-bottom:24px;}
+.hdr h1{font-size:20pt;font-weight:900;color:var(--black);letter-spacing:-0.5px;line-height:1.2;}
+.hdr h1 span{color:var(--orange);}
+.hdr p{font-size:11pt;color:var(--text2);margin-top:6px;}
+.hdr .meta{display:flex;gap:16px;margin-top:12px;flex-wrap:wrap;}
+.hdr .meta span{background:var(--orange-soft);border:1px solid rgba(244,105,1,0.25);border-radius:20px;padding:5px 12px;font-size:9pt;color:var(--orange-dark);font-weight:700;text-transform:uppercase;}
+
+/* Container */
+.container{max-width:1400px;margin:0 auto;padding:0 32px 40px;}
+
+/* Seção */
+.sec{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;margin-bottom:24px;overflow:hidden;box-shadow:var(--shadow);}
+.sec-h{background:#FAFAFA;padding:16px 24px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.sec-h h2{font-size:14pt;font-weight:700;color:var(--graphite);flex:1;}
+.sec-h .badge{background:var(--orange-soft);color:var(--orange-dark);border:1px solid rgba(244,105,1,0.3);border-radius:12px;padding:4px 12px;font-size:9pt;font-weight:700;text-transform:uppercase;}
+.sec-h .badge.green{background:#E8F5EC;color:var(--green);border-color:rgba(16,124,65,0.3);}
+.sec-h .badge.red{background:#FCE8E8;color:var(--red);border-color:rgba(192,0,0,0.3);}
+.sec-b{padding:24px;}
+
+/* KPI Grid */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:20px;}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:18px;border-top:4px solid var(--orange);box-shadow:var(--shadow);transition:all 0.2s;cursor:help;}
+.kpi:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.kpi .kl{font-size:10pt;color:var(--text2);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;font-weight:700;}
+.kpi .kv{font-size:28pt;font-weight:900;letter-spacing:-0.6px;line-height:1.15;color:var(--black);}
+.kpi .ks{font-size:10pt;color:var(--text3);margin-top:6px;}
+
+/* Tooltip */
+.tooltip{position:relative;}
+.tooltip .tooltiptext{visibility:hidden;width:320px;background:var(--black);color:#fff;text-align:left;border-radius:6px;padding:12px 16px;position:absolute;z-index:1000;bottom:125%;left:50%;margin-left:-160px;opacity:0;transition:opacity 0.3s;font-size:10pt;line-height:1.5;box-shadow:0 4px 12px rgba(0,0,0,0.3);}
+.tooltip .tooltiptext::after{content:"";position:absolute;top:100%;left:50%;margin-left:-5px;border-width:5px;border-style:solid;border-color:var(--black) transparent transparent transparent;}
+.tooltip:hover .tooltiptext{visibility:visible;opacity:1;}
+
+/* Tabela */
+table{width:100%;border-collapse:collapse;font-size:10pt;}
+th{background:var(--orange);color:#fff;text-align:left;padding:12px 14px;font-size:9pt;text-transform:uppercase;letter-spacing:0.6px;font-weight:700;}
+td{padding:10px 14px;border-bottom:1px solid var(--border-soft);vertical-align:middle;}
+tbody tr:nth-child(even) td{background:#FFFAF5;}
+tbody tr:hover td{background:rgba(244,105,1,0.06);}
+.num{font-weight:700;font-variant-numeric:tabular-nums;color:var(--black);}
+.tag{display:inline-block;border-radius:4px;padding:3px 10px;font-size:9pt;font-weight:700;}
+.tag.critical{background:#FCE8E8;color:var(--red);}
+.tag.warn{background:var(--orange-soft);color:var(--orange-dark);}
+.tag.ok{background:#E8F5EC;color:var(--green);}
+
+/* Alert */
+.alert{border-radius:8px;padding:14px 20px;margin-bottom:16px;border-left:4px solid;font-size:11pt;}
+.alert.red{background:#FCE8E8;border-color:var(--red);}
+.alert.orange{background:var(--orange-soft);border-color:var(--orange);}
+.alert.green{background:#E8F5EC;border-color:var(--green);}
+.alert strong{font-weight:700;color:var(--black);}
+
+/* Link */
+a{color:var(--orange);text-decoration:none;font-weight:600;}
+a:hover{text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <h1>Gestão de Performance — <span>Análise Executiva</span></h1>
+  <p>Power BI Mob2Con | Período: 01/04/2024 a 13/05/2026 | Atualização: 14/05/2026</p>
+  <div class="meta">
+    <span>21 Abas Analíticas</span>
+    <span>+92% Ampliação</span>
+    <span>Dados D-1</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- GOVERNANÇA -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>🔒 Governança e Confiabilidade do Dado</h2>
+    <span class="badge red">CRÍTICO</span>
+  </div>
+  <div class="sec-b">
+    <div class="alert red">
+      <strong>⚠️ PAGUE MENOS: 0% de confiabilidade</strong> — 11 dias sem carga entre 01/05 e 11/05/2026. Qualquer análise consolidada que inclua essa rede está comprometida.
+    </div>
+
+    <p style="margin-bottom:16px;"><strong>Estrutura do Dado:</strong></p>
+    <ul style="margin-left:20px;margin-bottom:20px;line-height:1.8;">
+      <li><strong>Atualização:</strong> D-1 (dados até o dia anterior)</li>
+      <li><strong>Escopo:</strong> Apenas projetos ATIVOS</li>
+      <li><strong>Fontes:</strong> MobControl (horas realizadas), MobConnect (horas de atendimento), Integração da Rede (sell-out)</li>
+      <li><strong>Histórico:</strong> A partir de maio de 2024</li>
+    </ul>
+
+    <div class="kgrid">
+      <div class="kpi tooltip" style="border-top-color:#107C41">
+        <div class="kl">GBARBOSA</div>
+        <div class="kv" style="color:#107C41;font-size:20pt;">93%</div>
+        <div class="ks">13/14 dias — Excelente</div>
+        <span class="tooltiptext">Apenas 1 dia faltante no período. Dados altamente confiáveis para análise estratégica.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#107C41">
+        <div class="kl">NORDESTÃO</div>
+        <div class="kv" style="color:#107C41;font-size:20pt;">93%</div>
+        <div class="ks">13/14 dias — Excelente</div>
+        <span class="tooltiptext">Apenas 1 dia faltante no período. Dados altamente confiáveis para análise estratégica.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#107C41">
+        <div class="kl">NOVA ERA</div>
+        <div class="kv" style="color:#107C41;font-size:20pt;">93%</div>
+        <div class="ks">13/14 dias — Excelente</div>
+        <span class="tooltiptext">Apenas 1 dia faltante no período. Dados altamente confiáveis para análise estratégica.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#107C41">
+        <div class="kl">PREZUNIC</div>
+        <div class="kv" style="color:#107C41;font-size:20pt;">93%</div>
+        <div class="ks">13/14 dias — Excelente</div>
+        <span class="tooltiptext">Apenas 1 dia faltante no período. Dados altamente confiáveis para análise estratégica.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#FFC107">
+        <div class="kl">BIGBOX</div>
+        <div class="kv" style="color:#FFC107;font-size:20pt;">86%</div>
+        <div class="ks">12/14 dias — Bom</div>
+        <span class="tooltiptext">2 dias faltantes. Confiabilidade aceitável, mas merece atenção da equipe técnica.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#C00000">
+        <div class="kl">PAGUE MENOS</div>
+        <div class="kv" style="color:#C00000;font-size:20pt;">0%</div>
+        <div class="ks">0/14 dias — CRÍTICO</div>
+        <span class="tooltiptext">11 dias consecutivos sem carga (01/05 a 11/05/2026). Rede completamente cega no relatório. Problema de integração crítico que requer ação imediata.</span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;"><a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185/424581500cc32694106e" target="_blank">📊 Ver aba "Sobre o Relatório" no Power BI →</a></p>
+  </div>
+</div>
+
+
+<!-- RESUMO EXECUTIVO -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>📊 Resumo Executivo — KPIs Principais</h2>
+    <span class="badge green">PAINEL DE CONTROLE</span>
+  </div>
+  <div class="sec-b">
+    <p style="margin-bottom:20px;">Esta seção responde em 30 segundos: <strong>"Como estamos performando?"</strong></p>
+
+    <div class="kgrid">
+      <div class="kpi tooltip">
+        <div class="kl">Lojas Projeto</div>
+        <div class="kv" style="color:var(--orange);">—</div>
+        <div class="ks">Lojas em projeto ativo</div>
+        <span class="tooltiptext">Total de lojas cadastradas em projetos ativos. Base para calcular cobertura operacional.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">Lojas com Atividades</div>
+        <div class="kv" style="color:var(--green);">—</div>
+        <div class="ks">Presença de promotor</div>
+        <span class="tooltiptext">Lojas que tiveram presença efetiva de promotor/repositor no período. Indica cobertura real da operação.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">% Atendimento</div>
+        <div class="kv" style="color:var(--blue-mc);">—</div>
+        <div class="ks">Projeto/Loja</div>
+        <span class="tooltiptext">Percentual de lojas planejadas que foram efetivamente atendidas. Abaixo de 80% indica problema de cobertura.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">Horas Projetadas</div>
+        <div class="kv" style="color:var(--graphite);">—</div>
+        <div class="ks">Planejamento</div>
+        <span class="tooltiptext">Total de horas planejadas para execução dos projetos. Base para calcular aderência ao planejado.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">Horas Atendimento</div>
+        <div class="kv" style="color:var(--orange);">—</div>
+        <div class="ks">Horas realizadas</div>
+        <span class="tooltiptext">Horas efetivamente realizadas pelos promotores. Comparar com Horas Projetadas para identificar gap de execução.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">% Horas Atend.</div>
+        <div class="kv" style="color:var(--warn);">—</div>
+        <div class="ks">Aderência ao planejado</div>
+        <span class="tooltiptext">Percentual de horas realizadas vs planejadas. Abaixo de 70% indica equipe insuficiente ou ineficiência operacional.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#C00000">
+        <div class="kl">% Ruptura Operacional</div>
+        <div class="kv" style="color:#C00000;">27,2%</div>
+        <div class="ks">R$ 116,5M no período</div>
+        <span class="tooltiptext">Ruptura causada por falha de reposição em loja (produto tem estoque no CD mas não está na gôndola). Maior problema operacional identificado.</span>
+      </div>
+      <div class="kpi tooltip">
+        <div class="kl">Projetos Ativos</div>
+        <div class="kv" style="color:var(--purple);">—</div>
+        <div class="ks">Quantidade</div>
+        <span class="tooltiptext">Número de projetos ativos no período. Cada projeto representa um contrato com fornecedor para execução em lojas específicas.</span>
+      </div>
+    </div>
+
+    <p style="margin-top:20px;"><a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185/c8a594e569d2c23e04cd" target="_blank">📊 Ver aba "Resumo" no Power BI →</a></p>
+  </div>
+</div>
+
+<!-- ANÁLISE GERAL -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>📈 Análise Geral — Visão Macro</h2>
+    <span class="badge">DASHBOARD COMPLETO</span>
+  </div>
+  <div class="sec-b">
+    <p style="margin-bottom:16px;"><strong>Esta aba consolida 10 KPIs + 5 gráficos em uma única tela:</strong></p>
+
+    <div class="alert orange">
+      <strong>💡 Insight Crítico:</strong> O gráfico "Ruptura x Atendimento" mostra correlação direta — dias com menos horas de atendimento têm maior ruptura. Pontos no canto superior esquerdo (poucas horas + alta ruptura) indicam onde investir recursos.
+    </div>
+
+    <p style="margin-bottom:12px;"><strong>Gráficos Principais:</strong></p>
+    <ul style="margin-left:20px;margin-bottom:20px;line-height:1.8;">
+      <li><strong>Atendimento:</strong> Evolução de horas ideais vs horas atendimento vs horas realizadas (tendência mensal)</li>
+      <li><strong>Vendas:</strong> Evolução de Venda (Qtd.) e Produto (Qtd.) com previsão</li>
+      <li><strong>Ruptura x Atendimento:</strong> Scatter plot que cruza % Ruptura Operacional com Horas de Atendimento por dia da semana</li>
+      <li><strong>Tarefas:</strong> Evolução das tarefas por status (Pendente, Concluída, Problema Reportado)</li>
+      <li><strong>Risco de Estoque:</strong> Acompanha risco de estoque negativo e zero ao longo do tempo</li>
+    </ul>
+
+    <p style="margin-top:20px;"><a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185/ReportSection8f9b860864a5aa06b1b8" target="_blank">📊 Ver aba "Análise Geral" no Power BI →</a></p>
+  </div>
+</div>
+
+<!-- RANKING FORNECEDORES -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>🏭 Ranking de Fornecedores — Top 10 Críticos</h2>
+    <span class="badge red">AÇÃO IMEDIATA</span>
+  </div>
+  <div class="sec-b">
+    <div class="alert red">
+      <strong>🚨 Consolidado do Período (01/04/2024 a 13/05/2026):</strong><br>
+      • Ruptura Operacional: <strong>R$ 116,5M (27,2%)</strong><br>
+      • Ruptura Comercial: <strong>R$ 26,2M (6,1%)</strong><br>
+      • Ruptura Administrativa: <strong>R$ 3,8M (0,9%)</strong><br>
+      • Tarefas com Problema: <strong>771.952 de 5.914.872 (13%)</strong>
+    </div>
+
+    <p style="margin:20px 0 16px;"><strong>Top 10 Piores por Ruptura Operacional (R$):</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fornecedor</th>
+          <th>Prod.</th>
+          <th>Rupt. Oper. (R$)</th>
+          <th>% Rupt. Oper.</th>
+          <th>Tarefas</th>
+          <th>Problemas</th>
+          <th>Diagnose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td><strong>L.C. VITALLI</strong></td>
+          <td class="num">37</td>
+          <td class="num">R$ 398.803</td>
+          <td class="num">77,5%</td>
+          <td class="num">2.115</td>
+          <td class="num">701</td>
+          <td><span class="tag critical">CRÍTICO</span> Quase tudo vira ruptura operacional. Falta promotor ou reposição ineficiente.</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td><strong>AFINIDADE DISTRIBUIDORA</strong></td>
+          <td class="num">74</td>
+          <td class="num">R$ 2.080.394</td>
+          <td class="num">48,1%</td>
+          <td class="num">3.469</td>
+          <td class="num">605</td>
+          <td><span class="tag critical">ALTO RISCO</span> R$ 2M em ruptura operacional. 74 produtos, grande volume.</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td><strong>AMITEC INDÚSTRIA</strong></td>
+          <td class="num">2</td>
+          <td class="num">R$ 606.977</td>
+          <td class="num">47,2%</td>
+          <td class="num">212</td>
+          <td class="num">44</td>
+          <td><span class="tag warn">ALERTA</span> Só 2 produtos geram R$ 607K de ruptura. Alta concentração de risco.</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td><strong>A.W. ROSSI CIA LTDA</strong></td>
+          <td class="num">6</td>
+          <td class="num">R$ 183.921</td>
+          <td class="num">41,2%</td>
+          <td class="num">34.507</td>
+          <td class="num">4.633</td>
+          <td><span class="tag critical">ALTA TAREFA</span> 34K+ tarefas mas 41% de ruptura. Execução ineficiente.</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td><strong>GREEN GÍRIO LTDA</strong></td>
+          <td class="num">3</td>
+          <td class="num">R$ 148.885</td>
+          <td class="num">39,4%</td>
+          <td class="num">322</td>
+          <td class="num">81</td>
+          <td><span class="tag warn">ALERTA</span> 39% de ruptura operacional, 3 produtos críticos.</td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td><strong>FARMET ILMENAL LTDA</strong></td>
+          <td class="num">14</td>
+          <td class="num">R$ 130.718</td>
+          <td class="num">37,3%</td>
+          <td class="num">4.843</td>
+          <td class="num">696</td>
+          <td><span class="tag warn">EXECUTIVO</span> Alta tarefa (4.8K) mas ruptura ainda alta. Promotores não resolvem.</td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td><strong>4 ELOS DISTRIBUIDORA</strong></td>
+          <td class="num">102</td>
+          <td class="num">R$ 1.415.045</td>
+          <td class="num">33,8%</td>
+          <td class="num">291.186</td>
+          <td class="num">43.885</td>
+          <td><span class="tag critical">VOLUME CRÍTICO</span> R$ 1,4M de ruptura, 291K tarefas. Problema sistêmico.</td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td><strong>BELLA SUÍÇA ALIMENTOS</strong></td>
+          <td class="num">23</td>
+          <td class="num">R$ 360.711</td>
+          <td class="num">32,9%</td>
+          <td class="num">103.887</td>
+          <td class="num">15.725</td>
+          <td><span class="tag critical">PROBLEMA ALTO</span> 15K+ problemas reportados. Falha no processo.</td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td><strong>AMREX PROD. QUÍMICOS</strong></td>
+          <td class="num">6</td>
+          <td class="num">R$ 35.432</td>
+          <td class="num">32,1%</td>
+          <td class="num">527</td>
+          <td class="num">145</td>
+          <td><span class="tag warn">ALERTA</span> 6 produtos com 32% de ruptura operacional alta.</td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td><strong>BABY 1 IMPORTAÇÃO</strong></td>
+          <td class="num">3</td>
+          <td class="num">R$ 165.813</td>
+          <td class="num">32,0%</td>
+          <td class="num">11.337</td>
+          <td class="num">1.425</td>
+          <td><span class="tag warn">EXECUTIVO</span> Alta tarefa mas ruptura alta. Promotores não resolvem.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:24px;"><a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185/ReportSection168c5aa009e812003466" target="_blank">📊 Ver aba "Ranking de Fornecedores" no Power BI →</a></p>
+  </div>
+</div>
+
+
+<!-- RUPTURA COMERCIAL -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>📦 Ruptura Comercial — Top 10 Críticos</h2>
+    <span class="badge red">PROBLEMA DE ESTOQUE</span>
+  </div>
+  <div class="sec-b">
+    <div class="alert orange">
+      <strong>💡 Diferença entre Rupturas:</strong><br>
+      • <strong>Ruptura Comercial:</strong> Produto não tem estoque no CD (problema do fornecedor/rede)<br>
+      • <strong>Ruptura Administrativa:</strong> Problemas reportados em campo (cadastro, preço, etc.)<br>
+      • <strong>Ruptura Operacional:</strong> Produto tem estoque no CD mas não está na gôndola (problema de reposição)
+    </div>
+
+    <p style="margin:20px 0 16px;"><strong>Top 10 Piores por Ruptura Comercial (R$):</strong></p>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Fornecedor</th>
+          <th>Rupt. Com. (R$)</th>
+          <th>% Rupt. Com.</th>
+          <th>Diagnose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td><strong>ALIANÇA ATACADISTA</strong></td>
+          <td class="num">R$ 559.943</td>
+          <td class="num">10,5%</td>
+          <td>Alto volume de ruptura comercial</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td><strong>AMERICANA DISTRIBUIDORA</strong></td>
+          <td class="num">R$ 582.740</td>
+          <td class="num">9,8%</td>
+          <td>Alto volume de ruptura comercial</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td><strong>ADEGA ALENTEJANA</strong></td>
+          <td class="num">R$ 236.883</td>
+          <td class="num">22,0%</td>
+          <td><span class="tag warn">ALTA %</span> Problema de estoque/fornecedor</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td><strong>AMITEC INDÚSTRIA</strong></td>
+          <td class="num">R$ 97.818</td>
+          <td class="num">7,6%</td>
+          <td>Ruptura comercial relevante</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td><strong>ALBEMA DISTRIBUIDORA</strong></td>
+          <td class="num">R$ 108.733</td>
+          <td class="num">31,8%</td>
+          <td><span class="tag critical">CRÍTICO</span> 31,8% sem estoque em 1/3 dos produtos</td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td><strong>GBS SPARCID</strong></td>
+          <td class="num">R$ 80.095</td>
+          <td class="num">65,9%</td>
+          <td><span class="tag critical">CRÍTICO</span> 65,9% — estoque ausente na maioria dos produtos</td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td><strong>ASSOC. OBRAS SOCIAIS</strong></td>
+          <td class="num">R$ 317</td>
+          <td class="num">28,9%</td>
+          <td><span class="tag warn">ALTA %</span> Pequena operação mas alta %</td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td><strong>BRI IMPORT</strong></td>
+          <td class="num">R$ 1.905</td>
+          <td class="num">3,1%</td>
+          <td>Baixo impacto</td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td><strong>AMREX PRODUTOS</strong></td>
+          <td class="num">R$ 17.424</td>
+          <td class="num">31,3%</td>
+          <td><span class="tag warn">ALTA %</span> Ruptura comercial alta</td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td><strong>GBS PERDIGÃO</strong></td>
+          <td class="num">R$ 49.669</td>
+          <td class="num">22,6%</td>
+          <td><span class="tag warn">ALTA %</span> Ruptura comercial alta</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ANÁLISE CRUZADA -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>🔍 Análise Cruzada — Ruptura Comercial vs Administrativa vs Operacional</h2>
+    <span class="badge">DIAGNÓSTICO COMPLETO</span>
+  </div>
+  <div class="sec-b">
+    <p style="margin-bottom:16px;"><strong>Esta análise identifica o tipo de problema por fornecedor:</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Fornecedor</th>
+          <th>Rupt. Com.</th>
+          <th>% Com.</th>
+          <th>Rupt. Adm.</th>
+          <th>% Adm.</th>
+          <th>Rupt. Oper.</th>
+          <th>% Oper.</th>
+          <th>Diagnose</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>AMERECAM BEV</strong></td>
+          <td class="num">R$ 123.937</td>
+          <td class="num">1,6%</td>
+          <td class="num">R$ 268.266</td>
+          <td class="num">3,5%</td>
+          <td class="num">R$ 466.530</td>
+          <td class="num">6,1%</td>
+          <td><span class="tag warn">MAIOR RUPT. ADM</span> Problemas reportados em campo. Operacional mais baixo.</td>
+        </tr>
+        <tr>
+          <td><strong>AMERICAN BEV</strong></td>
+          <td class="num">R$ 83.579</td>
+          <td class="num">1,4%</td>
+          <td class="num">R$ 33.449</td>
+          <td class="num">0,6%</td>
+          <td class="num">R$ 488.365</td>
+          <td class="num">8,3%</td>
+          <td>Ruptura operacional dominante — problemas de execução em loja.</td>
+        </tr>
+        <tr>
+          <td><strong>AMAROMI ALIMENTO</strong></td>
+          <td class="num">R$ 38.822</td>
+          <td class="num">10,0%</td>
+          <td class="num">R$ 4.293</td>
+          <td class="num">1,1%</td>
+          <td class="num">R$ 114.528</td>
+          <td class="num">29,6%</td>
+          <td><span class="tag warn">DUPLA PREOCUPAÇÃO</span> Alta comercial + operacional.</td>
+        </tr>
+        <tr>
+          <td><strong>AMREX PRODS COSMÉTICOS</strong></td>
+          <td class="num">R$ 17.424</td>
+          <td class="num">31,3%</td>
+          <td class="num">R$ 19.744</td>
+          <td class="num">35,4%</td>
+          <td class="num">R$ 35.432</td>
+          <td class="num">32,1%</td>
+          <td><span class="tag critical">PIOR PERFORMANCE</span> TODOS OS ÍNDICES ALTOS</td>
+        </tr>
+        <tr>
+          <td><strong>AFINIDADE DISTRIBUIDORA</strong></td>
+          <td class="num">R$ 270.041</td>
+          <td class="num">6,2%</td>
+          <td class="num">R$ 3.209</td>
+          <td class="num">0,1%</td>
+          <td class="num">R$ 2.080.394</td>
+          <td class="num">48,1%</td>
+          <td><span class="tag critical">RUPTURA OPERACIONAL ALTÍSSIMA</span> Baixa administrativa indica problema de reposição.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert green" style="margin-top:20px;">
+      <strong>✅ Como interpretar:</strong><br>
+      • <strong>Alta Comercial + Baixa Operacional:</strong> Problema de estoque do fornecedor/rede<br>
+      • <strong>Baixa Comercial + Alta Operacional:</strong> Problema de execução em loja (falta promotor ou reposição ineficiente)<br>
+      • <strong>Alta Administrativa:</strong> Problemas de cadastro, preço, ou outros reportados em campo<br>
+      • <strong>Todos altos:</strong> Problema sistêmico que requer ação em múltiplas frentes
+    </div>
+  </div>
+</div>
+
+<!-- EXPLORAÇÃO FORNECEDOR -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>🔎 Exploração Fornecedor — Análise de Produtos</h2>
+    <span class="badge">DRILL-DOWN</span>
+  </div>
+  <div class="sec-b">
+    <p style="margin-bottom:16px;"><strong>Esta aba permite análise detalhada por produto individual:</strong></p>
+
+    <div class="kgrid">
+      <div class="kpi tooltip">
+        <div class="kl">Produtos (Total)</div>
+        <div class="kv" style="color:var(--orange);">10.599</div>
+        <div class="ks">No período</div>
+        <span class="tooltiptext">Total de produtos únicos monitorados no período de análise.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#C00000">
+        <div class="kl">Produto sem Venda</div>
+        <div class="kv" style="color:#C00000;">—</div>
+        <div class="ks">Alerta vermelho</div>
+        <span class="tooltiptext">Produtos cadastrados mas sem nenhuma venda no período. Indica problema de exposição ou descontinuação.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#FFC107">
+        <div class="kl">Produto com Estoque sem Venda</div>
+        <div class="kv" style="color:#FFC107;">—</div>
+        <div class="ks">Problema de reposição</div>
+        <span class="tooltiptext">Produtos com estoque no CD mas sem venda. Indica falha de reposição em loja ou problema de exposição.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#C00000">
+        <div class="kl">Produto sem Estoque</div>
+        <div class="kv" style="color:#C00000;">—</div>
+        <div class="ks">Ruptura comercial</div>
+        <span class="tooltiptext">Produtos sem estoque no CD. Problema do fornecedor ou da rede.</span>
+      </div>
+      <div class="kpi tooltip" style="border-top-color:#C00000">
+        <div class="kl">Sem Venda (2 meses)</div>
+        <div class="kv" style="color:#C00000;">—</div>
+        <div class="ks">Crítico</div>
+        <span class="tooltiptext">Produtos sem venda nos últimos 2 meses. Requer ação imediata: descontinuar ou investigar problema de exposição.</span>
+      </div>
+    </div>
+
+    <div class="alert orange" style="margin-top:20px;">
+      <strong>💡 Tendência de Vendas:</strong> A aba mostra evolução M-3 → M-2 → M-1 para identificar se o desempenho está melhorando ou piorando. Produtos com tendência negativa em 2 meses consecutivos requerem atenção.
+    </div>
+
+    <p style="margin-top:20px;"><a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185/ReportSection8e2d81d620bb350d367d" target="_blank">📊 Ver aba "Exploração Fornecedor" no Power BI →</a></p>
+  </div>
+</div>
+
+<!-- RODAPÉ -->
+<div class="sec">
+  <div class="sec-h">
+    <h2>📚 Estrutura Completa do Relatório</h2>
+    <span class="badge">21 ABAS</span>
+  </div>
+  <div class="sec-b">
+    <p style="margin-bottom:16px;"><strong>O relatório está organizado em 5 pilares analíticos:</strong></p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Pilar</th>
+          <th>Abas</th>
+          <th>Pergunta que Responde</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Governança</strong></td>
+          <td>Sobre o relatório, Definições de Métricas</td>
+          <td>Posso confiar neste dado hoje?</td>
+        </tr>
+        <tr>
+          <td><strong>Performance Geral</strong></td>
+          <td>Resumo, Análise Geral</td>
+          <td>Como estamos performando?</td>
+        </tr>
+        <tr>
+          <td><strong>Fornecedor</strong></td>
+          <td>Ranking Fornecedores, Exploração Fornecedor, Detalhe Produto, Ruptura Comercial, Ruptura Operacional</td>
+          <td>Quais fornecedores estão comprometidos?</td>
+        </tr>
+        <tr>
+          <td><strong>Loja</strong></td>
+          <td>Exploração Loja, Exploração Horas Ideais, Giro Lojas</td>
+          <td>Quais lojas estão em risco?</td>
+        </tr>
+        <tr>
+          <td><strong>Execução de Campo</strong></td>
+          <td>Performance Promotor (5 abas), Gestão de Projetos (3 abas), Horas por SKU</td>
+          <td>Nossa operação está no controle?</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top:24px;padding:20px;background:#FAFAFA;border:1px solid var(--border);border-radius:8px;">
+      <p style="font-size:10pt;color:var(--text2);line-height:1.6;">
+        <strong>Fonte de dados:</strong> Power BI "Gestão de Performance" (Mob2Con)<br>
+        <strong>Período:</strong> 01/04/2024 a 13/05/2026<br>
+        <strong>Atualização:</strong> 14/05/2026 (D-1)<br>
+        <strong>Fontes:</strong> MobControl, MobConnect, Integração da Rede<br>
+        <strong>Link:</strong> <a href="https://app.powerbi.com/groups/2789e1a4-72d4-469b-aee1-0c1d0c43abad/reports/9f999e20-01a6-4e47-bba0-bd9017866185" target="_blank">Acessar Power BI →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,22 @@
+expression 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos' =
+		let
+		    Source = AnalysisServices.Database("powerbi://api.powerbi.com/v1.0/myorg/Datasets%20-%20RG%202.0", "Base Indicadores RG 2.0 - Projetos"),
+		    Cubes = Table.Combine(Source[Data]),
+		    Cube = Cubes{[Id="Model", Kind="Cube"]}[Data]
+		in
+		    Cube
+	lineageTag: 3c9c7796-a6b8-45d4-9354-2f1721b8412b
+
+	annotation PBI_IncludeFutureArtifacts = True
+
+expression 'DirectQuery para AS – Lista Target' =
+		let
+		    Source = AnalysisServices.Database("powerbi://api.powerbi.com/v1.0/myorg/Gest%C3%A3o%20RG%202.0", "Lista Target"),
+		    Cubes = Table.Combine(Source[Data]),
+		    Cube = Cubes{[Id="Model", Kind="Cube"]}[Data]
+		in
+		    Cube
+	lineageTag: 82645471-4259-4580-991c-21f60cb3bb47
+
+	annotation PBI_IncludeFutureArtifacts = True
+

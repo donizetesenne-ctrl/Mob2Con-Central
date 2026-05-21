@@ -1,0 +1,2492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Analítico RG 2.0 — Dashboard Mob2Con</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/highcharts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/highcharts@12.1.2/modules/accessibility.js"></script>
+<style>
+:root{
+  --orange:#F46901; --orange-dark:#D85901; --orange-light:#FFE5CC; --orange-soft:#FFF0E0;
+  --graphite:#434343; --black:#111111;
+  --blue-mc:#4285F4;
+  --purple:#6F05D4;
+  --green:#107C41; --red:#C00000; --warn:#FFC107;
+  --bg:#FFFFFF; --bg-soft:#FAFAFA; --bg-card:#FFFFFF;
+  --gray-100:#EEEEEE; --gray-200:#E0E0E0; --gray-300:#CCCCCC;
+  --gray-500:#595959; --gray-700:#434343;
+  --border:#E0E0E0; --border-soft:#EEEEEE;
+  --row-alt:#FFFAF5; --row-total:#FFF0E0;
+  --text:#111111; --text2:#595959; --text3:#9E9E9E;
+  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-5:40px; --sp-6:48px;
+  --r-sm:4px; --r-md:6px; --r:8px; --r-lg:12px;
+  --shadow:0 1px 3px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-md:0 2px 6px rgba(17,17,17,0.10);
+  --shadow-hover:0 4px 12px rgba(244,105,1,0.18);
+  --f:'Inter','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg-soft);color:var(--text);font-family:var(--f);font-size:13px;line-height:1.5;-webkit-font-smoothing:antialiased;}
+
+h1,.h1{font-family:var(--f);font-weight:800;font-size:20px;color:var(--black);letter-spacing:-0.3px;}
+h2,.h2{font-family:var(--f);font-weight:700;font-size:18px;color:var(--black);}
+h3,.h3{font-family:var(--f);font-weight:600;font-size:15px;color:var(--graphite);}
+h4,.h4{font-family:var(--f);font-weight:600;font-size:13px;color:var(--graphite);}
+
+.hdr{background:#fff;border-bottom:3px solid var(--orange);padding:16px 28px;display:flex;align-items:center;gap:14px;box-shadow:var(--shadow);}
+.logo{width:42px;height:42px;background:linear-gradient(135deg,var(--orange) 0%,var(--orange-dark) 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;color:#fff;flex-shrink:0;}
+.hdr-info h1{font-size:18px;font-weight:800;color:var(--black);}
+.hdr-info h1 span{color:var(--orange);}
+.hdr-info p{font-size:12px;font-weight:400;color:var(--text2);margin-top:3px;}
+.hdr-pills{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+.pill{background:var(--orange-soft);border:1px solid rgba(244,105,1,0.25);border-radius:20px;padding:4px 10px;font-size:10px;color:var(--orange-dark);font-weight:600;letter-spacing:0.2px;}
+.pill.green{background:#E8F5EC;border-color:rgba(16,124,65,0.25);color:var(--green);}
+
+.filters{background:#fff;border-bottom:1px solid var(--border);padding:12px 28px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;}
+.filter-grp{display:flex;align-items:center;gap:8px;}
+.filter-grp label{font-size:10px;font-weight:600;color:var(--graphite);text-transform:uppercase;letter-spacing:0.5px;}
+.filter-grp select{font-family:var(--f);font-size:12px;font-weight:500;padding:6px 10px;border:1.5px solid var(--border);border-radius:var(--r-md);background:#fff;color:var(--text);min-width:180px;cursor:pointer;transition:border-color 0.15s;}
+.filter-grp select:hover{border-color:var(--orange);}
+.filter-grp select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(244,105,1,0.1);}
+.filter-info{font-size:12px;color:var(--text2);}
+.filter-info strong{color:var(--orange-dark);font-weight:600;}
+.filter-clear{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-md);padding:6px 12px;cursor:pointer;font-family:var(--f);font-size:12px;font-weight:500;color:var(--text2);transition:all 0.15s;}
+.filter-clear:hover{background:var(--orange-soft);border-color:var(--orange);color:var(--orange-dark);}
+
+.tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 28px;display:flex;gap:2px;overflow-x:auto;}
+.tb{background:none;border:none;color:var(--text2);padding:12px 16px;cursor:pointer;font-size:13px;font-family:var(--f);font-weight:600;border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.15s;}
+.tb:hover{color:var(--orange);background:var(--orange-soft);}
+.tb.active{color:var(--orange-dark);border-bottom-color:var(--orange);background:#fff;}
+
+.content{display:none;padding:20px 28px 36px;max-width:1500px;margin:0 auto;}
+.content.active{display:block;}
+
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:20px;}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;border-top:4px solid var(--orange);box-shadow:var(--shadow);transition:all 0.2s;}
+.kpi:hover{box-shadow:var(--shadow-hover);transform:translateY(-1px);}
+.kpi .kl{font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:0.4px;margin-bottom:6px;font-weight:600;display:flex;align-items:center;justify-content:space-between;}
+.kpi .kv{font-size:24px;font-weight:800;letter-spacing:-0.5px;line-height:1.2;color:var(--black);}
+.kpi .ks{font-size:11px;color:var(--text3);margin-top:4px;font-weight:400;}
+.kpi .kb{font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;display:inline-block;margin-top:6px;}
+.up{background:#E8F5EC;color:var(--green);}
+.down{background:#FCE8E8;color:var(--red);}
+.warn{background:var(--orange-soft);color:var(--orange-dark);}
+.flat{background:var(--gray-100);color:var(--text2);}
+
+.sec{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:18px;overflow:hidden;box-shadow:var(--shadow);}
+.sec-h{background:#FAFAFA;padding:12px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.sec-h h3{font-size:14px;font-weight:600;color:var(--graphite);flex:1;}
+.badge{background:var(--orange-soft);color:var(--orange-dark);border:1px solid rgba(244,105,1,0.3);border-radius:12px;padding:3px 10px;font-size:10px;font-weight:600;}
+.badge.g{background:#E8F5EC;color:var(--green);border-color:rgba(16,124,65,0.3);}
+.badge.r{background:#FCE8E8;color:var(--red);border-color:rgba(192,0,0,0.3);}
+.badge.b{background:#E8F1FE;color:var(--blue-mc);border-color:rgba(66,133,244,0.3);}
+.sec-b{padding:18px;}
+
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px;}
+.charts-row.three{grid-template-columns:repeat(3,1fr);}
+.chart-box{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:16px;box-shadow:var(--shadow);}
+.chart-title{font-size:13px;font-weight:600;margin-bottom:10px;color:var(--graphite);}
+
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th{background:var(--orange);color:#fff;text-align:left;padding:10px 12px;font-size:10px;text-transform:uppercase;letter-spacing:0.4px;font-weight:600;}
+td{padding:9px 12px;border-bottom:1px solid var(--border-soft);vertical-align:middle;color:var(--text);}
+tbody tr:nth-child(even) td{background:var(--row-alt);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(244,105,1,0.05);}
+tfoot td{background:var(--row-total) !important;font-weight:700;color:var(--graphite);border-top:2px solid var(--orange);}
+.num{font-weight:600;font-variant-numeric:tabular-nums;color:var(--black);}
+.tag{display:inline-block;border-radius:4px;padding:2px 7px;font-size:10px;font-weight:600;}
+.tr-bad{background:#FCE8E8;color:var(--red);}
+.tg{background:#E8F5EC;color:var(--green);}
+.to{background:var(--orange-soft);color:var(--orange-dark);}
+.ty{background:#FFF8D1;color:#8A6D00;}
+
+.pgw{background:var(--gray-100);border-radius:4px;height:6px;overflow:hidden;margin-top:4px;}
+.pgb{height:100%;border-radius:4px;transition:width 1s ease;}
+
+.alert-box{border-radius:var(--r);padding:11px 16px;margin-bottom:8px;border-left:4px solid;font-size:12px;background:#FAFAFA;}
+.alert-box strong{font-weight:600;color:var(--black);}
+.a-red{background:#FCE8E8;border-color:var(--red);}
+.a-orange{background:var(--orange-soft);border-color:var(--orange);}
+.a-green{background:#E8F5EC;border-color:var(--green);}
+
+/* TOOLTIPS — Sistema melhorado com dados Power BI */
+.tooltip-wrapper{position:relative;display:inline-block;margin-left:6px;}
+.tooltip-icon{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;background:var(--orange-soft);color:var(--orange-dark);font-size:10px;font-weight:700;cursor:help;border:1.5px solid rgba(244,105,1,0.3);transition:all 0.2s;}
+.tooltip-icon:hover{background:var(--orange);color:#fff;transform:scale(1.1);}
+.tooltip-content{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%);background:#fff;border:1.5px solid var(--orange);border-radius:var(--r-lg);padding:14px 16px;min-width:300px;max-width:380px;box-shadow:0 4px 16px rgba(17,17,17,0.15);z-index:1000;opacity:0;visibility:hidden;transition:all 0.2s;pointer-events:none;}
+.tooltip-content::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:var(--orange);}
+.tooltip-wrapper:hover .tooltip-content{opacity:1;visibility:visible;bottom:calc(100% + 12px);}
+.tooltip-content h4{font-size:12px;font-weight:700;color:var(--orange-dark);margin-bottom:6px;}
+.tooltip-content p{font-size:11px;color:var(--text);line-height:1.5;margin-bottom:5px;}
+.tooltip-content p:last-child{margin-bottom:0;}
+.tooltip-content strong{color:var(--black);font-weight:600;}
+.tooltip-content .tip-metric{display:flex;justify-content:space-between;padding:4px 0;border-bottom:1px solid var(--border-soft);font-size:11px;}
+.tooltip-content .tip-metric:last-child{border-bottom:none;}
+.tooltip-content .tip-metric .tip-label{color:var(--text2);}
+.tooltip-content .tip-metric .tip-value{font-weight:700;color:var(--black);}
+.tooltip-content .tip-source{margin-top:8px;padding-top:8px;border-top:1px solid var(--border);font-size:10px;color:var(--text3);font-style:italic;}
+
+@media(max-width:1100px){.charts-row.three{grid-template-columns:1fr 1fr;}}
+@media(max-width:900px){.charts-row,.charts-row.three{grid-template-columns:1fr;}.kgrid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.hdr{flex-wrap:wrap;}.hdr-pills{margin-left:0;}.kgrid{grid-template-columns:1fr;}}
+
+/* Loading skeleton */
+.loading-pulse{animation:pulse 1.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.kpi-loading .kv{background:#EEE;border-radius:4px;color:transparent;animation:pulse 1.4s ease-in-out infinite}
+
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">M</div>
+  <div class="hdr-info">
+    <h1>Analítico RG 2.0 — <span>Mob2Con</span></h1>
+    <p id="hdr-periodo">Carregando...</p>
+  </div>
+  <div class="hdr-pills">
+    <span class="pill green">Tema branco Mob2Con</span>
+    <span class="pill green">Filtro Rede 2.0</span>
+    <span class="pill green">Filtro por Unidade</span>
+    <span class="pill" id="pill-redes">7 redes</span>
+    <span class="pill green" id="pill-updated" style="display:none"></span>
+    <button class="pill" id="btn-refresh" onclick="forceRefresh()" style="cursor:pointer;border:none;font-family:var(--f);transition:all 0.2s" onmouseover="this.style.background='var(--orange)';this.style.color='#fff'" onmouseout="this.style.background='';this.style.color=''">🔄 Atualizar</button>
+    <button class="pill" onclick="toggleDebugConsole()" style="cursor:pointer;border:none;font-family:var(--f);background:#E8F1FE;color:#4285F4;border:1px solid rgba(66,133,244,0.3)">🔍 Debug</button>
+  </div>
+</div>
+
+<div class="filters">
+  <div class="filter-grp">
+    <label>Rede</label>
+    <select id="f-rede" onchange="onFilterChange()">
+      <option value="ALL">Todas as redes (Rede 2.0)</option>
+    </select>
+  </div>
+  <div class="filter-grp">
+    <label>Unidade</label>
+    <select id="f-unidade" onchange="onFilterChange()">
+      <option value="ALL">Todas as unidades</option>
+    </select>
+  </div>
+  <div class="filter-info" id="filter-info">Exibindo: <strong>todas as 7 redes da Rede 2.0</strong></div>
+  <button type="button" class="filter-clear" onclick="clearFilters()">Limpar filtros</button>
+</div>
+
+<div class="tabs">
+  <button type="button" class="tb" onclick="sw('ceo',this)" style="background:linear-gradient(135deg,#111 0%,#434343 100%);color:#fff;border-radius:6px;margin-right:4px;">🧠 Análise Crítica</button>
+  <button type="button" class="tb active" onclick="sw('overview',this)">Visão Geral</button>
+  <button type="button" class="tb" onclick="sw('vendas',this)">Vendas</button>
+  <button type="button" class="tb" onclick="sw('ruptura',this)">Ruptura</button>
+  <button type="button" class="tb" onclick="sw('operacional',this)">Operacional</button>
+  <button type="button" class="tb" onclick="sw('fornec',this)">Fornecedores</button>
+  <button type="button" class="tb" onclick="sw('redes',this)">Redes</button>
+  <button type="button" class="tb" onclick="sw('promotores',this)">👥 Promotores</button>
+  <button type="button" class="tb" onclick="sw('contratos',this)">📋 Contratos</button>
+  <button type="button" class="tb" onclick="sw('documentacao',this)">📄 Documentação</button>
+</div>
+
+<div id="tab-overview" class="content active">
+  <div class="kgrid" id="kg-overview"></div>
+  <div class="charts-row">
+    <div class="chart-box"><div class="chart-title">Evolução de Vendas (M-3 → M-1) — Rede 2.0</div><div id="c-vendas-evol" style="height:240px;"></div></div>
+    <div class="chart-box"><div class="chart-title">Visitas e Horas — Rede 2.0</div><div id="c-oper-evol" style="height:240px;"></div></div>
+  </div>
+  <div class="sec">
+    <div class="sec-h"><h3>Alertas Críticos da seleção</h3><span class="badge r" id="badge-alertas">—</span></div>
+    <div class="sec-b" id="alerts-box"></div>
+  </div>
+</div>
+
+<div id="tab-vendas" class="content">
+  <div class="kgrid" id="kg-vendas"></div>
+  <div class="sec">
+    <div class="sec-h"><h3>Tendência 3 meses — todas as redes</h3><span class="badge g">Comparativo M-3 / M-2 / M-1</span></div>
+    <div class="sec-b"><div id="c-vendas-trend-multi" style="height:340px;"></div></div>
+  </div>
+  <div class="sec">
+    <div class="sec-h"><h3>Vendas por Unidade da rede selecionada</h3><span class="badge" id="badge-vendas-unid">—</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>#</th><th>Unidade</th><th>Rede</th><th>Venda M-1</th><th>Venda M-2</th><th>Var %</th><th>% da Rede</th></tr></thead>
+        <tbody id="tb-vendas-unid"></tbody>
+        <tfoot><tr id="tf-vendas-unid"></tr></tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="tab-ruptura" class="content">
+  <div class="kgrid" id="kg-ruptura"></div>
+  <div class="sec">
+    <div class="sec-h"><h3>Ruptura por Rede (Comercial e Operacional)</h3><span class="badge r">Análise por rede</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>Rede</th><th>Ruptura Com.</th><th>% Rupt. Com.</th><th>Ruptura Op.</th><th>Venda M-1</th><th>% / Venda</th><th>Status</th></tr></thead>
+        <tbody id="tb-rupt-rede"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h"><h3>Ruptura por Unidade — % por unidade</h3><span class="badge" id="badge-rupt-unid">—</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>#</th><th>Unidade</th><th>Rede</th><th>Ruptura Com.</th><th>Venda M-1</th><th>% Rupt.</th><th>Status</th></tr></thead>
+        <tbody id="tb-rupt-unid"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="tab-operacional" class="content">
+  <div class="kgrid" id="kg-oper"></div>
+  <div class="sec">
+    <div class="sec-h"><h3>Performance Operacional por Fornecedor</h3><span class="badge">Hr realizadas + Efetividade</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>#</th><th>Fornecedor</th><th>Rede</th><th>Hrs Reais</th><th>Hrs Ideais</th><th>Efetiv.</th><th>Visitas</th><th>Status</th></tr></thead>
+        <tbody id="tb-oper-fornec"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div id="tab-fornec" class="content">
+  <div class="kgrid" id="kg-fornec"></div>
+  <div class="sec">
+    <div class="sec-h"><h3>Top 10 Fornecedores por Rede — venda M-1 por unidade</h3><span class="badge">Dados por unidade</span></div>
+    <div class="sec-b" id="top10-blocks"></div>
+  </div>
+</div>
+
+<div id="tab-redes" class="content">
+  <div class="sec">
+    <div class="sec-h"><h3 id="h3-redes-periodo">Performance por Rede</h3><span class="badge" id="badge-redes">7 redes da Rede 2.0</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>Rede</th><th>Venda M-1</th><th>Var MoM</th><th>Rupt. Com.</th><th>% Rupt.</th><th>Hrs Reais</th><th>Efetiv.</th><th>Lojas</th></tr></thead>
+        <tbody id="tb-redes"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="charts-row">
+    <div class="chart-box"><div class="chart-title">Venda M-1 por Rede</div><div id="c-redes-venda" style="height:300px;"></div></div>
+    <div class="chart-box"><div class="chart-title">Ruptura % por Rede</div><div id="c-redes-rupt" style="height:300px;"></div></div>
+  </div>
+</div>
+
+<script>
+// =========================================================
+// PERÍODO DINÂMICO — calculado automaticamente
+// =========================================================
+(function(){
+  const hoje = new Date();
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  function mesLabel(offset){
+    const d = new Date(hoje.getFullYear(), hoje.getMonth() + offset, 1);
+    return meses[d.getMonth()] + '/' + d.getFullYear();
+  }
+  window.PERIODO = {
+    m1Label: mesLabel(-1),
+    m2Label: mesLabel(-2),
+    m3Label: mesLabel(-3),
+    atual:   mesLabel(0),
+    atualizadoEm: new Date().toLocaleString('pt-BR', {
+      day:'2-digit', month:'2-digit', year:'numeric',
+      hour:'2-digit', minute:'2-digit'
+    })
+  };
+  document.addEventListener('DOMContentLoaded', function(){
+    const h3 = document.getElementById('h3-redes-periodo');
+    if(h3) h3.textContent = 'Performance por Rede — ' + PERIODO.m1Label;
+    // 🔄 Dashboard funcionando com dados hardcoded
+    // Para ativar dados ao vivo, descomente a linha abaixo e configure o Apps Script
+    // inicializarDashboard();
+  });
+})();
+
+// =========================================================
+// DADOS — Rede 2.0 (7 redes)
+// =========================================================
+const REDES_20 = [
+  { id:'COOPNOVA',     nome:'COOPNOVA',           modelKey:'COOP',       tbBase:'tb_base_COOP' },
+  { id:'NOVAERA',      nome:'NOVA ERA',           modelKey:'NOVAERA',    tbBase:'tb_base_NOVAERA' },
+  { id:'BIGBOX',       nome:'BIGBOX',             modelKey:'BIGBOX',     tbBase:'tb_base_BIGBOX' },
+  { id:'NORDESTAO',    nome:'NORDESTÃO',          modelKey:'NORDESTAO',  tbBase:'tb_base_NORDESTAO' },
+  { id:'CENCOSUD',     nome:'GRUPO CENCOSUD',     modelKey:'CENCOSUD',   tbBase:null },
+  { id:'INATIVOS',     nome:'INATIVOS',           modelKey:'INATIVOS',   tbBase:null },
+  { id:'MERCADINHO',   nome:'MERCADINHO SÃO LUIZ',modelKey:'MERCADINHO_SAO_LUIZ', tbBase:null }
+];
+
+const DATA_REDES = {
+  COOPNOVA:   { vendaM1: 1850000,  vendaM2: 1720000,  vendaM3: 1620000,  ruptComM1: 142000,  ruptOpM1: 980000,   horasReais: 18450, horasIdeais: 24600, visitasReal: 3120, visitasPlan: 4250, lojas: 14, lojasComVenda: 14 },
+  NOVAERA:    { vendaM1: 712887,   vendaM2: 668000,   vendaM3: 590000,   ruptComM1: 2432337, ruptOpM1: 1850000,  horasReais: 35786, horasIdeais: 64550, visitasReal: 1890, visitasPlan: 3415, lojas: 28, lojasComVenda: 28 },
+  BIGBOX:     { vendaM1: 4843078,  vendaM2: 4576000,  vendaM3: 4180000,  ruptComM1: 9711127, ruptOpM1: 8420000,  horasReais: 5450,  horasIdeais: 8635,  visitasReal: 2168, visitasPlan: 3438, lojas: 34, lojasComVenda: 34 },
+  NORDESTAO:  { vendaM1: 9916965,  vendaM2: 9320000,  vendaM3: 8580000,  ruptComM1: 13022121,ruptOpM1: 11200000, horasReais: 80220, horasIdeais: 103510,visitasReal: 12480,visitasPlan: 16100,lojas: 20, lojasComVenda: 20 },
+  CENCOSUD:   { vendaM1: 3420000,  vendaM2: 3215000,  vendaM3: 2980000,  ruptComM1: 245000,  ruptOpM1: 1820000,  horasReais: 12480, horasIdeais: 17920, visitasReal: 2840, visitasPlan: 4080, lojas: 18, lojasComVenda: 17 },
+  INATIVOS:   { vendaM1: 0,        vendaM2: 0,        vendaM3: 0,        ruptComM1: 0,       ruptOpM1: 0,        horasReais: 0,     horasIdeais: 0,     visitasReal: 0,    visitasPlan: 0,    lojas: 12, lojasComVenda: 0 },
+  MERCADINHO: { vendaM1: 1480000,  vendaM2: 1395000,  vendaM3: 1280000,  ruptComM1: 91000,   ruptOpM1: 540000,   horasReais: 9850,  horasIdeais: 13420, visitasReal: 1890, visitasPlan: 2580, lojas: 11, lojasComVenda: 11 }
+};
+
+// =========================================================
+// DADOS GESTÃO PERFORMANCE — 6 redes com confiabilidade
+// =========================================================
+const DATA_GESTAO_PERFORMANCE = {
+  GBARBOSA:   { confiabilidade: 0.94, vendaM1: 8500000,  ruptComM1: 520000,  ruptOpM1: 2280000,  horasProj: 42500, horasReal: 31580, lojas: 24 },
+  NORDESTAO:  { confiabilidade: 0.81, vendaM1: 9916965,  ruptComM1: 13022121,ruptOpM1: 11200000, horasProj: 103510,horasReal: 80220, lojas: 20 },
+  NOVAERA:    { confiabilidade: 1.00, vendaM1: 712887,   ruptComM1: 2432337, ruptOpM1: 1850000,  horasProj: 64550, horasReal: 35786, lojas: 28 },
+  PREZUNIC:   { confiabilidade: 0.94, vendaM1: 6200000,  ruptComM1: 380000,  ruptOpM1: 1670000,  horasProj: 38200, horasReal: 28450, lojas: 18 },
+  BIGBOX:     { confiabilidade: 0.94, vendaM1: 4843078,  ruptComM1: 9711127, ruptOpM1: 8420000,  horasProj: 8635,  horasReal: 5450,  lojas: 34 },
+  PAGUEMENOS: { confiabilidade: 0.00, vendaM1: 0,        ruptComM1: 0,       ruptOpM1: 0,        horasProj: 0,     horasReal: 0,     lojas: 0 }
+};
+
+// Top 10 Fornecedores por Ruptura Operacional (Gestão Performance)
+const TOP10_FORNEC_RUPT_OP = [
+  { rank: 1,  nome: 'L.C. VITALLI',                ruptOp: 0.775, pctTotal: 0.182 },
+  { rank: 2,  nome: 'AFINIDADE DISTRIBUIDORA',     ruptOp: 0.481, pctTotal: 0.113 },
+  { rank: 3,  nome: 'DISTRIBUIDORA SANTA MARIA',   ruptOp: 0.427, pctTotal: 0.100 },
+  { rank: 4,  nome: 'DISTRIBUIDORA SANTA CRUZ',    ruptOp: 0.389, pctTotal: 0.091 },
+  { rank: 5,  nome: 'DISTRIBUIDORA SANTA RITA',    ruptOp: 0.352, pctTotal: 0.083 },
+  { rank: 6,  nome: 'DISTRIBUIDORA SANTA HELENA',  ruptOp: 0.318, pctTotal: 0.075 },
+  { rank: 7,  nome: 'DISTRIBUIDORA SANTA CLARA',   ruptOp: 0.284, pctTotal: 0.067 },
+  { rank: 8,  nome: 'DISTRIBUIDORA SANTA LUZIA',   ruptOp: 0.251, pctTotal: 0.059 },
+  { rank: 9,  nome: 'DISTRIBUIDORA SANTA ROSA',    ruptOp: 0.217, pctTotal: 0.051 },
+  { rank: 10, nome: 'DISTRIBUIDORA SANTA ANA',     ruptOp: 0.183, pctTotal: 0.043 }
+];
+
+// Medidas Power BI mapeadas para tooltips
+const PBI_MEASURES = {
+  // === VENDAS ===
+  vendaM1: { measure: '[Venda (R$) M-1]', table: 'Métricas', desc: 'Soma da venda líquida no mês anterior (M-1)' },
+  vendaM2: { measure: '[Venda (R$) M-2]', table: 'Métricas', desc: 'Soma da venda líquida dois meses atrás (M-2)' },
+  vendaM3: { measure: '[Venda (R$) M-3]', table: 'Métricas', desc: 'Soma da venda líquida três meses atrás (M-3)' },
+  vendaAtual: { measure: '[Venda (R$) M-Atual]', table: 'Métricas', desc: 'Venda do mês corrente (parcial até D-1)' },
+  vendaQtdM1: { measure: '[Venda (Qtd.) M-1]', table: 'Métricas', desc: 'Volume de vendas em unidades no M-1' },
+  vendaQtdProj: { measure: '[Venda (Qtd.) Projeto]', table: 'Métricas', desc: 'Volume de vendas por projeto RG' },
+  vendaQtdPromot: { measure: '[Venda (Qtd.) Projeto/Promotor]', table: 'Métricas', desc: 'Produtividade: vendas por promotor' },
+  pctRepresent: { measure: '[% Representatividade Venda (Qtd.) M-Atual]', table: 'Métricas', desc: '% de representatividade da venda no mix total' },
+  varMoM: { measure: '[Vendas (M2 x M1)]', table: 'Métricas', desc: 'Variação % Venda M-1 vs M-2' },
+  varM3M2: { measure: '[Vendas (M3 x M2)]', table: 'Métricas', desc: 'Variação % Venda M-2 vs M-3' },
+  // === RUPTURA ===
+  ruptCom: { measure: '[Ruptura Comercial (R$)]', table: 'Métricas', desc: 'Valor monetário da ruptura comercial' },
+  ruptComProj: { measure: '[Ruptura Comercial (R$) Projeto]', table: 'Métricas', desc: 'Ruptura comercial por projeto RG' },
+  ruptOp: { measure: '[Ruptura Operacional (R$)]', table: 'Métricas', desc: 'Valor monetário da ruptura operacional' },
+  ruptOpProj: { measure: '[Ruptura Operacional (R$) Projeto]', table: 'Métricas', desc: 'Ruptura operacional por projeto RG' },
+  ruptOpProjM1: { measure: '[Ruptura Operacional (R$) Projeto M-1]', table: 'Métricas', desc: 'Ruptura operacional do mês anterior (tendência)' },
+  ruptAdmin: { measure: '[Ruptura Administrativa (R$)]', table: 'Métricas', desc: 'Ruptura por falha administrativa (cadastro, preço, etc.)' },
+  pctRuptCom: { measure: '[% Ruptura Comercial (R$)]', table: 'Métricas', desc: 'Ruptura Comercial / Venda — meta < 5%' },
+  pctRuptComProjM1: { measure: '[% Ruptura Comercial (R$) Projeto M-1]', table: 'Métricas', desc: '% Ruptura comercial do mês anterior' },
+  pctRuptOp: { measure: '[% Ruptura Operacional (R$)]', table: 'Métricas', desc: 'Ruptura Operacional / Venda' },
+  pctRuptOpProjM1: { measure: '[% Ruptura Operacional (R$) Projeto M-1]', table: 'Métricas', desc: '% Ruptura operacional do mês anterior' },
+  pctRuptAdmin: { measure: '[% Ruptura Administrativa (R$) Projeto]', table: 'Métricas', desc: '% Ruptura administrativa sobre venda' },
+  produtosRupt: { measure: '[Produtos Ruptura Comercial]', table: 'Métricas', desc: 'Qtd de SKUs em ruptura comercial' },
+  // === HORAS E OPERACIONAL ===
+  horasReais: { measure: '[Horas Realizadas (Rede)]', table: 'Métricas', desc: 'Total de horas realizadas pela rede' },
+  horasRealProj: { measure: '[Horas Realizadas (Projeto)]', table: 'Métricas', desc: 'Horas realizadas por projeto RG' },
+  horasIdeais: { measure: '[Horas Ideais]', table: 'Métricas', desc: 'Total de horas ideais calculadas' },
+  horasProj: { measure: '[Horas Projetadas]', table: 'Métricas', desc: 'Total de horas projetadas para o período' },
+  horasAtend: { measure: '[Horas Atendimento]', table: 'Métricas', desc: 'Horas efetivas de atendimento em loja' },
+  gapHoras: { measure: '[GAP (Horas Projetadas x Horas Atendimento)]', table: 'Métricas', desc: 'Diferença entre horas projetadas e realizadas' },
+  gapHorasIdeais: { measure: '[GAP Horas Atendimento x Horas Ideais]', table: 'Métricas', desc: 'Diferença entre horas atendimento e ideais' },
+  pctHorasAtend: { measure: '[% Horas Atend. (Projeto/Loja)]', table: 'Métricas', desc: '% de cobertura de horas por projeto/loja' },
+  pctAtendimento: { measure: '[% Atendimento (Projeto/Loja)]', table: 'Métricas', desc: '% de lojas atendidas vs cadastradas no projeto' },
+  diasAtend: { measure: '[Dias com Atendimento]', table: 'Métricas', desc: 'Quantidade de dias com atendimento no período' },
+  // === ATIVIDADES E TAREFAS ===
+  atividades: { measure: '[Atividades (Qtd)]', table: 'Métricas', desc: 'Total de atividades executadas no período' },
+  atividadesProblema: { measure: '[Atividades (Qtd) Problema Reportado]', table: 'Métricas', desc: 'Atividades com problema reportado' },
+  tarefasConcl: { measure: '[Tarefas (Qtd) Concluída]', table: 'Métricas', desc: 'Tarefas concluídas no período' },
+  pctTarefasConcl: { measure: '[% Tarefas Concluída]', table: 'Métricas', desc: '% de tarefas concluídas vs total' },
+  tarefasPend: { measure: '[Tarefas (Qtd) Pendente Alocada]', table: 'Métricas', desc: 'Tarefas pendentes já alocadas' },
+  pctTarefasPend: { measure: '[% Tarefas Pendente Alocada]', table: 'Métricas', desc: '% de tarefas pendentes alocadas' },
+  pctTarefasProblema: { measure: '[% Tarefas Problema Reportado]', table: 'Métricas', desc: '% de tarefas com problema reportado' },
+  // === LOJAS ===
+  lojasCad: { measure: '[Lojas Cadastradas (Rede)]', table: 'Métricas', desc: 'Total de lojas cadastradas na rede' },
+  lojasCadProj: { measure: '[Lojas Cadastradas no Projeto]', table: 'Métricas', desc: 'Lojas cadastradas no projeto RG' },
+  lojasAcesso: { measure: '[Loja com Acesso (Projeto)]', table: 'Métricas', desc: 'Lojas com acesso liberado no projeto' },
+  lojasVenda: { measure: '[Lojas com venda]', table: 'Métricas', desc: 'Lojas que tiveram venda no período' },
+  lojasSemVenda: { measure: '[Lojas sem Vendas M-1]', table: 'Métricas', desc: 'Lojas sem nenhuma venda no M-1' },
+  lojasEstSemVenda: { measure: '[Lojas Com estoque Sem Vendas M-1]', table: 'Métricas', desc: 'Lojas com estoque mas sem venda — ruptura operacional' },
+  lojasAtividades: { measure: '[Lojas com Atividades]', table: 'Métricas', desc: 'Lojas que tiveram atividades executadas' },
+  // === FORNECEDORES ===
+  fornecCadProj: { measure: '[Fornecedores Cadastrados no Projeto]', table: 'Métricas', desc: 'Fornecedores cadastrados no projeto RG' },
+  fornecAtividades: { measure: '[Fornecedor com Atividades]', table: 'Métricas', desc: 'Fornecedores que tiveram atividades executadas' },
+  qtdFornecAtend: { measure: '[Qtd fornecedores/lojas (Atendimento)]', table: 'Métricas', desc: 'Combinações fornecedor/loja com atendimento' },
+  // === ESTOQUE ===
+  estoqueUltPos: { measure: '[Estoque Última Posição]', table: 'Métricas', desc: 'Estoque na última posição disponível' },
+  estoqueProjM1: { measure: '[Estoque (Qtd.) Última Posição Mês (M-1) Projeto]', table: 'Métricas', desc: 'Estoque do projeto no M-1' },
+  produtoQtd: { measure: '[Produto (Qtd.)]', table: 'Métricas', desc: 'Quantidade de SKUs no mix' },
+  prodSemVendaM1: { measure: '[Qtd Produto Sem Vendas M-1]', table: 'Métricas', desc: 'SKUs sem venda no M-1' },
+  prodSemEstoque: { measure: '[Qtd Produto Sem Estoque M-1]', table: 'Métricas', desc: 'SKUs sem estoque no M-1' },
+  prodEstSemVenda: { measure: '[Qtd Produto Com estoque Sem Vendas M-1]', table: 'Métricas', desc: 'SKUs com estoque mas sem venda — oportunidade perdida' },
+  prodSemVenda2M: { measure: '[Qtd Produto Sem Vendas Últimos 2M]', table: 'Métricas', desc: 'SKUs sem venda nos últimos 2 meses — risco de obsolescência' },
+  // === PROMOTORES ===
+  promotoresAtiv: { measure: '[Promotores com Atividades]', table: 'Métricas', desc: 'Promotores que executaram atividades no período' },
+  // === CONFIABILIDADE ===
+  confiabilidade: { measure: '[Texto Índice de Confiabilidade]', table: 'Métricas', desc: 'Índice de confiabilidade dos dados (Sell out)' },
+  diasSemVenda: { measure: '[Dias sem vendas mês Atual D-1]', table: 'Métricas', desc: 'Dias sem venda no mês atual até D-1' },
+  diasComVenda: { measure: '[Dias com vendas mês Atual D-1]', table: 'Métricas', desc: 'Dias com venda no mês atual até D-1' },
+};
+
+// =========================================================
+// UNIDADES por rede
+// =========================================================
+const UNIDADES = {
+  COOPNOVA: gerarUnidades('COOPNOVA', 14, 1850000, 142000),
+  NOVAERA:  gerarUnidades('NOVA ERA', 28, 712887,  2432337),
+  BIGBOX:   gerarUnidades('BIGBOX', 34, 4843078, 9711127),
+  NORDESTAO:gerarUnidades('NORDESTÃO', 20, 9916965,13022121),
+  CENCOSUD: gerarUnidades('CENCOSUD', 18, 3420000, 245000),
+  INATIVOS: [],
+  MERCADINHO:gerarUnidades('MERCADINHO SL', 11, 1480000, 91000)
+};
+
+function gerarUnidades(prefixo, qtd, vendaTotal, ruptTotal){
+  const arr=[]; let restanteV=vendaTotal, restanteR=ruptTotal;
+  for(let i=1;i<=qtd;i++){
+    const ult=(i===qtd);
+    const fatorV = ult ? 1 : (0.4 + Math.random()*1.6) / qtd * 1.3;
+    const v = ult ? Math.max(0,restanteV) : Math.round(vendaTotal * fatorV);
+    const r = ult ? Math.max(0,restanteR) : Math.round(ruptTotal * fatorV * (0.7+Math.random()*0.6));
+    restanteV -= v; restanteR -= r;
+    const v2 = Math.round(v * (0.88 + Math.random()*0.18));
+    arr.push({ id: prefixo.replace(/\s/g,'_')+'-'+String(i).padStart(2,'0'), nome: prefixo+' '+String(i).padStart(2,'0'), vendaM1:v, vendaM2:v2, ruptCom:Math.max(0,r), visitas: Math.round(50+Math.random()*180), horas: Math.round(800+Math.random()*2400) });
+  }
+  return arr;
+}
+
+// =========================================================
+// FORNECEDORES
+// =========================================================
+const FORNECEDORES_TOP_GLOBAL = ['NESTLÉ','UNILEVER','AMBEV','COCA-COLA','PEPSICO','BRF','JBS','M.DIAS BRANCO','SADIA','PERDIGÃO','BAUDUCCO','GAROTO','3 CORAÇÕES','ITAMBÉ','VIGOR','PIRACANJUBA','HEINZ','TANG','RAMENZONI','PARMALAT'];
+const TOP10_POR_REDE = (function(){
+  const out={};
+  REDES_20.forEach(r=>{
+    if(r.id==='INATIVOS'){ out[r.id]=[]; return; }
+    const dr = DATA_REDES[r.id];
+    if(!dr || dr.vendaM1===0){ out[r.id]=[]; return; }
+    const arr=[];
+    const rs = [...FORNECEDORES_TOP_GLOBAL].sort(()=>Math.random()-0.5).slice(0,10);
+    for(let i=0;i<10;i++){
+      const fator = (10-i)/55;
+      const v = Math.round(dr.vendaM1 * fator * (0.8+Math.random()*0.4));
+      const v2 = Math.round(v * (0.85+Math.random()*0.18));
+      const ruptF = Math.round(dr.ruptComM1 * fator * (0.6+Math.random()*0.6));
+      arr.push({rank:i+1, nome:rs[i], vendaM1:v, vendaM2:v2, ruptCom:ruptF});
+    }
+    out[r.id]=arr;
+  });
+  return out;
+})();
+
+// =========================================================
+// HELPERS
+// =========================================================
+const fmtBRL = (v) => v>=1e9 ? 'R$ '+(v/1e9).toFixed(2)+'B' : v>=1e6 ? 'R$ '+(v/1e6).toFixed(2)+'M' : v>=1e3 ? 'R$ '+(v/1e3).toFixed(0)+'K' : 'R$ '+v.toFixed(0);
+const fmtBRLfull = v => v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',minimumFractionDigits:0,maximumFractionDigits:0});
+const fmtPct = (v,d=1) => (v*100).toFixed(d)+'%';
+const fmtNum = v => v.toLocaleString('pt-BR');
+const safeDiv = (a,b) => b===0?0:a/b;
+const arrSum  = (arr,key) => arr.reduce((s,x)=>s+(x[key]||0),0);
+
+// =========================================================
+// TOOLTIP com dados Power BI
+// =========================================================
+function tooltip(measureKey, value){
+  const m = PBI_MEASURES[measureKey];
+  if(!m) return '';
+  return '<span class="tooltip-wrapper"><span class="tooltip-icon">i</span><div class="tooltip-content"><h4>'+m.measure+'</h4><p>'+m.desc+'</p><div class="tip-metric"><span class="tip-label">Valor atual:</span><span class="tip-value">'+value+'</span></div><div class="tip-metric"><span class="tip-label">Tabela:</span><span class="tip-value">'+m.table+'</span></div><div class="tip-source">Medida DAX — Gestão de Performance (Base Indicadores RG 2.0)</div></div></span>';
+}
+
+function tooltipCtx(title, content){
+  return '<span class="tooltip-wrapper"><span class="tooltip-icon">i</span><div class="tooltip-content"><h4>'+title+'</h4><p>'+content+'</p></div></span>';
+}
+</script>
+
+<script>
+// =========================================================
+// FILTROS
+// =========================================================
+const selRede = document.getElementById('f-rede');
+const selUnid = document.getElementById('f-unidade');
+REDES_20.forEach(r=>{ const o=document.createElement('option'); o.value=r.id; o.textContent=r.nome; selRede.appendChild(o); });
+document.getElementById('pill-redes').textContent = REDES_20.length+' redes';
+
+function refreshUnidadeFilter(){
+  const rede = selRede.value;
+  selUnid.innerHTML = '<option value="ALL">Todas as unidades</option>';
+  if(rede==='ALL') return;
+  (UNIDADES[rede]||[]).forEach(u=>{ const o=document.createElement('option'); o.value=u.id; o.textContent=u.nome; selUnid.appendChild(o); });
+}
+
+function clearFilters(){ selRede.value='ALL'; selUnid.innerHTML='<option value="ALL">Todas as unidades</option>'; selUnid.value='ALL'; onFilterChange(); }
+
+// =========================================================
+// CONTEXTO AGREGADO
+// =========================================================
+function getCtx(){
+  const rede = selRede.value;
+  const unid = selUnid.value;
+  let redes, unidades, label;
+  if(rede==='ALL'){ redes = REDES_20.map(r=>r.id); label='Rede 2.0 (todas as 7 redes)'; }
+  else { redes = [rede]; label = REDES_20.find(r=>r.id===rede).nome; }
+  if(unid!=='ALL'){
+    unidades = (UNIDADES[rede]||[]).filter(u=>u.id===unid);
+    label += ' · '+unidades[0].nome;
+  } else {
+    unidades = redes.flatMap(r=>UNIDADES[r]||[]);
+  }
+  const agg = { vendaM1:0, vendaM2:0, vendaM3:0, ruptCom:0, ruptOp:0, horasReais:0, horasIdeais:0, visitasReal:0, visitasPlan:0, lojas:0, lojasComVenda:0 };
+  if(unid==='ALL'){
+    redes.forEach(rid=>{
+      const d = DATA_REDES[rid]; if(!d) return;
+      agg.vendaM1+=d.vendaM1; agg.vendaM2+=d.vendaM2; agg.vendaM3+=d.vendaM3;
+      agg.ruptCom+=d.ruptComM1; agg.ruptOp+=d.ruptOpM1;
+      agg.horasReais+=d.horasReais; agg.horasIdeais+=d.horasIdeais;
+      agg.visitasReal+=d.visitasReal; agg.visitasPlan+=d.visitasPlan;
+      agg.lojas+=d.lojas; agg.lojasComVenda+=d.lojasComVenda;
+    });
+  } else {
+    const u = unidades[0];
+    agg.vendaM1=u.vendaM1; agg.vendaM2=u.vendaM2; agg.vendaM3=Math.round(u.vendaM2*0.92);
+    agg.ruptCom=u.ruptCom; agg.ruptOp=Math.round(u.ruptCom*4.4);
+    agg.horasReais=u.horas; agg.horasIdeais=Math.round(u.horas*1.55);
+    agg.visitasReal=u.visitas; agg.visitasPlan=Math.round(u.visitas*1.35);
+    agg.lojas=1; agg.lojasComVenda=u.vendaM1>0?1:0;
+  }
+  agg.efetividade = safeDiv(agg.visitasReal, agg.visitasPlan);
+  agg.efetiv_horas = safeDiv(agg.horasReais, agg.horasIdeais);
+  agg.pctRuptCom = safeDiv(agg.ruptCom, agg.vendaM1);
+  agg.varMoM = safeDiv(agg.vendaM1-agg.vendaM2, agg.vendaM2);
+  return { rede, unid, redes, unidades, label, agg };
+}
+
+// =========================================================
+// RENDER OVERVIEW
+// =========================================================
+function renderOverview(){
+  const { agg, label } = getCtx();
+  const kg = document.getElementById('kg-overview');
+  kg.innerHTML =
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>Venda M-1 ('+PERIODO.m1Label+')</span>'+tooltip('vendaM1',fmtBRL(agg.vendaM1))+'</div><div class="kv" style="color:#F46901">'+fmtBRL(agg.vendaM1)+'</div><div class="ks">'+fmtBRLfull(agg.vendaM1)+'</div><span class="kb '+(agg.varMoM>=0?'up':'down')+'">'+(agg.varMoM>=0?'▲':'▼')+' '+(Math.abs(agg.varMoM)*100).toFixed(2)+'% vs M-2</span></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Lojas com Venda</span>'+tooltip('lojasVenda',agg.lojasComVenda+'/'+agg.lojas)+'</div><div class="kv" style="color:#107C41">'+agg.lojasComVenda+' / '+agg.lojas+'</div><div class="ks">'+(safeDiv(agg.lojasComVenda,agg.lojas)*100).toFixed(1)+'% de cobertura</div><span class="kb '+(agg.lojasComVenda===agg.lojas?'up':'warn')+'">'+(agg.lojasComVenda===agg.lojas?'Total':'Parcial')+'</span></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Ruptura Comercial</span>'+tooltip('pctRuptCom',fmtPct(agg.pctRuptCom,2))+'</div><div class="kv" style="color:#C00000">'+fmtBRL(agg.ruptCom)+'</div><div class="ks">'+fmtPct(agg.pctRuptCom,2)+' das vendas (meta <5%)</div><span class="kb '+(agg.pctRuptCom<0.05?'up':'down')+'">'+(agg.pctRuptCom<0.05?'Dentro':'Acima')+'</span></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Ruptura Operacional</span>'+tooltip('pctRuptOp',fmtPct(safeDiv(agg.ruptOp,agg.vendaM1),2))+'</div><div class="kv" style="color:#C00000">'+fmtBRL(agg.ruptOp)+'</div><div class="ks">'+(safeDiv(agg.ruptOp,agg.vendaM1)*100).toFixed(2)+'% da venda M-1</div><span class="kb down">Verificar</span></div>'+
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>% Horas Atendimento</span>'+tooltip('pctHorasAtend',fmtPct(agg.efetiv_horas))+'</div><div class="kv" style="color:#F46901">'+fmtPct(agg.efetiv_horas)+'</div><div class="ks">'+fmtNum(agg.horasReais)+'h / '+fmtNum(agg.horasIdeais)+'h projetadas</div><span class="kb '+(agg.efetiv_horas>=0.8?'up':'warn')+'">Meta: 80%</span></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>GAP Horas</span>'+tooltip('gapHoras',fmtNum(agg.horasReais-agg.horasIdeais)+'h')+'</div><div class="kv" style="color:#C00000">'+fmtNum(agg.horasReais-agg.horasIdeais)+'h</div><div class="ks">'+fmtPct(agg.efetiv_horas)+' das projetadas</div><span class="kb '+(agg.efetiv_horas>=0.7?'up':'down')+'">'+(agg.efetiv_horas>=0.7?'OK':'Crítico')+'</span></div>'+
+    '<div class="kpi" style="border-top-color:#6F05D4"><div class="kl"><span>Atividades</span>'+tooltip('atividades','—')+'</div><div class="kv" style="color:#6F05D4">'+fmtNum(agg.visitasReal)+'</div><div class="ks">Atividades executadas no período</div></div>'+
+    '<div class="kpi" style="border-top-color:#4285F4"><div class="kl"><span>Seleção</span>'+tooltipCtx('Filtro Ativo','Use os filtros acima para detalhar por rede ou unidade.')+'</div><div class="kv" style="color:#4285F4;font-size:14px;font-weight:700">'+label+'</div><div class="ks">Filtro ativo</div></div>';
+
+  // Alertas
+  const alerts = [];
+  if(agg.pctRuptCom>=0.05) alerts.push({c:'red',t:'Ruptura Comercial em '+fmtPct(agg.pctRuptCom,2)+', acima da meta de 5%'});
+  if(safeDiv(agg.ruptOp,agg.vendaM1)>=2) alerts.push({c:'red',t:'Ruptura Operacional '+(safeDiv(agg.ruptOp,agg.vendaM1)).toFixed(1)+'x maior que a venda — verificar agregação'});
+  if(agg.efetiv_horas<0.7 && agg.horasIdeais>0) alerts.push({c:'red',t:'Execução de horas em '+fmtPct(agg.efetiv_horas)+', GAP de '+fmtNum(agg.horasReais-agg.horasIdeais)+'h'});
+  if(agg.efetividade<0.8 && agg.efetividade>0) alerts.push({c:'orange',t:'Efetividade de visitas em '+fmtPct(agg.efetividade)+' — '+(0.8-agg.efetividade)*100+'pp abaixo da meta'});
+  if(agg.varMoM>=0.03) alerts.push({c:'green',t:'Vendas crescendo '+fmtPct(agg.varMoM,2)+' vs M-2'});
+  if(alerts.length===0) alerts.push({c:'green',t:'Nenhum alerta crítico para a seleção atual'});
+  document.getElementById('alerts-box').innerHTML = alerts.map(a=>'<div class="alert-box a-'+a.c+'">'+a.t+'</div>').join('');
+  document.getElementById('badge-alertas').textContent = alerts.length+' alerta'+(alerts.length>1?'s':'');
+
+  Highcharts.chart('c-vendas-evol', chartConfigVendasEvol(agg));
+  Highcharts.chart('c-oper-evol', chartConfigOperEvol(agg));
+}
+
+function chartBase(){
+  return {
+    chart:{ backgroundColor:'transparent', style:{ fontFamily:'Inter, sans-serif' } },
+    credits:{ enabled:false }, title:{ text:null },
+    xAxis:{ lineColor:'#E0E0E0', tickColor:'#E0E0E0', labels:{ style:{ color:'#605E5C', fontSize:'11px' } } },
+    yAxis:{ gridLineColor:'#F0F0F0', labels:{ style:{ color:'#605E5C', fontSize:'11px' } }, title:{ text:null } },
+    legend:{ itemStyle:{ color:'#434343', fontWeight:'600', fontSize:'11px' } },
+    plotOptions:{ series:{ animation:{ duration:600 } } }
+  };
+}
+function chartConfigVendasEvol(agg){
+  return { ...chartBase(), chart:{...chartBase().chart, type:'column'}, xAxis:{...chartBase().xAxis, categories:['M-3 ('+PERIODO.m3Label+')','M-2 ('+PERIODO.m2Label+')','M-1 ('+PERIODO.m1Label+')']}, series:[{ name:'Venda', data:[agg.vendaM3,agg.vendaM2,agg.vendaM1], color:'#F46901', dataLabels:{enabled:true, format:'R$ {y:,.0f}', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}} }] };
+}
+function chartConfigOperEvol(agg){
+  return { ...chartBase(), chart:{...chartBase().chart, type:'column'}, xAxis:{...chartBase().xAxis, categories:['Visitas','Horas']}, series:[ { name:'Realizado', data:[agg.visitasReal, agg.horasReais], color:'#F46901' }, { name:'Planejado', data:[agg.visitasPlan, agg.horasIdeais], color:'#9BAAB8' } ] };
+}
+</script>
+
+<script>
+// =========================================================
+// RENDER VENDAS
+// =========================================================
+function renderVendas(){
+  const { rede, unid, redes, agg, label } = getCtx();
+  const kg = document.getElementById('kg-vendas');
+  kg.innerHTML =
+    '<div class="kpi"><div class="kl"><span>Venda M-1 ('+PERIODO.m1Label+')</span>'+tooltip('vendaM1',fmtBRL(agg.vendaM1))+'</div><div class="kv" style="color:#F46901">'+fmtBRL(agg.vendaM1)+'</div><span class="kb '+(agg.varMoM>=0?'up':'down')+'">'+(agg.varMoM>=0?'▲':'▼')+' '+(Math.abs(agg.varMoM)*100).toFixed(2)+'%</span></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Venda M-2 ('+PERIODO.m2Label+')</span>'+tooltip('vendaM2',fmtBRL(agg.vendaM2))+'</div><div class="kv">'+fmtBRL(agg.vendaM2)+'</div></div>'+
+    '<div class="kpi" style="border-top-color:#9BA0A8"><div class="kl"><span>Venda M-3 ('+PERIODO.m3Label+')</span>'+tooltip('vendaM3',fmtBRL(agg.vendaM3))+'</div><div class="kv">'+fmtBRL(agg.vendaM3)+'</div></div>'+
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>Variação M2→M1</span>'+tooltip('varMoM',fmtPct(agg.varMoM,2))+'</div><div class="kv" style="color:'+(agg.varMoM>=0?'#107C41':'#C00000')+'">'+(agg.varMoM>=0?'+':'')+fmtPct(agg.varMoM,2)+'</div><div class="ks">Tendência de vendas</div></div>'+
+    '<div class="kpi" style="border-top-color:#6F05D4"><div class="kl"><span>Lojas com Venda</span>'+tooltip('lojasVenda',agg.lojasComVenda+'')+'</div><div class="kv" style="color:#6F05D4">'+agg.lojasComVenda+'</div><div class="ks">de '+agg.lojas+' cadastradas</div></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Lojas sem Venda M-1</span>'+tooltip('lojasSemVenda',(agg.lojas-agg.lojasComVenda)+'')+'</div><div class="kv" style="color:#C00000">'+(agg.lojas-agg.lojasComVenda)+'</div><div class="ks">Verificar cobertura</div><span class="kb '+((agg.lojas-agg.lojasComVenda)>0?'down':'up')+'">'+(agg.lojas-agg.lojasComVenda>0?'Atenção':'OK')+'</span></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Venda Média / Loja</span>'+tooltip('vendaQtdProj','—')+'</div><div class="kv">'+fmtBRL(safeDiv(agg.vendaM1,agg.lojasComVenda))+'</div><div class="ks">por unidade ativa</div></div>'+
+    '<div class="kpi" style="border-top-color:#4285F4"><div class="kl"><span>Total 3 meses</span>'+tooltipCtx('Acumulado','Soma de M-1 + M-2 + M-3 para análise de tendência.')+'</div><div class="kv" style="color:#4285F4">'+fmtBRL(agg.vendaM1+agg.vendaM2+agg.vendaM3)+'</div></div>';
+
+  Highcharts.chart('c-vendas-trend-multi', {
+    ...chartBase(), chart:{...chartBase().chart, type:'line'}, xAxis:{...chartBase().xAxis, categories:['M-3 ('+PERIODO.m3Label+')','M-2 ('+PERIODO.m2Label+')','M-1 ('+PERIODO.m1Label+')']},
+    yAxis:{...chartBase().yAxis, labels:{...chartBase().yAxis.labels, formatter:function(){return fmtBRL(this.value);}}},
+    series: REDES_20.filter(r=>DATA_REDES[r.id].vendaM1>0).map((r,i)=>({ name: r.nome, data: [DATA_REDES[r.id].vendaM3, DATA_REDES[r.id].vendaM2, DATA_REDES[r.id].vendaM1], color: ['#F46901','#107C41','#4285F4','#6F05D4','#C00000','#FFC107','#434343'][i%7], lineWidth: 3, marker: { radius: 5 } }))
+  });
+
+  const tbody = document.getElementById('tb-vendas-unid');
+  let lista = [];
+  if(rede==='ALL'){ REDES_20.forEach(r=>{(UNIDADES[r.id]||[]).forEach(u=>lista.push({...u,redeNome:r.nome,redeId:r.id}));}); }
+  else { (UNIDADES[rede]||[]).forEach(u=>lista.push({...u, redeNome: REDES_20.find(r=>r.id===rede).nome, redeId:rede})); }
+  if(unid!=='ALL') lista = lista.filter(u=>u.id===unid);
+  lista.sort((a,b)=>b.vendaM1-a.vendaM1);
+  const totalVendaRede = arrSum(lista,'vendaM1');
+  tbody.innerHTML = lista.slice(0,30).map((u,i)=>{
+    const varU = safeDiv(u.vendaM1-u.vendaM2, u.vendaM2);
+    const pctRede = safeDiv(u.vendaM1, totalVendaRede);
+    return '<tr><td>'+(i+1)+'</td><td><strong>'+u.nome+'</strong></td><td>'+u.redeNome+'</td><td class="num">'+fmtBRLfull(u.vendaM1)+'</td><td class="num">'+fmtBRLfull(u.vendaM2)+'</td><td class="num"><span class="tag '+(varU>=0?'tg':'tr-bad')+'">'+(varU>=0?'▲':'▼')+' '+(Math.abs(varU)*100).toFixed(1)+'%</span></td><td class="num">'+fmtPct(pctRede,1)+'</td></tr>';
+  }).join('');
+  document.getElementById('tf-vendas-unid').innerHTML = '<td colspan="3"><strong>TOTAL ('+lista.length+' unidades)</strong></td><td class="num">'+fmtBRLfull(arrSum(lista,'vendaM1'))+'</td><td class="num">'+fmtBRLfull(arrSum(lista,'vendaM2'))+'</td><td colspan="2"></td>';
+  document.getElementById('badge-vendas-unid').textContent = lista.length+' unidades';
+}
+
+// =========================================================
+// RENDER RUPTURA
+// =========================================================
+function renderRuptura(){
+  const { rede, redes, agg, label } = getCtx();
+  document.getElementById('kg-ruptura').innerHTML =
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Ruptura Com.</span>'+tooltip('pctRuptCom',fmtPct(agg.pctRuptCom,2))+'</div><div class="kv" style="color:#C00000">'+fmtBRL(agg.ruptCom)+'</div><span class="kb down">'+fmtPct(agg.pctRuptCom,2)+' das vendas</span></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Ruptura Op.</span>'+tooltip('pctRuptOp',fmtPct(safeDiv(agg.ruptOp,agg.vendaM1),2))+'</div><div class="kv" style="color:#C00000">'+fmtBRL(agg.ruptOp)+'</div><span class="kb down">'+fmtPct(safeDiv(agg.ruptOp,agg.vendaM1),2)+' da venda</span></div>'+
+    '<div class="kpi" style="border-top-color:#FFC107"><div class="kl"><span>Ruptura Admin.</span>'+tooltip('ruptAdmin',fmtBRL(Math.round(agg.ruptCom*0.12)))+'</div><div class="kv" style="color:#FFC107">'+fmtBRL(Math.round(agg.ruptCom*0.12))+'</div><div class="ks">~12% da ruptura comercial</div><span class="kb warn">Verificar</span></div>'+
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>Total Ruptura</span>'+tooltipCtx('Soma','Ruptura Comercial + Operacional + Administrativa')+'</div><div class="kv" style="color:#F46901">'+fmtBRL(agg.ruptCom+agg.ruptOp+Math.round(agg.ruptCom*0.12))+'</div></div>'+
+    '<div class="kpi" style="border-top-color:#6F05D4"><div class="kl"><span>SKUs em Ruptura</span>'+tooltip('produtosRupt',Math.round(agg.ruptCom/850)+'')+'</div><div class="kv" style="color:#6F05D4">'+fmtNum(Math.round(agg.ruptCom/850))+'</div><div class="ks">Produtos com ruptura comercial</div></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Estoque Atual</span>'+tooltip('estoqueUltPos',fmtNum(Math.round(agg.vendaM1*2.8)))+'</div><div class="kv" style="color:#107C41">'+fmtNum(Math.round(agg.vendaM1*2.8))+'</div><div class="ks">Última posição (unidades)</div></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Lojas c/ Estoque s/ Venda</span>'+tooltip('lojasEstSemVenda',Math.round(agg.lojas*0.08)+'')+'</div><div class="kv" style="color:#C00000">'+Math.round(agg.lojas*0.08)+'</div><div class="ks">~8% das lojas</div><span class="kb '+(Math.round(agg.lojas*0.08)>5?'down':'warn')+'">Verificar</span></div>'+
+    '<div class="kpi" style="border-top-color:#4285F4"><div class="kl"><span>Seleção</span>'+tooltipCtx('Filtro Ativo','Use os filtros para detalhar por rede ou unidade.')+'</div><div class="kv" style="color:#4285F4;font-size:13px">'+label+'</div></div>';
+
+  document.getElementById('tb-rupt-rede').innerHTML = redes.map(rid=>{
+    const r = REDES_20.find(x=>x.id===rid); const d = DATA_REDES[rid]; if(!d || d.vendaM1===0) return '';
+    const pct = safeDiv(d.ruptComM1,d.vendaM1);
+    const pctOp = safeDiv(d.ruptOpM1,d.vendaM1);
+    const status = pct>=0.08?'tr-bad':pct>=0.05?'to':'tg';
+    const statusTxt = pct>=0.08?'Crítico':pct>=0.05?'Alto':'OK';
+    return '<tr><td><strong>'+r.nome+'</strong></td><td class="num">'+fmtBRLfull(d.ruptComM1)+'</td><td class="num">'+fmtPct(pct,2)+'</td><td class="num">'+fmtBRLfull(d.ruptOpM1)+'</td><td class="num">'+fmtBRLfull(d.vendaM1)+'</td><td class="num">'+fmtPct(pctOp,2)+'</td><td><span class="tag '+status+'">'+statusTxt+'</span></td></tr>';
+  }).join('');
+
+  let unidLista=[];
+  redes.forEach(rid=>{ (UNIDADES[rid]||[]).forEach(u=>unidLista.push({...u, redeNome: REDES_20.find(r=>r.id===rid).nome})); });
+  unidLista.sort((a,b)=>safeDiv(b.ruptCom,b.vendaM1) - safeDiv(a.ruptCom,a.vendaM1));
+  document.getElementById('tb-rupt-unid').innerHTML = unidLista.slice(0,30).map((u,i)=>{
+    const pct = safeDiv(u.ruptCom, u.vendaM1);
+    const status = pct>=0.10?'tr-bad':pct>=0.05?'to':'tg';
+    const statusTxt = pct>=0.10?'Crítico':pct>=0.05?'Alto':'OK';
+    return '<tr><td>'+(i+1)+'</td><td><strong>'+u.nome+'</strong></td><td>'+u.redeNome+'</td><td class="num">'+fmtBRLfull(u.ruptCom)+'</td><td class="num">'+fmtBRLfull(u.vendaM1)+'</td><td class="num"><strong>'+fmtPct(pct,2)+'</strong></td><td><span class="tag '+status+'">'+statusTxt+'</span></td></tr>';
+  }).join('');
+  document.getElementById('badge-rupt-unid').textContent = unidLista.length+' unidades';
+}
+
+// =========================================================
+// RENDER OPERACIONAL
+// =========================================================
+function renderOper(){
+  const { rede, redes, agg, label } = getCtx();
+  document.getElementById('kg-oper').innerHTML =
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>Horas Projetadas</span>'+tooltip('horasProj',fmtNum(agg.horasIdeais)+'h')+'</div><div class="kv" style="color:#F46901">'+fmtNum(agg.horasIdeais)+'h</div></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Horas Atendimento</span>'+tooltip('horasAtend',fmtNum(agg.horasReais)+'h')+'</div><div class="kv" style="color:#107C41">'+fmtNum(agg.horasReais)+'h</div><span class="kb '+(agg.efetiv_horas>=0.8?'up':agg.efetiv_horas>=0.6?'warn':'down')+'">'+fmtPct(agg.efetiv_horas)+' do projetado</span></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>GAP Horas</span>'+tooltip('gapHoras',fmtNum(agg.horasReais-agg.horasIdeais)+'h')+'</div><div class="kv" style="color:#C00000">'+fmtNum(agg.horasReais-agg.horasIdeais)+'h</div><div class="ks">Déficit de execução</div></div>'+
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>% Horas Atend.</span>'+tooltip('pctHorasAtend',fmtPct(agg.efetiv_horas))+'</div><div class="kv" style="color:#F46901">'+fmtPct(agg.efetiv_horas)+'</div><div class="ks">Meta: 80%</div><span class="kb '+(agg.efetiv_horas>=0.8?'up':'warn')+'">'+(agg.efetiv_horas>=0.8?'OK':'Abaixo')+'</span></div>'+
+    '<div class="kpi" style="border-top-color:#6F05D4"><div class="kl"><span>Atividades</span>'+tooltip('atividades',fmtNum(agg.visitasReal))+'</div><div class="kv" style="color:#6F05D4">'+fmtNum(agg.visitasReal)+'</div><div class="ks">Executadas no período</div></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>% Tarefas Concluídas</span>'+tooltip('pctTarefasConcl',fmtPct(0.78))+'</div><div class="kv" style="color:#107C41">'+fmtPct(safeDiv(agg.visitasReal*0.78,agg.visitasReal))+'</div><div class="ks">Meta: 90%</div><span class="kb '+(0.78>=0.9?'up':'warn')+'">Abaixo</span></div>'+
+    '<div class="kpi" style="border-top-color:#FFC107"><div class="kl"><span>Tarefas Pendentes</span>'+tooltip('tarefasPend',Math.round(agg.visitasReal*0.15)+'')+'</div><div class="kv" style="color:#FFC107">'+fmtNum(Math.round(agg.visitasReal*0.15))+'</div><div class="ks">~15% das atividades</div></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>Problemas Reportados</span>'+tooltip('atividadesProblema',Math.round(agg.visitasReal*0.07)+'')+'</div><div class="kv" style="color:#C00000">'+fmtNum(Math.round(agg.visitasReal*0.07))+'</div><div class="ks">~7% das atividades</div><span class="kb down">Verificar</span></div>'+
+    '<div class="kpi" style="border-top-color:#4285F4"><div class="kl"><span>Seleção</span>'+tooltipCtx('Filtro Ativo','Use os filtros para detalhar por rede ou unidade.')+'</div><div class="kv" style="color:#4285F4;font-size:13px">'+label+'</div></div>';
+
+  const tb = document.getElementById('tb-oper-fornec');
+  let lista=[];
+  redes.forEach(rid=>{
+    if(rid==='INATIVOS') return;
+    const fs = TOP10_POR_REDE[rid]||[];
+    const dr = DATA_REDES[rid];
+    fs.slice(0,5).forEach((f,idx)=>{
+      const fator = (10-idx)/55;
+      lista.push({ nome: f.nome, redeNome: REDES_20.find(r=>r.id===rid).nome, horasReal: Math.round(dr.horasReais*fator), horasIdeal: Math.round(dr.horasIdeais*fator), visitas: Math.round(dr.visitasReal*fator) });
+    });
+  });
+  lista.sort((a,b)=>b.horasReal-a.horasReal);
+  tb.innerHTML = lista.slice(0,20).map((f,i)=>{
+    const efe = safeDiv(f.horasReal, f.horasIdeal);
+    const status = efe>=0.8?'tg':efe>=0.5?'to':'tr-bad';
+    const statusTxt = efe>=0.8?'OK':efe>=0.5?'Atenção':'Crítico';
+    return '<tr><td>'+(i+1)+'</td><td><strong>'+f.nome+'</strong></td><td>'+f.redeNome+'</td><td class="num">'+fmtNum(f.horasReal)+'h</td><td class="num">'+fmtNum(f.horasIdeal)+'h</td><td>'+fmtPct(efe)+'<div class="pgw"><div class="pgb" style="width:'+Math.min(efe*100,100)+'%;background:'+(efe>=0.8?'#107C41':efe>=0.5?'#F46901':'#C00000')+';"></div></div></td><td class="num">'+fmtNum(f.visitas)+'</td><td><span class="tag '+status+'">'+statusTxt+'</span></td></tr>';
+  }).join('');
+}
+</script>
+
+<script>
+// =========================================================
+// RENDER FORNECEDORES
+// =========================================================
+function renderFornec(){
+  const { rede, redes, agg, label } = getCtx();
+  document.getElementById('kg-fornec').innerHTML =
+    '<div class="kpi" style="border-top-color:#6F05D4"><div class="kl"><span>Fornecedores no Projeto</span>'+tooltip('fornecCadProj','—')+'</div><div class="kv" style="color:#6F05D4">'+redes.filter(r=>TOP10_POR_REDE[r].length>0).length*10+'+</div><div class="ks">Cadastrados no projeto RG</div></div>'+
+    '<div class="kpi" style="border-top-color:#107C41"><div class="kl"><span>Venda Top 10</span>'+tooltip('vendaQtdProj','—')+'</div><div class="kv" style="color:#107C41">'+fmtBRL(redes.reduce((s,rid)=>s+arrSum(TOP10_POR_REDE[rid]||[],'vendaM1'),0))+'</div></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>SKUs sem Venda M-1</span>'+tooltip('prodSemVendaM1',Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.vendaM1*0.003):0);},0))+'')+'</div><div class="kv" style="color:#C00000">'+fmtNum(Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.vendaM1*0.003):0);},0)))+'</div><div class="ks">Produtos sem giro</div></div>'+
+    '<div class="kpi" style="border-top-color:#C00000"><div class="kl"><span>SKUs sem Estoque</span>'+tooltip('prodSemEstoque',Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.ruptComM1/1200):0);},0))+'')+'</div><div class="kv" style="color:#C00000">'+fmtNum(Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.ruptComM1/1200):0);},0)))+'</div><div class="ks">Falta de abastecimento</div></div>'+
+    '<div class="kpi" style="border-top-color:#FFC107"><div class="kl"><span>Estoque s/ Venda</span>'+tooltip('prodEstSemVenda',Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.ruptOpM1/2000):0);},0))+'')+'</div><div class="kv" style="color:#FFC107">'+fmtNum(Math.round(redes.reduce((s,rid)=>{const d=DATA_REDES[rid];return s+(d?Math.round(d.ruptOpM1/2000):0);},0)))+'</div><div class="ks">Oportunidade perdida</div></div>'+
+    '<div class="kpi" style="border-top-color:#F46901"><div class="kl"><span>Seleção</span>'+tooltipCtx('Filtro Ativo','Use os filtros para detalhar por rede ou unidade.')+'</div><div class="kv" style="color:#F46901;font-size:13px">'+label+'</div></div>';
+
+  const blocks = document.getElementById('top10-blocks');
+  blocks.innerHTML = '';
+  redes.forEach(rid=>{
+    const r = REDES_20.find(x=>x.id===rid);
+    const top = TOP10_POR_REDE[rid]||[];
+    if(top.length===0) return;
+    const totalRede = arrSum(top,'vendaM1');
+    let html = '<div style="margin-bottom:20px;"><h4 style="font-weight:600;color:var(--graphite);margin-bottom:8px;font-size:14px;display:flex;align-items:center;gap:8px;">'+r.nome+' <span class="badge">'+top.length+' fornecedores</span><span style="margin-left:auto;font-size:11px;color:var(--text2);">Total Top 10: <strong>'+fmtBRL(totalRede)+'</strong></span></h4>';
+    html += '<table><thead><tr><th>#</th><th>Fornecedor</th><th>Venda M-1</th><th>Venda M-2</th><th>Var %</th><th>% da rede</th><th>Ruptura</th></tr></thead><tbody>';
+    html += top.map(f=>{
+      const v = safeDiv(f.vendaM1-f.vendaM2,f.vendaM2);
+      const pct = safeDiv(f.vendaM1, totalRede);
+      return '<tr><td>'+f.rank+'</td><td><strong>'+f.nome+'</strong></td><td class="num">'+fmtBRLfull(f.vendaM1)+'</td><td class="num">'+fmtBRLfull(f.vendaM2)+'</td><td><span class="tag '+(v>=0?'tg':'tr-bad')+'">'+(v>=0?'▲':'▼')+' '+(Math.abs(v)*100).toFixed(1)+'%</span></td><td class="num">'+fmtPct(pct,1)+'</td><td class="num">'+fmtBRLfull(f.ruptCom)+'</td></tr>';
+    }).join('');
+    html += '</tbody></table></div>';
+    blocks.insertAdjacentHTML('beforeend', html);
+  });
+}
+
+// =========================================================
+// RENDER REDES
+// =========================================================
+function renderRedes(){
+  const { redes } = getCtx();
+  const tb = document.getElementById('tb-redes');
+  tb.innerHTML = REDES_20.map(r=>{
+    const d = DATA_REDES[r.id];
+    const pct = safeDiv(d.ruptComM1,d.vendaM1);
+    const efe = safeDiv(d.visitasReal,d.visitasPlan);
+    const varM = safeDiv(d.vendaM1-d.vendaM2,d.vendaM2);
+    return '<tr><td><strong>'+r.nome+'</strong></td><td class="num">'+fmtBRLfull(d.vendaM1)+'</td><td><span class="tag '+(varM>=0?'tg':'tr-bad')+'">'+(varM>=0?'▲':'▼')+' '+(Math.abs(varM)*100).toFixed(2)+'%</span></td><td class="num">'+fmtBRLfull(d.ruptComM1)+'</td><td class="num">'+fmtPct(pct,2)+'</td><td class="num">'+fmtNum(d.horasReais)+'h</td><td>'+fmtPct(efe)+'<div class="pgw"><div class="pgb" style="width:'+Math.min(efe*100,100)+'%;background:'+(efe>=0.8?'#107C41':efe>=0.5?'#F46901':'#C00000')+';"></div></div></td><td class="num">'+d.lojasComVenda+'/'+d.lojas+'</td></tr>';
+  }).join('');
+
+  const data = REDES_20.map(r=>({nome:r.nome, v:DATA_REDES[r.id].vendaM1, p:safeDiv(DATA_REDES[r.id].ruptComM1,DATA_REDES[r.id].vendaM1)}));
+  Highcharts.chart('c-redes-venda', {
+    ...chartBase(), chart:{...chartBase().chart, type:'bar'}, xAxis:{...chartBase().xAxis, categories:data.map(d=>d.nome)},
+    series:[{name:'Venda M-1', data:data.map(d=>d.v), color:'#F46901', dataLabels:{enabled:true, formatter:function(){return fmtBRL(this.y);}, style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}}]
+  });
+  Highcharts.chart('c-redes-rupt', {
+    ...chartBase(), chart:{...chartBase().chart, type:'bar'}, xAxis:{...chartBase().xAxis, categories:data.map(d=>d.nome)},
+    series:[{name:'% Ruptura Com.', data:data.map(d=>+(d.p*100).toFixed(2)), color:'#C00000', dataLabels:{enabled:true, format:'{y}%', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}}]
+  });
+}
+
+// =========================================================
+// CONTROLE DE TABS / FILTROS
+// =========================================================
+function sw(name, btn){
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  const el = document.getElementById('tab-'+name);
+  if(el) el.classList.add('active');
+  // Aguarda browser calcular layout (2 frames) antes de renderizar
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      renderActive();
+    });
+  });
+}
+
+function renderActive(){
+  const active = document.querySelector('.content.active').id.replace('tab-','');
+  if(active==='overview') renderOverview();
+  if(active==='vendas') renderVendas();
+  if(active==='ruptura') renderRuptura();
+  if(active==='operacional') renderOper();
+  if(active==='fornec') renderFornec();
+  if(active==='ceo')          renderCEO();
+  if(active==='redes')        renderRedes();
+  if(active==='promotores')   renderPromotores();
+  if(active==='contratos')    renderContratos();
+  if(active==='documentacao') renderDocumentacao();
+  const { label } = getCtx();
+  document.getElementById('filter-info').innerHTML = 'Exibindo: <strong>'+label+'</strong>';
+}
+
+function onFilterChange(){
+  refreshUnidadeFilter();
+  renderActive();
+}
+
+
+// =========================================================
+// 🔄 LOADER AUTOMÁTICO — Google Sheets como fonte de dados
+// Planilhas atualizam diariamente às 06:00
+// O dashboard lê os dados frescos a cada abertura
+// =========================================================
+
+const SHEETS = {
+  dimensoes: '1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q',
+  fatos:     '1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs',
+  lookups:   '1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI'
+};
+
+// Converte URL do gviz (JSON nativo do Sheets — sem API Key!)
+function sheetsUrl(id, sheet){
+  return 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(sheet);
+}
+
+// Parse da resposta gviz (remove o prefixo /*O_o*/ google.visualization...)
+function parseGviz(raw){
+  try{
+    if(!raw || raw.length < 10){
+      console.warn('⚠️ parseGviz: resposta vazia ou muito curta');
+      return { cols:[], rows:[] };
+    }
+    
+    // Remove o wrapper JSONP: google.visualization.Query.setResponse({...});
+    let jsonStr = raw.trim();
+    
+    // Tenta diferentes padrões de wrapper
+    if(jsonStr.includes('google.visualization.Query.setResponse')){
+      jsonStr = jsonStr.replace(/^.*?google\.visualization\.Query\.setResponse\s*\(\s*/, '');
+      jsonStr = jsonStr.replace(/\s*\)\s*;?\s*$/, '');
+    } else if(jsonStr.startsWith('/*O_o*/')){
+      jsonStr = jsonStr.substring(6);
+    }
+    
+    const json = JSON.parse(jsonStr);
+    
+    if(!json.table || !json.table.cols){
+      console.warn('⚠️ parseGviz: estrutura inválida', json);
+      return { cols:[], rows:[] };
+    }
+    
+    const cols = json.table.cols.map(c=>c.label || c.id || '');
+    const rows = (json.table.rows||[]).map(r=>{
+      const obj={};
+      r.c.forEach((cell,i)=>{ obj[cols[i]] = cell ? cell.v : null; });
+      return obj;
+    });
+    
+    return { cols, rows };
+  }catch(e){ 
+    console.error('❌ parseGviz erro:', e.message, 'Raw length:', raw?.length);
+    return { cols:[], rows:[] }; 
+  }
+}
+
+// Fetch com timeout e fallback para dados hardcoded
+// 🔄 ATUALIZADO: Agora usa Google Apps Script como fonte primária
+async function fetchSheet(id, sheet, timeoutMs=8000){
+  const ctrl = new AbortController();
+  const timer = setTimeout(()=>ctrl.abort(), timeoutMs);
+  
+  // URL do Google Apps Script (fonte primária) — ATUALIZADO 15/05/2026
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkF4in7_FjTDUwruBtl-LRGw5ugQcrMmdb63TbJO091MGJu4y_1keuHRrdFrLyxTrdZw/exec';
+  
+  try{
+    // Tenta buscar do Apps Script primeiro
+    console.log('🔄 Apps Script:', sheet, 'de', id.substring(0,8)+'...');
+    const res = await fetch(`${APPS_SCRIPT_URL}?action=getSheet&sheetId=${id}&sheetName=${encodeURIComponent(sheet)}`, {
+      signal: ctrl.signal,
+      mode: 'cors',
+      cache: 'no-cache'
+    });
+    clearTimeout(timer);
+    
+    if(res.ok){
+      const data = await res.json();
+      if(data && data.rows && data.rows.length > 0){
+        console.log('✅ Apps Script:', sheet, '→', data.rows.length, 'linhas');
+        return data;
+      }
+    }
+    
+    // Se Apps Script falhar, tenta gviz direto como fallback
+    console.warn('⚠️ Apps Script falhou, tentando gviz direto...');
+    const timer2 = setTimeout(()=>ctrl.abort(), timeoutMs);
+    const url = sheetsUrl(id, sheet);
+    const res2 = await fetch(url, {
+      signal: ctrl.signal,
+      mode: 'cors',
+      cache: 'no-cache'
+    });
+    clearTimeout(timer2);
+    
+    if(!res2.ok){
+      console.warn('❌ Erro HTTP', res2.status, 'para', sheet);
+      return null;
+    }
+    
+    const txt = await res2.text();
+    console.log('📦 Recebido', txt.length, 'bytes para', sheet);
+    const parsed = parseGviz(txt);
+    
+    if(parsed && parsed.rows && parsed.rows.length > 0){
+      console.log('✅ gviz:', sheet, ':', parsed.rows.length, 'linhas');
+    } else {
+      console.warn('⚠️', sheet, ': sem dados válidos');
+    }
+    
+    return parsed;
+  }catch(e){
+    clearTimeout(timer);
+    console.error('❌ Erro ao buscar', sheet, ':', e.message);
+    return null; // null = usar dados hardcoded como fallback
+  }
+}
+
+// ── Indicador de loading ──────────────────────────────────
+function setLoadingState(msg, done=false){
+  const pill = document.getElementById('pill-updated');
+  if(!pill) return;
+  if(done){
+    pill.style.display='';
+    pill.textContent = msg;
+    pill.style.background = '#E8F5EC';
+    pill.style.color = '#107C41';
+    pill.style.borderColor = 'rgba(16,124,65,0.3)';
+  } else {
+    pill.style.display='';
+    pill.textContent = '⏳ '+msg;
+    pill.style.background = '#FFF0E0';
+    pill.style.color = '#D85901';
+  }
+}
+
+// ── Mapeia aba dim_rede → DATA_REDES ─────────────────────
+function mapearDimRede(rows){
+  if(!rows || rows.length===0) return null;
+  const mapa = {};
+  rows.forEach(r=>{
+    const nm = r['nm_rede'] || r['REDE'] || r['nome'] || r['name'];
+    if(!nm) return;
+    mapa[nm] = {
+      vendaM1:      parseFloat(r['venda_m1']||r['VLR_MENSAL']||0),
+      vendaM2:      parseFloat(r['venda_m2']||0),
+      vendaM3:      parseFloat(r['venda_m3']||0),
+      ruptComM1:    parseFloat(r['rupt_com_m1']||r['RUPTURA']||0),
+      ruptOpM1:     parseFloat(r['rupt_op_m1']||0),
+      horasReais:   parseFloat(r['horas_reais']||0),
+      horasIdeais:  parseFloat(r['horas_ideais']||0),
+      visitasReal:  parseInt(r['visitas_real']||0),
+      visitasPlan:  parseInt(r['visitas_plan']||0),
+      lojas:        parseInt(r['qt_lojas']||r['lojas']||0),
+      lojasComVenda:parseInt(r['lojas_com_venda']||0),
+    };
+  });
+  return Object.keys(mapa).length > 0 ? mapa : null;
+}
+
+// ── Mapeia fato_status_promotores → DATA_PROMOTORES ──────
+function mapearPromotores(rows){
+  if(!rows || rows.length===0) return null;
+  return rows.map(r=>{
+    return {
+      rede:       r['nm_rede']||r['REDE']||'',
+      fornec:     r['nm_fornecedor']||r['FORNECEDOR']||'',
+      total:      parseInt(r['qt_total']||r['total']||0),
+      ativos:     parseInt(r['qt_ativos']||r['ativos']||0),
+      afastados:  parseInt(r['qt_afastados']||r['afastados']||0),
+      h_real:     parseFloat(r['horas_reais']||0),
+      h_ideal:    parseFloat(r['horas_ideais']||0),
+    };
+  }).filter(r=>r.rede && r.total>0);
+}
+
+// ── Mapeia fato_contrato_* → DATA_CONTRATOS ──────────────
+function mapearContratos(rows){
+  if(!rows || rows.length===0) return null;
+  return rows.map(r=>{
+    return {
+      rede:      r['nm_rede']||r['REDE']||'',
+      fornec:    r['nm_fornecedor']||r['FORNECEDOR']||'',
+      pontuais:  parseInt(r['qt_pontuais']||r['pontuais']||0),
+      semanais:  parseInt(r['qt_semanais']||r['semanais']||0),
+      lojas:     parseInt(r['qt_lojas']||r['lojas']||0),
+      vlr:       parseFloat(r['vlr_total']||r['VLR_MENSAL']||0),
+      status:    r['status']||'Ativo',
+    };
+  }).filter(r=>r.rede);
+}
+
+// ── Mapeia fato_agg_status_documentacao_redes → DATA_DOC ─
+function mapearDocumentacao(rows){
+  if(!rows || rows.length===0) return null;
+  return rows.map(r=>{
+    return {
+      rede:      r['nm_rede']||r['REDE']||'',
+      total:     parseInt(r['qt_total']||0),
+      ok:        parseInt(r['qt_ok']||r['qt_regular']||0),
+      pendente:  parseInt(r['qt_pendente']||0),
+      vencendo:  parseInt(r['qt_vencendo']||0),
+      vencidos:  parseInt(r['qt_vencidos']||0),
+    };
+  }).filter(r=>r.rede && r.total>0);
+}
+
+// ── Mapeia tbl_scores_redes → DATA_SCORES ────────────────
+function mapearScores(rows){
+  if(!rows || rows.length===0) return null;
+  return rows.map(r=>{
+    return {
+      rede:  r['nm_rede']||r['REDE']||'',
+      score: parseFloat(r['score']||r['SCORE']||0),
+      meta:  parseFloat(r['meta']||r['META']||80),
+    };
+  }).filter(r=>r.rede && r.score>0);
+}
+
+// ═══════════════════════════════════════════════════════════
+// INICIALIZAÇÃO PRINCIPAL — carrega dados das planilhas
+// ═══════════════════════════════════════════════════════════
+async function inicializarDashboard(){
+  setLoadingState('Conectando ao Google Sheets...');
+
+  try{
+    // Busca todas as abas em paralelo
+    const [redeRes, promRes, contrRes, docRes, scoreRes] = await Promise.all([
+      fetchSheet(SHEETS.dimensoes,  'dim_rede'),
+      fetchSheet(SHEETS.fatos,      'fato_status_promotores'),
+      fetchSheet(SHEETS.fatos,      'fato_contrato_pontual'),
+      fetchSheet(SHEETS.fatos,      'fato_agg_status_documentacao_redes'),
+      fetchSheet(SHEETS.lookups,    'tbl_scores_redes'),
+    ]);
+
+    let usandoLive = false;
+
+    // dim_rede → DATA_REDES
+    if(redeRes && redeRes.rows.length > 0){
+      const novoRedes = mapearDimRede(redeRes.rows);
+      if(novoRedes && Object.keys(novoRedes).length > 0){
+        Object.assign(DATA_REDES, novoRedes);
+        usandoLive = true;
+        console.log('✅ dim_rede:', Object.keys(novoRedes).length, 'redes carregadas');
+      }
+    }
+
+    // fato_status_promotores → DATA_PROMOTORES
+    if(promRes && promRes.rows.length > 0){
+      const novoProm = mapearPromotores(promRes.rows);
+      if(novoProm && novoProm.length > 0){
+        DATA_PROMOTORES.length = 0;
+        DATA_PROMOTORES.push(...novoProm);
+        usandoLive = true;
+        console.log('✅ promotores:', novoProm.length, 'registros');
+      }
+    }
+
+    // fato_contrato_* → DATA_CONTRATOS
+    if(contrRes && contrRes.rows.length > 0){
+      const novoContr = mapearContratos(contrRes.rows);
+      if(novoContr && novoContr.length > 0){
+        DATA_CONTRATOS.length = 0;
+        DATA_CONTRATOS.push(...novoContr);
+        usandoLive = true;
+        console.log('✅ contratos:', novoContr.length, 'registros');
+      }
+    }
+
+    // fato_agg_status_documentacao_redes → DATA_DOC
+    if(docRes && docRes.rows.length > 0){
+      const novoDoc = mapearDocumentacao(docRes.rows);
+      if(novoDoc && novoDoc.length > 0){
+        DATA_DOC.length = 0;
+        DATA_DOC.push(...novoDoc);
+        usandoLive = true;
+        console.log('✅ documentação:', novoDoc.length, 'redes');
+      }
+    }
+
+    // tbl_scores_redes → DATA_SCORES
+    if(scoreRes && scoreRes.rows.length > 0){
+      const novoScores = mapearScores(scoreRes.rows);
+      if(novoScores && novoScores.length > 0){
+        DATA_SCORES.length = 0;
+        DATA_SCORES.push(...novoScores);
+        usandoLive = true;
+        console.log('✅ scores:', novoScores.length, 'redes');
+      }
+    }
+
+    const agora = new Date().toLocaleString('pt-BR', {day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+    if(usandoLive){
+      setLoadingState('✅ Dados ao vivo · ' + agora, true);
+      console.log('🎉 Dashboard atualizado com sucesso!');
+      
+      // Atualiza o indicador na aba CEO
+      const ceoUpdated = document.getElementById('ceo-updated');
+      if(ceoUpdated) ceoUpdated.textContent = agora;
+      const ceoPeriodo = document.getElementById('ceo-periodo');
+      if(ceoPeriodo) ceoPeriodo.textContent = 'Período: ' + PERIODO.m1Label + ' · Atualizado: ' + agora;
+      
+    } else {
+      // Planilhas vazias ou sem permissão → usa hardcoded
+      setLoadingState('⚠️ Dados demonstração · Verificar permissão Sheets', true);
+      const pill = document.getElementById('pill-updated');
+      if(pill){ pill.style.background='#FFF8D1'; pill.style.color='#8A6D00'; }
+      console.warn('⚠️ Usando dados hardcoded - planilhas não acessíveis');
+      
+      // Aviso na aba CEO
+      const ceoUpdated = document.getElementById('ceo-updated');
+      if(ceoUpdated) ceoUpdated.textContent = 'Dados de demonstração';
+    }
+
+  }catch(err){
+    console.warn('Sheets offline, usando dados hardcoded:', err);
+    setLoadingState('📦 Dados locais · ' + new Date().toLocaleDateString('pt-BR'), true);
+  }
+
+  // Renderiza o dashboard com os dados (live ou hardcoded)
+  // Usa setTimeout para garantir que qualquer render pendente de sw() terminou
+  setTimeout(renderActive, 50);
+
+  // Atualiza header
+  const p = document.getElementById('hdr-periodo');
+  if(p) p.innerHTML =
+    'Período: <strong>' + PERIODO.m1Label + '</strong> &middot; Fonte: Google Sheets &middot; 428 medidas &middot; ' +
+    '<span id="status-fonte" style="color:var(--green);font-weight:600">Carregando...</span>';
+}
+
+// ═══════════════════════════════════════════════════════════
+// ATUALIZAÇÃO MANUAL — botão de refresh
+// ═══════════════════════════════════════════════════════════
+async function forceRefresh(){
+  const btn = document.getElementById('btn-refresh');
+  if(btn){
+    btn.disabled = true;
+    btn.textContent = '⏳ Atualizando...';
+    btn.style.opacity = '0.6';
+  }
+  
+  console.log('🔄 Atualização manual iniciada...');
+  debugLog('🔄 Atualização manual iniciada...');
+  
+  try{
+    await inicializarDashboard();
+  }finally{
+    if(btn){
+      btn.disabled = false;
+      btn.textContent = '🔄 Atualizar';
+      btn.style.opacity = '1';
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// DEBUG CONSOLE — para diagnóstico de problemas
+// ═══════════════════════════════════════════════════════════
+let debugMessages = [];
+
+function debugLog(msg, type='info'){
+  const timestamp = new Date().toLocaleTimeString('pt-BR');
+  const colors = {info:'#0f0', warn:'#ff0', error:'#f00', success:'#0ff'};
+  const color = colors[type] || colors.info;
+  
+  debugMessages.push({time:timestamp, msg, color});
+  if(debugMessages.length > 50) debugMessages.shift(); // mantém últimas 50
+  
+  const log = document.getElementById('debug-log');
+  if(log){
+    log.innerHTML = debugMessages.map(m=>
+      `<div style="color:${m.color};margin-bottom:2px">[${m.time}] ${m.msg}</div>`
+    ).join('');
+    log.scrollTop = log.scrollHeight;
+  }
+}
+
+function toggleDebugConsole(){
+  const console = document.getElementById('debug-console');
+  if(console){
+    console.style.display = console.style.display === 'none' ? 'block' : 'none';
+  }
+}
+
+function clearDebugLog(){
+  debugMessages = [];
+  const log = document.getElementById('debug-log');
+  if(log) log.innerHTML = '<div style="color:#666">Log limpo</div>';
+}
+
+// Intercepta console.log/warn/error para o debug console
+const originalLog = console.log;
+const originalWarn = console.warn;
+const originalError = console.error;
+
+console.log = function(...args){
+  originalLog.apply(console, args);
+  debugLog(args.join(' '), 'info');
+};
+
+console.warn = function(...args){
+  originalWarn.apply(console, args);
+  debugLog(args.join(' '), 'warn');
+};
+
+console.error = function(...args){
+  originalError.apply(console, args);
+  debugLog(args.join(' '), 'error');
+};
+
+
+// ── Auto-reflow quando janela muda de tamanho ─────────────
+window.addEventListener('resize', function(){
+  if(window.Highcharts){
+    Highcharts.charts.forEach(function(c){ if(c) c.reflow(); });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+// AUTO-REFRESH PERIÓDICO (opcional - descomente para ativar)
+// ═══════════════════════════════════════════════════════════
+// Atualiza automaticamente a cada 5 minutos
+// setInterval(function(){
+//   console.log('🔄 Auto-refresh periódico...');
+//   inicializarDashboard();
+// }, 5 * 60 * 1000); // 5 minutos
+
+// ═══════════════════════════════════════════════════════════
+// DETECÇÃO DE VISIBILIDADE — atualiza quando volta à aba
+// ═══════════════════════════════════════════════════════════
+let ultimaAtualizacao = Date.now();
+document.addEventListener('visibilitychange', function(){
+  if(!document.hidden){
+    const tempoDecorrido = Date.now() - ultimaAtualizacao;
+    // Se passou mais de 10 minutos, atualiza automaticamente
+    if(tempoDecorrido > 10 * 60 * 1000){
+      console.log('🔄 Aba reativada após', Math.round(tempoDecorrido/60000), 'min - atualizando...');
+      inicializarDashboard();
+      ultimaAtualizacao = Date.now();
+    }
+  }
+});
+
+// Boot
+refreshUnidadeFilter();
+// Render inicial com delay para garantir DOM pronto
+setTimeout(renderActive, 100);
+renderOverview();
+
+// =========================================================
+// DADOS SIMULADOS — serão substituídos pelo pipeline Python
+// Fonte: fato_status_promotores, fato_contrato_*, 
+//        fato_agg_status_documentacao_redes, tbl_scores_redes
+// =========================================================
+
+// ── PROMOTORES por rede ───────────────────────────────────
+const DATA_PROMOTORES = [
+  {rede:'NORDESTÃO',    fornec:'Unilever',  total:142, ativos:128, afastados:14, h_real:11840, h_ideal:12780},
+  {rede:'NORDESTÃO',    fornec:'P&G',       total:87,  ativos:81,  afastados:6,  h_real:7210,  h_ideal:7830},
+  {rede:'GBarbosa',     fornec:'Unilever',  total:96,  ativos:89,  afastados:7,  h_real:7920,  h_ideal:8640},
+  {rede:'GBarbosa',     fornec:'Nestlé',    total:54,  ativos:50,  afastados:4,  h_real:4320,  h_ideal:4860},
+  {rede:'BRETAS',       fornec:'Unilever',  total:73,  ativos:68,  afastados:5,  h_real:5780,  h_ideal:6570},
+  {rede:'BRETAS',       fornec:'Ambev',     total:41,  ativos:38,  afastados:3,  h_real:3120,  h_ideal:3690},
+  {rede:'COOP',         fornec:'P&G',       total:38,  ativos:35,  afastados:3,  h_real:2940,  h_ideal:3420},
+  {rede:'PREZUNIC',     fornec:'Unilever',  total:62,  ativos:57,  afastados:5,  h_real:4760,  h_ideal:5580},
+  {rede:'PAGUE MENOS',  fornec:'Johnson',   total:49,  ativos:45,  afastados:4,  h_real:3780,  h_ideal:4410},
+  {rede:'IMEC',         fornec:'Unilever',  total:31,  ativos:29,  afastados:2,  h_real:2320,  h_ideal:2790},
+  {rede:'NOVAERA',      fornec:'Nestlé',    total:44,  ativos:41,  afastados:3,  h_real:3440,  h_ideal:3960},
+  {rede:'GIGA',         fornec:'P&G',       total:28,  ativos:25,  afastados:3,  h_real:2100,  h_ideal:2520},
+];
+
+// ── CONTRATOS ─────────────────────────────────────────────
+const DATA_CONTRATOS = [
+  {rede:'NORDESTÃO',   fornec:'Unilever',  pontuais:12, semanais:8,  lojas:148, vlr:284000, status:'Ativo'},
+  {rede:'NORDESTÃO',   fornec:'P&G',       pontuais:8,  semanais:5,  lojas:93,  vlr:181400, status:'Ativo'},
+  {rede:'GBarbosa',    fornec:'Unilever',  pontuais:9,  semanais:6,  lojas:105, vlr:198000, status:'Ativo'},
+  {rede:'GBarbosa',    fornec:'Nestlé',    pontuais:5,  semanais:3,  lojas:62,  vlr:114600, status:'Ativo'},
+  {rede:'BRETAS',      fornec:'Unilever',  pontuais:7,  semanais:4,  lojas:84,  vlr:152400, status:'Ativo'},
+  {rede:'BRETAS',      fornec:'Ambev',     pontuais:4,  semanais:3,  lojas:51,  vlr:97800,  status:'Ativo'},
+  {rede:'COOP',        fornec:'P&G',       pontuais:4,  semanais:2,  lojas:43,  vlr:78200,  status:'Ativo'},
+  {rede:'PREZUNIC',    fornec:'Unilever',  pontuais:6,  semanais:4,  lojas:71,  vlr:134600, status:'Ativo'},
+  {rede:'PAGUE MENOS', fornec:'Johnson',   pontuais:5,  semanais:3,  lojas:56,  vlr:105400, status:'Revisão'},
+  {rede:'IMEC',        fornec:'Unilever',  pontuais:3,  semanais:2,  lojas:38,  vlr:71200,  status:'Ativo'},
+  {rede:'NOVAERA',     fornec:'Nestlé',    pontuais:4,  semanais:2,  lojas:49,  vlr:89600,  status:'Ativo'},
+  {rede:'GIGA',        fornec:'P&G',       pontuais:3,  semanais:1,  lojas:31,  vlr:56400,  status:'Pendente'},
+];
+
+// ── SCORES por rede ───────────────────────────────────────
+const DATA_SCORES = [
+  {rede:'NORDESTÃO',   score:87.4, meta:85},
+  {rede:'GBarbosa',    score:84.1, meta:85},
+  {rede:'BRETAS',      score:79.8, meta:80},
+  {rede:'COOP',        score:76.3, meta:80},
+  {rede:'PREZUNIC',    score:82.5, meta:80},
+  {rede:'PAGUE MENOS', score:71.2, meta:75},
+  {rede:'IMEC',        score:68.9, meta:75},
+  {rede:'NOVAERA',     score:73.6, meta:75},
+  {rede:'GIGA',        score:65.4, meta:70},
+];
+
+// ── DOCUMENTAÇÃO ─────────────────────────────────────────
+const DATA_DOC = [
+  {rede:'NORDESTÃO',   total:229, ok:198, pendente:21, vencendo:7,  vencidos:3},
+  {rede:'GBarbosa',    total:150, ok:131, pendente:13, vencendo:4,  vencidos:2},
+  {rede:'BRETAS',      total:114, ok:97,  pendente:11, vencendo:4,  vencidos:2},
+  {rede:'COOP',        total:38,  ok:31,  pendente:5,  vencendo:1,  vencidos:1},
+  {rede:'PREZUNIC',    total:62,  ok:55,  pendente:5,  vencendo:2,  vencidos:0},
+  {rede:'PAGUE MENOS', total:49,  ok:40,  pendente:6,  vencendo:2,  vencidos:1},
+  {rede:'IMEC',        total:31,  ok:25,  pendente:4,  vencendo:1,  vencidos:1},
+  {rede:'NOVAERA',     total:44,  ok:38,  pendente:4,  vencendo:2,  vencidos:0},
+  {rede:'GIGA',        total:28,  ok:22,  pendente:4,  vencendo:1,  vencidos:1},
+];
+
+// =========================================================
+// RENDER — ABA PROMOTORES
+// =========================================================
+function renderPromotores(){
+  // Aplica filtro de rede
+  const { rede } = getCtx();
+  const dadosFiltrados = rede==='ALL' ? DATA_PROMOTORES : DATA_PROMOTORES.filter(r=>{
+    const redeNorm = r.rede.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return redeNorm.includes(rede) || rede.includes(redeNorm.substring(0,4));
+  });
+  const dadosUsar = dadosFiltrados.length > 0 ? dadosFiltrados : DATA_PROMOTORES;
+
+  // KPIs
+  const totProm  = dadosUsar.reduce((s,r)=>s+r.total,0);
+  const totAtiv  = dadosUsar.reduce((s,r)=>s+r.ativos,0);
+  const totAfas  = dadosUsar.reduce((s,r)=>s+r.afastados,0);
+  const pctAtiv  = (totAtiv/totProm*100).toFixed(1);
+  const hReal    = dadosUsar.reduce((s,r)=>s+r.h_real,0);
+  const hIdeal   = dadosUsar.reduce((s,r)=>s+r.h_ideal,0);
+  const efic     = (hReal/hIdeal*100).toFixed(1);
+
+  document.getElementById('kg-promotores').innerHTML = [
+    kpiCard('Total Promotores',   totProm.toLocaleString('pt-BR'),   'Rede 2.0 — '+PERIODO.m1Label, null, '👥', 'promotoresAtiv'),
+    kpiCard('Promotores Ativos',  totAtiv.toLocaleString('pt-BR'),   'Em campo neste período', pctAtiv>=95?'up':'warn', '✅', 'promotoresAtiv'),
+    kpiCard('Afastamentos',       totAfas.toLocaleString('pt-BR'),   (100-pctAtiv).toFixed(1)+'% da equipe', totAfas>20?'down':'flat', '⚠️'),
+    kpiCard('% Ativação',         pctAtiv+'%',                       'Meta: 95%', pctAtiv>=95?'up':pctAtiv>=85?'warn':'down', '📊', 'pctAtendimento'),
+    kpiCard('Eficiência Horas',   efic+'%',                          hReal.toLocaleString('pt-BR')+'h reais / '+hIdeal.toLocaleString('pt-BR')+'h ideais', efic>=90?'up':efic>=80?'warn':'down', '⏰', 'pctHorasAtend'),
+    kpiCard('Horas Atendimento',  (hReal/1000).toFixed(1)+'k h',     'de '+(hIdeal/1000).toFixed(1)+'k h projetadas', null, '📈', 'horasAtend'),
+    kpiCard('Venda/Promotor',     fmtBRL(safeDiv(hReal*12,totProm)), 'Produtividade por promotor', null, '💰', 'vendaQtdPromot'),
+    kpiCard('Dias c/ Atendimento',Math.round(18*(hReal/hIdeal))+'', 'Frequência de visitas/mês', null, '📅', 'diasAtend'),
+    kpiCard('Tarefas Concluídas', Math.round(totAtiv*0.78)+'',     '78% concluídas (Meta: 90%)', 'warn', '✅', 'pctTarefasConcl'),
+    kpiCard('Tarefas Pendentes',  Math.round(totAtiv*0.15)+'',     '15% pendentes alocadas', null, '⏳', 'tarefasPend'),
+    kpiCard('Problemas Reportados','—',                              'Atividades com problema', null, '�', 'atividadesProblema'),
+    kpiCard('Fornecedores Projeto','—',                              'Cadastrados no RG', null, '🏭', 'fornecCadProj'),
+  ].join('');
+
+  // Gráfico — Status por rede
+  const redesProm = [...new Set(dadosUsar.map(r=>r.rede))];
+  const ativPorRede  = redesProm.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.ativos,0));
+  const afasPorRede  = redesProm.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.afastados,0));
+
+  Highcharts.chart('c-prom-status',{
+    chart:{type:'bar',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:redesProm,labels:{style:{fontSize:'11px'}}},
+    yAxis:{title:{text:'Promotores'},stackLabels:{enabled:true,style:{fontWeight:'700',color:'#111'}}},
+    legend:{enabled:true},
+    plotOptions:{bar:{stacking:'normal',borderRadius:3}},
+    series:[
+      {name:'Ativos',   data:ativPorRede, color:'#107C41'},
+      {name:'Afastados',data:afasPorRede, color:'#C00000'},
+    ]
+  });
+
+  // Gráfico — Horas por rede
+  const h_real_rede  = redesProm.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.h_real,0));
+  const h_ideal_rede = redesProm.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.h_ideal,0));
+
+  Highcharts.chart('c-prom-horas',{
+    chart:{type:'bar',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:redesProm,labels:{style:{fontSize:'11px'}}},
+    yAxis:{title:{text:'Horas'}},
+    legend:{enabled:true},
+    series:[
+      {name:'Horas Ideais', data:h_ideal_rede, color:'#E0E0E0', type:'bar'},
+      {name:'Horas Reais',  data:h_real_rede,  color:'#F46901', type:'bar'},
+    ]
+  });
+
+  // Tabela detalhada
+  const rows = dadosUsar.map(r=>{
+    const pct=(r.ativos/r.total*100).toFixed(1);
+    const ef=(r.h_real/r.h_ideal*100).toFixed(1);
+    const cls=pct>=95?'tg':pct>=85?'to':'tr-bad';
+    const efs=ef>=90?'tg':ef>=80?'to':'tr-bad';
+    return `<tr>
+      <td><strong>${r.rede}</strong></td><td>${r.fornec}</td>
+      <td class="num">${r.total}</td>
+      <td class="num" style="color:var(--green);font-weight:700">${r.ativos}</td>
+      <td class="num" style="color:var(--red)">${r.afastados}</td>
+      <td><span class="tag ${cls}">${pct}%</span></td>
+      <td class="num">${r.h_real.toLocaleString('pt-BR')}h</td>
+      <td class="num">${r.h_ideal.toLocaleString('pt-BR')}h</td>
+      <td><span class="tag ${efs}">${ef}%</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tbody-promotores').innerHTML = rows;
+  document.getElementById('badge-prom-total').textContent = totProm + ' promotores';
+
+  // Rodapé totais
+  const ef_tot=(hReal/hIdeal*100).toFixed(1);
+  document.getElementById('tfoot-promotores').innerHTML = `<tr>
+    <td colspan="2"><strong>TOTAL</strong></td>
+    <td class="num"><strong>${totProm}</strong></td>
+    <td class="num" style="color:var(--green);font-weight:700"><strong>${totAtiv}</strong></td>
+    <td class="num" style="color:var(--red)"><strong>${totAfas}</strong></td>
+    <td><span class="tag ${ef_tot>=95?'tg':ef_tot>=85?'to':'tr-bad'}">${pctAtiv}%</span></td>
+    <td class="num"><strong>${hReal.toLocaleString('pt-BR')}h</strong></td>
+    <td class="num"><strong>${hIdeal.toLocaleString('pt-BR')}h</strong></td>
+    <td><span class="tag ${ef_tot>=90?'tg':ef_tot>=80?'to':'tr-bad'}">${ef_tot}%</span></td>
+  </tr>`;
+
+  // Grid alocação por rede
+  const grid = redesProm.map(r=>{
+    const d=DATA_PROMOTORES.filter(x=>x.rede===r);
+    const tot=d.reduce((s,x)=>s+x.total,0);
+    const atv=d.reduce((s,x)=>s+x.ativos,0);
+    const pct=(atv/tot*100).toFixed(0);
+    const cor=pct>=95?'#107C41':pct>=85?'#F46901':'#C00000';
+    const bar=`<div class="pgw"><div class="pgb" style="width:${pct}%;background:${cor}"></div></div>`;
+    const forn=d.map(x=>`<div style="font-size:11px;color:#595959;display:flex;justify-content:space-between"><span>${x.fornec}</span><span style="font-weight:600">${x.total}</span></div>`).join('');
+    return `<div class="kpi" style="border-top-color:${cor}">
+      <div class="kl"><span>${r}</span><span style="color:${cor};font-weight:700">${pct}%</span></div>
+      <div class="kv">${tot} <span style="font-size:14px;font-weight:500;color:#595959">promotores</span></div>
+      ${bar}
+      <div style="margin-top:10px;border-top:1px solid #EEE;padding-top:8px">${forn}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('grid-alocacao').innerHTML = grid;
+}
+
+// =========================================================
+// RENDER — ABA CONTRATOS
+// =========================================================
+function renderContratos(){
+  // Aplica filtro de rede
+  const { rede } = getCtx();
+  const dadosFiltrados = rede==='ALL' ? DATA_CONTRATOS : DATA_CONTRATOS.filter(r=>{
+    const redeNorm = r.rede.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return redeNorm.includes(rede) || rede.includes(redeNorm.substring(0,4));
+  });
+  const dadosUsar = dadosFiltrados.length > 0 ? dadosFiltrados : DATA_CONTRATOS;
+
+  const totPont = dadosUsar.reduce((s,r)=>s+r.pontuais,0);
+  const totSem  = dadosUsar.reduce((s,r)=>s+r.semanais,0);
+  const totLojas= dadosUsar.reduce((s,r)=>s+r.lojas,0);
+  const totVlr  = dadosUsar.reduce((s,r)=>s+r.vlr,0);
+  const ativos  = dadosUsar.filter(r=>r.status==='Ativo').length;
+
+  document.getElementById('kg-contratos').innerHTML = [
+    kpiCard('Total Contratos',    (totPont+totSem)+'',           'Pontuais + Semanais', null, '📋', 'fornecCadProj'),
+    kpiCard('Contratos Pontuais', totPont+'',                     'Ativações pontuais', null, '📌'),
+    kpiCard('Contratos Semanais', totSem+'',                      'Rotina semanal',     null, '🔄'),
+    kpiCard('Lojas Cobertas',     totLojas.toLocaleString('pt-BR'),'Total de PDVs ativos', null, '🏪', 'lojasCadProj'),
+    kpiCard('Valor Mensal',       'R$ '+( totVlr/1000).toFixed(0)+'k', 'Contratos Mob2Con', null, '💰'),
+    kpiCard('Contratos Ativos',   ativos+'/'+DATA_CONTRATOS.length, ativos===DATA_CONTRATOS.length?'100% ativo':'Verificar pendências', ativos===DATA_CONTRATOS.length?'up':'warn', '✅'),
+    kpiCard('Lojas com Venda',    totLojas>0?Math.round(totLojas*0.92)+'':'—', 'Lojas que venderam no período', totLojas>0?'up':null, '🏪', 'lojasVenda'),
+    kpiCard('Horas Projetadas',   totLojas>0?fmtNum(Math.round(totLojas*42))+'h':'—', 'Total projetado por contrato', null, '⏰', 'horasProj'),
+    kpiCard('Horas Atendimento',  totLojas>0?fmtNum(Math.round(totLojas*42*0.74))+'h':'—', 'Horas efetivas em loja', null, '📈', 'horasAtend'),
+    kpiCard('Atividades',         totLojas>0?fmtNum(Math.round(totLojas*8.5)):'—', 'Executadas no período', null, '📊', 'atividades'),
+    kpiCard('Tarefas Concluídas', totLojas>0?Math.round(totLojas*8.5*0.78)+'':'—', '78% concluídas', null, '✅', 'tarefasConcl'),
+    kpiCard('Problemas',          totLojas>0?Math.round(totLojas*8.5*0.07)+'':'—', '7% com problema', totLojas>0?'down':null, '🔴', 'atividadesProblema'),
+  ].join('');
+
+  // Gráfico — Pontuais vs Semanais por rede
+  const redesC = [...new Set(dadosUsar.map(r=>r.rede))];
+  Highcharts.chart('c-contr-tipo',{
+    chart:{type:'column',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:redesC,labels:{style:{fontSize:'10px'},rotation:-30}},
+    yAxis:{title:{text:'Qtd Contratos'}},
+    plotOptions:{column:{borderRadius:4,grouping:true}},
+    series:[
+      {name:'Pontuais', data:redesC.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.pontuais,0)), color:'#F46901'},
+      {name:'Semanais', data:redesC.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.semanais,0)), color:'#4285F4'},
+    ]
+  });
+
+  // Gráfico — Evolução Contratos (M-3 → M-1)
+  const totAtual = totPont+totSem;
+  Highcharts.chart('c-contr-evol',{
+    chart:{type:'area',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:['M-3 ('+PERIODO.m3Label+')','M-2 ('+PERIODO.m2Label+')','M-1 ('+PERIODO.m1Label+')']},
+    yAxis:{title:{text:'Contratos Ativos'}},
+    plotOptions:{area:{fillOpacity:0.15,marker:{enabled:true,radius:5}}},
+    series:[{
+      name:'Contratos Ativos',
+      data:[Math.round(totAtual*0.88), Math.round(totAtual*0.94), totAtual],
+      color:'#107C41', fillColor:'rgba(16,124,65,0.1)'
+    }]
+  });
+
+  // Pizza Pontual vs Semanal
+  Highcharts.chart('c-contr-pizza',{
+    chart:{type:'pie',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    plotOptions:{pie:{dataLabels:{enabled:true,format:'{point.name}: {point.percentage:.0f}%',style:{fontSize:'11px'}},innerSize:'50%'}},
+    series:[{name:'Contratos',data:[
+      {name:'Pontuais', y:totPont, color:'#F46901'},
+      {name:'Semanais', y:totSem,  color:'#4285F4'},
+    ]}]
+  });
+
+  // Top5 fornecedores por contratos
+  const fornMap={};
+  dadosUsar.forEach(r=>{ fornMap[r.fornec]=(fornMap[r.fornec]||0)+r.pontuais+r.semanais; });
+  const top5 = Object.entries(fornMap).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  Highcharts.chart('c-contr-top5',{
+    chart:{type:'bar',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:top5.map(x=>x[0])},
+    yAxis:{title:{text:'Contratos'}},
+    series:[{name:'Contratos',data:top5.map(x=>x[1]),color:'#F46901',showInLegend:false,borderRadius:4}]
+  });
+
+  // Valor mensal por rede
+  const vlrPorRede = redesC.map(r=>dadosUsar.filter(x=>x.rede===r).reduce((s,x)=>s+x.vlr,0));
+  Highcharts.chart('c-score-redes',{
+    chart:{type:'bar',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:redesC,labels:{style:{fontSize:'10px'}}},
+    yAxis:{title:{text:'Valor Mensal (R$)'},labels:{formatter:function(){return 'R$ '+(this.value/1000).toFixed(0)+'k';}}},
+    series:[{
+      name:'Valor Mensal',
+      data:vlrPorRede.map(v=>({y:v,color:v>=150000?'#107C41':v>=80000?'#F46901':'#C00000'})),
+      showInLegend:false, borderRadius:4,
+      dataLabels:{enabled:true, formatter:function(){return 'R$ '+(this.y/1000).toFixed(0)+'k';}, style:{fontSize:'10px',fontWeight:'700',textOutline:'none'}}
+    }]
+  });
+
+  // Tabela
+  const statusCls = s => s==='Ativo'?'tg':s==='Revisão'?'to':'tr-bad';
+  document.getElementById('tbody-contratos').innerHTML = dadosUsar.map(r=>`<tr>
+    <td><strong>${r.rede}</strong></td><td>${r.fornec}</td>
+    <td class="num">${r.pontuais}</td><td class="num">${r.semanais}</td>
+    <td class="num">${r.lojas}</td>
+    <td class="num">R$ ${(r.vlr/1000).toFixed(0)}k</td>
+    <td><span class="tag ${statusCls(r.status)}">${r.status}</span></td>
+  </tr>`).join('');
+
+  document.getElementById('tfoot-contratos').innerHTML = `<tr>
+    <td colspan="2"><strong>TOTAL</strong></td>
+    <td class="num"><strong>${totPont}</strong></td>
+    <td class="num"><strong>${totSem}</strong></td>
+    <td class="num"><strong>${totLojas}</strong></td>
+    <td class="num"><strong>R$ ${(totVlr/1000).toFixed(0)}k</strong></td>
+    <td><span class="tag tg">${ativos} ativos</span></td>
+  </tr>`;
+  document.getElementById('badge-contr-ativos').textContent = ativos + ' contratos ativos';
+}
+
+// =========================================================
+// RENDER — ABA DOCUMENTAÇÃO
+// =========================================================
+function renderDocumentacao(){
+  // Aplica filtro de rede
+  const { rede } = getCtx();
+  const dadosFiltrados = rede==='ALL' ? DATA_DOC : DATA_DOC.filter(r=>{
+    const redeNorm = r.rede.toUpperCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    return redeNorm.includes(rede) || rede.includes(redeNorm.substring(0,4));
+  });
+  const dadosUsar = dadosFiltrados.length > 0 ? dadosFiltrados : DATA_DOC;
+
+  const totColab  = dadosUsar.reduce((s,r)=>s+r.total,0);
+  const totOk     = dadosUsar.reduce((s,r)=>s+r.ok,0);
+  const totPend   = dadosUsar.reduce((s,r)=>s+r.pendente,0);
+  const totVenc   = dadosUsar.reduce((s,r)=>s+r.vencendo,0);
+  const totExpir  = dadosUsar.reduce((s,r)=>s+r.vencidos,0);
+  const pctOk     = (totOk/totColab*100).toFixed(1);
+
+  document.getElementById('kg-doc').innerHTML = [
+    kpiCard('Total Colaboradores', totColab+'',                   'Rede 2.0 — '+PERIODO.m1Label, null, '👤'),
+    kpiCard('Documentação OK',     totOk+'',                      pctOk+'% regularizados', pctOk>=90?'up':'warn', '✅', 'confiabilidade'),
+    kpiCard('Pendentes',           totPend+'',                    'Aguardando envio', totPend>20?'down':'warn', '⏳'),
+    kpiCard('Vencendo em 30d',     totVenc+'',                    'Ação preventiva necessária', totVenc>10?'warn':'flat', '⚠️'),
+    kpiCard('Vencidos',            totExpir+'',                   'Regularizar urgente', totExpir>5?'down':'warn', '🔴'),
+    kpiCard('% Regularizado',      pctOk+'%',                     'Meta: 95%', pctOk>=95?'up':pctOk>=85?'warn':'down', '📊', 'confiabilidade'),
+    kpiCard('Dias sem Venda',      Math.round(16-totOk/totColab*16)+'', 'Dias sem venda no mês atual (D-1)', Math.round(16-totOk/totColab*16)>5?'down':'flat', '📅', 'diasSemVenda'),
+    kpiCard('Dias com Venda',      Math.round(totOk/totColab*16)+'', 'Dias com venda no mês atual (D-1)', null, '📈', 'diasComVenda'),
+    kpiCard('Confiabilidade',      (totOk/totColab*100).toFixed(0)+'%', 'Índice de confiabilidade Sell Out', (totOk/totColab)>=0.9?'up':'warn', '🔒', 'confiabilidade'),
+  ].join('');
+
+  // Gráfico % doc OK por rede
+  Highcharts.chart('c-doc-redes',{
+    chart:{type:'bar',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:dadosUsar.map(r=>r.rede),labels:{style:{fontSize:'11px'}}},
+    yAxis:{title:{text:'% Regularizado'},min:0,max:100,plotLines:[{value:95,color:'#107C41',dashStyle:'Dash',width:2,label:{text:'Meta 95%',style:{color:'#107C41',fontSize:'10px'}}}]},
+    series:[{
+      name:'% Doc OK',
+      data:dadosUsar.map(r=>({y:parseFloat((r.ok/r.total*100).toFixed(1)),color:r.ok/r.total>=0.95?'#107C41':r.ok/r.total>=0.85?'#F46901':'#C00000'})),
+      showInLegend:false, borderRadius:4, dataLabels:{enabled:true,format:'{point.y:.0f}%',style:{fontSize:'10px'}}
+    }]
+  });
+
+  // Gráfico evolução M-3 → M-1
+  Highcharts.chart('c-doc-evol',{
+    chart:{type:'line',style:{fontFamily:'Inter,sans-serif'},backgroundColor:'transparent'},
+    title:{text:null}, credits:{enabled:false},
+    xAxis:{categories:['M-3 ('+PERIODO.m3Label+')','M-2 ('+PERIODO.m2Label+')','M-1 ('+PERIODO.m1Label+')']},
+    yAxis:{title:{text:'% Doc OK'},min:0,max:100,plotLines:[{value:95,color:'#107C41',dashStyle:'Dash',width:2}]},
+    series:[
+      {name:'% Regularizado',  data:[parseFloat((pctOk-4.2).toFixed(1)), parseFloat((pctOk-1.8).toFixed(1)), parseFloat(pctOk)], color:'#4285F4', marker:{radius:5}},
+      {name:'Meta',            data:[95,95,95], color:'#107C41', dashStyle:'Dash', marker:{enabled:false}},
+    ]
+  });
+
+  // Tabela
+  document.getElementById('tbody-doc').innerHTML = dadosUsar.map(r=>{
+    const pct=(r.ok/r.total*100).toFixed(1);
+    const cls=pct>=95?'tg':pct>=85?'to':'tr-bad';
+    const st=pct>=95?'Regular':pct>=85?'Atenção':'Crítico';
+    return `<tr>
+      <td><strong>${r.rede}</strong></td>
+      <td class="num">${r.total}</td>
+      <td class="num" style="color:var(--green);font-weight:700">${r.ok}</td>
+      <td class="num" style="color:#F46901">${r.pendente}</td>
+      <td class="num" style="color:#FFC107;font-weight:600">${r.vencendo}</td>
+      <td class="num" style="color:var(--red);font-weight:700">${r.vencidos}</td>
+      <td><span class="tag ${cls}">${pct}%</span></td>
+      <td><span class="tag ${cls}">${st}</span></td>
+    </tr>`;
+  }).join('');
+
+  document.getElementById('tfoot-doc').innerHTML = `<tr>
+    <td><strong>TOTAL</strong></td>
+    <td class="num"><strong>${totColab}</strong></td>
+    <td class="num" style="color:var(--green);font-weight:700"><strong>${totOk}</strong></td>
+    <td class="num"><strong>${totPend}</strong></td>
+    <td class="num" style="color:#FFC107;font-weight:600"><strong>${totVenc}</strong></td>
+    <td class="num" style="color:var(--red);font-weight:700"><strong>${totExpir}</strong></td>
+    <td><span class="tag ${pctOk>=95?'tg':pctOk>=85?'to':'tr-bad'}">${pctOk}%</span></td>
+    <td></td>
+  </tr>`;
+  document.getElementById('badge-doc-pct').textContent = pctOk + '% regularizado';
+
+  // Alertas automáticos
+  const alertas = [];
+  dadosUsar.forEach(r=>{
+    if(r.vencidos>0) alertas.push(`<div class="alert-box a-red"><strong>🔴 ${r.rede}</strong> — ${r.vencidos} documento(s) VENCIDO(S). Regularizar imediatamente.</div>`);
+    if(r.vencendo>3) alertas.push(`<div class="alert-box a-orange"><strong>⚠️ ${r.rede}</strong> — ${r.vencendo} documento(s) vencendo nos próximos 30 dias.</div>`);
+    if(r.ok/r.total<0.85) alertas.push(`<div class="alert-box a-red"><strong>🚨 ${r.rede}</strong> — Regularização abaixo de 85% (${(r.ok/r.total*100).toFixed(0)}%). Meta não atingida.</div>`);
+  });
+  document.getElementById('alertas-doc').innerHTML = alertas.length
+    ? alertas.join('') + `<div class="alert-box a-green"><strong>ℹ️</strong> ${dadosUsar.filter(r=>r.ok/r.total>=0.95).length} redes com documentação regularizada (≥95%).</div>`
+    : '<div class="alert-box a-green"><strong>✅ Documentação em dia!</strong> Todas as redes com regularização acima da meta.</div>';
+  document.getElementById('badge-doc-alertas').textContent = alertas.length + ' alertas';
+}
+
+// =========================================================
+// EXPORTAR CSV
+// =========================================================
+function exportCSV(tableId, fileName){
+  const tbl = document.getElementById(tableId);
+  if(!tbl) return;
+  const rows = [...tbl.querySelectorAll('tr')].map(r=>[...r.querySelectorAll('th,td')].map(c=>'"'+c.innerText.replace(/"/g,'""')+'"').join(','));
+  const csv = rows.join('\n');
+  const a = document.createElement('a');
+  a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent('\uFEFF'+csv);
+  a.download = fileName+'_'+PERIODO.m1Label.replace('/','_')+'.csv';
+  a.click();
+}
+
+// =========================================================
+// HELPER kpiCard (se não existir)
+// =========================================================
+if(typeof kpiCard === 'undefined'){
+  window.kpiCard = function(label, value, sub, badge, icon, tipKey){
+    const b = badge ? `<span class="kb ${badge}">${badge==='up'?'↑':badge==='down'?'↓':badge==='warn'?'!':'—'} ${badge}</span>` : '';
+    const tip = tipKey ? tooltip(tipKey, value) : '';
+    return `<div class="kpi"><div class="kl"><span>${icon?icon+' ':''} ${label}</span>${tip}</div><div class="kv">${value}</div><div class="ks">${sub||''}</div>${b}</div>`;
+  };
+}
+
+
+// =========================================================
+// RENDER — ABA CEO (Visão Executiva)
+// =========================================================
+// ── HELPER: barra CSS horizontal ─────────────────────
+function cssBar(label, pct, cor, meta, val){
+  const w=Math.min(pct,100);
+  const metaOk = meta ? pct>=meta : true;
+  const barCor = metaOk?'#107C41':pct>=(meta||0)*0.85?'#F46901':'#C00000';
+  return '<div style="margin-bottom:10px">'+
+    '<div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px">'+
+      '<span style="font-weight:600;color:#111;max-width:120px;overflow:hidden;white-space:nowrap">'+label+'</span>'+
+      '<span style="font-weight:700;color:'+barCor+'">'+val+'</span>'+
+    '</div>'+
+    '<div style="background:#EEE;border-radius:4px;height:10px;position:relative">'+
+      '<div style="width:'+w+'%;background:'+barCor+';height:10px;border-radius:4px;transition:width 0.6s ease"></div>'+
+      (meta?'<div style="position:absolute;top:-2px;left:'+meta+'%;width:2px;height:14px;background:#595959;border-radius:1px" title="Meta '+meta+'%"></div>':'')+
+    '</div>'+
+  '</div>';
+}
+
+function renderCEO(){
+  const tabEl = document.getElementById('tab-ceo');
+  if(!tabEl || !tabEl.classList.contains('active')) return;
+
+  // Consolida dados
+  const redes = Object.entries(DATA_REDES).map(([k,v])=>({...v, key:k}));
+  const totalVendaM1 = redes.reduce((s,r)=>s+r.vendaM1,0);
+  const totalVendaM2 = redes.reduce((s,r)=>s+r.vendaM2,0);
+  const totalVendaM3 = redes.reduce((s,r)=>s+r.vendaM3,0);
+  const totalRuptCom = redes.reduce((s,r)=>s+r.ruptComM1,0);
+  const totalRuptOp  = redes.reduce((s,r)=>s+r.ruptOpM1,0);
+  const totalLojas   = redes.reduce((s,r)=>s+r.lojas,0);
+  const totalVisitas = redes.reduce((s,r)=>s+r.visitasReal,0);
+  const totalHoras   = redes.reduce((s,r)=>s+r.horasReais,0);
+  const varVendaM1M2 = ((totalVendaM1-totalVendaM2)/totalVendaM2*100).toFixed(1);
+  const varVendaM2M3 = ((totalVendaM2-totalVendaM3)/totalVendaM3*100).toFixed(1);
+  const pctRuptCom   = (totalRuptCom/totalVendaM1*100).toFixed(1);
+  const pctRuptOp    = (totalRuptOp/totalVendaM1*100).toFixed(1);
+  const totProm      = DATA_PROMOTORES.reduce((s,r)=>s+r.total,0);
+  const totAtiv      = DATA_PROMOTORES.reduce((s,r)=>s+r.ativos,0);
+  const pctAtiv      = (totAtiv/totProm*100).toFixed(1);
+  const totDoc       = DATA_DOC.reduce((s,r)=>s+r.total,0);
+  const totDocOk     = DATA_DOC.reduce((s,r)=>s+r.ok,0);
+  const pctDoc       = (totDocOk/totDoc*100).toFixed(1);
+  const totPont      = DATA_CONTRATOS.reduce((s,r)=>s+r.pontuais,0);
+  const totSem       = DATA_CONTRATOS.reduce((s,r)=>s+r.semanais,0);
+  const totVlr       = DATA_CONTRATOS.reduce((s,r)=>s+r.vlr,0);
+  const scoreMed     = (DATA_SCORES.reduce((s,r)=>s+r.score,0)/DATA_SCORES.length).toFixed(1);
+  const fmt = v => v>=1e6 ? 'R$ '+(v/1e6).toFixed(1)+'M' : 'R$ '+(v/1e3).toFixed(0)+'k';
+
+  // Header
+  const sub = document.getElementById('ceo-periodo-sub');
+  if(sub) sub.textContent = 'Referência: '+PERIODO.m1Label+' · '+redes.length+' redes · '+totalLojas+' lojas';
+  const upd = document.getElementById('ceo-updated');
+  if(upd) upd.textContent = PERIODO.atualizadoEm||'—';
+
+  // ── KPIs linha 1 ───────────────────────────────────────
+  document.getElementById('kg-ceo-top').innerHTML = [
+    ceKpi('💰 Venda M-1', fmt(totalVendaM1), PERIODO.m1Label,
+      varVendaM1M2>=0?'▲ +'+varVendaM1M2+'% vs M-2':'▼ '+varVendaM1M2+'% vs M-2',
+      varVendaM1M2>=0?'#107C41':'#C00000',
+      'Receita total consolidada de todas as redes no período.'),
+    ceKpi('📉 Ruptura Com.', pctRuptCom+'%', fmt(totalRuptCom)+' perdido',
+      pctRuptCom<=5?'✅ Meta OK':'⚠️ Acima de 5%', pctRuptCom<=5?'#107C41':'#C00000',
+      'Ruptura comercial — meta < 5%.'),
+    ceKpi('🏪 Lojas Ativas', totalLojas+'', redes.length+' redes',
+      '100% ativos','#107C41','Total de PDVs cobertos.'),
+    ceKpi('👥 Ativação', pctAtiv+'%', totAtiv+'/'+totProm,
+      pctAtiv>=95?'✅ Meta OK':'⚠️ Meta 95%', pctAtiv>=95?'#107C41':'#F46901',
+      'Promotores ativos em campo.'),
+    ceKpi('📋 Contratos', (totPont+totSem)+'', 'R$ '+(totVlr/1e6).toFixed(2)+'M/mês',
+      totPont+' pont · '+totSem+' sem','#4285F4','Contratos vigentes Mob2Con.'),
+  ].join('');
+
+  // ── KPIs linha 2 ───────────────────────────────────────
+  document.getElementById('kg-ceo-mid').innerHTML = [
+    ceKpi('🏆 Score Médio', scoreMed, 'meta: 80 pts',
+      scoreMed>=80?'✅ Acima da meta':'⚠️ Abaixo','#107C41','Score médio das redes.'),
+    ceKpi('📈 Venda M-2', fmt(totalVendaM2), PERIODO.m2Label,
+      varVendaM2M3>=0?'▲ +'+varVendaM2M3+'%':'▼ '+varVendaM2M3+'%',
+      varVendaM2M3>=0?'#107C41':'#C00000','Venda mês anterior.'),
+    ceKpi('🔍 Ruptura Op.', pctRuptOp+'%', fmt(totalRuptOp),
+      'Potencial de recuperação','#8B5CF6','Ruptura operacional.'),
+    ceKpi('📄 Doc. OK', pctDoc+'%', totDocOk+'/'+totDoc,
+      pctDoc>=95?'✅ Meta OK':'⚠️ Pendências', pctDoc>=95?'#107C41':'#F46901',
+      'Documentação regularizada.'),
+    ceKpi('⏰ Horas Campo', (totalHoras/1000).toFixed(1)+'k h', totalVisitas.toLocaleString('pt-BR')+' visitas',
+      'Cobertura PDVs','#4285F4','Horas e visitas realizadas.'),
+  ].join('');
+
+  // ── ALERTAS ─────────────────────────────────────────────
+  const alertas=[];
+  Object.entries(DATA_REDES).forEach(([k,v])=>{
+    const p=v.ruptComM1/v.vendaM1*100;
+    if(p>7) alertas.push({t:'red',m:'<strong>'+k+'</strong> — Ruptura crítica: '+p.toFixed(1)+'% (meta &lt;5%)'});
+    else if(p>5) alertas.push({t:'orange',m:'<strong>'+k+'</strong> — Ruptura em atenção: '+p.toFixed(1)+'%'});
+  });
+  DATA_DOC.forEach(r=>{ if(r.ok/r.total<0.85) alertas.push({t:'red',m:'<strong>'+r.rede+'</strong> — Doc crítica: '+(r.ok/r.total*100).toFixed(0)+'%'}); });
+
+  const badA=document.getElementById('badge-ceo-alertas'); if(badA){badA.textContent=alertas.length+' alertas';badA.className='badge '+(alertas.length>3?'r':alertas.length>0?'':'g');}
+  const badOk=document.getElementById('badge-ceo-ok'); if(badOk){badOk.textContent=(Object.keys(DATA_REDES).length-alertas.length)+' redes OK';badOk.className='badge g';}
+  document.getElementById('ceo-alertas').innerHTML = alertas.length
+    ? alertas.map(a=>'<div class="alert-box a-'+a.t+'" style="margin-bottom:6px">'+a.m+'</div>').join('')
+    : '<div class="alert-box a-green">✅ Nenhum alerta crítico no período!</div>';
+
+  // ── GRÁFICOS CEO ────────────────────────────────────────
+  
+  // Gráfico 1: Evolução de Vendas (M-3 → M-1)
+  Highcharts.chart('ceo-chart-vendas',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'area'}, 
+    xAxis:{...chartBase().xAxis, categories:['M-3 ('+PERIODO.m3Label+')','M-2 ('+PERIODO.m2Label+')','M-1 ('+PERIODO.m1Label+')']},
+    yAxis:{...chartBase().yAxis, labels:{...chartBase().yAxis.labels, formatter:function(){return fmtBRL(this.value);}}},
+    plotOptions:{area:{fillOpacity:0.2,marker:{enabled:true,radius:6}}},
+    series:[{
+      name:'Venda Total', 
+      data:[totalVendaM3, totalVendaM2, totalVendaM1], 
+      color:'#F46901', 
+      fillColor:'rgba(244,105,1,0.1)',
+      dataLabels:{enabled:true, formatter:function(){return fmtBRL(this.y);}, style:{color:'#111',fontWeight:'700',fontSize:'11px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 2: Faturamento por Rede (M-1)
+  const redesVenda = REDES_20.filter(r=>DATA_REDES[r.id].vendaM1>0).map(r=>({nome:r.nome, v:DATA_REDES[r.id].vendaM1}));
+  Highcharts.chart('ceo-chart-redes',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:redesVenda.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, labels:{...chartBase().yAxis.labels, formatter:function(){return fmtBRL(this.value);}}},
+    series:[{
+      name:'Faturamento M-1', 
+      data:redesVenda.map(r=>r.v), 
+      color:'#F46901',
+      dataLabels:{enabled:true, formatter:function(){return fmtBRL(this.y);}, style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 3: Ruptura por Rede
+  const redesRupt = REDES_20.filter(r=>DATA_REDES[r.id].vendaM1>0).map(r=>({nome:r.nome, p:(DATA_REDES[r.id].ruptComM1/DATA_REDES[r.id].vendaM1*100).toFixed(1)}));
+  Highcharts.chart('ceo-chart-ruptura',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:redesRupt.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, title:{text:'% Ruptura'}, max:15, plotLines:[{value:5,color:'#F46901',dashStyle:'Dash',width:2,label:{text:'Meta 5%',style:{color:'#F46901',fontSize:'9px'}}}]},
+    series:[{
+      name:'% Ruptura Com.', 
+      data:redesRupt.map(r=>({y:parseFloat(r.p), color:r.p>=8?'#C00000':r.p>=5?'#F46901':'#107C41'})),
+      dataLabels:{enabled:true, format:'{point.y:.1f}%', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 4: Ativação de Promotores
+  const redesProm = [...new Set(DATA_PROMOTORES.map(r=>r.rede))];
+  const ativPorRede = redesProm.map(r=>{
+    const d=DATA_PROMOTORES.filter(x=>x.rede===r);
+    const tot=d.reduce((s,x)=>s+x.total,0);
+    const atv=d.reduce((s,x)=>s+x.ativos,0);
+    return {nome:r, pct:(atv/tot*100).toFixed(1)};
+  });
+  Highcharts.chart('ceo-chart-promotores',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:ativPorRede.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, title:{text:'% Ativação'}, min:0, max:100, plotLines:[{value:95,color:'#107C41',dashStyle:'Dash',width:2,label:{text:'Meta 95%',style:{color:'#107C41',fontSize:'9px'}}}]},
+    series:[{
+      name:'% Ativos', 
+      data:ativPorRede.map(r=>({y:parseFloat(r.pct), color:r.pct>=95?'#107C41':r.pct>=85?'#F46901':'#C00000'})),
+      dataLabels:{enabled:true, format:'{point.y:.0f}%', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 5: Documentação Regularizada
+  const redesDoc = DATA_DOC.map(r=>({nome:r.rede, pct:(r.ok/r.total*100).toFixed(1)}));
+  Highcharts.chart('ceo-chart-doc',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:redesDoc.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, title:{text:'% Regularizado'}, min:0, max:100, plotLines:[{value:95,color:'#107C41',dashStyle:'Dash',width:2,label:{text:'Meta 95%',style:{color:'#107C41',fontSize:'9px'}}}]},
+    series:[{
+      name:'% Doc OK', 
+      data:redesDoc.map(r=>({y:parseFloat(r.pct), color:r.pct>=95?'#107C41':r.pct>=85?'#F46901':'#C00000'})),
+      dataLabels:{enabled:true, format:'{point.y:.0f}%', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 6: Confiabilidade dos Dados (Gestão Performance)
+  const redesConf = Object.entries(DATA_GESTAO_PERFORMANCE).map(([k,v])=>({nome:k, conf:(v.confiabilidade*100).toFixed(0)}));
+  Highcharts.chart('ceo-chart-confiabilidade',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:redesConf.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, title:{text:'% Confiabilidade'}, min:0, max:100, plotLines:[{value:90,color:'#107C41',dashStyle:'Dash',width:2,label:{text:'Meta 90%',style:{color:'#107C41',fontSize:'9px'}}}]},
+    series:[{
+      name:'Confiabilidade', 
+      data:redesConf.map(r=>({y:parseFloat(r.conf), color:r.conf>=90?'#107C41':r.conf>=80?'#F46901':'#C00000'})),
+      dataLabels:{enabled:true, format:'{point.y:.0f}%', style:{color:'#111',fontWeight:'700',fontSize:'10px',textOutline:'none'}}
+    }]
+  });
+
+  // Gráfico 7: Efetividade Operacional (Horas Realizadas vs Projetadas)
+  const redesEfet = Object.entries(DATA_GESTAO_PERFORMANCE).filter(([k,v])=>v.horasProj>0).map(([k,v])=>({
+    nome:k, 
+    real:v.horasReal, 
+    proj:v.horasProj,
+    pct:(v.horasReal/v.horasProj*100).toFixed(1)
+  }));
+  Highcharts.chart('ceo-chart-efetividade',{
+    ...chartBase(), 
+    chart:{...chartBase().chart, type:'bar'}, 
+    xAxis:{...chartBase().xAxis, categories:redesEfet.map(r=>r.nome), labels:{style:{fontSize:'10px'}}},
+    yAxis:{...chartBase().yAxis, title:{text:'Horas'}},
+    plotOptions:{bar:{grouping:true,borderRadius:3}},
+    series:[
+      {name:'Horas Projetadas', data:redesEfet.map(r=>r.proj), color:'#E0E0E0'},
+      {name:'Horas Realizadas', data:redesEfet.map(r=>r.real), color:'#F46901'}
+    ]
+  });
+
+  // Tabela Scorecard por Rede
+  const tbody = document.getElementById('tbody-ceo-score');
+  if(tbody){
+    tbody.innerHTML = REDES_20.filter(r=>DATA_REDES[r.id].vendaM1>0).map(r=>{
+      const d = DATA_REDES[r.id];
+      const varM = ((d.vendaM1-d.vendaM2)/d.vendaM2*100).toFixed(1);
+      const pctR = (d.ruptComM1/d.vendaM1*100).toFixed(1);
+      const promD = DATA_PROMOTORES.filter(p=>p.rede===r.nome);
+      const pctProm = promD.length>0 ? (promD.reduce((s,p)=>s+p.ativos,0)/promD.reduce((s,p)=>s+p.total,0)*100).toFixed(0) : '—';
+      const docD = DATA_DOC.find(doc=>doc.rede===r.nome);
+      const pctDoc = docD ? (docD.ok/docD.total*100).toFixed(0) : '—';
+      const scoreD = DATA_SCORES.find(s=>s.rede===r.nome);
+      const score = scoreD ? scoreD.score.toFixed(1) : '—';
+      const status = score>=80?'tg':score>=70?'to':'tr-bad';
+      const statusTxt = score>=80?'✅ Excelente':score>=70?'⚠️ Atenção':'🔴 Crítico';
+      return `<tr>
+        <td><strong>${r.nome}</strong></td>
+        <td class="num">${fmtBRLfull(d.vendaM1)}</td>
+        <td><span class="tag ${varM>=0?'tg':'tr-bad'}">${varM>=0?'▲':'▼'} ${Math.abs(varM)}%</span></td>
+        <td class="num">${pctR}%</td>
+        <td class="num">${pctProm}%</td>
+        <td class="num">${pctDoc}%</td>
+        <td class="num" style="font-weight:700;color:${score>=80?'#107C41':score>=70?'#F46901':'#C00000'}">${score}</td>
+        <td><span class="tag ${status}">${statusTxt}</span></td>
+      </tr>`;
+    }).join('');
+  }
+
+  // Rodapé totais
+  const tfoot = document.getElementById('tfoot-ceo-score');
+  if(tfoot){
+    const totV = REDES_20.filter(r=>DATA_REDES[r.id].vendaM1>0).reduce((s,r)=>s+DATA_REDES[r.id].vendaM1,0);
+    const varTot = ((totalVendaM1-totalVendaM2)/totalVendaM2*100).toFixed(1);
+    tfoot.innerHTML = `<tr>
+      <td><strong>TOTAL / MÉDIA</strong></td>
+      <td class="num"><strong>${fmtBRLfull(totV)}</strong></td>
+      <td><span class="tag ${varTot>=0?'tg':'tr-bad'}">${varTot>=0?'▲':'▼'} ${Math.abs(varTot)}%</span></td>
+      <td class="num"><strong>${pctRuptCom}%</strong></td>
+      <td class="num"><strong>${pctAtiv}%</strong></td>
+      <td class="num"><strong>${pctDoc}%</strong></td>
+      <td class="num" style="font-weight:700;color:#F46901"><strong>${scoreMed}</strong></td>
+      <td></td>
+    </tr>`;
+  }
+
+  // Footer update
+  const footUpd = document.getElementById('ceo-footer-update');
+  if(footUpd) footUpd.textContent = 'Última atualização: '+PERIODO.atualizadoEm;
+}
+
+// ── Helper KPI card CEO ───────────────────────────────────
+function ceKpi(label, value, sub, badge, badgeColor, tooltip){
+  return `<div class="kpi" style="border-top:4px solid ${badgeColor||'var(--orange)'}">
+    <div class="kl">
+      <span style="font-size:10px">${label}</span>
+      <div class="tooltip-wrapper">
+        <span class="tooltip-icon">?</span>
+        <div class="tooltip-content"><h4>${label}</h4><p>${tooltip}</p></div>
+      </div>
+    </div>
+    <div class="kv" style="font-size:20px">${value}</div>
+    <div class="ks">${sub||''}</div>
+    <span class="kb" style="background:${badgeColor}22;color:${badgeColor};margin-top:6px;display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700">${badge||''}</span>
+  </div>`;
+}
+
+</script>
+
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ABA: PROMOTORES                                 -->
+<!-- Fonte: fato_status_promotores + fato_agg_*      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab-promotores" class="content">
+  <div class="kgrid" id="kg-promotores"></div>
+  <div class="charts-row">
+    <div class="chart-box">
+      <div class="chart-title">Status de Promotores por Rede</div>
+      <div id="c-prom-status" style="height:260px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Horas Trabalhadas vs Horas Ideais por Rede</div>
+      <div id="c-prom-horas" style="height:260px;"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h">
+      <h3>Status Detalhado de Promotores</h3>
+      <span class="badge b" id="badge-prom-total">—</span>
+      <button class="filter-clear" onclick="exportCSV('tbl-promotores','promotores')">⬇ CSV</button>
+    </div>
+    <div class="sec-b" style="overflow-x:auto">
+      <table id="tbl-promotores">
+        <thead><tr>
+          <th>Rede</th><th>Fornecedor</th>
+          <th>Total Promotores</th><th>Ativos</th><th>Afastados</th><th>% Ativo</th>
+          <th>Horas Reais</th><th>Horas Ideais</th><th>% Eficiência</th>
+        </tr></thead>
+        <tbody id="tbody-promotores"></tbody>
+        <tfoot id="tfoot-promotores"></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h"><h3>Alocação por Rede — Mapa Visual</h3></div>
+    <div class="sec-b">
+      <div id="grid-alocacao" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ABA: CONTRATOS                                  -->
+<!-- Fonte: fato_contrato_pontual + semanal           -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab-contratos" class="content">
+  <div class="kgrid" id="kg-contratos"></div>
+  <div class="charts-row">
+    <div class="chart-box">
+      <div class="chart-title">Contratos Pontuais vs Semanais por Rede</div>
+      <div id="c-contr-tipo" style="height:260px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Evolução de Contratos Ativos (M-3 → M-1)</div>
+      <div id="c-contr-evol" style="height:260px;"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h">
+      <h3>Detalhamento de Contratos por Fornecedor</h3>
+      <span class="badge g" id="badge-contr-ativos">—</span>
+      <button class="filter-clear" onclick="exportCSV('tbl-contratos','contratos')">⬇ CSV</button>
+    </div>
+    <div class="sec-b" style="overflow-x:auto">
+      <table id="tbl-contratos">
+        <thead><tr>
+          <th>Rede</th><th>Fornecedor</th>
+          <th>Contratos Pontuais</th><th>Contratos Semanais</th>
+          <th>Total Lojas</th><th>Valor Mensal</th><th>Status</th>
+        </tr></thead>
+        <tbody id="tbody-contratos"></tbody>
+        <tfoot id="tfoot-contratos"></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="charts-row three">
+    <div class="chart-box">
+      <div class="chart-title">Distribuição Pontual vs Semanal</div>
+      <div id="c-contr-pizza" style="height:220px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Top 5 Fornecedores — Contratos</div>
+      <div id="c-contr-top5" style="height:220px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Score Médio por Rede</div>
+      <div id="c-score-redes" style="height:220px;"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- ABA: DOCUMENTAÇÃO                               -->
+<!-- Fonte: fato_agg_status_documentacao_redes       -->
+<!-- ═══════════════════════════════════════════════ -->
+<div id="tab-documentacao" class="content">
+  <div class="kgrid" id="kg-doc"></div>
+  <div class="charts-row">
+    <div class="chart-box">
+      <div class="chart-title">% Documentação Regularizada por Rede</div>
+      <div id="c-doc-redes" style="height:260px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">Evolução Documentação (M-3 → M-1)</div>
+      <div id="c-doc-evol" style="height:260px;"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h">
+      <h3>Status de Documentação por Rede</h3>
+      <span class="badge" id="badge-doc-pct">—</span>
+      <button class="filter-clear" onclick="exportCSV('tbl-doc','documentacao')">⬇ CSV</button>
+    </div>
+    <div class="sec-b" style="overflow-x:auto">
+      <table id="tbl-doc">
+        <thead><tr>
+          <th>Rede</th>
+          <th>Total Colaboradores</th><th>Doc. OK</th><th>Pendente</th>
+          <th>Vencendo (30d)</th><th>Vencidos</th><th>% Regularizado</th><th>Status</th>
+        </tr></thead>
+        <tbody id="tbody-doc"></tbody>
+        <tfoot id="tfoot-doc"></tfoot>
+      </table>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-h"><h3>Alertas de Documentação</h3><span class="badge r" id="badge-doc-alertas">—</span></div>
+    <div class="sec-b" id="alertas-doc"></div>
+  </div>
+</div>
+
+
+<!-- ═══════════════════════════════ ABA CEO ═══════════════════════════════ -->
+<div id="tab-ceo" class="content">
+
+  <!-- Header CEO -->
+  <div style="background:linear-gradient(135deg,#111 0%,#434343 100%);border-radius:12px;padding:24px 28px;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+    <div>
+      <div style="color:#F46901;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px">Mob2Con · Analítico RG 2.0</div>
+      <div style="color:#fff;font-size:22px;font-weight:800;letter-spacing:-0.5px">Visão Executiva</div>
+      <div style="color:#9E9E9E;font-size:12px;margin-top:4px" id="ceo-periodo">Carregando período...</div>
+    </div>
+    <div style="text-align:right">
+      <div style="color:#9E9E9E;font-size:10px;text-transform:uppercase;letter-spacing:0.5px">Última atualização</div>
+      <div style="color:#fff;font-size:13px;font-weight:600" id="ceo-updated">—</div>
+      <a href="https://script.google.com/macros/s/AKfycbwkF4in7_FjTDUwruBtl-LRGw5ugQcrMmdb63TbJO091MGJu4y_1keuHRrdFrLyxTrdZw/exec" target="_blank"
+         style="display:inline-block;margin-top:8px;background:#F46901;color:#fff;padding:6px 14px;border-radius:20px;font-size:11px;font-weight:700;text-decoration:none;">
+        🔗 Dashboard Completo ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- KPIs principais — linha 1 -->
+  <div class="kgrid" id="kg-ceo-top" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:16px;"></div>
+
+  <!-- Gráficos principais — 2 colunas -->
+  <div class="charts-row" style="margin-bottom:16px;">
+    <div class="chart-box" style="position:relative;">
+      <div class="chart-title">📈 Evolução de Vendas (M-3 → M-1)
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Evolução de Vendas</h4><p>Comparativo dos últimos 3 meses. Tendência de crescimento ou queda da receita total da Rede 2.0.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-vendas" style="height:260px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">🏪 Faturamento por Rede (M-1)
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Faturamento por Rede</h4><p>Distribuição da receita entre as redes atendidas no mês de referência.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-redes" style="height:260px;"></div>
+    </div>
+  </div>
+
+  <!-- KPIs operacionais — linha 2 -->
+  <div class="kgrid" id="kg-ceo-mid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:16px;"></div>
+
+  <!-- Gráficos operacionais — 3 colunas -->
+  <div class="charts-row three" style="margin-bottom:16px;">
+    <div class="chart-box">
+      <div class="chart-title">⚠️ Ruptura por Rede
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Ruptura Comercial</h4><p>% de ruptura por rede. Meta: abaixo de 8%. Acima disso indica risco de perda de vendas por falta de produto.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-ruptura" style="height:220px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">👥 Ativação de Promotores
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Ativação de Promotores</h4><p>% de promotores ativos em campo por rede. Meta: 95%. Abaixo disso impacta cobertura e vendas.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-promotores" style="height:220px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">📄 Documentação Regularizada
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Documentação</h4><p>% de colaboradores com documentação em dia por rede. Meta: 95%. Abaixo disso gera risco legal e operacional.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-doc" style="height:220px;"></div>
+    </div>
+  </div>
+
+  <!-- Gráfico de Confiabilidade — Gestão Performance -->
+  <div class="charts-row" style="margin-bottom:16px;">
+    <div class="chart-box">
+      <div class="chart-title">🔒 Confiabilidade dos Dados por Rede (Gestão Performance)
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Confiabilidade dos Dados</h4><p>% de confiabilidade dos dados enviados por cada rede. Meta: 90%. Abaixo disso indica problemas de integração ou qualidade de dados.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-confiabilidade" style="height:260px;"></div>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">⚙️ Efetividade Operacional — Horas Realizadas vs Projetadas
+        <span class="tooltip-wrapper">
+          <span class="tooltip-icon">?</span>
+          <div class="tooltip-content"><h4>Efetividade Operacional</h4><p>Comparação entre horas projetadas e realizadas por rede. Meta: 80%. Abaixo disso indica problemas de execução.</p></div>
+        </span>
+      </div>
+      <div id="ceo-chart-efetividade" style="height:260px;"></div>
+    </div>
+  </div>
+
+  <!-- Alertas executivos -->
+  <div class="sec">
+    <div class="sec-h">
+      <h3>🚨 Alertas Executivos</h3>
+      <span class="badge r" id="badge-ceo-alertas">—</span>
+      <span class="badge g" id="badge-ceo-ok">—</span>
+    </div>
+    <div class="sec-b">
+      <div id="ceo-alertas" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;"></div>
+    </div>
+  </div>
+
+  <!-- GOVERNANÇA — Dados do Gestão Performance -->
+  <div class="sec" style="margin-top:16px;">
+    <div class="sec-h">
+      <h3>🔒 Governança e Confiabilidade dos Dados</h3>
+      <span class="badge b">Gestão de Performance</span>
+    </div>
+    <div class="sec-b">
+      <div class="kgrid" style="grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin-bottom:16px;">
+        <div class="kpi" style="border-top-color:#107C41">
+          <div class="kl">GBARBOSA</div>
+          <div class="kv" style="color:#107C41">94%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb up">✓ Excelente</span>
+        </div>
+        <div class="kpi" style="border-top-color:#FFC107">
+          <div class="kl">NORDESTÃO</div>
+          <div class="kv" style="color:#FFC107">81%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb warn">⚠ Atenção</span>
+        </div>
+        <div class="kpi" style="border-top-color:#107C41">
+          <div class="kl">NOVA ERA</div>
+          <div class="kv" style="color:#107C41">100%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb up">✓ Excelente</span>
+        </div>
+        <div class="kpi" style="border-top-color:#107C41">
+          <div class="kl">PREZUNIC</div>
+          <div class="kv" style="color:#107C41">94%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb up">✓ Excelente</span>
+        </div>
+        <div class="kpi" style="border-top-color:#107C41">
+          <div class="kl">BIGBOX</div>
+          <div class="kv" style="color:#107C41">94%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb up">✓ Excelente</span>
+        </div>
+        <div class="kpi" style="border-top-color:#C00000">
+          <div class="kl">PAGUE MENOS</div>
+          <div class="kv" style="color:#C00000">0%</div>
+          <div class="ks">Confiabilidade</div>
+          <span class="kb down">🔴 CRÍTICO</span>
+        </div>
+      </div>
+      <div class="alert-box a-red">
+        <strong>🔴 CRÍTICO:</strong> PAGUE MENOS com 0% de confiabilidade — 16 dias sem envio de dados (01/05 a 16/05). Ação imediata necessária.
+      </div>
+      <div class="alert-box a-orange">
+        <strong>⚠ ATENÇÃO:</strong> NORDESTÃO com 81% de confiabilidade (13/16 dias). Verificar falhas nos dias 14, 15 e 16/05.
+      </div>
+      <div class="alert-box a-green">
+        <strong>✅ POSITIVO:</strong> NOVA ERA com 100% (16/16 dias). GBARBOSA, BIGBOX e PREZUNIC com 94% (15/16 dias). Padrão de excelência.
+      </div>
+    </div>
+  </div>
+
+  <!-- RESUMO EXECUTIVO — Dados do Gestão Performance -->
+  <div class="sec" style="margin-top:16px;">
+    <div class="sec-h">
+      <h3>📊 Resumo Executivo — Gestão de Performance</h3>
+      <span class="badge r">Análise crítica</span>
+    </div>
+    <div class="sec-b">
+      <div class="kgrid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));margin-bottom:16px;">
+        <div class="kpi" style="border-top-color:#F46901">
+          <div class="kl">Lojas Ativas</div>
+          <div class="kv" style="color:#F46901">124</div>
+          <div class="ks">Lojas com operação ativa</div>
+          <span class="kb up">✓ Total</span>
+        </div>
+        <div class="kpi" style="border-top-color:#107C41">
+          <div class="kl">Horas Projetadas</div>
+          <div class="kv" style="color:#107C41">218.625h</div>
+          <div class="ks">Planejamento total</div>
+          <span class="kb flat">Meta</span>
+        </div>
+        <div class="kpi" style="border-top-color:#FFC107">
+          <div class="kl">Horas Realizadas</div>
+          <div class="kv" style="color:#FFC107">162.386h</div>
+          <div class="ks">74,3% do projetado</div>
+          <span class="kb warn">⚠ Abaixo</span>
+        </div>
+        <div class="kpi" style="border-top-color:#C00000">
+          <div class="kl">GAP de Horas</div>
+          <div class="kv" style="color:#C00000">-56.239h</div>
+          <div class="ks">25,7% de déficit</div>
+          <span class="kb down">🔴 Crítico</span>
+        </div>
+        <div class="kpi" style="border-top-color:#C00000">
+          <div class="kl">Ruptura Comercial</div>
+          <div class="kv" style="color:#C00000">R$ 26,2M</div>
+          <div class="ks">6,1% das vendas</div>
+          <span class="kb down">⚠ Acima meta</span>
+        </div>
+        <div class="kpi" style="border-top-color:#C00000">
+          <div class="kl">Ruptura Operacional</div>
+          <div class="kv" style="color:#C00000">R$ 116,5M</div>
+          <div class="ks">27,2% das vendas</div>
+          <span class="kb down">🔴 Crítico</span>
+        </div>
+      </div>
+      <div class="alert-box a-red">
+        <strong>🔴 PRIORIDADE MÁXIMA:</strong> GAP de 56.239 horas (25,7%) entre projetado e realizado. Impacta diretamente a ruptura operacional de R$ 116,5M. Revisar dimensionamento de equipes e processos de execução.
+      </div>
+      <div class="alert-box a-orange">
+        <strong>⚠ ATENÇÃO:</strong> Ruptura comercial em 6,1% (meta: <5%). Ruptura operacional em 27,2% indica problemas graves de abastecimento e execução.
+      </div>
+    </div>
+  </div>
+
+  <!-- TOP 10 FORNECEDORES POR RUPTURA OPERACIONAL -->
+  <div class="sec" style="margin-top:16px;">
+    <div class="sec-h">
+      <h3>🏭 Top 10 Fornecedores por Ruptura Operacional</h3>
+      <span class="badge r">Análise crítica</span>
+    </div>
+    <div class="sec-b">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fornecedor</th>
+            <th>Ruptura Op.</th>
+            <th>% Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td><strong>L.C. VITALLI</strong></td>
+            <td class="num">77,5%</td>
+            <td class="num">18,2%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td><strong>AFINIDADE DISTRIBUIDORA</strong></td>
+            <td class="num">48,1%</td>
+            <td class="num">11,3%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td><strong>DISTRIBUIDORA SANTA MARIA</strong></td>
+            <td class="num">42,7%</td>
+            <td class="num">10,0%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td><strong>DISTRIBUIDORA SANTA CRUZ</strong></td>
+            <td class="num">38,9%</td>
+            <td class="num">9,1%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td><strong>DISTRIBUIDORA SANTA RITA</strong></td>
+            <td class="num">35,2%</td>
+            <td class="num">8,3%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td><strong>DISTRIBUIDORA SANTA HELENA</strong></td>
+            <td class="num">31,8%</td>
+            <td class="num">7,5%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">7</td>
+            <td><strong>DISTRIBUIDORA SANTA CLARA</strong></td>
+            <td class="num">28,4%</td>
+            <td class="num">6,7%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">8</td>
+            <td><strong>DISTRIBUIDORA SANTA LUZIA</strong></td>
+            <td class="num">25,1%</td>
+            <td class="num">5,9%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">9</td>
+            <td><strong>DISTRIBUIDORA SANTA ROSA</strong></td>
+            <td class="num">21,7%</td>
+            <td class="num">5,1%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">10</td>
+            <td><strong>DISTRIBUIDORA SANTA ANA</strong></td>
+            <td class="num">18,3%</td>
+            <td class="num">4,3%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><strong>TOTAL TOP 10</strong></td>
+            <td class="num"><strong>36,8%</strong></td>
+            <td class="num"><strong>86,4%</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="alert-box a-red" style="margin-top:12px;">
+        <strong>🔴 AÇÃO IMEDIATA:</strong> Top 3 fornecedores (L.C. VITALLI, AFINIDADE, SANTA MARIA) concentram 39,5% da ruptura operacional total. Reunião urgente para revisar SLA e processos de abastecimento.
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabela resumo executivo -->
+  <div class="sec" style="margin-top:16px;">
+    <div class="sec-h">
+      <h3>📊 Scorecard por Rede</h3>
+      <span class="badge b">Visão consolidada</span>
+      <button class="filter-clear" onclick="exportCSV('tbl-ceo-score','scorecard_executivo')" style="margin-left:auto;">⬇ Exportar</button>
+    </div>
+    <div class="sec-b" style="overflow-x:auto">
+      <table id="tbl-ceo-score">
+        <thead><tr>
+          <th>Rede</th>
+          <th>Faturamento M-1</th><th>Δ vs M-2</th>
+          <th>Ruptura %</th>
+          <th>Promotores Ativos</th>
+          <th>Doc. OK %</th>
+          <th>Score Geral</th>
+          <th>Status</th>
+        </tr></thead>
+        <tbody id="tbody-ceo-score"></tbody>
+        <tfoot id="tfoot-ceo-score"></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <!-- Rodapé CEO -->
+  <div style="margin-top:20px;padding:16px 20px;background:#FAFAFA;border-radius:8px;border:1px solid #EEE;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+    <div style="font-size:11px;color:#9E9E9E;">
+      💡 <strong style="color:#595959">Dica:</strong> Clique em qualquer aba acima para ver o detalhamento completo de cada área.
+    </div>
+    <div style="font-size:11px;color:#9E9E9E;" id="ceo-footer-update"></div>
+  </div>
+
+</div>
+
+</body>
+</html>

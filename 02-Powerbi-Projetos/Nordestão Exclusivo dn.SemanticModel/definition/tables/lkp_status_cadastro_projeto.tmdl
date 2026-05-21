@@ -1,0 +1,42 @@
+table lkp_status_cadastro_projeto
+	lineageTag: d167b61c-46a1-41b6-a811-dba775ed006c
+	sourceLineageTag: 0e7bbb8f-fcd9-423d-a72d-4c7e91044b9e
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: fe4e2220-cc92-40d1-86c0-321cfa4953c2
+		sourceLineageTag: c45f4699-a567-43b0-8c91-8b1415d11663
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column fl_projeto
+		dataType: string
+		lineageTag: 75346d20-6ea3-45a5-ad0a-1e8e7d604af2
+		sourceLineageTag: 4d2abaa7-b1bb-43d7-9ad1-c1ef8080be93
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: fl_projeto
+
+		annotation SummarizationSetBy = User
+
+	column sk_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: acd271d6-c845-432d-b855-af939c948f01
+		sourceLineageTag: ff86bcfc-4901-4f92-9bd1-5d27f413a986
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_rede
+
+		annotation SummarizationSetBy = User
+
+	partition lkp_status_cadastro_projeto = entity
+		mode: directQuery
+		source
+			entityName: lkp_status_cadastro_projeto
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

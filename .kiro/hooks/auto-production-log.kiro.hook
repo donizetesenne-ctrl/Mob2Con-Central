@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Auto Log - Registrar produção",
+  "description": "Quando o agente termina uma execução, gera automaticamente um resumo do que foi feito e salva no log de produção semanal.",
+  "version": "1",
+  "when": {
+    "type": "agentStop"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "A execução do agente terminou. Gere um resumo de 2-3 linhas em português do que foi realizado nesta sessão (arquivos criados/editados, comandos executados, problemas resolvidos). Formate como item de log com data/hora atual para adicionar ao relatório de produção."
+  }
+}

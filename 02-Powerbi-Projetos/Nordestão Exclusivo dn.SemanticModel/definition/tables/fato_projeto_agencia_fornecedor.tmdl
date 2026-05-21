@@ -1,0 +1,107 @@
+table fato_projeto_agencia_fornecedor
+	lineageTag: 8a0495fb-062f-4fce-ae56-38df7ae2b8c9
+	sourceLineageTag: 58ffb3dd-acf0-4eee-95d0-afa3fe5288d8
+
+	column dt_referencia
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 5df31d4e-33c5-4869-ad56-d2d8ed23986f
+		sourceLineageTag: 681f1d43-a968-4ba4-ace3-0cf8c4d0dae2
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_referencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_projeto_agencia_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bf2570b-f5cd-48c4-8d0b-e223f7b6fa0d
+		sourceLineageTag: 68537793-6f5e-492a-b57c-ac87bec26f9a
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_projeto_agencia_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_agencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 9202ef59-7ddf-45b5-af01-636a73f4d579
+		sourceLineageTag: b8fda7be-a461-4822-8c4d-bc04a52fd0df
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 657879be-3287-4db9-a433-78b3a4e265b1
+		sourceLineageTag: e6d8a400-3777-49a9-a8fc-3a46b1b9ecd4
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 04a8a7aa-2cb7-4ce0-adc5-8bc089d14e6e
+		sourceLineageTag: d8c2151e-78bb-4be5-a56d-09139f427638
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column ds_dias_atendimento
+		dataType: string
+		lineageTag: 33e784ef-fb95-41a1-865d-2424b774c77e
+		sourceLineageTag: 50d9b8dc-5322-432e-b94e-f51cb4dbe942
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_dias_atendimento
+
+		annotation SummarizationSetBy = User
+
+	column qt_minutos_semana
+		dataType: int64
+		formatString: 0
+		lineageTag: 11939c25-74e9-4da8-8603-ccecdbeb971f
+		sourceLineageTag: b9669757-3e86-4039-8b0a-c99be99341bd
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_minutos_semana
+
+		annotation SummarizationSetBy = User
+
+	column qt_horas_projeto
+		dataType: double
+		lineageTag: 1663797e-a3c3-4264-86c2-b27fe342d72e
+		sourceLineageTag: f86ec6eb-a0fd-4d09-b72a-883eca76ef39
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_horas_projeto
+
+		annotation SummarizationSetBy = User
+
+	column qt_dias_projeto
+		dataType: int64
+		formatString: 0
+		lineageTag: 8c1cab04-4f62-46a2-adfd-ba895ac27f64
+		sourceLineageTag: 13c3a148-65c7-4d3f-9fe1-2ddbcf010866
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_dias_projeto
+
+		annotation SummarizationSetBy = User
+
+	partition fato_projeto_agencia_fornecedor = entity
+		mode: directQuery
+		source
+			entityName: fato_projeto_agencia_fornecedor
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,16 @@
+{
+  "scriptId": "1vgjMumNtjp2EkSoXa8gV_SizQjhljskv8hrRcDOZEGcEI-ZUh78t6N20",
+  "rootDir": "06-MCP-Tools\\cadastro-lite-v2\\clasp-project",
+  "scriptExtensions": [
+    ".js",
+    ".gs"
+  ],
+  "htmlExtensions": [
+    ".html"
+  ],
+  "jsonExtensions": [
+    ".json"
+  ],
+  "filePushOrder": [],
+  "skipSubdirectories": false
+}

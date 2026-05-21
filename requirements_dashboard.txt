@@ -1,0 +1,38 @@
+# ══════════════════════════════════════════════════════════════════
+# DEPENDÊNCIAS PYTHON - PIPELINE DASHBOARD MOB2CON
+# ══════════════════════════════════════════════════════════════════
+# Instalar com: pip install -r requirements_dashboard.txt
+# Recomendado: criar virtualenv antes
+#   python -m venv venv
+#   venv\Scripts\activate
+#   pip install -r requirements_dashboard.txt
+# ══════════════════════════════════════════════════════════════════
+
+# Conexão com Amazon Redshift (driver PostgreSQL)
+psycopg2-binary>=2.9.9
+
+# Google Sheets API (leitura e escrita)
+gspread>=6.0.0
+
+# Autenticação Google (Service Account)
+google-auth>=2.28.0
+google-auth-oauthlib>=1.2.0
+
+# Manipulação de dados
+pandas>=2.1.0
+
+# Utilitários de data/hora
+python-dateutil>=2.8.2
+
+# ══════════════════════════════════════════════════════════════════
+# OPCIONAIS (descomentar se necessário):
+# ══════════════════════════════════════════════════════════════════
+
+# Para criptografia de credenciais (futuro)
+# cryptography>=41.0.0
+
+# Para retry automático em caso de falha de rede
+# tenacity>=8.2.0
+
+# Para notificações via Slack (opcional)
+# slack-sdk>=3.27.0

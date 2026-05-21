@@ -1,0 +1,54 @@
+table lkp_cadastro_agencia_fornecedor
+	lineageTag: 66eeaf29-1ea8-4159-9151-fea221e81d76
+	sourceLineageTag: 06861928-3fbf-40b8-905e-4cc9d69b1281
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 9e992924-2588-4380-95fe-e19dd9d5dc44
+		sourceLineageTag: 98a4a751-6910-480d-82bc-943937a197d0
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 844008e1-f166-4f98-8a7c-1025f84f10df
+		sourceLineageTag: 5be4686d-528a-42d5-a41f-7be06cf988de
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_agencia
+		dataType: int64
+		formatString: 0
+		lineageTag: d7f38370-b90b-4543-869e-1bda52ec016a
+		sourceLineageTag: 6e19948a-bbba-4479-9ffc-72867db67f02
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column fl_projeto
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: ce521a58-f15f-49aa-92af-becf39cbb9f6
+		sourceLineageTag: 9750ffe7-9ff4-43b9-9493-5b9a0d31bfa7
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: fl_projeto
+
+		annotation SummarizationSetBy = User
+
+	partition lkp_cadastro_agencia_fornecedor = entity
+		mode: directQuery
+		source
+			entityName: lkp_cadastro_agencia_fornecedor
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 Estudo Cadastro Promotores — Estrutura do Relatório</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root { --orange: #F46901; --graphite: #434343; --black: #111111; --success: #107C41; --danger: #C00000; --warning: #FFC107; --info: #4285F4; --bg: #F3F6FA; --white: #FFFFFF; --gray300: #E0E0E0; --gray500: #605E5C; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Raleway', sans-serif; background: var(--bg); color: var(--black); padding: 32px; line-height: 1.5; }
+h1 { font-size: 24px; font-weight: 900; color: var(--graphite); margin-bottom: 4px; }
+h2 { font-size: 16px; font-weight: 900; color: var(--graphite); margin: 32px 0 12px; border-left: 4px solid var(--orange); padding-left: 12px; }
+h3 { font-size: 13px; font-weight: 700; color: var(--gray500); margin: 16px 0 8px; }
+.subtitle { font-size: 12px; color: var(--gray500); margin-bottom: 24px; }
+.card { background: var(--white); border: 1px solid var(--gray300); border-radius: 8px; padding: 16px; margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
+.badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 700; }
+.badge-info { background: #E8F0FE; color: var(--info); }
+.badge-success { background: #E6F4EA; color: var(--success); }
+.badge-warning { background: #FFF8E1; color: #B8860B; }
+.badge-danger { background: #FDE8E8; color: var(--danger); }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: var(--graphite); color: white; padding: 8px 10px; text-align: left; font-size: 11px; }
+td { padding: 8px 10px; border-bottom: 1px solid #F0F0F0; }
+tr:nth-child(even) td { background: #FFF8F2; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+.kpi-box { background: var(--white); border: 1px solid var(--gray300); border-radius: 8px; padding: 12px; }
+.kpi-box .label { font-size: 10px; font-weight: 700; color: var(--gray500); text-transform: uppercase; }
+.kpi-box .value { font-size: 14px; font-weight: 900; color: var(--black); margin-top: 2px; }
+.page-card { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--white); border: 1px solid var(--gray300); border-radius: 8px; margin-bottom: 8px; transition: border-color 0.2s; }
+.page-card:hover { border-color: var(--orange); }
+.page-num { width: 32px; height: 32px; background: var(--orange); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; flex-shrink: 0; }
+.page-info { flex: 1; }
+.page-info .name { font-size: 13px; font-weight: 700; color: var(--black); }
+.page-info .meta { font-size: 10px; color: var(--gray500); }
+.tag { display: inline-block; background: #F3F2F1; padding: 2px 6px; border-radius: 4px; font-size: 10px; margin: 2px; }
+.section-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 24px; }
+.meta-item { font-size: 11px; color: var(--gray500); }
+.meta-item strong { color: var(--black); }
+</style>
+</head>
+<body>
+
+<h1>📊 Estudo Cadastro Promotores</h1>
+<p class="subtitle">Relatório Power BI — Extração automática da estrutura .pbix</p>
+
+<div class="section-meta">
+  <div class="meta-item"><strong>Arquivo:</strong> eestudo cadadstro promotores.pbix</div>
+  <div class="meta-item"><strong>Canvas:</strong> 1920 × 1080</div>
+  <div class="meta-item"><strong>Páginas:</strong> 17</div>
+  <div class="meta-item"><strong>Tema:</strong> mob2con-theme</div>
+  <div class="meta-item"><strong>RLS:</strong> <span class="badge badge-success">Configurado</span></div>
+</div>
+
+<!-- RESUMO -->
+<h2>📋 Resumo Geral</h2>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Total de Páginas</div><div class="value">17</div></div>
+  <div class="kpi-box"><div class="label">Total de Visuais</div><div class="value">~160</div></div>
+  <div class="kpi-box"><div class="label">Modelo de Dados</div><div class="value">355 KB</div></div>
+  <div class="kpi-box"><div class="label">Tema Customizado</div><div class="value">Mob2Con</div></div>
+</div>
+
+<!-- PÁGINAS -->
+<h2>📑 Páginas do Relatório</h2>
+
+<div class="page-card"><div class="page-num">1</div><div class="page-info"><div class="name">Visão Executiva</div><div class="meta">12 visuais • KPIs gerais, gráficos de tendência, tabela de detalhe</div></div></div>
+<div class="page-card"><div class="page-num">2</div><div class="page-info"><div class="name">Mapa de Cobertura</div><div class="meta">9 visuais • Distribuição geográfica dos promotores</div></div></div>
+<div class="page-card"><div class="page-num">3</div><div class="page-info"><div class="name">Rastreio Promotores</div><div class="meta">13 visuais • Acompanhamento de atividades e visitas</div></div></div>
+<div class="page-card"><div class="page-num">4</div><div class="page-info"><div class="name">Detecção de Fraude</div><div class="meta">11 visuais • Identificação de padrões suspeitos</div></div></div>
+<div class="page-card"><div class="page-num">5</div><div class="page-info"><div class="name">Análise de Churn</div><div class="meta">13 visuais • Previsão e análise de cancelamentos</div></div></div>
+<div class="page-card"><div class="page-num">6</div><div class="page-info"><div class="name">Faturamento e Planos</div><div class="meta">10 visuais • Receita por plano e segmento</div></div></div>
+<div class="page-card"><div class="page-num">7</div><div class="page-info"><div class="name">Produtividade</div><div class="meta">10 visuais • Performance e eficiência operacional</div></div></div>
+<div class="page-card"><div class="page-num">8</div><div class="page-info"><div class="name">Painel CS</div><div class="meta">9 visuais • Customer Success e satisfação</div></div></div>
+<div class="page-card"><div class="page-num">9</div><div class="page-info"><div class="name">Desvios Regular-Lite</div><div class="meta">11 visuais • Comparativo entre planos</div></div></div>
+<div class="page-card"><div class="page-num">10</div><div class="page-info"><div class="name">Alertas</div><div class="meta">10 visuais • Notificações e thresholds</div></div></div>
+<div class="page-card"><div class="page-num">11</div><div class="page-info"><div class="name">Uso da Plataforma</div><div class="meta">8 visuais • Ativas 7d/30d, promotores ativos, delta WoW</div></div></div>
+<div class="page-card"><div class="page-num">12</div><div class="page-info"><div class="name">Faturamento Zerado</div><div class="meta">8 visuais • Inadimplência, lojas sem acesso</div></div></div>
+<div class="page-card"><div class="page-num">13</div><div class="page-info"><div class="name">Gestão de Risco</div><div class="meta">8 visuais • Score, churn risk, MRR</div></div></div>
+<div class="page-card"><div class="page-num">14</div><div class="page-info"><div class="name">Turnover Promotores</div><div class="meta">7 visuais • Admissões, desligamentos, saldo</div></div></div>
+<div class="page-card"><div class="page-num">15</div><div class="page-info"><div class="name">Limpeza de Base</div><div class="meta">7 visuais • Completude, inconsistências, pendências</div></div></div>
+<div class="page-card"><div class="page-num">16</div><div class="page-info"><div class="name">Financeiro</div><div class="meta">8 visuais • Inadimplência por segmento, MRR</div></div></div>
+<div class="page-card"><div class="page-num">17</div><div class="page-info"><div class="name">Expansão e MobConnect</div><div class="meta">8 visuais • Portfólio, onboard, Tier 1</div></div></div>
+
+<!-- KPIs POR PÁGINA -->
+<h2>📊 KPIs Identificados</h2>
+
+<h3>Pg 11 — Uso da Plataforma</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Ativas 7 dias</div><div class="value">crd11ativas7d</div></div>
+  <div class="kpi-box"><div class="label">Ativas 30 dias</div><div class="value">crd11ativas30d</div></div>
+  <div class="kpi-box"><div class="label">Inativas 7 dias</div><div class="value">crd11inativas7d</div></div>
+  <div class="kpi-box"><div class="label">% Ativas 7d</div><div class="value">crd11pctativas7d</div></div>
+  <div class="kpi-box"><div class="label">Promotores Ativos</div><div class="value">crd11promotativos</div></div>
+  <div class="kpi-box"><div class="label">Delta WoW</div><div class="value">crd11wowdelta</div></div>
+</div>
+
+<h3>Pg 12 — Faturamento Zerado</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Fat. Zerado Total</div><div class="value">crd12fatzeradotot</div></div>
+  <div class="kpi-box"><div class="label">Inadimplência Total</div><div class="value">crd12inadimptotal</div></div>
+  <div class="kpi-box"><div class="label">Inadim. MRR Risco</div><div class="value">crd12inadmrrrisco</div></div>
+  <div class="kpi-box"><div class="label">Taxa Inadim. %</div><div class="value">crd12inadtaxapct</div></div>
+  <div class="kpi-box"><div class="label">Lojas sem Acesso</div><div class="value">crd12lojassemaces</div></div>
+</div>
+
+<h3>Pg 13 — Gestão de Risco</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Contas em Risco</div><div class="value">crd13contasriscot</div></div>
+  <div class="kpi-box"><div class="label">Score Médio</div><div class="value">crd13scoremedio</div></div>
+  <div class="kpi-box"><div class="label">Churn Risk</div><div class="value">crd13churnrisk</div></div>
+  <div class="kpi-box"><div class="label">MRR Total</div><div class="value">crd13mrrtotal</div></div>
+  <div class="kpi-box"><div class="label">Taxa Churn</div><div class="value">crd13taxachurn</div></div>
+</div>
+
+<h3>Pg 14 — Turnover</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Admissões</div><div class="value">crd14admissoes</div></div>
+  <div class="kpi-box"><div class="label">Desligamentos</div><div class="value">crd14desligament</div></div>
+  <div class="kpi-box"><div class="label">Saldo</div><div class="value">crd14saldo</div></div>
+  <div class="kpi-box"><div class="label">Taxa %</div><div class="value">crd14taxapct</div></div>
+  <div class="kpi-box"><div class="label">Promotores Ativos</div><div class="value">crd14promotativ</div></div>
+</div>
+
+<h3>Pg 15 — Limpeza de Base</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Inat. com Acesso</div><div class="value">crd15inatcomaces</div></div>
+  <div class="kpi-box"><div class="label">Inadim. com Acesso</div><div class="value">crd15inadcomaces</div></div>
+  <div class="kpi-box"><div class="label">Prom. Não Vinculados</div><div class="value">crd15promnaovinc</div></div>
+  <div class="kpi-box"><div class="label">Pendências Total</div><div class="value">crd15pendtotal</div></div>
+  <div class="kpi-box"><div class="label">Completude</div><div class="value">crd15completude</div></div>
+</div>
+
+<h3>Pg 16 — Financeiro</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Inadim. Total</div><div class="value">crd16inadtotal</div></div>
+  <div class="kpi-box"><div class="label">Taxa Inadim. %</div><div class="value">crd16inadtaxapct</div></div>
+  <div class="kpi-box"><div class="label">MRR Risco</div><div class="value">crd16mrrrisco</div></div>
+  <div class="kpi-box"><div class="label">MRR Total</div><div class="value">crd16mrrtotal</div></div>
+  <div class="kpi-box"><div class="label">Total Ativas</div><div class="value">crd16totalativas</div></div>
+</div>
+
+<h3>Pg 17 — Expansão e MobConnect</h3>
+<div class="grid">
+  <div class="kpi-box"><div class="label">Expansão Portfólio</div><div class="value">crd17expansaoport</div></div>
+  <div class="kpi-box"><div class="label">MobC Atividade</div><div class="value">crd17mobcativid</div></div>
+  <div class="kpi-box"><div class="label">MobC Adoção</div><div class="value">crd17mobcadocao</div></div>
+  <div class="kpi-box"><div class="label">Onboard Novos</div><div class="value">crd17onboardnovos</div></div>
+  <div class="kpi-box"><div class="label">Expansão Tier 1</div><div class="value">crd17expanstier1</div></div>
+</div>
+
+<!-- CONFIGURAÇÕES -->
+<h2>⚙️ Configurações do Relatório</h2>
+<div class="card">
+<table>
+  <tr><th>Propriedade</th><th>Valor</th></tr>
+  <tr><td>Tema Base</td><td>CY26SU04</td></tr>
+  <tr><td>Tema Custom</td><td>mob2con-theme <span class="badge badge-info">RegisteredResources</span></td></tr>
+  <tr><td>Canvas</td><td>1920 × 1080 (FitToPage)</td></tr>
+  <tr><td>Tooltips Aprimorados</td><td>✅ Ativo</td></tr>
+  <tr><td>Drill Filter Other Visuals</td><td>✅ Ativo</td></tr>
+  <tr><td>Export Data</td><td>AllowSummarized</td></tr>
+  <tr><td>RLS (Row Level Security)</td><td>✅ Configurado (6 KB)</td></tr>
+  <tr><td>Modelo de Dados</td><td>355 KB (embutido)</td></tr>
+</table>
+</div>
+
+<!-- TEMAS -->
+<h2>🎨 Temas Encontrados</h2>
+<div class="card">
+<table>
+  <tr><th>Arquivo</th><th>Tamanho</th><th>Tipo</th></tr>
+  <tr><td>mob2con-theme.json</td><td>1.9 KB</td><td><span class="badge badge-success">Registered (ativo)</span></td></tr>
+  <tr><td>mob2con-theme.json</td><td>16.2 KB</td><td>SharedResources/BaseThemes</td></tr>
+  <tr><td>Mob2Con.json</td><td>10 KB</td><td>SharedResources/BaseThemes</td></tr>
+  <tr><td>CY26SU04.json</td><td>20.4 KB</td><td>Base Theme (Power BI padrão)</td></tr>
+</table>
+</div>
+
+<p style="margin-top:32px;font-size:10px;color:var(--gray500);text-align:center">
+  Gerado automaticamente em 19/05/2026 • Fonte: eestudo cadadstro promotores.pbix.zip
+</p>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+table 'Measure Selection Ruptura'
+	lineageTag: 5f4b2408-fdba-4412-90b5-5cd21924460e
+	sourceLineageTag: 06f5b2e1-116e-46b2-bde9-15a8b7abbc75
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: c437e2f9-ee1e-4da7-9e17-5c6f8f00ec7f
+		sourceLineageTag: 568620ca-f67c-40ae-961b-a83f99de936f
+		dataCategory: Uncategorized
+		summarizeBy: count
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = User
+
+	column Value
+		dataType: string
+		lineageTag: f56c0659-29ad-42cf-8b65-ed1d00c4616b
+		sourceLineageTag: a9cd199e-830f-401a-8eec-db4b56833c65
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Value
+		sortByColumn: Id
+
+		annotation SummarizationSetBy = User
+
+	partition 'Measure Selection Ruptura' = entity
+		mode: directQuery
+		source
+			entityName: Measure Selection Ruptura
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

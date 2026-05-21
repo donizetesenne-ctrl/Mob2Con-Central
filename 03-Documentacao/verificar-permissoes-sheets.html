@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Verificar Permissões - Planilhas Dashboard</title>
+<style>
+body{font-family:'Inter',sans-serif;padding:40px;background:#f5f5f5;max-width:1000px;margin:0 auto}
+.status{padding:20px;margin:10px 0;border-radius:8px;border-left:4px solid}
+.ok{background:#E8F5EC;border-color:#107C41;color:#107C41}
+.erro{background:#FCE8E8;border-color:#C00000;color:#C00000}
+.warn{background:#FFF0E0;border-color:#F46901;color:#F46901}
+h1{color:#111;font-size:24px;margin-bottom:20px}
+h2{color:#434343;font-size:18px;margin-top:30px}
+pre{background:#fff;padding:15px;border-radius:6px;overflow-x:auto;font-size:12px;border:1px solid #E0E0E0}
+.loading{text-align:center;padding:40px;font-size:16px;color:#595959}
+.btn{background:#F46901;color:#fff;border:none;padding:12px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;margin:10px 5px}
+.btn:hover{background:#D85901}
+code{background:#f5f5f5;padding:2px 6px;border-radius:3px;font-family:monospace;font-size:12px}
+</style>
+</head>
+<body>
+
+<h1>🔍 Diagnóstico: Permissões das Planilhas</h1>
+<div id="status" class="loading">⏳ Verificando permissões...</div>
+<div id="resultados"></div>
+
+<script>
+const SHEETS = {
+  dimensoes: { id: '1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q', nome: '📊 Redshift - Dimensões', aba: 'dim_rede' },
+  fatos:     { id: '1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs', nome: '📈 Redshift - Fatos', aba: 'fato_status_promotores' },
+  lookups:   { id: '1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI', nome: '🔗 Redshift - Lookup e Tabelas', aba: 'tbl_scores_redes' }
+};
+
+function sheetsUrl(id, sheet){
+  return 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(sheet);
+}
+
+async function testarAcesso(nome, id, aba){
+  try{
+    const res = await fetch(sheetsUrl(id, aba), {signal: AbortSignal.timeout(8000)});
+    const txt = await res.text();
+    
+    if(txt.includes('google.visualization.Query.setResponse')){
+      return { ok: true, nome, aba, msg: 'Acesso público OK' };
+    } else if(txt.includes('Access denied') || txt.includes('permission')){
+      return { ok: false, nome, aba, msg: 'ERRO: Sem permissão pública', erro: 'PERMISSAO' };
+    } else {
+      return { ok: false, nome, aba, msg: 'ERRO: Resposta inesperada', erro: 'FORMATO' };
+    }
+  }catch(e){
+    if(e.name === 'AbortError'){
+      return { ok: false, nome, aba, msg: 'ERRO: Timeout (planilha muito grande ou sem acesso)', erro: 'TIMEOUT' };
+    }
+    return { ok: false, nome, aba, msg: 'ERRO: ' + e.message, erro: 'REDE' };
+  }
+}
+
+async function executarDiagnostico(){
+  const statusDiv = document.getElementById('status');
+  const resultDiv = document.getElementById('resultados');
+  
+  let html = '<h2>📊 Resultados do Diagnóstico</h2>';
+  let sucessos = 0;
+  let falhas = 0;
+  let problemas = [];
+  
+  for(const [key, sheet] of Object.entries(SHEETS)){
+    statusDiv.innerHTML = '⏳ Testando: <strong>' + sheet.nome + '</strong> (aba: ' + sheet.aba + ')...';
+    
+    const resultado = await testarAcesso(sheet.nome, sheet.id, sheet.aba);
+    
+    if(resultado.ok){
+      sucessos++;
+      html += '<div class="status ok">';
+      html += '<strong>✅ ' + resultado.nome + '</strong><br>';
+      html += 'Aba: <code>' + resultado.aba + '</code><br>';
+      html += resultado.msg;
+      html += '</div>';
+    } else {
+      falhas++;
+      problemas.push({...resultado, id: sheet.id});
+      html += '<div class="status erro">';
+      html += '<strong>❌ ' + resultado.nome + '</strong><br>';
+      html += 'Aba: <code>' + resultado.aba + '</code><br>';
+      html += '<strong>' + resultado.msg + '</strong>';
+      html += '</div>';
+    }
+  }
+  
+  // Resumo e instruções
+  if(falhas === 0){
+    statusDiv.innerHTML = '<div class="status ok"><strong>✅ Todas as planilhas estão acessíveis!</strong><br>' +
+      'O dashboard deveria estar carregando os dados ao vivo.<br>' +
+      'Se ainda estiver vendo dados de demonstração, limpe o cache do navegador (Ctrl+Shift+Delete).</div>';
+  } else {
+    statusDiv.innerHTML = '<div class="status erro"><strong>⚠️ ' + falhas + ' planilha(s) sem acesso público</strong><br>' +
+      'O dashboard está usando dados hardcoded porque não consegue acessar as planilhas.</div>';
+    
+    html += '<h2>🔧 Como Corrigir</h2>';
+    html += '<div class="status warn">';
+    html += '<strong>SOLUÇÃO: Tornar as planilhas públicas</strong><br><br>';
+    html += 'Para cada planilha com erro, faça:<br><br>';
+    html += '<ol style="margin:10px 0;padding-left:20px">';
+    html += '<li>Abra a planilha no Google Sheets</li>';
+    html += '<li>Clique em <strong>"Compartilhar"</strong> (canto superior direito)</li>';
+    html += '<li>Clique em <strong>"Alterar para qualquer pessoa com o link"</strong></li>';
+    html += '<li>Selecione <strong>"Leitor"</strong> (não precisa ser Editor)</li>';
+    html += '<li>Clique em <strong>"Concluído"</strong></li>';
+    html += '</ol><br>';
+    html += '<strong>⚠️ IMPORTANTE:</strong> As planilhas precisam estar com compartilhamento público para o dashboard funcionar!';
+    html += '</div>';
+    
+    html += '<h2>📋 Links das Planilhas com Erro</h2>';
+    problemas.forEach(p => {
+      html += '<div class="status warn">';
+      html += '<strong>' + p.nome + '</strong><br>';
+      html += '<a href="https://docs.google.com/spreadsheets/d/' + p.id + '/edit" target="_blank" class="btn">Abrir Planilha</a>';
+      html += '</div>';
+    });
+  }
+  
+  resultDiv.innerHTML = html;
+  
+  // Botão para recarregar
+  html += '<div style="text-align:center;margin-top:30px">';
+  html += '<button class="btn" onclick="location.reload()">🔄 Testar Novamente</button>';
+  html += '<button class="btn" onclick="window.open(\'https://script.google.com/macros/s/AKfycbwkF4in7_FjTDUwruBtl-LRGw5ugQcrMmdb63TbJO091MGJu4y_1keuHRrdFrLyxTrdZw/exec\')">🚀 Abrir Dashboard</button>';
+  html += '</div>';
+  
+  resultDiv.innerHTML = html;
+}
+
+executarDiagnostico();
+</script>
+
+</body>
+</html>

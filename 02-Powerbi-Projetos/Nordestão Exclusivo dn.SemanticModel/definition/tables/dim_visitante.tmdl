@@ -1,0 +1,73 @@
+table dim_visitante
+	lineageTag: db25a81f-4685-4262-8c60-d270cc700e27
+	sourceLineageTag: dc169666-b53a-486d-b340-0f5008507437
+
+	column sk_visitante
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: 784360db-25ed-4851-b2e0-526cc05a1c10
+		sourceLineageTag: f04c9e05-147e-45c8-bdbe-fd09b5e42bcf
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_visitante
+
+		annotation SummarizationSetBy = User
+
+	column id_visitante
+		dataType: int64
+		formatString: 0
+		lineageTag: 3b8448ee-43b1-420b-bd23-f196f2d185f4
+		sourceLineageTag: 87439cc8-d7a8-4586-b48f-3ff892fac47c
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_visitante
+
+		annotation SummarizationSetBy = User
+
+	column cd_cpf
+		dataType: string
+		lineageTag: 19da1331-8090-4fc6-bfc0-66e2cb42126e
+		sourceLineageTag: e75257c3-4c67-423d-806c-211b8a8388fb
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_cpf
+
+		annotation SummarizationSetBy = User
+
+	column nm_visitante
+		dataType: string
+		lineageTag: 7843c613-a63d-4c3a-9bd0-60f8e62490ec
+		sourceLineageTag: 5bda5318-0dab-4911-a460-2b027d16d3d3
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_visitante
+
+		annotation SummarizationSetBy = User
+
+	column ds_status
+		dataType: string
+		lineageTag: 37cc25b1-11bd-4066-bcad-901c59f65eeb
+		sourceLineageTag: 536d4897-b633-4b0a-98e2-ccd32ac28a2b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_status
+
+		annotation SummarizationSetBy = User
+
+	column nm_visitante_arrumado
+		dataType: string
+		lineageTag: a9c201d8-9a53-4ad7-afa9-4e44b4ca3834
+		sourceLineageTag: bcfdb51e-61e7-4abb-801a-56c64b774aa6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_visitante_arrumado
+
+		annotation SummarizationSetBy = User
+
+	partition dim_visitante = entity
+		mode: directQuery
+		source
+			entityName: dim_visitante
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

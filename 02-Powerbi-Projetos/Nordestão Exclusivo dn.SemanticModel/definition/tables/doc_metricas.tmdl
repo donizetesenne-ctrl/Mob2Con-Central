@@ -1,0 +1,30 @@
+table doc_metricas
+	lineageTag: 31f49ebf-5e41-4f84-9cb1-df7b49caff1b
+	sourceLineageTag: a60757c1-952c-4fd6-a88d-24440960f9ea
+
+	column Métrica
+		dataType: string
+		lineageTag: cd7c5275-ec81-4d8c-bf5d-aef51d1bfb0a
+		sourceLineageTag: 607a756f-f22f-46b9-847b-3928dafe73ae
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Métrica
+
+		annotation SummarizationSetBy = User
+
+	column Descrição
+		dataType: string
+		lineageTag: 45c86445-073e-4b6f-a153-94fe48286e7c
+		sourceLineageTag: 69fb4238-0585-4bdf-aa8a-20146a2d82b7
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Descrição
+
+		annotation SummarizationSetBy = User
+
+	partition doc_metricas = entity
+		mode: directQuery
+		source
+			entityName: doc_metricas
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

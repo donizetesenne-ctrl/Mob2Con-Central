@@ -1,0 +1,60 @@
+table controle_data_source
+	lineageTag: 4b28e193-4b21-4076-8cee-e1b53243633a
+	sourceLineageTag: df1d0fb2-47c8-4803-99f8-bbe3efa1af56
+
+	column Tabela
+		dataType: string
+		lineageTag: 6c88bd3e-984d-4114-8b95-535cb0a78984
+		sourceLineageTag: de656730-30ef-4328-aa5e-9c88e7c82fe6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Tabela
+
+		annotation SummarizationSetBy = User
+
+	column Database
+		dataType: string
+		lineageTag: 936c200b-598e-4054-84fc-2392cd3ebd8f
+		sourceLineageTag: 08d2478e-6e78-4435-9351-ed743f0f8807
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Database
+
+		annotation SummarizationSetBy = User
+
+	column Schema
+		dataType: string
+		lineageTag: 781ca549-02e1-42b3-8576-0b16eedbf102
+		sourceLineageTag: 43541e2d-2806-4793-bf6e-746615a491ad
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Schema
+
+		annotation SummarizationSetBy = User
+
+	column Datasource
+		dataType: string
+		lineageTag: c8a75ed7-fc77-4a00-b56f-8100d5112696
+		sourceLineageTag: ecfa67c6-456c-4f32-afe4-cc064cdc2948
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Datasource
+
+		annotation SummarizationSetBy = User
+
+	column 'Obs.:'
+		dataType: string
+		lineageTag: d0b7866b-e59e-4e36-91fd-2fdd9ea6590b
+		sourceLineageTag: 121b5fd0-9a23-4fb4-adb9-daf92cb18b08
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Obs.:
+
+		annotation SummarizationSetBy = User
+
+	partition controle_data_source = entity
+		mode: directQuery
+		source
+			entityName: controle_data_source
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cover Page — Mob2Con</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.cover { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; background: var(--bg); }
+.cover-logo { font-size: 48px; font-weight: 900; color: var(--graphite); margin-bottom: 8px; }
+.cover-logo .accent { color: var(--primary); }
+.cover-subtitle { font-size: 16px; color: var(--gray-500); margin-bottom: 48px; }
+.nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); max-width: 900px; }
+.nav-card { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-lg); padding: var(--sp-3); box-shadow: var(--shadow-sm); transition: all 0.2s; cursor: pointer; text-decoration: none; color: inherit; }
+.nav-card:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); border-color: var(--primary); text-decoration: none; }
+.nav-card .icon { font-size: 32px; margin-bottom: 12px; }
+.nav-card h3 { font-size: 13px; color: var(--graphite); }
+.nav-card p { font-size: 11px; color: var(--gray-500); margin-top: 4px; }
+.cover-footer { margin-top: 64px; font-size: 10px; color: var(--gray-500); }
+@media (max-width: 768px) { .nav-grid { grid-template-columns: repeat(2, 1fr); padding: 0 16px; } }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <div class="cover-logo">Mob<span class="accent">2</span>Con</div>
+  <p class="cover-subtitle">Painel de Gestão — Reposição Garantida</p>
+
+  <div class="nav-grid">
+    <a href="executive.html" class="nav-card">
+      <div class="icon">📊</div>
+      <h3>Executivo</h3>
+      <p>KPIs e visão geral</p>
+    </a>
+    <a href="operational.html" class="nav-card">
+      <div class="icon">⚙️</div>
+      <h3>Operacional</h3>
+      <p>Monitoramento diário</p>
+    </a>
+    <a href="analytical.html" class="nav-card">
+      <div class="icon">🔬</div>
+      <h3>Analítico</h3>
+      <p>Drill-down detalhado</p>
+    </a>
+    <a href="components.html" class="nav-card">
+      <div class="icon">📋</div>
+      <h3>Relatórios</h3>
+      <p>Exportações e docs</p>
+    </a>
+  </div>
+
+  <p class="cover-footer">Mob2Con © 2026 • Atualizado em 19/05/2026</p>
+</div>
+
+</body>
+</html>

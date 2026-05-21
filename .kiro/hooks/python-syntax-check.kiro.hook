@@ -1,0 +1,15 @@
+{
+  "name": "Python Expert - Verificar sintaxe",
+  "description": "Quando um arquivo Python é editado, valida imports, encoding UTF-8, e verifica se segue o padrão do projeto (snake_case, docstrings, tratamento de erros).",
+  "version": "1.0.0",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Verifique a sintaxe do arquivo Python editado: valide se compila sem erros, se os imports estão corretos, se usa encoding UTF-8, e se segue o padrão do projeto (snake_case, docstrings, tratamento de erros com try/except)."
+  }
+}

@@ -1,0 +1,173 @@
+table fato_mobconnect_atendimento_fornecedores
+	lineageTag: d7c95666-ebd5-477c-bcbf-243b256bb429
+	sourceLineageTag: 0c7ef035-9828-4e84-9f92-23d7f67cf16c
+
+	column dt_atendimento
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: fc13b896-14dc-41bb-808e-45e8c93ddf7a
+		sourceLineageTag: 66450c29-fba1-4e38-be90-37b479639059
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_atendimento
+
+		annotation SummarizationSetBy = User
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: c49deb0e-64e8-4db7-9636-7f98e5308a0d
+		sourceLineageTag: 068944f3-39a2-4ca6-b6b6-a1f8a8adff83
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_user
+		dataType: int64
+		formatString: 0
+		lineageTag: 207222e6-75be-4ac6-9492-765c5fcaa1ba
+		sourceLineageTag: f6375e69-7efe-4f18-9a82-6a6d3fd0c5ee
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_user
+
+		annotation SummarizationSetBy = User
+
+	column tp_usuario
+		dataType: string
+		lineageTag: b741ad2f-4590-4d56-bd23-6866b990aff8
+		sourceLineageTag: 41889fe7-016b-469c-a23b-314682e666fe
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tp_usuario
+
+		annotation SummarizationSetBy = User
+
+	column sk_visitante
+		dataType: int64
+		formatString: 0
+		lineageTag: a37b06a2-a248-434e-b166-4c6440b29477
+		sourceLineageTag: ebf65f4d-2785-44f4-9aa3-96955aa74b18
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_visitante
+
+		annotation SummarizationSetBy = User
+
+	column sk_contratante
+		dataType: int64
+		formatString: 0
+		lineageTag: eb4cb49d-5305-491a-b260-a0edda03ced7
+		sourceLineageTag: 1c683bd2-11a2-482c-8bb9-de68bce1086a
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_contratante
+
+		annotation SummarizationSetBy = User
+
+	column sk_agencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 1475c11c-7c6d-4966-bad3-79e190533f07
+		sourceLineageTag: 92f02ff7-0e81-4d4f-9f1a-56f2a9971861
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: d7cd8a3e-8334-4669-8826-2d611364b447
+		sourceLineageTag: be598d9b-80b9-4c30-a917-810310c3958e
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column qt_horas_atendimento
+		dataType: double
+		lineageTag: 8612788a-3c6c-4826-a1b8-388751af43f5
+		sourceLineageTag: 34216a13-1fa3-4646-8f9c-d0188df6cfc6
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_horas_atendimento
+
+		annotation SummarizationSetBy = User
+
+	column ts_inicio_atendimento
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 12fc3108-7621-4029-b3b1-dcc34730a386
+		sourceLineageTag: 1ab92158-8990-449a-a97b-24e8fe84da19
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ts_inicio_atendimento
+
+		annotation SummarizationSetBy = User
+
+	column ts_fim_atendimento
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: ae021f3a-14a0-4bc3-b843-7db7cffe617a
+		sourceLineageTag: 6e04b9ef-68c9-440f-8587-acba2a2a9768
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ts_fim_atendimento
+
+		annotation SummarizationSetBy = User
+
+	column fl_atendimento_sem_termino
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: f284fd2d-36c6-465c-a1ae-ddc9c68d2050
+		sourceLineageTag: 0b3f37aa-d509-43cd-9d83-b4e4c4733f45
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: fl_atendimento_sem_termino
+
+		annotation SummarizationSetBy = User
+
+	column qt_atendimentos_realizados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6cd28013-b8ec-409a-94ca-5a57174b025d
+		sourceLineageTag: 5c484c77-b3ab-441a-9db6-6d259d44ef4c
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_atendimentos_realizados
+
+		annotation SummarizationSetBy = User
+
+	column qt_atendimentos_planejados
+		dataType: int64
+		formatString: 0
+		lineageTag: 6994eb35-39c2-489b-92e9-b739207ecb1b
+		sourceLineageTag: a6ebb591-4ce3-466e-a095-242938457ad7
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_atendimentos_planejados
+
+		annotation SummarizationSetBy = User
+
+	column qt_atendimentos_nao_realizados
+		dataType: int64
+		formatString: 0
+		lineageTag: 94c3d354-343e-4948-af50-2004a7ab331f
+		sourceLineageTag: 4d70e6c3-3b94-4acf-9e86-aaddb43f17de
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_atendimentos_nao_realizados
+
+		annotation SummarizationSetBy = User
+
+	partition fato_mobconnect_atendimento_fornecedores = entity
+		mode: directQuery
+		source
+			entityName: fato_mobconnect_atendimento_fornecedores
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

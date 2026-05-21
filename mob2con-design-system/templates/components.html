@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Components — Mob2Con Design System</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.demo { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); padding: var(--sp-3); margin-bottom: var(--sp-2); }
+.demo-title { font-size: 11px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; margin-bottom: var(--sp-2); letter-spacing: 1px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="../index.html" class="logo" style="text-decoration:none;color:var(--white)">Mob<span class="accent">2</span>Con</a>
+  <div class="spacer"></div>
+  <a href="../index.html" class="nav-link">← Voltar</a>
+</header>
+
+<main class="container section">
+
+<h1 class="mb-2">🧩 Componentes</h1>
+<p class="text-muted mb-3">Copie qualquer bloco HTML abaixo. Só precisa do <code>style.css</code> linkado.</p>
+
+<!-- BUTTONS -->
+<div class="demo">
+  <div class="demo-title">Buttons</div>
+  <div class="flex">
+    <button class="btn btn-primary">Primary</button>
+    <button class="btn btn-secondary">Secondary</button>
+    <button class="btn btn-ghost">Ghost</button>
+    <button class="btn btn-success">Success</button>
+    <button class="btn btn-danger">Danger</button>
+    <button class="btn btn-primary btn-sm">Small</button>
+    <button class="btn btn-primary btn-lg">Large</button>
+    <button class="btn btn-primary" disabled>Disabled</button>
+  </div>
+</div>
+
+<!-- KPI CARDS -->
+<div class="demo">
+  <div class="demo-title">KPI Cards</div>
+  <div class="grid grid-4">
+    <div class="card kpi">
+      <div class="kpi-label">Faturamento</div>
+      <div class="kpi-value">R$ 2.4M</div>
+      <div class="kpi-trend up">▲ 12.3%</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Lojas Ativas</div>
+      <div class="kpi-value">847</div>
+      <div class="kpi-trend up">▲ 23 novas</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Ruptura</div>
+      <div class="kpi-value">3.2%</div>
+      <div class="kpi-trend down">▼ -0.8pp</div>
+    </div>
+    <div class="card kpi card-active">
+      <div class="kpi-label">SLA</div>
+      <div class="kpi-value">94.7%</div>
+      <div class="kpi-trend up">▲ Meta: 92%</div>
+    </div>
+  </div>
+</div>
+
+<!-- BADGES -->
+<div class="demo">
+  <div class="demo-title">Badges</div>
+  <div class="flex">
+    <span class="badge badge-success">Ativo</span>
+    <span class="badge badge-danger">Crítico</span>
+    <span class="badge badge-warning">Atenção</span>
+    <span class="badge badge-info">Info</span>
+  </div>
+</div>
+
+<!-- INPUTS -->
+<div class="demo">
+  <div class="demo-title">Inputs</div>
+  <div class="grid grid-3">
+    <input class="input" placeholder="Nome da loja">
+    <input class="input" type="date">
+    <select class="input"><option>Selecione a regional</option><option>Nordeste</option><option>Sudeste</option></select>
+  </div>
+</div>
+
+<!-- TABLE -->
+<div class="demo">
+  <div class="demo-title">Table</div>
+  <table class="table">
+    <thead><tr><th>Regional</th><th>Lojas</th><th>Faturamento</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>Nordeste</td><td>312</td><td>R$ 890K</td><td><span class="badge badge-success">On track</span></td></tr>
+      <tr><td>Sudeste</td><td>285</td><td>R$ 780K</td><td><span class="badge badge-success">On track</span></td></tr>
+      <tr><td>Sul</td><td>142</td><td>R$ 420K</td><td><span class="badge badge-danger">Off track</span></td></tr>
+      <tr><td>Centro-Oeste</td><td>108</td><td>R$ 310K</td><td><span class="badge badge-warning">Atenção</span></td></tr>
+      <tr class="total"><td>Total</td><td>847</td><td>R$ 2.4M</td><td></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- HEADER -->
+<div class="demo">
+  <div class="demo-title">Header</div>
+  <header class="header" style="border-radius:var(--radius-lg)">
+    <div class="logo">Mob<span class="accent">2</span>Con</div>
+    <div class="spacer"></div>
+    <a href="#" class="nav-link">Dashboard</a>
+    <a href="#" class="nav-link">Relatórios</a>
+    <a href="#" class="nav-link">Config</a>
+  </header>
+</div>
+
+<!-- CARDS GRID -->
+<div class="demo">
+  <div class="demo-title">Cards Grid</div>
+  <div class="grid grid-3">
+    <div class="card">
+      <h3>📊 Executivo</h3>
+      <p class="text-sm text-muted mt-1">Dashboard para diretoria com KPIs de alto nível.</p>
+      <button class="btn btn-primary btn-sm mt-2">Abrir</button>
+    </div>
+    <div class="card">
+      <h3>⚙️ Operacional</h3>
+      <p class="text-sm text-muted mt-1">Monitoramento diário das equipes de campo.</p>
+      <button class="btn btn-secondary btn-sm mt-2">Abrir</button>
+    </div>
+    <div class="card">
+      <h3>🔬 Analítico</h3>
+      <p class="text-sm text-muted mt-1">Drill-down com filtros avançados.</p>
+      <button class="btn btn-ghost btn-sm mt-2">Abrir</button>
+    </div>
+  </div>
+</div>
+
+<!-- UTILITIES -->
+<div class="demo">
+  <div class="demo-title">Utilities</div>
+  <div class="flex">
+    <div class="bg-white shadow rounded p-2"><code>.bg-white .shadow .rounded .p-2</code></div>
+    <div style="background:var(--primary);color:white;padding:8px 16px;border-radius:var(--radius-md)"><code>var(--primary)</code></div>
+    <div style="background:var(--secondary);color:white;padding:8px 16px;border-radius:var(--radius-md)"><code>var(--secondary)</code></div>
+  </div>
+</div>
+
+</main>
+
+<footer class="footer">
+  Mob2Con Design System • Copie qualquer componente acima • <code>&lt;link rel="stylesheet" href="style.css"&gt;</code>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+{
+  "drive_folder": {
+    "id": "1-QzWToJPBPD58IRsxug1Rsq9zqddGgR1",
+    "name": "📊 Amazon Redshift - Dados",
+    "url": "https://drive.google.com/drive/folders/1-QzWToJPBPD58IRsxug1Rsq9zqddGgR1",
+    "parent_folder": {
+      "id": "1WmfS-xpi8GKSHghaIZxkRfbbGSXMxfG3",
+      "name": "Projeto",
+      "url": "https://drive.google.com/drive/folders/1WmfS-xpi8GKSHghaIZxkRfbbGSXMxfG3"
+    }
+  },
+  "spreadsheets": {
+    "dimensoes": {
+      "id": "1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q",
+      "name": "📊 Redshift - Dimensões",
+      "url": "https://docs.google.com/spreadsheets/d/1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q",
+      "folder": "📊 Amazon Redshift - Dados"
+    },
+    "fatos": {
+      "id": "1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs",
+      "name": "📈 Redshift - Fatos",
+      "url": "https://docs.google.com/spreadsheets/d/1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs",
+      "folder": "📊 Amazon Redshift - Dados"
+    },
+    "outros": {
+      "id": "1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI",
+      "name": "🔗 Redshift - Lookup e Tabelas",
+      "url": "https://docs.google.com/spreadsheets/d/1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI",
+      "folder": "📊 Amazon Redshift - Dados"
+    }
+  },
+  "sync_config": {
+    "max_rows_small": 50000,
+    "max_rows_medium": 10000,
+    "max_rows_large": 5000,
+    "batch_size": 5000,
+    "skip_tables": [
+      "dim_produto_rede_to_delete",
+      "dim_produto_rede_to_delete2",
+      "to_delete_unidade_fabril",
+      "to_delete_unidade_fabril_2",
+      "tmp_sk_user_to_delete",
+      "tmp_sk_visitante_to_delete",
+      "tmp_tbl_base_store_product_infos",
+      "stg_dim_documento",
+      "stg_fato_mobconnect_atendimento_lojas",
+      "fato_contrato_anual",
+      "fato_contrato_mensal",
+      "fato_execucao_dia",
+      "tbl_rls_controle_varejo_prestador"
+    ]
+  }
+}

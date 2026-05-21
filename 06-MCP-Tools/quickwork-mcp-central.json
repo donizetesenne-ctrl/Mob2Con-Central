@@ -1,0 +1,94 @@
+{
+  "mcpServers": {
+    "powerbi-official": {
+      "command": "C:\\Users\\DONIZE~1\\.vscode\\extensions\\analysis-services.powerbi-modeling-mcp-0.4.0-win32-x64\\server\\powerbi-modeling-mcp.exe",
+      "args": ["--start"],
+      "_quick": {
+        "name": "powerbi"
+      }
+    },
+    "powerbi-layout-c3da711c": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\DONIZE~1\\Downloads\\Mob2Con-Bridge-v2.0.0\\mcp\\powerbi-layout-mcp\\server.js"
+      ],
+      "env": {
+        "POWERBI_PROJECT_PATH": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central\\02-Powerbi-Projetos\\Nortestão Exclusivo dn.pbip",
+        "MOB2CON_BRAND_CONTEXT": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central\\01-Brand-Guidelines\\Mob2con-brand-guidelines.md",
+        "MOB2CON_LAYOUT_BASE": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central\\01-Brand-Guidelines\\Mob2con-layout-base.md"
+      },
+      "_quick": {
+        "name": "powerbi-layout"
+      }
+    },
+    "powerbi-bridge-82b1391c": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\DONIZE~1\\Downloads\\Mob2Con-Bridge-v2.0.0\\mcp\\server.js"
+      ],
+      "env": {
+        "MCP_EXE": "C:\\Users\\DONIZE~1\\.vscode\\extensions\\analysis-services.powerbi-modeling-mcp-0.4.0-win32-x64\\server\\powerbi-modeling-mcp.exe",
+        "PORT": "3333",
+        "NODE_ENV": "development",
+        "DRIVE_QUEUE_ROOT": "C:\\Users\\DONIZE~1\\Downloads\\Mob2Con-Bridge-v2.0.0\\drive-queue",
+        "POWERBI_ACTIVE_PROJECT_FILE": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central\\02-Powerbi-Projetos\\Nortestão Exclusivo dn.pbip",
+        "POWERBI_BRIDGE_HOME": "C:\\Users\\DONIZE~1\\Downloads\\Mob2Con-Bridge-v2.0.0",
+        "MOB2CON_CENTRAL": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central"
+      },
+      "_quick": {
+        "name": "powerbi-bridge"
+      }
+    },
+    "universal-control-mcp": {
+      "command": "node",
+      "args": [
+        "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con_MCP_Setup\\universal-control-mcp\\server.js"
+      ],
+      "env": {
+        "UCM_CONFIG_PATH": "C:\\Users\\DONIZE~1\\.aws\\amazonq\\universal-control\\ucm-secrets.json",
+        "UCM_LOG_FILE": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con_MCP_Setup\\universal-control-mcp\\universal-control-mcp.log",
+        "UCM_DISABLE_APPSHEET": "true",
+        "UCM_LOCAL_ROOTS": "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central;C:\\Users\\DONIZE~1\\Desktop;C:\\Users\\DONIZE~1\\Documents;C:\\Users\\DONIZE~1\\Downloads",
+        "UCM_AUTO_BACKUP": "true",
+        "UCM_MAX_TEXT_CHARS": "50000",
+        "UCM_MAX_CELLS": "40000",
+        "UCM_PYTHON_PATH": "python"
+      },
+      "_quick": {
+        "name": "universal_control"
+      }
+    },
+    "aws-docs-23b4ddd2": {
+      "command": "uvx",
+      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "_quick": {
+        "name": "aws-docs"
+      }
+    },
+    "shell-command-mcp": {
+      "command": "npx.cmd",
+      "args": ["-y", "shell-command-mcp"],
+      "_quick": {
+        "name": "shell-command"
+      }
+    },
+    "filesystem-mcp": {
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\DONIZE~1\\Desktop\\Mob2Con-Central",
+        "C:\\Users\\DONIZE~1\\Desktop\\projetos BI",
+        "C:\\Users\\DONIZE~1\\Downloads\\Mob2Con-Bridge-v2.0.0",
+        "C:\\Users\\DONIZE~1\\Documents",
+        "C:\\Users\\DONIZE~1\\Desktop"
+      ],
+      "_quick": {
+        "name": "filesystem"
+      }
+    }
+  }
+}

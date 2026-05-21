@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile — Mob2Con</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+body { background: var(--bg); }
+.mobile-frame { width: 320px; min-height: 568px; margin: 32px auto; background: var(--bg); border: 2px solid var(--gray-300); border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-lg); }
+.mobile-header { background: var(--graphite); height: 48px; display: flex; align-items: center; padding: 0 12px; }
+.mobile-header .logo { font-size: 14px; font-weight: 900; color: var(--white); }
+.mobile-header .logo .accent { color: var(--primary); }
+.mobile-body { padding: 8px; }
+.mobile-kpi { background: var(--white); border-radius: var(--radius-lg); padding: 12px; margin-bottom: 8px; box-shadow: var(--shadow-sm); }
+.mobile-kpi .kpi-value { font-size: 22px; }
+.mobile-kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.mobile-kpi-sm { background: var(--white); border-radius: var(--radius-lg); padding: 10px; box-shadow: var(--shadow-sm); }
+.mobile-kpi-sm .kpi-value { font-size: 16px; }
+.mobile-chart { background: var(--white); border-radius: var(--radius-lg); padding: 12px; box-shadow: var(--shadow-sm); margin-bottom: 8px; }
+.mobile-chart-area { height: 120px; background: var(--gray-50); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--gray-500); margin-top: 8px; }
+.page-title { text-align: center; font-size: 12px; color: var(--gray-500); margin: 24px 0 8px; }
+</style>
+</head>
+<body>
+
+<p class="page-title">📱 Mobile Preview (320×568)</p>
+
+<div class="mobile-frame">
+  <div class="mobile-header">
+    <div class="logo">Mob<span class="accent">2</span>Con</div>
+  </div>
+  <div class="mobile-body">
+    <div class="mobile-kpi kpi">
+      <div class="kpi-label">Faturamento</div>
+      <div class="kpi-value">R$ 2.4M</div>
+      <div class="kpi-trend up">▲ 12.3%</div>
+    </div>
+    <div class="mobile-kpi-row">
+      <div class="mobile-kpi-sm kpi">
+        <div class="kpi-label">Lojas</div>
+        <div class="kpi-value">847</div>
+      </div>
+      <div class="mobile-kpi-sm kpi">
+        <div class="kpi-label">SLA</div>
+        <div class="kpi-value">94.7%</div>
+      </div>
+    </div>
+    <div class="mobile-chart">
+      <h3 style="font-size:11px">Evolução</h3>
+      <div class="mobile-chart-area">📈 Gráfico de linha</div>
+    </div>
+    <div class="mobile-chart">
+      <h3 style="font-size:11px">Por Regional</h3>
+      <div class="mobile-chart-area">📊 Barras</div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

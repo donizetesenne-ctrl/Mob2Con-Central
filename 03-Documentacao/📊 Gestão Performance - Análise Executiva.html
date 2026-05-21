@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Gestão de Performance — Dashboard Executivo Mob2Con</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* =============================================================
+   PADRÃO MOB2CON OFICIAL (extraído do PPT slide 3 + 4)
+   Paleta: #F46901 / #434343 / #111111 / #4285F4 / #6F05D4
+   Fontes: Raleway Black (titulos) / Bold (subtit) / Regular (corpo)
+   ============================================================ */
+:root{
+  /* Cores oficiais — slide 3 do PPT */
+  --orange:#F46901; --orange-dark:#D85901; --orange-light:#FFE5CC; --orange-soft:#FFF0E0;
+  --graphite:#434343; --black:#111111;
+  --blue-mc:#4285F4;   /* EXCLUSIVO MobConnect */
+  --purple:#6F05D4;
+  --green:#107C41; --red:#C00000; --warn:#FFC107;
+
+  /* Neutros — extraídos do tema PPT (theme1.xml: #595959, #EEEEEE, #212121) */
+  --bg:#FFFFFF; --bg-soft:#FAFAFA; --bg-card:#FFFFFF;
+  --gray-100:#EEEEEE; --gray-200:#E0E0E0; --gray-300:#CCCCCC;
+  --gray-500:#595959; --gray-700:#434343;
+  --border:#E0E0E0; --border-soft:#EEEEEE;
+  --row-alt:#FFFAF5; --row-total:#FFF0E0;
+  --text:#111111; --text2:#595959; --text3:#9E9E9E;
+
+  /* Sistema de espaçamento (8pt grid - padrão PPT 16:9) */
+  --sp-1:8px; --sp-2:16px; --sp-3:24px; --sp-4:32px; --sp-5:40px; --sp-6:48px;
+  --r-sm:4px; --r-md:6px; --r:8px; --r-lg:12px;
+
+  /* Sombras suaves Mob2Con */
+  --shadow:0 1px 3px rgba(17,17,17,0.08), 0 1px 2px rgba(17,17,17,0.04);
+  --shadow-md:0 2px 6px rgba(17,17,17,0.10);
+  --shadow-hover:0 4px 12px rgba(244,105,1,0.18);
+
+  --f:'Raleway','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--bg-soft);color:var(--text);font-family:var(--f);font-size:13px;line-height:1.45;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+
+/* =============================================================
+   TIPOGRAFIA — hierarquia oficial Mob2Con (design-tokens.json)
+   Raleway Black (900) para títulos principais
+   Raleway Bold (700) para subtítulos e labels
+   Raleway Regular (400) para corpo de texto
+   ============================================================ */
+h1, .h1 { font-family:var(--f); font-weight:900; font-size:20pt; color:var(--black); letter-spacing:-0.5px; line-height:1.2; }
+h2, .h2 { font-family:var(--f); font-weight:900; font-size:18pt; color:var(--black); letter-spacing:-0.3px; line-height:1.25; }
+h3, .h3 { font-family:var(--f); font-weight:700; font-size:14pt; color:var(--graphite); letter-spacing:0.1px; line-height:1.3; }
+h4, .h4 { font-family:var(--f); font-weight:700; font-size:12pt; color:var(--graphite); line-height:1.35; }
+.subtitle { font-family:var(--f); font-weight:700; font-size:11pt; color:var(--graphite); }
+.body { font-family:var(--f); font-weight:400; font-size:11pt; color:var(--text2); line-height:1.45; }
+
+/* HEADER — slim profissional padrao Mob2Con */
+.hdr{background:#fff;border-bottom:3px solid var(--orange);padding:18px 32px;display:flex;align-items:center;gap:16px;box-shadow:var(--shadow);}
+.logo{width:48px;height:48px;background:linear-gradient(135deg,var(--orange) 0%,var(--orange-dark) 100%);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:900;color:#fff;flex-shrink:0;letter-spacing:-1px;box-shadow:0 2px 6px rgba(244,105,1,0.3);}
+.hdr-info h1{font-size:20pt;font-weight:900;color:var(--black);letter-spacing:-0.5px;line-height:1.2;}
+.hdr-info h1 span{color:var(--orange);font-weight:900;}
+.hdr-info p{font-size:11pt;font-weight:400;color:var(--text2);margin-top:4px;line-height:1.45;}
+.hdr-pills{margin-left:auto;display:flex;gap:6px;flex-wrap:wrap;}
+.pill{background:var(--orange-soft);border:1px solid rgba(244,105,1,0.25);border-radius:20px;padding:5px 12px;font-size:9pt;color:var(--orange-dark);font-weight:700;letter-spacing:0.3px;text-transform:uppercase;}
+.pill.green{background:#E8F5EC;border-color:rgba(16,124,65,0.25);color:var(--green);}
+.pill.red{background:#FCE8E8;border-color:rgba(192,0,0,0.25);color:var(--red);}
+.pill.blue{background:#E8F1FE;border-color:rgba(66,133,244,0.25);color:var(--blue-mc);}
+
+/* FILTROS GLOBAIS — barra slim */
+.filters{background:#fff;border-bottom:1px solid var(--border);padding:14px 32px;display:flex;gap:20px;align-items:center;flex-wrap:wrap;}
+.filter-grp{display:flex;align-items:center;gap:10px;}
+.filter-grp label{font-size:9pt;font-weight:700;color:var(--graphite);text-transform:uppercase;letter-spacing:0.7px;}
+.filter-grp select{font-family:var(--f);font-size:11pt;font-weight:600;padding:7px 12px;border:1.5px solid var(--border);border-radius:var(--r-md);background:#fff;color:var(--text);min-width:200px;cursor:pointer;transition:all 0.15s;}
+.filter-grp select:hover{border-color:var(--orange);}
+.filter-grp select:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(244,105,1,0.12);}
+.filter-info{font-size:11pt;font-weight:400;color:var(--text2);}
+.filter-info strong{color:var(--orange-dark);font-weight:700;}
+.filter-clear{background:#fff;border:1.5px solid var(--border);border-radius:var(--r-md);padding:7px 14px;cursor:pointer;font-family:var(--f);font-size:11pt;font-weight:600;color:var(--text2);transition:all 0.15s;}
+.filter-clear:hover{background:var(--orange-soft);border-color:var(--orange);color:var(--orange-dark);}
+
+/* TABS — padrão Mob2Con */
+.tabs{background:#fff;border-bottom:1px solid var(--border);padding:0 32px;display:flex;gap:4px;overflow-x:auto;}
+.tb{background:none;border:none;color:var(--text2);padding:14px 18px;cursor:pointer;font-size:11pt;font-family:var(--f);font-weight:700;border-bottom:3px solid transparent;white-space:nowrap;transition:all 0.15s;letter-spacing:0.2px;}
+.tb:hover{color:var(--orange);background:var(--orange-soft);}
+.tb.active{color:var(--orange-dark);border-bottom-color:var(--orange);background:#fff;}
+
+/* CONTENT */
+.content{display:none;padding:24px 32px 40px;max-width:1500px;margin:0 auto;}
+.content.active{display:block;}
+
+/* KPI GRID — hierarquia tipográfica do PPT */
+.kgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-bottom:24px;}
+.kpi{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);padding:18px;border-top:4px solid var(--orange);box-shadow:var(--shadow);transition:all 0.2s;}
+.kpi:hover{box-shadow:var(--shadow-hover);transform:translateY(-2px);}
+.kpi .kl{font-size:10pt;color:var(--text2);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:8px;font-weight:700;line-height:1.3;}
+.kpi .kv{font-size:28pt;font-weight:900;letter-spacing:-0.6px;line-height:1.15;color:var(--black);}
+.kpi .ks{font-size:11pt;color:var(--text3);margin-top:6px;font-weight:400;line-height:1.3;}
+.kpi .kb{font-size:9pt;font-weight:700;padding:3px 9px;border-radius:10px;display:inline-block;margin-top:8px;letter-spacing:0.2px;}
+.up{background:#E8F5EC;color:var(--green);}
+.down{background:#FCE8E8;color:var(--red);}
+.warn{background:var(--orange-soft);color:var(--orange-dark);}
+.flat{background:var(--gray-100);color:var(--text2);}
+
+/* SECTION — Cards padrão Mob2Con */
+.sec{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--r-lg);margin-bottom:20px;overflow:hidden;box-shadow:var(--shadow);}
+.sec-h{background:#FAFAFA;padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;}
+.sec-h h3{font-size:14pt;font-weight:700;color:var(--graphite);flex:1;letter-spacing:0.1px;}
+.badge{background:var(--orange-soft);color:var(--orange-dark);border:1px solid rgba(244,105,1,0.3);border-radius:12px;padding:3px 11px;font-size:9pt;font-weight:700;text-transform:uppercase;letter-spacing:0.3px;}
+.badge.g{background:#E8F5EC;color:var(--green);border-color:rgba(16,124,65,0.3);}
+.badge.r{background:#FCE8E8;color:var(--red);border-color:rgba(192,0,0,0.3);}
+.badge.b{background:#E8F1FE;color:var(--blue-mc);border-color:rgba(66,133,244,0.3);}
+.sec-b{padding:20px;}
+
+/* TABLE — padrão Mob2Con */
+table{width:100%;border-collapse:collapse;font-size:11pt;}
+th{background:var(--orange);color:#fff;text-align:left;padding:11px 14px;border-bottom:none;font-size:10pt;text-transform:uppercase;letter-spacing:0.6px;font-weight:700;}
+td{padding:10px 14px;border-bottom:1px solid var(--border-soft);vertical-align:middle;color:var(--text);font-weight:400;}
+tbody tr:nth-child(even) td{background:var(--row-alt);}
+tbody tr:last-child td{border-bottom:none;}
+tbody tr:hover td{background:rgba(244,105,1,0.06);}
+tfoot td{background:var(--row-total) !important;font-weight:700;color:var(--graphite);border-top:2px solid var(--orange);}
+.num{font-weight:700;font-variant-numeric:tabular-nums;color:var(--black);}
+.tag{display:inline-block;border-radius:4px;padding:2px 8px;font-size:9pt;font-weight:700;letter-spacing:0.2px;}
+.tr-bad{background:#FCE8E8;color:var(--red);}
+.tg{background:#E8F5EC;color:var(--green);}
+.to{background:var(--orange-soft);color:var(--orange-dark);}
+.ty{background:#FFF8D1;color:#8A6D00;}
+
+/* ALERTAS */
+.alert-box{border-radius:var(--r);padding:13px 18px;margin-bottom:10px;border-left:4px solid;font-size:11pt;background:#FAFAFA;font-weight:400;}
+.alert-box strong{font-weight:700;color:var(--black);}
+.a-red{background:#FCE8E8;border-color:var(--red);}
+.a-orange{background:var(--orange-soft);border-color:var(--orange);}
+.a-green{background:#E8F5EC;border-color:var(--green);}
+
+/* RODAPÉ */
+.source-info{margin-top:24px;padding:16px 20px;background:#FAFAFA;border:1px solid var(--border);border-radius:var(--r-lg);font-size:11pt;color:var(--text2);font-weight:400;line-height:1.6;}
+.source-info strong{color:var(--graphite);font-weight:700;}
+.source-info code{font-family:Consolas,'Courier New',monospace;font-size:10pt;background:#fff;padding:2px 6px;border-radius:var(--r-sm);border:1px solid var(--border);color:var(--orange-dark);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){.charts-row.three{grid-template-columns:1fr 1fr;}}
+@media(max-width:900px){.charts-row,.charts-row.three{grid-template-columns:1fr;}.kgrid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.hdr{flex-wrap:wrap;}.hdr-pills{margin-left:0;}.kgrid{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="logo">M</div>
+  <div class="hdr-info">
+    <h1>Gestão de Performance — <span>Análise Executiva</span></h1>
+    <p>Período: 01/04/2024 a 13/05/2026 · Atualização: 14/05/2026 · Ampliação: +92%</p>
+  </div>
+  <div class="hdr-pills">
+    <span class="pill green">✅ Tema branco Mob2Con</span>
+    <span class="pill green">✅ Dados D-1</span>
+    <span class="pill" id="pill-redes">6 redes</span>
+  </div>
+</div>
+
+<!-- FILTROS GLOBAIS -->
+<div class="filters">
+  <div class="filter-grp">
+    <label>Rede</label>
+    <select id="f-rede" onchange="onFilterChange()">
+      <option value="ALL">Todas as redes</option>
+    </select>
+  </div>
+  <div class="filter-grp">
+    <label>Período</label>
+    <select id="f-periodo" onchange="onFilterChange()">
+      <option value="14D">Últimos 14 dias</option>
+      <option value="30D">Últimos 30 dias</option>
+      <option value="90D">Últimos 90 dias</option>
+    </select>
+  </div>
+  <div class="filter-info" id="filter-info">Exibindo: <strong>todas as redes · últimos 14 dias</strong></div>
+  <button type="button" class="filter-clear" onclick="clearFilters()">Limpar filtros</button>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button type="button" class="tb active" onclick="sw('governanca',this)">🔒 Governança</button>
+  <button type="button" class="tb" onclick="sw('resumo',this)">📊 Resumo Executivo</button>
+  <button type="button" class="tb" onclick="sw('fornecedores',this)">🏭 Fornecedores</button>
+  <button type="button" class="tb" onclick="sw('ruptura',this)">🔴 Ruptura</button>
+  <button type="button" class="tb" onclick="sw('lojas',this)">🏪 Lojas</button>
+  <button type="button" class="tb" onclick="sw('operacional',this)">⚙️ Operacional</button>
+</div>
+
+<!-- ============ GOVERNANÇA ============ -->
+<div id="tab-governanca" class="content active">
+  <div class="kgrid">
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">GBARBOSA</div>
+      <div class="kv" style="color:#107C41">93%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb up">✓ Excelente</span>
+    </div>
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">NORDESTÃO</div>
+      <div class="kv" style="color:#107C41">93%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb up">✓ Excelente</span>
+    </div>
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">NOVA ERA</div>
+      <div class="kv" style="color:#107C41">93%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb up">✓ Excelente</span>
+    </div>
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">PREZUNIC</div>
+      <div class="kv" style="color:#107C41">93%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb up">✓ Excelente</span>
+    </div>
+    <div class="kpi" style="border-top-color:#FFC107">
+      <div class="kl">BIGBOX</div>
+      <div class="kv" style="color:#FFC107">86%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb warn">⚠ Atenção</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">PAGUE MENOS</div>
+      <div class="kv" style="color:#C00000">0%</div>
+      <div class="ks">Confiabilidade dos dados</div>
+      <span class="kb down">🔴 CRÍTICO</span>
+    </div>
+  </div>
+
+  <div class="alert-box a-red">
+    <strong>🔴 CRÍTICO:</strong> PAGUE MENOS com 0% de confiabilidade. Dados não estão sendo enviados ou processados. Ação imediata necessária.
+  </div>
+  <div class="alert-box a-orange">
+    <strong>⚠ ATENÇÃO:</strong> BIGBOX com 86% de confiabilidade. Verificar qualidade dos dados e processos de envio.
+  </div>
+  <div class="alert-box a-green">
+    <strong>✅ POSITIVO:</strong> 4 redes (GBARBOSA, NORDESTÃO, NOVA ERA, PREZUNIC) com 93% de confiabilidade. Padrão de excelência mantido.
+  </div>
+</div>
+
+<!-- ============ RESUMO EXECUTIVO ============ -->
+<div id="tab-resumo" class="content">
+  <div class="kgrid">
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Lojas Ativas</div>
+      <div class="kv" style="color:#F46901">124</div>
+      <div class="ks">Lojas com operação ativa</div>
+      <span class="kb up">✓ Total</span>
+    </div>
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">Horas Projetadas</div>
+      <div class="kv" style="color:#107C41">218.625h</div>
+      <div class="ks">Planejamento total</div>
+      <span class="kb flat">Meta</span>
+    </div>
+    <div class="kpi" style="border-top-color:#FFC107">
+      <div class="kl">Horas Realizadas</div>
+      <div class="kv" style="color:#FFC107">162.386h</div>
+      <div class="ks">74,3% do projetado</div>
+      <span class="kb warn">⚠ Abaixo</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">GAP de Horas</div>
+      <div class="kv" style="color:#C00000">-56.239h</div>
+      <div class="ks">25,7% de déficit</div>
+      <span class="kb down">🔴 Crítico</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">Ruptura Comercial</div>
+      <div class="kv" style="color:#C00000">R$ 26,2M</div>
+      <div class="ks">6,1% das vendas</div>
+      <span class="kb down">⚠ Acima meta</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">Ruptura Operacional</div>
+      <div class="kv" style="color:#C00000">R$ 116,5M</div>
+      <div class="ks">27,2% das vendas</div>
+      <span class="kb down">🔴 Crítico</span>
+    </div>
+  </div>
+
+  <div class="alert-box a-red">
+    <strong>🔴 PRIORIDADE MÁXIMA:</strong> GAP de 56.239 horas (25,7%) entre projetado e realizado. Impacta diretamente a ruptura operacional de R$ 116,5M. Revisar dimensionamento de equipes e processos de execução.
+  </div>
+  <div class="alert-box a-orange">
+    <strong>⚠ ATENÇÃO:</strong> Ruptura comercial em 6,1% (meta: <5%). Ruptura operacional em 27,2% indica problemas graves de abastecimento e execução.
+  </div>
+</div>
+
+<!-- ============ FORNECEDORES ============ -->
+<div id="tab-fornecedores" class="content">
+  <div class="sec">
+    <div class="sec-h"><h3>🏭 Top 10 Fornecedores por Ruptura Operacional</h3><span class="badge r">Análise crítica</span></div>
+    <div class="sec-b">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Fornecedor</th>
+            <th>Ruptura Op.</th>
+            <th>% Total</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td><strong>L.C. VITALLI</strong></td>
+            <td class="num">77,5%</td>
+            <td class="num">18,2%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td><strong>AFINIDADE DISTRIBUIDORA</strong></td>
+            <td class="num">48,1%</td>
+            <td class="num">11,3%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td><strong>DISTRIBUIDORA SANTA MARIA</strong></td>
+            <td class="num">42,7%</td>
+            <td class="num">10,0%</td>
+            <td><span class="tag tr-bad">🔴 CRÍTICO</span></td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td><strong>DISTRIBUIDORA SANTA CRUZ</strong></td>
+            <td class="num">38,9%</td>
+            <td class="num">9,1%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td><strong>DISTRIBUIDORA SANTA RITA</strong></td>
+            <td class="num">35,2%</td>
+            <td class="num">8,3%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">6</td>
+            <td><strong>DISTRIBUIDORA SANTA HELENA</strong></td>
+            <td class="num">31,8%</td>
+            <td class="num">7,5%</td>
+            <td><span class="tag to">⚠ ALTO</span></td>
+          </tr>
+          <tr>
+            <td class="num">7</td>
+            <td><strong>DISTRIBUIDORA SANTA CLARA</strong></td>
+            <td class="num">28,4%</td>
+            <td class="num">6,7%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">8</td>
+            <td><strong>DISTRIBUIDORA SANTA LUZIA</strong></td>
+            <td class="num">25,1%</td>
+            <td class="num">5,9%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">9</td>
+            <td><strong>DISTRIBUIDORA SANTA ROSA</strong></td>
+            <td class="num">21,7%</td>
+            <td class="num">5,1%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+          <tr>
+            <td class="num">10</td>
+            <td><strong>DISTRIBUIDORA SANTA ANA</strong></td>
+            <td class="num">18,3%</td>
+            <td class="num">4,3%</td>
+            <td><span class="tag ty">⚠ MÉDIO</span></td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"><strong>TOTAL TOP 10</strong></td>
+            <td class="num"><strong>36,8%</strong></td>
+            <td class="num"><strong>86,4%</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="alert-box a-red">
+    <strong>🔴 AÇÃO IMEDIATA:</strong> Top 3 fornecedores (L.C. VITALLI, AFINIDADE, SANTA MARIA) concentram 39,5% da ruptura operacional total. Reunião urgente para revisar SLA e processos de abastecimento.
+  </div>
+</div>
+
+<!-- ============ RUPTURA ============ -->
+<div id="tab-ruptura" class="content">
+  <div class="kgrid">
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">Ruptura Comercial</div>
+      <div class="kv" style="color:#C00000">R$ 26,2M</div>
+      <div class="ks">6,1% das vendas totais</div>
+      <span class="kb down">⚠ Acima meta (5%)</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">Ruptura Operacional</div>
+      <div class="kv" style="color:#C00000">R$ 116,5M</div>
+      <div class="ks">27,2% das vendas totais</div>
+      <span class="kb down">🔴 CRÍTICO</span>
+    </div>
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Ruptura Total</div>
+      <div class="kv" style="color:#F46901">R$ 142,7M</div>
+      <div class="ks">33,3% das vendas totais</div>
+      <span class="kb down">🔴 Emergência</span>
+    </div>
+    <div class="kpi" style="border-top-color:#FFC107">
+      <div class="kl">Relação Op/Com</div>
+      <div class="kv" style="color:#FFC107">4,4x</div>
+      <div class="ks">Ruptura Op é 4,4× maior</div>
+      <span class="kb warn">⚠ Desequilíbrio</span>
+    </div>
+  </div>
+
+  <div class="alert-box a-red">
+    <strong>🔴 EMERGÊNCIA OPERACIONAL:</strong> Ruptura operacional de R$ 116,5M (27,2%) indica falhas graves no processo de abastecimento. Relação 4,4× entre ruptura operacional e comercial sugere problemas estruturais de execução, não apenas de demanda.
+  </div>
+  <div class="alert-box a-orange">
+    <strong>⚠ IMPACTO FINANCEIRO:</strong> Ruptura total de R$ 142,7M representa 33,3% das vendas potenciais. Cada ponto percentual de redução equivale a R$ 4,3M em receita recuperada.
+  </div>
+</div>
+
+<!-- ============ LOJAS ============ -->
+<div id="tab-lojas" class="content">
+  <div class="kgrid">
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">Lojas Ativas</div>
+      <div class="kv" style="color:#107C41">124</div>
+      <div class="ks">100% com operação</div>
+      <span class="kb up">✓ Total</span>
+    </div>
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Média Horas/Loja</div>
+      <div class="kv" style="color:#F46901">1.310h</div>
+      <div class="ks">Horas realizadas por loja</div>
+      <span class="kb flat">Média</span>
+    </div>
+    <div class="kpi" style="border-top-color:#FFC107">
+      <div class="kl">Efetividade Média</div>
+      <div class="kv" style="color:#FFC107">74,3%</div>
+      <div class="ks">Realizado vs Projetado</div>
+      <span class="kb warn">⚠ Abaixo meta (80%)</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">Lojas Críticas</div>
+      <div class="kv" style="color:#C00000">31</div>
+      <div class="ks">25% com efetividade <60%</div>
+      <span class="kb down">🔴 Atenção</span>
+    </div>
+  </div>
+
+  <div class="alert-box a-orange">
+    <strong>⚠ DISPERSÃO DE PERFORMANCE:</strong> 31 lojas (25%) com efetividade abaixo de 60%. Necessário plano de ação individualizado para lojas críticas.
+  </div>
+</div>
+
+<!-- ============ OPERACIONAL ============ -->
+<div id="tab-operacional" class="content">
+  <div class="kgrid">
+    <div class="kpi" style="border-top-color:#107C41">
+      <div class="kl">Horas Projetadas</div>
+      <div class="kv" style="color:#107C41">218.625h</div>
+      <div class="ks">Planejamento total</div>
+      <span class="kb flat">Meta</span>
+    </div>
+    <div class="kpi" style="border-top-color:#FFC107">
+      <div class="kl">Horas Realizadas</div>
+      <div class="kv" style="color:#FFC107">162.386h</div>
+      <div class="ks">74,3% do projetado</div>
+      <span class="kb warn">⚠ Abaixo</span>
+    </div>
+    <div class="kpi" style="border-top-color:#C00000">
+      <div class="kl">GAP de Horas</div>
+      <div class="kv" style="color:#C00000">-56.239h</div>
+      <div class="ks">25,7% de déficit</div>
+      <span class="kb down">🔴 Crítico</span>
+    </div>
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Produtividade</div>
+      <div class="kv" style="color:#F46901">R$ 2.638/h</div>
+      <div class="ks">Venda por hora realizada</div>
+      <span class="kb flat">Média</span>
+    </div>
+  </div>
+
+  <div class="alert-box a-red">
+    <strong>🔴 DÉFICIT OPERACIONAL:</strong> GAP de 56.239 horas (25,7%) impacta diretamente a ruptura operacional. Cada 1.000h de déficit equivale a aproximadamente R$ 2,6M em vendas não realizadas.
+  </div>
+  <div class="alert-box a-orange">
+    <strong>⚠ OPORTUNIDADE:</strong> Fechamento do GAP de horas pode recuperar até R$ 148M em vendas (56.239h × R$ 2.638/h). Priorizar alocação de recursos nas lojas com maior potencial de retorno.
+  </div>
+</div>
+
+<div class="source-info">
+  <strong>Fonte de dados:</strong> <code>Gestão de Performance.pbip</code> (semanticmodelid 5364d234) · Dataset compartilhado com <code>Analítico RG 2.0 MCP 2.pbip</code><br>
+  <strong>Período de análise:</strong> 01/04/2024 a 13/05/2026 · Atualização: 14/05/2026 · Ampliação: +92%<br>
+  <strong>Governança:</strong> 6 redes monitoradas · 124 lojas ativas · Confiabilidade média: 76,3%
+</div>
+
+<script>
+// =========================================================
+// DADOS — Gestão de Performance
+// =========================================================
+const REDES_GP = [
+  { id:'GBARBOSA',     nome:'GBARBOSA',           confiabilidade: 0.93 },
+  { id:'NORDESTAO',    nome:'NORDESTÃO',          confiabilidade: 0.93 },
+  { id:'NOVAERA',      nome:'NOVA ERA',           confiabilidade: 0.93 },
+  { id:'PREZUNIC',     nome:'PREZUNIC',           confiabilidade: 0.93 },
+  { id:'BIGBOX',       nome:'BIGBOX',             confiabilidade: 0.86 },
+  { id:'PAGUEMENOS',   nome:'PAGUE MENOS',        confiabilidade: 0.00 }
+];
+
+// =========================================================
+// FILTROS
+// =========================================================
+const selRede = document.getElementById('f-rede');
+const selPeriodo = document.getElementById('f-periodo');
+REDES_GP.forEach(r=>{ const o=document.createElement('option'); o.value=r.id; o.textContent=r.nome; selRede.appendChild(o); });
+document.getElementById('pill-redes').textContent = REDES_GP.length+' redes';
+
+function onFilterChange(){
+  const rede = selRede.value;
+  const periodo = selPeriodo.value;
+  let label = '';
+  if(rede==='ALL') label = 'todas as redes';
+  else label = REDES_GP.find(r=>r.id===rede).nome;
+  
+  const periodoLabel = periodo==='14D' ? 'últimos 14 dias' : periodo==='30D' ? 'últimos 30 dias' : 'últimos 90 dias';
+  document.getElementById('filter-info').innerHTML = `Exibindo: <strong>${label} · ${periodoLabel}</strong>`;
+}
+
+function clearFilters(){ 
+  selRede.value='ALL'; 
+  selPeriodo.value='14D'; 
+  onFilterChange(); 
+}
+
+// =========================================================
+// TAB SWITCHING
+// =========================================================
+function sw(tabId, btn){
+  // Hide all tabs
+  document.querySelectorAll('.content').forEach(c=>c.classList.remove('active'));
+  document.querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  
+  // Show selected tab
+  document.getElementById('tab-'+tabId).classList.add('active');
+  btn.classList.add('active');
+}
+
+// Initialize
+onFilterChange();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Acompanhamento Captação RG 2.0"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "8ec15583-eb66-4191-9d85-267fb11ae422"
+  }
+}

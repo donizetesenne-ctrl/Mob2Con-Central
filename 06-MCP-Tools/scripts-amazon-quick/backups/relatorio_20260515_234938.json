@@ -1,0 +1,208 @@
+{
+  "metadata": {
+    "gerado_em": "2026-05-15T23:49:38.985216",
+    "periodo_inicio": "2026-05-11",
+    "periodo_fim": "2026-05-15",
+    "total_registros": 17,
+    "concluidos": 16,
+    "pendentes": 1,
+    "empresa": "Mob2Con",
+    "responsavel": "Donizete Senne"
+  },
+  "registros": [
+    {
+      "data": "2026-05-14",
+      "categoria": "Power BI",
+      "titulo": "Dashboard: Preenchimento de todos os cards vazios do dashboard principal",
+      "descricao": "Dashboard: Preenchimento de todos os cards vazios do dashboard principal Evolução de Vendas M-3→M-1 (R$ 20,6M → R$ 22,2M), Faturamento por Rede (7 redes), Ruptura por Rede com meta 5%, Ativação de Promotores, Documentação Regularizada, Scorecard completo com faturamento, variação, ruptura, promotores, doc e score Resultado: Dashboard 100% preenchido com dados reais, 133.799 bytes #dashboard",
+      "tags": [
+        "dashboard"
+      ],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-14",
+      "categoria": "Power BI",
+      "titulo": "Dashboard: Integração dos dados de Gestão Performance na aba CEO",
+      "descricao": "Dashboard: Integração dos dados de Gestão Performance na aba CEO Confiabilidade por rede (GBARBOSA/NORDESTÃO/NOVA ERA/PREZUNIC 93%, BIGBOX 86%, PAGUE MENOS 0%), KPIs operacionais (124 lojas, 218.625h projetadas, GAP -56.239h, ruptura R$ 116,5M), Top 10 fornecedores por ruptura operacional, gráficos de efetividade e confiabilidade Resultado: Aba Análise Crítica CEO completa com alertas automáticos",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "Power BI",
+      "titulo": "Apps Script: Correção do link do Apps Script quebrado no dashboard",
+      "descricao": "Apps Script: Correção do link do Apps Script quebrado no dashboard Novo endpoint implantado, atualizado em 2 locais, arquivo sincronizado no Drive Resultado: Dashboard carregando dados reais das planilhas Google Sheets",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "MCP",
+      "titulo": "MCP: Sistema de relatório semanal automático concluído e testado",
+      "descricao": "MCP: Sistema de relatório semanal automático concluído e testado Python lê Google Docs, detecta categorias, gera HTML formatado e envia via Gmail API Token OAuth configurado com scopes Docs + Drive + Gmail Resultado: 25 registros processados, HTML gerado, email pronto para envio #mcp #automacao",
+      "tags": [
+        "mcp",
+        "automacao"
+      ],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-12",
+      "categoria": "MCP",
+      "titulo": "MCP: Configurei o universal-control com OAuth Google completo",
+      "descricao": "MCP: Configurei o universal-control com OAuth Google completo",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-12",
+      "categoria": "MCP",
+      "titulo": "Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais",
+      "descricao": "Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-12",
+      "categoria": "Apps Script",
+      "titulo": "Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)",
+      "descricao": "Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-12",
+      "categoria": "Reunião",
+      "titulo": "Reunião com Zelone sobre métricas de conta corrente #reuniao #rg",
+      "descricao": "Reunião com Zelone sobre métricas de conta corrente #reuniao #rg",
+      "tags": [
+        "rg",
+        "reuniao"
+      ],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-13",
+      "categoria": "Power BI",
+      "titulo": "DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)",
+      "descricao": "DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-13",
+      "categoria": "Dados",
+      "titulo": "Dados: Tratamento da base de implantação, limpeza de 2.500 registros",
+      "descricao": "Dados: Tratamento da base de implantação, limpeza de 2.500 registros",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-13",
+      "categoria": "Power BI",
+      "titulo": "Power BI: Aplicação do tema Mob2Con no dashboard Nordestão",
+      "descricao": "Power BI: Aplicação do tema Mob2Con no dashboard Nordestão",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-13",
+      "categoria": "Dados",
+      "titulo": "Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado",
+      "descricao": "Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado",
+      "tags": [
+        "bloqueado"
+      ],
+      "status": "Pendência"
+    },
+    {
+      "data": "2026-05-14",
+      "categoria": "Apps Script",
+      "titulo": "Apps Script: 6 bugs corrigidos no Sprint IC v8.0",
+      "descricao": "Apps Script: 6 bugs corrigidos no Sprint IC v8.0",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "MCP",
+      "titulo": "MCP: Documentação completa do sistema de relatório semanal",
+      "descricao": "MCP: Documentação completa do sistema de relatório semanal",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "Apps Script",
+      "titulo": "Python: Script de processamento automático do Google Docs",
+      "descricao": "Python: Script de processamento automático do Google Docs",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "Apps Script",
+      "titulo": "Apps Script: Gerador de HTML formatado com envio por email",
+      "descricao": "Apps Script: Gerador de HTML formatado com envio por email",
+      "tags": [],
+      "status": "Concluído"
+    },
+    {
+      "data": "2026-05-15",
+      "categoria": "Doc",
+      "titulo": "Doc: README com instruções de instalação e uso #documentacao",
+      "descricao": "Doc: README com instruções de instalação e uso #documentacao",
+      "tags": [
+        "documentacao"
+      ],
+      "status": "Concluído"
+    }
+  ],
+  "por_categoria": {
+    "Power BI": 5,
+    "MCP": 4,
+    "Apps Script": 4,
+    "Reunião": 1,
+    "Dados": 2,
+    "Doc": 1
+  },
+  "pendencias": [
+    {
+      "data": "2026-05-13",
+      "categoria": "Dados",
+      "titulo": "Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado",
+      "descricao": "Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado",
+      "tags": [
+        "bloqueado"
+      ],
+      "status": "Pendência"
+    }
+  ],
+  "config": {
+    "cores": {
+      "MCP": "#F46901",
+      "Power BI": "#F2C811",
+      "Apps Script": "#6F05D4",
+      "Dados": "#4285F4",
+      "Reunião": "#434343",
+      "Doc": "#107C41",
+      "Bug Fix": "#C00000",
+      "Melhoria": "#107C41",
+      "Pendência": "#F2B100",
+      "Geral": "#605E5C"
+    },
+    "icones": {
+      "MCP": "⚙️",
+      "Power BI": "📊",
+      "Apps Script": "🤖",
+      "Dados": "🗄️",
+      "Reunião": "👥",
+      "Doc": "📝",
+      "Bug Fix": "🐛",
+      "Melhoria": "✨",
+      "Pendência": "⏳",
+      "Geral": "📋"
+    }
+  }
+}

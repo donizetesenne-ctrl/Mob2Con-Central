@@ -1,0 +1,53 @@
+﻿function criarAbasCaptacao() {
+  var ss = SpreadsheetApp.openById('17wacDgqjMwO3lOknuk6TtKfTwamB1qz-MpGGuwM7n_4');
+  
+  // Aba 1: Captacao_Rede (consolidado por rede/mes)
+  var ws1 = ss.getSheetByName('Captacao_Rede');
+  if (!ws1) ws1 = ss.insertSheet('Captacao_Rede');
+  ws1.clear();
+  ws1.appendRow(['dt_ref','rede','perdido','arrecadado','planejado','faltante']);
+  ws1.appendRow(['2025-05','NORDESTAO',10600,16055,18000,10596]);
+  ws1.appendRow(['2025-05','NOVA ERA',19680,0,30000,49680]);
+  ws1.appendRow(['2025-05','PREZUNIC',4550,34615,30000,0]);
+  
+  // Aba 2: Captacao_Clientes (detalhado por cliente)
+  var ws2 = ss.getSheetByName('Captacao_Clientes');
+  if (!ws2) ws2 = ss.insertSheet('Captacao_Clientes');
+  ws2.clear();
+  ws2.appendRow(['data','cliente','produto','forma_pgto','rede','preco']);
+  
+  var dados = [
+    ['2025-01','A F DE MACEDO FABRICACAO','GATILHO','FECHAMENTO','NORDESTAO',38],
+    ['2025-01','BEEVA INDUSTRIA','GATILHO','FECHAMENTO','NORDESTAO',125],
+    ['2025-01','COLOR ANDINA FOOD','GATILHO','FECHAMENTO','NORDESTAO',75],
+    ['2025-01','ELIMARI REGIO DE MEDEIROS','GATILHO','FECHAMENTO','NORDESTAO',174],
+    ['2025-01','ENOVA FOODS','GATILHO','FECHAMENTO','NORDESTAO',120],
+    ['2025-01','EXTRUSAPA','GATILHO','FECHAMENTO','NORDESTAO',100],
+    ['2025-01','FRIGORIFICO JAHU','GATILHO','FECHAMENTO','NORDESTAO',125],
+    ['2025-01','HZN INDUSTRIA','GATILHO','FECHAMENTO','NORDESTAO',105],
+    ['2025-01','INDALI INDUSTRIA','GATILHO','FECHAMENTO','NORDESTAO',325],
+    ['2025-01','MBMF PRODUCAO COCO','GATILHO','FECHAMENTO','NORDESTAO',50],
+    ['2025-01','SOIN SAO PAULO','GATILHO','FECHAMENTO','NORDESTAO',83],
+    ['2025-01','50.670.655 EDILSON LUIZ','PERDIDO','DESISTENCIA','NORDESTAO',-100],
+    ['2025-01','A K NOBRE DE ALMEIDA','PERDIDO','DESISTENCIA','NORDESTAO',-350],
+    ['2025-01','ADRIELMO GUILHERME','PERDIDO','DESISTENCIA','NORDESTAO',-600],
+    ['2025-01','JF COMERCIO E SERVICO','PERDIDO','DESISTENCIA','NORDESTAO',-2100],
+    ['2025-01','RISADINHA','PERDIDO','DESISTENCIA','NOVA ERA',-1100],
+    ['2025-01','BLUE CHEMICAL DO BRASIL','PERDIDO','DESISTENCIA','PREZUNIC',-3499],
+    ['2025-01','BRASWELL PAPEL E CELULOSE','PERDIDO','DESISTENCIA','PREZUNIC',-3499],
+    ['2025-02','PEPSICO','FECHADO','RECORRENTE','NOVA ERA',11000],
+    ['2025-02','CERVECERA KUNSTMANN','FECHADO','RECORRENTE','PREZUNIC',2700],
+    ['2025-02','SANTA CRUZ','FECHADO','RECORRENTE','NORDESTAO',1580],
+    ['2025-03','BDF NIVEA LTDA','FECHADO','RECORRENTE','NORDESTAO',2100],
+    ['2025-03','NEOPAN','FECHADO','RECORRENTE','NOVA ERA',960],
+    ['2025-03','PERFETTI VAN MELLE','GATILHO','FECHAMENTO','PREZUNIC',1400],
+    ['2025-04','378 COMERCIO DE ALIMENTOS','FECHADO','RECORRENTE','NORDESTAO',650],
+    ['2025-04','J A IND DERIVADA MANDIOCA','FECHADO','RECORRENTE','NORDESTAO',1150],
+    ['2025-04','CNA - COMPANHIA NACIONAL DE ALCOOL','GATILHO','FECHAMENTO','NORDESTAO',750],
+    ['2025-04','LATICINIOS AVIACAO','GATILHO','FECHAMENTO','NORDESTAO',845]
+  ];
+  
+  dados.forEach(function(row) { ws2.appendRow(row); });
+  
+  return 'Abas criadas: Captacao_Rede + Captacao_Clientes (' + dados.length + ' registros)';
+}

@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Brand Guard - Validar antes de escrever",
+  "description": "Antes de qualquer operação de escrita em arquivo, o agente consulta o brand context Mob2Con e valida se o conteúdo segue as diretrizes visuais (cores, fontes, layout Z-pattern).",
+  "version": "1",
+  "when": {
+    "type": "preToolUse",
+    "toolTypes": [
+      "write"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Antes de escrever este arquivo, verifique: 1) Se contém cores, use APENAS #F46901 (laranja Mob2Con) como primária — NUNCA #0078D4 (Microsoft blue). Azul #4285F4 só para MobConnect. 2) Se contém fontes, use APENAS Raleway (400/700/900). 3) Se é layout Power BI, siga grid 8px em canvas 1280x720. Se tudo estiver ok, prossiga normalmente."
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Systems Engineer - Monitorar Shell",
+  "description": "Após executar comandos shell, o agente analisa o resultado para detectar erros, sugerir correções e documentar o que foi feito no log de produção.",
+  "version": "1",
+  "when": {
+    "type": "postToolUse",
+    "toolTypes": [
+      "shell"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Um comando shell foi executado. Como engenheiro de sistemas: 1) Se houve erro (exit code != 0), analise a causa raiz e sugira correção. 2) Se foi um pip install ou npm install, verifique se a dependência é segura e necessária. 3) Se foi um script Python, confirme que executou sem warnings críticos. Reporte apenas se houver problemas."
+  }
+}

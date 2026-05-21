@@ -1,0 +1,173 @@
+table 'tb_Dashboard estudo RG'
+	lineageTag: 83e772b3-2ddb-48c6-b05c-433cf3baa8ca
+
+	measure SOMA_PREÇO = IF(SUM('tb_Dashboard estudo RG'[PREÇO])=BLANK(),"--",SUM('tb_Dashboard estudo RG'[PREÇO]))
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: a463bf89-9a19-4912-90eb-e08b7a7ac9d4
+
+		changedProperty = IsHidden
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column CLIENTE
+		dataType: string
+		lineageTag: 5662dc95-652a-4112-a306-e10f51779e48
+		summarizeBy: none
+		sourceColumn: CLIENTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PRODUTO
+		dataType: string
+		lineageTag: 6e34f9d7-f328-47e3-a87c-5fb90861b902
+		summarizeBy: none
+		sourceColumn: PRODUTO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'FORMA PGTO'
+		dataType: string
+		lineageTag: 8ecd22db-edba-48e9-a760-c0273ccfec5d
+		summarizeBy: none
+		sourceColumn: FORMA PGTO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Qt Horas'
+		dataType: int64
+		formatString: 0
+		lineageTag: e418f201-8c65-443c-95e0-b9a2efeed635
+		summarizeBy: none
+		sourceColumn: Qt Horas
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column 'REDE ATENDIDA'
+		dataType: string
+		lineageTag: 2e20b797-0c91-4db3-b7fa-52b37f1d3d7b
+		summarizeBy: none
+		sourceColumn: REDE ATENDIDA
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'QUANTIDADE DE LICENÇAS'
+		dataType: string
+		lineageTag: e55a36ad-b3e7-4109-b53e-a2998967bc27
+		summarizeBy: none
+		sourceColumn: QUANTIDADE DE LICENÇAS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'DESISTÊNCIA DE NEGÓCIOS'
+		dataType: string
+		lineageTag: dfbf2a99-6f4e-4d77-b657-1df39e5035c5
+		summarizeBy: none
+		sourceColumn: DESISTÊNCIA DE NEGÓCIOS
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PREÇO
+		dataType: double
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: d491e78a-4ffa-41f6-a885-0935cdb989c8
+		summarizeBy: none
+		sourceColumn: PREÇO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column MÊS
+		dataType: string
+		lineageTag: 85eefdf7-60e7-4c6f-82a9-0dd87b46535a
+		summarizeBy: none
+		sourceColumn: MÊS
+		sortByColumn: NU_MÊS
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ANO
+		dataType: string
+		lineageTag: 139eda84-63d4-4bb6-8caf-ba0823315953
+		summarizeBy: none
+		sourceColumn: ANO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column NU_MÊS
+		dataType: int64
+		formatString: 0
+		lineageTag: 247be1aa-1c4a-46fc-ab60-2588d8cae9aa
+		summarizeBy: distinctCount
+		sourceColumn: NU_MÊS
+		sortByColumn: ANO
+
+		changedProperty = SortByColumn
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column DATA
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d4554077-e125-45e8-a37a-0d5944aace6a
+		summarizeBy: none
+		sourceColumn: DATA
+
+		variation Variation
+			isDefault
+			relationship: 66cdffe6-9ada-41fa-ba1b-ca40cd897ffe
+			defaultHierarchy: LocalDateTable_15a9f245-0f91-431b-95ed-d8a03b4adecb.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition 'tb_Dashboard estudo RG' = m
+		mode: import
+		source =
+				let
+				    Fonte = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1kPR48QQXULnE5mayZl47e6rcpccx0rSYEWEbH5kasxo/edit"),
+				    Página1_Table = Fonte{[name="Página1",ItemKind="Table"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Página1_Table, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"DATA", type date}, {"CLIENTE", type text}, {"PRODUTO", type text}, {"FORMA PGTO", type text}, {"Qt Horas", Int64.Type}, {"REDE ATENDIDA", type text}, {"QUANTIDADE DE LICENÇAS", type any}, {"DESISTÊNCIA DE NEGÓCIOS", type any}, {"PREÇO", type number}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado", "ANO", each Date.Year([DATA])),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Personalização Adicionada",{"DATA", "ANO", "CLIENTE", "PRODUTO", "FORMA PGTO", "Qt Horas", "REDE ATENDIDA", "QUANTIDADE DE LICENÇAS", "DESISTÊNCIA DE NEGÓCIOS", "PREÇO"}),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Colunas Reordenadas", "MÊS", each Text.Upper(Text.Start(Date.ToText([DATA], "MMM"), 3))),
+				    #"Colunas Reordenadas1" = Table.ReorderColumns(#"Personalização Adicionada1",{"DATA", "MÊS", "ANO", "CLIENTE", "PRODUTO", "FORMA PGTO", "Qt Horas", "REDE ATENDIDA", "QUANTIDADE DE LICENÇAS", "DESISTÊNCIA DE NEGÓCIOS", "PREÇO"}),
+				    #"Personalização Adicionada2" = Table.AddColumn(#"Colunas Reordenadas1", "NU_MÊS", each Date.Month([DATA])),
+				    #"Colunas Reordenadas2" = Table.ReorderColumns(#"Personalização Adicionada2",{"DATA", "NU_MÊS", "MÊS", "ANO", "CLIENTE", "PRODUTO", "FORMA PGTO", "Qt Horas", "REDE ATENDIDA", "QUANTIDADE DE LICENÇAS", "DESISTÊNCIA DE NEGÓCIOS", "PREÇO"})
+				in
+				    #"Colunas Reordenadas2"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mob2Con — Design System (Preview)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="mob2con.css">
+  <style>
+    body { padding: 32px; }
+    .doc { max-width: 1280px; margin: 0 auto; }
+    .doc h1 { font-weight: 900; font-size: 32pt; margin: 0 0 8px; color: var(--m2c-black); }
+    .doc h2 { font-weight: 900; font-size: 22pt; margin: 48px 0 16px; color: var(--m2c-graphite); border-bottom: 2px solid var(--m2c-orange); padding-bottom: 8px; }
+    .doc h3 { font-weight: 700; font-size: 14pt; margin: 24px 0 8px; color: var(--m2c-graphite); }
+    .doc p  { color: var(--m2c-gray-500); line-height: 1.6; }
+    .swatch-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; }
+    .swatch { border-radius: var(--m2c-radius-lg); overflow: hidden; border: var(--m2c-border-card); background: var(--m2c-white); }
+    .swatch__color { height: 88px; }
+    .swatch__info  { padding: 10px 12px; }
+    .swatch__name  { font-weight: 700; color: var(--m2c-graphite); font-size: 11pt; margin: 0 0 4px; }
+    .swatch__hex   { font-family: var(--m2c-font-mono); font-size: 10pt; color: var(--m2c-gray-500); }
+    .canvas-wrap { background: var(--m2c-gray-100); padding: 32px; border-radius: 12px; overflow: auto; margin-top: 16px; }
+    .badge { display: inline-block; padding: 4px 10px; border-radius: 999px; font-size: 9pt; font-weight: 700; margin-left: 8px; }
+    .badge--ok   { background: #E0F5E9; color: var(--m2c-success); }
+    .badge--warn { background: #FFF3CD; color: #8A6D00; }
+    code { background: var(--m2c-gray-100); padding: 2px 6px; border-radius: 4px; font-family: var(--m2c-font-mono); font-size: 10pt; }
+    .layer { display: flex; gap: 16px; padding: 16px; background: var(--m2c-white); border: var(--m2c-border-card); border-radius: var(--m2c-radius-lg); margin-bottom: 12px; }
+    .layer__num { width: 40px; height: 40px; border-radius: 50%; background: var(--m2c-orange); color: white; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 16pt; flex-shrink: 0; }
+    .layer__body h4 { margin: 0 0 4px; color: var(--m2c-black); font-weight: 900; }
+    .layer__body p  { margin: 0; }
+  </style>
+</head>
+<body>
+<div class="doc">
+
+  <h1>Mob2Con — Design System</h1>
+  <p>Sistema complementar de marca em 4 camadas. Se uma falhar, as outras assumem.</p>
+
+  <h2>🧱 Estratégia de fallback</h2>
+
+  <div class="layer">
+    <div class="layer__num">1</div>
+    <div class="layer__body">
+      <h4>JSON tokens <span class="badge badge--ok">fonte da verdade</span></h4>
+      <p><code>design-tokens.json</code> e <code>layout-templates.json</code> — lidos pelos MCPs (powerbi-layout, powerbi-bridge) e por scripts de automação.</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer__num">2</div>
+    <div class="layer__body">
+      <h4>CSS variáveis <span class="badge badge--ok">para web e wikis</span></h4>
+      <p><code>mob2con.css</code> — espelha exatamente as cores e tamanhos do JSON. Se o tema Power BI não carregar (versão antiga, conflito), qualquer página HTML mantém a marca.</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer__num">3</div>
+    <div class="layer__body">
+      <h4>HTML preview <span class="badge badge--ok">preview e referência</span></h4>
+      <p>Este arquivo + <code>templates/*.html</code> renderizam canvas e visuais com as coordenadas exatas — serve de fallback visual quando alguém precisa ver como o dashboard deveria parecer sem abrir o Power BI.</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer__num">4</div>
+    <div class="layer__body">
+      <h4>Power BI Theme <span class="badge badge--warn">formato proprietário</span></h4>
+      <p><code>Mob2Con-Brand-Theme.json</code> em <code>02-Powerbi-Projetos/</code> — formato Microsoft. Aplicado via View → Themes → Browse for themes.</p>
+    </div>
+  </div>
+
+  <h2>🎨 Paleta</h2>
+  <div class="swatch-grid">
+    <div class="swatch"><div class="swatch__color" style="background:#F46901"></div><div class="swatch__info"><div class="swatch__name">Laranja</div><div class="swatch__hex">#F46901</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#434343"></div><div class="swatch__info"><div class="swatch__name">Grafite</div><div class="swatch__hex">#434343</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#111111"></div><div class="swatch__info"><div class="swatch__name">Preto</div><div class="swatch__hex">#111111</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#4285F4"></div><div class="swatch__info"><div class="swatch__name">Azul MobConnect</div><div class="swatch__hex">#4285F4</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#6F05D4"></div><div class="swatch__info"><div class="swatch__name">Roxo</div><div class="swatch__hex">#6F05D4</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#107C41"></div><div class="swatch__info"><div class="swatch__name">Sucesso</div><div class="swatch__hex">#107C41</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#C00000"></div><div class="swatch__info"><div class="swatch__name">Alerta</div><div class="swatch__hex">#C00000</div></div></div>
+    <div class="swatch"><div class="swatch__color" style="background:#FFC107"></div><div class="swatch__info"><div class="swatch__name">Aviso</div><div class="swatch__hex">#FFC107</div></div></div>
+  </div>
+
+  <h2>📦 Componentes</h2>
+
+  <h3>KPI Card</h3>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+    <div class="m2c-kpi m2c-kpi--orange" style="height:140px;">
+      <div class="m2c-kpi__title">Receita Total</div>
+      <div class="m2c-kpi__value">R$ 1.2M</div>
+      <div class="m2c-kpi__delta m2c-kpi__delta--up">▲ 12% vs mês anterior</div>
+    </div>
+    <div class="m2c-kpi m2c-kpi--blue" style="height:140px;">
+      <div class="m2c-kpi__title">Engajamento</div>
+      <div class="m2c-kpi__value">87%</div>
+      <div class="m2c-kpi__delta m2c-kpi__delta--up">▲ 3.4 pp</div>
+    </div>
+    <div class="m2c-kpi m2c-kpi--purple" style="height:140px;">
+      <div class="m2c-kpi__title">Visitas Realizadas</div>
+      <div class="m2c-kpi__value">2.847</div>
+      <div class="m2c-kpi__delta m2c-kpi__delta--flat">→ estável</div>
+    </div>
+    <div class="m2c-kpi" style="height:140px;border-top:3px solid var(--m2c-danger);">
+      <div class="m2c-kpi__title">Ruptura</div>
+      <div class="m2c-kpi__value">4.2%</div>
+      <div class="m2c-kpi__delta m2c-kpi__delta--down">▼ +0.8 pp</div>
+    </div>
+  </div>
+
+  <h3>Botões de navegação</h3>
+  <div class="m2c-row" style="margin-top:8px;">
+    <button class="m2c-btn m2c-btn--primary">Resumo</button>
+    <button class="m2c-btn">Vendas</button>
+    <button class="m2c-btn">Ruptura</button>
+    <button class="m2c-btn">Detalhes</button>
+  </div>
+
+  <h3>Tabela</h3>
+  <table class="m2c-table" style="margin-top:8px;">
+    <thead><tr><th>Loja</th><th>Vendas</th><th>Meta</th><th>%</th></tr></thead>
+    <tbody>
+      <tr><td>Nordestão Centro</td><td>R$ 384K</td><td>R$ 350K</td><td>110%</td></tr>
+      <tr><td>Nordestão Norte</td><td>R$ 297K</td><td>R$ 320K</td><td>93%</td></tr>
+      <tr><td>Nordestão Sul</td><td>R$ 412K</td><td>R$ 380K</td><td>108%</td></tr>
+    </tbody>
+    <tfoot><tr><td>Total</td><td>R$ 1.093M</td><td>R$ 1.050M</td><td>104%</td></tr></tfoot>
+  </table>
+
+  <h2>📐 Templates de canvas</h2>
+  <p>Versões reduzidas e clicáveis dos 5 templates:</p>
+  <ul>
+    <li><a href="templates/executive.html">Executivo (1600 × 900)</a></li>
+    <li><a href="templates/operational.html">Operacional (1280 × 720)</a></li>
+    <li><a href="templates/analytical.html">Analítico (1920 × 1080)</a></li>
+    <li><a href="templates/cover.html">Capa / Home (1600 × 900)</a></li>
+    <li><a href="templates/mobile.html">Mobile (320 × 568)</a></li>
+  </ul>
+
+  <h2>📚 Referências</h2>
+  <ul>
+    <li><a href="../Mob2con-brand-guidelines.md">Brand Guidelines</a></li>
+    <li><a href="../Mob2con-layout-base.md">Layout Base (markdown)</a></li>
+    <li><a href="../Mob2con-botoes-navegacao.md">Botões e Navegação</a></li>
+    <li><a href="../Mob2con-efeitos-powerbi.md">Efeitos Power BI</a></li>
+    <li><a href="../Mob2Con-Theme.json">Tema Power BI principal</a></li>
+  </ul>
+
+</div>
+</body>
+</html>

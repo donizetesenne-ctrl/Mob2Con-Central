@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "MCP Planner - Planejar ferramentas",
+  "description": "Antes de iniciar uma task de spec, o agente consulta os MCPs disponíveis e planeja quais ferramentas usar para executar a task de forma eficiente.",
+  "version": "1",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Uma task de spec vai ser executada. Antes de começar, planeje: 1) Quais MCPs usar (powerbi-layout para posicionamento, powerbi-bridge para medidas/tabelas, universal-control para Google Sheets/Drive, filesystem para arquivos locais). 2) Qual a sequência ideal de operações. 3) Se precisa consultar brand context primeiro (get_brand_context). Prossiga com o plano otimizado."
+  }
+}

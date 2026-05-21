@@ -1,0 +1,235 @@
+table dim_produto_rede
+	lineageTag: 6e1d4c40-232c-4f43-a037-808ff2a7180f
+	sourceLineageTag: 3f0202e3-3623-4b19-ba47-eb88cdf7a0d3
+
+	column sk_produto_rede
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: 5c83e5b5-2edd-4a35-90b2-fee41baf6f33
+		sourceLineageTag: 5afdca98-745a-43da-ad54-e0fe8313f96d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_produto_rede
+
+		annotation SummarizationSetBy = User
+
+	column cd_sku_rede
+		dataType: string
+		lineageTag: 7e0e7f6c-3619-4dcd-9036-0a2bc3969f70
+		sourceLineageTag: fd4c129e-1441-489a-be0f-4644b9ffa852
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_sku_rede
+
+		annotation SummarizationSetBy = User
+
+	column cd_sku
+		dataType: string
+		lineageTag: a0229b82-07f7-426e-b01a-12ef30b8fed1
+		sourceLineageTag: 4b4c27a1-ca17-46c2-9afb-070dc939d848
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_sku
+
+		annotation SummarizationSetBy = User
+
+	column cd_ean
+		dataType: string
+		lineageTag: c8ab4a83-037d-4dac-97da-5102e7e86455
+		sourceLineageTag: 9490b061-490c-4fbe-9322-c1c0c5a32e12
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_ean
+
+		annotation SummarizationSetBy = User
+
+	column ds_produto_rede
+		dataType: string
+		lineageTag: f8d3890c-7835-4494-8752-17ab40f231f6
+		sourceLineageTag: 893fac11-c6a7-4c70-9f79-521c52c12fee
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_produto_rede
+
+		annotation SummarizationSetBy = User
+
+	column sk_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: c7bcf786-bf42-48b7-90e4-dfa1618930fa
+		sourceLineageTag: 03480022-51ab-426c-83bb-a5ada97f3dfd
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_rede
+
+		annotation SummarizationSetBy = User
+
+	column id_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: a04ce786-bd72-4da8-8e05-9cfaf2611417
+		sourceLineageTag: 293c3897-439e-4d2a-af71-5f35fadee1cb
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_rede
+
+		annotation SummarizationSetBy = User
+
+	column nm_rede
+		dataType: string
+		lineageTag: c6909808-0ff5-49f1-b687-8c3651755400
+		sourceLineageTag: 438a0fcf-4119-42ae-9b73-d6d03c321d54
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_01_rede
+		dataType: string
+		lineageTag: 122b3d5b-24fe-41e7-bb85-7da6d972267f
+		sourceLineageTag: dd9d4e0a-ae20-4fdd-8be7-63a1bc1c5e09
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_01_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_02_rede
+		dataType: string
+		lineageTag: 03b8bea7-fab5-4d58-a862-8b0da945a9ab
+		sourceLineageTag: ce5019f2-27f5-4401-88ac-5c0cb6b61360
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_02_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_03_rede
+		dataType: string
+		lineageTag: 3bcc6798-b006-4ce1-8b80-1a415b364048
+		sourceLineageTag: a51fd17e-613f-4829-9950-bcc6ddba998f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_03_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_04_rede
+		dataType: string
+		lineageTag: 1cfd080f-b8e0-44da-a73e-07028c803084
+		sourceLineageTag: fbb1ee66-c17b-4a02-a784-c7a242556d41
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_04_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_05_rede
+		dataType: string
+		lineageTag: 052be2c0-e818-492d-8d52-7d454f8e2fe3
+		sourceLineageTag: ac5e81c2-e18c-4d87-a1aa-937be386dcbf
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_05_rede
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_06_rede
+		dataType: string
+		lineageTag: 09430a18-450c-4e9f-a3fa-348fdd212b30
+		sourceLineageTag: 331ca29d-e55f-4ec4-a191-8810095bd844
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_06_rede
+
+		annotation SummarizationSetBy = User
+
+	column sk_produto
+		dataType: int64
+		formatString: 0
+		lineageTag: 2994506a-5bc2-4637-a9b5-2a45c784a17a
+		sourceLineageTag: a9f394ec-a64e-4993-a826-c81b17c0572c
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_produto
+
+		annotation SummarizationSetBy = User
+
+	column ds_produto_mob
+		dataType: string
+		lineageTag: 996a0442-de56-484c-9a88-dbec5a811bc5
+		sourceLineageTag: 7d294853-35fe-4527-b7d2-f04bac2dacf2
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_produto_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_01_mob
+		dataType: string
+		lineageTag: f7ea7a77-3f79-418e-8477-4ad2790a54dd
+		sourceLineageTag: e7dc84e0-d9e9-477d-8625-e5582be8b287
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_01_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_02_mob
+		dataType: string
+		lineageTag: 48c7557d-fe38-4571-847f-ff341448a1a7
+		sourceLineageTag: eb61b3c2-c628-4cd4-bc3a-299bd21407ec
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_02_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_03_mob
+		dataType: string
+		lineageTag: a3046982-af9b-40c0-b8a1-82e69861142d
+		sourceLineageTag: f607e114-bdc2-4adf-83d2-21c327efcd14
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_03_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_04_mob
+		dataType: string
+		lineageTag: c8535f6c-8a41-4137-8a10-6986d18f00db
+		sourceLineageTag: dab6f209-fadd-4e3f-a3e7-85b877f1eab0
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_04_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_05_mob
+		dataType: string
+		lineageTag: 53f049c1-b5f3-4adf-87e9-c799180ee0e4
+		sourceLineageTag: ecacab8c-da8b-4252-81b8-77d5e0acb4e6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_05_mob
+
+		annotation SummarizationSetBy = User
+
+	column ds_nivel_06_mob
+		dataType: string
+		lineageTag: 3eae161d-4838-43fe-8396-0ebd6efff288
+		sourceLineageTag: a16e9e4b-9195-4bc8-b3af-1b595eaf9165
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_nivel_06_mob
+
+		annotation SummarizationSetBy = User
+
+	partition dim_produto_rede = entity
+		mode: directQuery
+		source
+			entityName: dim_produto_rede
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

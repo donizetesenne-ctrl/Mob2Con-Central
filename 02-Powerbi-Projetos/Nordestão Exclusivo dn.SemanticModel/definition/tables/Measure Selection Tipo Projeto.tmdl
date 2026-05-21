@@ -1,0 +1,31 @@
+table 'Measure Selection Tipo Projeto'
+	lineageTag: ecc80df0-6f5f-4dda-9fe0-a76c74ce7df3
+	sourceLineageTag: c677f8fe-90e4-4fed-a130-dfc6473267b6
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: d0c47e2c-a8af-42e9-b3b3-567b9cf388ff
+		sourceLineageTag: 44b845b7-1b37-4d1d-bb06-4a8b64da01ec
+		dataCategory: Uncategorized
+		summarizeBy: count
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = User
+
+	column Value
+		dataType: string
+		lineageTag: e246f444-0e37-4785-bd2f-cf679bc6ee0e
+		sourceLineageTag: 30157c9c-213b-498a-a3d2-9b1b504f3eaa
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Value
+
+		annotation SummarizationSetBy = User
+
+	partition 'Measure Selection Tipo Projeto' = entity
+		mode: directQuery
+		source
+			entityName: Measure Selection Tipo Projeto
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

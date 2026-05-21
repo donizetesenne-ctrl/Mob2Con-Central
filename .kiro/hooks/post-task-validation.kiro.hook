@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Validação Pós-Tarefa",
+  "description": "Após finalizar qualquer tarefa de spec, roda validação completa de formatação, segurança e brand para garantir qualidade na entrega.",
+  "version": "1",
+  "when": {
+    "type": "postTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "VALIDAÇÃO PÓS-TAREFA COMPLETA: A tarefa foi concluída. Faça validação final:\n\n1. FORMATAÇÃO:\n   - Python: snake_case, docstrings, if __name__, logging (não print), sem bare except\n   - JSON: syntax válida, sem placeholders (TODO/CHANGE_ME)\n   - Markdown: headers hierárquicos, blocos de código com language tag\n   - Power BI: grid 8px, canvas correto, cores brand\n\n2. SEGURANÇA:\n   - Sem credenciais hardcoded (senhas, tokens, API keys)\n   - Sem caminhos absolutos com nome de usuário\n   - Queries SQL parametrizadas (não f-strings com input)\n\n3. BRAND MOB2CON:\n   - Cor primária: #F46901 (laranja) — nunca #0078D4\n   - Fonte: Raleway (400/700/900) — nunca Segoe UI\n   - Azul #4285F4 APENAS para MobConnect\n\n4. CONSISTÊNCIA:\n   - Arquivos novos seguem padrão de nomenclatura do projeto\n   - Configs atualizados estão consistentes entre si\n\nGere um mini-relatório com: ✅ OK | ⚠️ Gaps encontrados (liste) | 🔧 Correções aplicadas automaticamente.\nSe encontrar gaps de formatação simples, CORRIJA automaticamente. Se for lógica/segurança, ALERTE o usuário."
+  }
+}

@@ -1,0 +1,92 @@
+table input_manual_base_projetos
+	lineageTag: fcba1f73-4d78-4a48-90b3-8ebce5a190ae
+	sourceLineageTag: 13030c62-14a7-46f7-a4ef-0e2875724ef2
+
+	column nm_rede
+		dataType: string
+		lineageTag: 7414f44a-66e5-48c3-b236-b415e19fc4d7
+		sourceLineageTag: 83332803-e42e-46ed-84ca-e2c1bfa747c4
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_rede
+
+		annotation SummarizationSetBy = User
+
+	column id_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 07b84870-fb91-4f21-8d09-9d7c05b43efa
+		sourceLineageTag: 7ebe611d-1906-45fd-b257-abfabf0ebb69
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: id_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column nm_fornecedor
+		dataType: string
+		lineageTag: 9d0a24a1-a609-4c53-93f1-7a92dd66c502
+		sourceLineageTag: f7b0d514-4fb0-4a9c-aecd-0f507c3556f3
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column data_inicio_projeto
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: aef80fa2-0633-4509-b7b2-a869270f2770
+		sourceLineageTag: 52007665-02b7-4cf8-b412-aa256fcfce33
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: data_inicio_projeto
+
+		annotation SummarizationSetBy = User
+
+	column valor_projeto
+		dataType: double
+		lineageTag: de963976-826e-443a-a38a-196f3c7cd3e7
+		sourceLineageTag: 3c80c8fd-5048-429f-a7cc-32c14573da65
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: valor_projeto
+
+		annotation SummarizationSetBy = User
+
+	column valor_atual
+		dataType: double
+		lineageTag: d807608a-a541-4030-a8ee-31c435b8ba4c
+		sourceLineageTag: a52663a4-a90c-47b3-a530-e649c3fe6cb4
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: valor_atual
+
+		annotation SummarizationSetBy = User
+
+	column 'PROCV Ñ USAR NO PBI'
+		dataType: string
+		lineageTag: 1962bfe6-4f48-4ebd-933f-f92499a18565
+		sourceLineageTag: f27af781-0838-44c2-b768-9342ef40297c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: PROCV Ñ USAR NO PBI
+
+		annotation SummarizationSetBy = User
+
+	column Column1
+		dataType: string
+		lineageTag: 4b974589-e6b4-475f-a513-407b36e56b5a
+		sourceLineageTag: 19538b6c-c6be-4fd7-af7b-ff9f711345a2
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = User
+
+	partition input_manual_base_projetos = entity
+		mode: directQuery
+		source
+			entityName: input_manual_base_projetos
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,24 @@
+relationship AutoDetected_fed1fbd3-7edd-45bc-9473-c614f1aa5085
+	fromColumn: 'tb_Relatório Financeiro - RG'.Rede
+	toColumn: tb_Consolidado_Captacao_RG_20.REDE
+
+relationship 66cdffe6-9ada-41fa-ba1b-ca40cd897ffe
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'tb_Dashboard estudo RG'.DATA
+	toColumn: LocalDateTable_15a9f245-0f91-431b-95ed-d8a03b4adecb.Date
+
+relationship 9af5c2f0-373d-493e-b80c-106191c6b1bd
+	joinOnDateBehavior: datePartOnly
+	fromColumn: tb_Consolidado_Captacao_RG_20.DT_REF
+	toColumn: LocalDateTable_b36c144c-6197-4726-ba59-6c8bfd475e3f.Date
+
+relationship dim_rede_nm_rede_to_tb_Relatório_Financeiro_RG_Rede
+	securityFilteringBehavior: none
+	fromColumn: 'tb_Relatório Financeiro - RG'.Rede
+	toColumn: dim_rede.nm_rede
+
+relationship 'tb_Dashboard estudo RG_REDE ATENDIDA_dim_rede_nm_rede'
+	securityFilteringBehavior: none
+	fromColumn: 'tb_Dashboard estudo RG'.'REDE ATENDIDA'
+	toColumn: dim_rede.nm_rede
+

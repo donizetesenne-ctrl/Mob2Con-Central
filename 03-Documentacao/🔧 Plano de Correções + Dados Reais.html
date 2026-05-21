@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><style id="qw-theme">:root {
+  --color-bg: #19161d;
+  --color-text: #ffffff;
+  --color-navbar-bg: #211d25;
+  --color-bg-chat-view: #121218;
+  --color-bg-secondary: #211d25;
+  --color-bg-tertiary: #28242e;
+  --color-bg-hover: #352f3d;
+  --color-surface: #28242e;
+  --color-surface-hover: #352f3d;
+  --color-surface-active: #4a464f;
+  --color-border: #4a464f;
+  --color-border-light: #352f3d;
+  --color-border-strong: #4a464f;
+  --color-primary: #8575ff;
+  --color-primary-dark: #4200db;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-hover-border: #4200db;
+  --color-nav-icon-active: #8575ff;
+  --color-nav-hover-border: #8575ff;
+  --color-primary-alpha-3: color-mix(in srgb, #8575ff 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #8575ff 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #8575ff 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #8575ff 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #8575ff 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #8575ff 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #8575ff 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #8575ff 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-border: #8575ff;
+  --color-focus-ring: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-accent: #8575ff;
+  --color-accent-foreground: #8575ff;
+  --color-accent-dark: #4200db;
+  --color-accent-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-accent-inverse: #ffffff;
+  --color-link: #8575ff;
+  --color-primary-gradient-end: #4200db;
+  --color-primary-bg-solid: #28242e;
+  --color-user-bubble: #333843;
+  --color-text-secondary: #c1bec6;
+  --color-text-tertiary: #aaa6b0;
+  --color-text-muted: #938f9b;
+  --color-text-on-primary: #f2f1f4;
+  --color-success: #4ade80;
+  --color-success-dark: #00802f;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: rgba(0, 128, 47, .2);
+  --color-success-border: rgba(0, 128, 47, .4);
+  --color-success-foreground: #4ade80;
+  --color-success-dark-foreground: #00802f;
+  --color-error: #ff6b6b;
+  --color-error-dark: #db0000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: rgba(219, 0, 0, .2);
+  --color-error-bg: rgba(219, 0, 0, .2);
+  --color-error-border: rgba(219, 0, 0, .4);
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #ff6b6b;
+  --color-error-dark-foreground: #db0000;
+  --color-error-inverse: #ffffff;
+  --color-warning: #fbbf24;
+  --color-warning-dark: #f2b100;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: rgba(242, 177, 0, .2);
+  --color-warning-border: rgba(242, 177, 0, .4);
+  --color-warning-foreground: #fbbf24;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #60a5fa;
+  --color-info-dark: #006ce0;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: rgba(0, 108, 224, .2);
+  --color-info-border: rgba(0, 108, 224, .4);
+  --color-info-foreground: #60a5fa;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #ffffff;
+  --color-overlay: #19161d80;
+  --color-shadow: #19161d;
+  --color-hover: #ffffff0d;
+  --color-tooltip-bg: #352f3d;
+  --color-tooltip-text: #ffffff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #ff6b6b;
+  --color-voice-red-dark: #db0000;
+  --color-voice-amber: #fbbf24;
+  --color-voice-purple-glow: rgba(176, 128, 255, .4);
+  --color-voice-red-glow: rgba(219, 0, 0, .4);
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px #19161d;
+  --shadow-md: 0 4px 12px #19161d;
+  --color-success-bg-solid: rgba(0, 128, 47, .18);
+  --color-error-bg-solid: rgba(219, 0, 0, .18);
+  --color-error-border-solid: rgba(219, 0, 0, .32);
+  --color-warning-bg-solid: rgba(242, 177, 0, .2);
+  --color-warning-text: #fbbf24;
+  --color-info-bg-solid: rgba(0, 108, 224, .18);
+  --color-info-bg-solid-alt: rgba(0, 108, 224, .18);
+  --color-info-text: #60a5fa;
+  --color-info-text-alt: #60a5fa;
+  --color-emerald: #80ffb5;
+  --color-teal: #80f4ff;
+  --color-code-bg: #211d25;
+  --color-code-header-bg: #28242e;
+  --color-code-text: #ffffff;
+  --color-code-border: #352f3d;
+  --color-code-muted: #938f9b;
+  --color-inline-code-bg: #211d25;
+  --color-inline-code-text: #ffffff;
+  --color-inline-code-border: #352f3d;
+  --color-scrollbar-thumb: #4a464f;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #ffffff;
+  --color-graph-node-text-dim: #938f9b;
+  --color-graph-edge-default: #938f9b;
+  --color-graph-edge-cross: #ffcf99;
+  --color-graph-edge-text: #c1bec6;
+  --color-graph-edge-stroke: #19161d;
+  --color-graph-highlight-bg: #ff6b8a;
+  --color-graph-highlight-border: #e84573;
+  --color-graph-search-bg: #ffe066;
+  --color-graph-search-border: #ffc520;
+  --color-graph-focus-border: #ff5577;
+  --color-graph-external-border: #938f9b;
+  --color-graph-cat-file: #8dc8fb;
+  --color-graph-cat-folder: #c1bec6;
+  --color-graph-cat-file-aggregate: #6bb3f0;
+  --color-graph-cat-class: #b080ff;
+  --color-graph-cat-function: #80ffb5;
+  --color-graph-cat-method: #80f4ff;
+  --color-graph-cat-variable: #ffcf99;
+  --color-graph-cat-import: #ffad66;
+  --color-graph-cat-module: #a78bfa;
+  --color-graph-cat-concept: #ff8080;
+  --color-graph-cat-person: #ffd566;
+  --color-graph-cat-org: #66e0d0;
+  --color-graph-cat-organization: #66e0d0;
+  --color-graph-cat-product: #ff80d5;
+  --color-graph-cat-metric: #c8ff80;
+  --color-graph-cat-location: #7E9BB5;
+  --color-graph-cat-date: #ffe680;
+  --color-graph-cat-code: #8dc8fb;
+  --color-graph-cat-doc: #c1bec6;
+  --color-graph-cat-url: #80ffb5;
+  --color-graph-cat-email: #a78bfa;
+  --color-graph-cat-unknown: #938f9b;
+  --color-graph-rel-contains: #938f9b;
+  --color-graph-rel-extends: #b080ff;
+  --color-graph-rel-implements: #8dc8fb;
+  --color-graph-rel-imports: #ffad66;
+  --color-graph-rel-uses: #80ffb5;
+  --color-graph-rel-calls: #80ffb5;
+  --color-graph-rel-references: #ffcf99;
+  --color-graph-rel-related-to: #938f9b;
+  --color-graph-rel-works-on: #ff8080;
+  --color-graph-rel-owns: #80f4ff;
+  --color-graph-rel-depends-on: #ffad66;
+  --color-graph-rel-parent-of: #938f9b;
+  --qs-content: #211d25;
+  --qs-main: #28242e;
+  --qs-primary-foreground: #ffffff;
+  --qs-secondary-foreground: #c1bec6;
+  --qs-tertiary-foreground: #938f9b;
+  --qs-placeholder-foreground: #938f9b;
+  --qs-divider: #4a464f;
+  --qs-default-border: #4a464f;
+  --qs-neutral-soft: #4a464f;
+  --qs-neutral-gray-50: #28242e;
+  --qs-tertiary-background: #28242e;
+  --qs-action-hover: #ffffff0d;
+  --qs-primary-default: #8575ff;
+  --qs-primary-dark: #4200db;
+  --qs-primary-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --qs-success-default: #4ade80;
+  --qs-error-default: #ff6b6b;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: rgba(180, 0, 170, 1);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 1);
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+}
+body { background: var(--color-bg); }</style>
+<meta charset="UTF-8">
+<title>Dados Reais + Plano de Correções — RG 2.0</title>
+<style>
+  :root {
+    --mob-orange: #F46901; --mob-dark: #434343; --mob-black: #111111;
+    --mob-green: #107C41;  --mob-red: #C00000; --mob-purple: #6F05D4;
+    --bg: #0F1923; --bg2: #162030; --bg3: #1E2D3D; --bg4: #243447;
+    --border: #2A3F55; --text: #E8EDF2; --text2: #9BAAB8; --text3: #5C7A94;
+    --radius: 10px; --font: 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #1a0a00 0%, #2d1200 100%); border-bottom: 3px solid var(--mob-orange); padding: 24px 32px; }
+  .header h1 { font-size: 20px; font-weight: 700; }
+  .header h1 span { color: var(--mob-orange); }
+  .header-sub { color: #9BAAB8; font-size: 12px; margin-top: 6px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+  .pill { background: rgba(244,105,1,0.15); border: 1px solid rgba(244,105,1,0.3); border-radius: 12px; padding: 3px 12px; font-size: 11px; color: var(--mob-orange); }
+
+  /* NAV */
+  .nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 32px; display: flex; gap: 4px; overflow-x: auto; }
+  .nb { background: none; border: none; color: var(--text2); padding: 13px 16px; cursor: pointer; font-size: 13px; font-family: var(--font); border-bottom: 2px solid transparent; white-space: nowrap; }
+  .nb:hover { color: var(--text); }
+  .nb.active { color: var(--mob-orange); border-bottom-color: var(--mob-orange); }
+
+  /* TABS */
+  .tab { display: none; padding: 28px 32px; max-width: 1440px; }
+  .tab.active { display: block; }
+
+  /* KPI GRID */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 14px; margin-bottom: 28px; }
+  .kpi { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px 18px; border-top: 3px solid; position: relative; overflow: hidden; }
+  .kpi::after { content: ''; position: absolute; bottom: -20px; right: -10px; width: 70px; height: 70px; border-radius: 50%; background: rgba(255,255,255,0.02); }
+  .kpi .kl { font-size: 10px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+  .kpi .kv { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; }
+  .kpi .ks { font-size: 11px; color: var(--text3); margin-top: 5px; }
+  .kpi .kbadge { position: absolute; top: 12px; right: 12px; font-size: 10px; padding: 2px 8px; border-radius: 8px; font-weight: 700; }
+  .up { background: rgba(16,124,65,0.2); color: #4ade80; }
+  .down { background: rgba(192,0,0,0.2); color: #f87171; }
+  .warn { background: rgba(244,105,1,0.2); color: var(--mob-orange); }
+
+  /* SECTION */
+  .sec { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 20px; overflow: hidden; }
+  .sec-h { background: var(--bg3); padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; cursor: pointer; }
+  .sec-h h3 { font-size: 14px; font-weight: 700; flex: 1; }
+  .sec-b { padding: 18px; }
+  .badge { background: rgba(244,105,1,0.15); color: var(--mob-orange); border: 1px solid rgba(244,105,1,0.3); border-radius: 12px; padding: 2px 10px; font-size: 11px; }
+  .badge-red { background: rgba(192,0,0,0.15); color: #f87171; border: 1px solid rgba(192,0,0,0.3); }
+  .badge-green { background: rgba(16,124,65,0.15); color: #4ade80; border: 1px solid rgba(16,124,65,0.3); }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { background: var(--bg3); color: var(--text2); text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:hover td { background: rgba(255,255,255,0.02); }
+  .tag { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 700; }
+  .t-red { background: rgba(192,0,0,0.25); color: #f87171; border: 1px solid rgba(192,0,0,0.4); }
+  .t-orange { background: rgba(244,105,1,0.2); color: var(--mob-orange); border: 1px solid rgba(244,105,1,0.35); }
+  .t-green { background: rgba(16,124,65,0.2); color: #4ade80; border: 1px solid rgba(16,124,65,0.35); }
+  .t-blue { background: rgba(66,133,244,0.15); color: #82B1FF; border: 1px solid rgba(66,133,244,0.3); }
+  .t-purple { background: rgba(111,5,212,0.15); color: #CE93D8; border: 1px solid rgba(111,5,212,0.3); }
+  .t-gray { background: rgba(255,255,255,0.07); color: var(--text2); border: 1px solid var(--border); }
+
+  /* PROGRESS */
+  .prog-wrap { background: var(--bg4); border-radius: 4px; height: 8px; margin-top: 6px; overflow: hidden; width: 100%; }
+  .prog-bar { height: 100%; border-radius: 4px; transition: width 1s ease; }
+
+  /* DAX BLOCK */
+  pre { background: #0d1117; border: 1px solid #21262d; border-radius: 8px; padding: 16px; font-size: 12px; color: #e6edf3; overflow-x: auto; line-height: 1.7; font-family: 'Cascadia Code', 'Consolas', monospace; }
+  .dax-kw { color: #ff7b72; }
+  .dax-fn { color: #79c0ff; }
+  .dax-str { color: #a5d6ff; }
+  .dax-cmt { color: #8b949e; font-style: italic; }
+  .dax-var { color: #d2a8ff; }
+  .dax-num { color: #f2cc60; }
+
+  /* ISSUE CARD */
+  .issue-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 14px; }
+  .issue { border-radius: var(--radius); padding: 16px; border-left: 4px solid; background: var(--bg3); }
+  .issue.bug { border-color: var(--mob-red); }
+  .issue.typo { border-color: var(--mob-orange); }
+  .issue.design { border-color: var(--mob-purple); }
+  .issue.perf { border-color: #FFD600; }
+  .issue.gap { border-color: #00B0FF; }
+  .issue-title { font-weight: 700; font-size: 13px; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+  .issue-desc { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .issue-fix { margin-top: 10px; font-size: 11px; color: var(--mob-orange); }
+  .issue-fix span { font-weight: 700; }
+
+  /* STEP */
+  .steps { display: flex; flex-direction: column; gap: 12px; }
+  .step { display: flex; gap: 16px; align-items: flex-start; background: var(--bg3); border-radius: 8px; padding: 14px 16px; border: 1px solid var(--border); }
+  .step-num { width: 32px; height: 32px; border-radius: 50%; background: var(--mob-orange); color: white; font-weight: 800; font-size: 14px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-num.done { background: var(--mob-green); }
+  .step-content h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .step-content p { font-size: 12px; color: var(--text2); line-height: 1.6; }
+  .status-pill { display: inline-block; border-radius: 10px; padding: 2px 10px; font-size: 10px; font-weight: 700; margin-left: 8px; }
+  .s-done { background: rgba(16,124,65,0.25); color: #4ade80; }
+  .s-now { background: rgba(244,105,1,0.25); color: var(--mob-orange); }
+  .s-next { background: rgba(255,255,255,0.08); color: var(--text3); }
+
+  /* GAUGE */
+  .gauge-row { display: flex; flex-wrap: wrap; gap: 16px; }
+  .gauge-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px; flex: 1; min-width: 200px; }
+  .gauge-box .gl { font-size: 11px; color: var(--text2); margin-bottom: 6px; }
+  .gauge-box .gv { font-size: 18px; font-weight: 800; margin-bottom: 4px; }
+
+  /* FOOTER */
+  .footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 12px 32px; font-size: 12px; color: var(--text3); text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔧 Analítico RG 2.0 MCP 2 — <span>Dados Reais + Plano de Correções</span></h1>
+  <div class="header-sub">
+    <span>📅 Período de referência: <strong style="color:#fff">abr/2026</strong></span>
+    <span>🕐 Dados até: <strong style="color:#fff">13/05/2026</strong></span>
+    <div class="pill">✅ Conectado ao Desktop (porta 53659)</div>
+    <div class="pill">428 medidas mapeadas</div>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nb active" onclick="sw('kpis')">📊 KPIs Reais</button>
+  <button class="nb" onclick="sw('issues')">🐛 Issues do Modelo</button>
+  <button class="nb" onclick="sw('correcoes')">✅ Correções DAX</button>
+  <button class="nb" onclick="sw('email')">📧 E-mail Template</button>
+  <button class="nb" onclick="sw('plano')">🚀 Plano de Execução</button>
+</nav>
+
+<!-- KPIs REAIS -->
+<div id="tab-kpis" class="tab active">
+  <div class="kpi-grid">
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Venda M-1 (abr/2026)</div>
+      <div class="kv" style="color:#F46901">R$ 23,2M</div>
+      <div class="ks">Projeto acumulado: R$ 444,3M</div>
+      <div class="kbadge up">▲ 5.65%</div>
+    </div>
+    <div class="kpi" style="border-top-color:#4ade80">
+      <div class="kl">Lojas com Venda</div>
+      <div class="kv" style="color:#4ade80">152</div>
+      <div class="ks">de 153 cadastradas → 99.3% cobertura</div>
+      <div class="kbadge up">✓ Excelente</div>
+    </div>
+    <div class="kpi" style="border-top-color:#f87171">
+      <div class="kl">Ruptura Comercial</div>
+      <div class="kv" style="color:#f87171">R$ 27,3M</div>
+      <div class="ks">6.14% das vendas — acima do ideal (&lt;5%)</div>
+      <div class="kbadge down">⚠ Alto</div>
+    </div>
+    <div class="kpi" style="border-top-color:#f87171">
+      <div class="kl">Ruptura Operacional</div>
+      <div class="kv" style="color:#f87171">R$ 120,5M</div>
+      <div class="ks">Oportunidade perdida em estoque/validade</div>
+      <div class="kbadge down">🔴 Crítico</div>
+    </div>
+    <div class="kpi" style="border-top-color:#F46901">
+      <div class="kl">Efetividade Visitas</div>
+      <div class="kv" style="color:#F46901">66.0%</div>
+      <div class="ks">28.298 realizadas / 42.877 planejadas</div>
+      <div class="kbadge warn">Meta: 80%</div>
+    </div>
+    <div class="kpi" style="border-top-color:#f87171">
+      <div class="kl">GAP Horas</div>
+      <div class="kv" style="color:#f87171">-193k h</div>
+      <div class="ks">39.956 realizadas / 233.109 ideais (17%!)</div>
+      <div class="kbadge down">🔴 Crítico</div>
+    </div>
+    <div class="kpi" style="border-top-color:#82B1FF">
+      <div class="kl">Promotores com Acesso</div>
+      <div class="kv" style="color:#82B1FF">666</div>
+      <div class="ks">362 com atividades no período</div>
+      <div class="kbadge warn">54% ativos</div>
+    </div>
+    <div class="kpi" style="border-top-color:#CE93D8">
+      <div class="kl">Fornecedores c/ Acesso</div>
+      <div class="kv" style="color:#CE93D8">254 / 324</div>
+      <div class="ks">78.4% dos cadastrados com registro</div>
+      <div class="kbadge up">✓ Bom</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h3>📈 Painel de Performance — abr/2026</h3><span class="badge">Todos os dados via DAX real</span></div>
+    <div class="sec-b">
+      <div class="gauge-row">
+        <div class="gauge-box">
+          <div class="gl">Cobertura de Lojas</div>
+          <div class="gv" style="color:#4ade80">99.3%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:99.3%; background:#107C41;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">152 / 153 lojas com venda</div>
+        </div>
+        <div class="gauge-box">
+          <div class="gl">Efetividade Visitas</div>
+          <div class="gv" style="color:#F46901">66.0%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:66%; background:#F46901;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">Meta: 80% | Faltam 14pp</div>
+        </div>
+        <div class="gauge-box">
+          <div class="gl">Execução de Horas</div>
+          <div class="gv" style="color:#f87171">17.1%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:17.1%; background:#C00000;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">39.956 / 233.109 horas</div>
+        </div>
+        <div class="gauge-box">
+          <div class="gl">Fornecedores c/ Acesso</div>
+          <div class="gv" style="color:#82B1FF">78.4%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:78.4%; background:#4285F4;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">254 / 324 fornecedores</div>
+        </div>
+        <div class="gauge-box">
+          <div class="gl">Promotores Ativos</div>
+          <div class="gv" style="color:#F46901">54.4%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:54.4%; background:#F46901;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">362 atividades / 666 com acesso</div>
+        </div>
+        <div class="gauge-box">
+          <div class="gl">% Ruptura Comercial</div>
+          <div class="gv" style="color:#f87171">6.14%</div>
+          <div class="prog-wrap"><div class="prog-bar" style="width:6.14%; background:#C00000;"></div></div>
+          <div style="font-size:11px; color:#9BAAB8; margin-top:5px;">Meta: &lt;5% | R$ 27,3M em ruptura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ISSUES -->
+<div id="tab-issues" class="tab">
+  <div class="issue-grid">
+    <div class="issue bug">
+      <div class="issue-title">🐛 <span class="tag t-red">BUG</span> % Vendas MoM retorna -1.11e-16</div>
+      <div class="issue-desc">A medida <strong>% Vendas MoM</strong> retorna <code>-1.1102230246251565E-16</code> (floating point zero) ao ser consultada sem filtro de data. Indica que ela usa divisão direta sem IFERROR/DIVIDE e não tem contexto ALL para comparação temporal robusta.</div>
+      <div class="issue-fix"><span>Fix:</span> Adicionar <code>ROUND(..., 10)</code> ou substituir por <code>DIVIDE()</code> com VAR explícita por mês.</div>
+    </div>
+    <div class="issue typo">
+      <div class="issue-title">✏️ <span class="tag t-orange">TYPO</span> "Ruptura Admnistrativa" (typo)</div>
+      <div class="issue-desc">3 medidas com o typo: <strong>Ruptura Admnistrativa (Qtd.) Projeto</strong>, <strong>Ruptura Administrativa (R$) Projeto</strong>, <strong>% Ruptura Administrativa (Qtd.)</strong>. A primeira está com "Admnistrativa" (sem o 'i'), quebrando a consistência de nomenclatura e buscas DAX.</div>
+      <div class="issue-fix"><span>Fix:</span> Renomear via MCP → <code>RENAME</code> operation (já disponível).</div>
+    </div>
+    <div class="issue perf">
+      <div class="issue-title">⚠️ <span class="tag" style="background:rgba(255,214,0,0.15); color:#FFD740; border:1px solid rgba(255,214,0,0.3);">PERF</span> Estoque (Qtd.) = 28 BILHÕES</div>
+      <div class="issue-desc">A query <strong>Estoque (Qtd.) Projeto</strong> retornou <code>28.292.724.998</code> unidades. Muito provavelmente é resultado de SUM sem granularidade correta (soma cumulativa de posições diárias × SKUs). Verificar se deve ser <code>LASTDATE</code> ou <code>MAX</code> de posição.</div>
+      <div class="issue-fix"><span>Fix:</span> Auditar expressão DAX da medida. Provavelmente trocar SUM por CALCULATE com LASTDATE.</div>
+    </div>
+    <div class="issue design">
+      <div class="issue-title">🎨 <span class="tag t-purple">DESIGN</span> Medidas HTML fora do brand Mob2Con</div>
+      <div class="issue-desc">As 9 medidas da pasta <strong>HTML e Auxiliares</strong> usam <code>font-family: Segoe UI</code> e cores hardcoded <code>#1aae4a</code> / <code>#d64545</code>. O brand Mob2Con define <strong>Raleway</strong>, <code>#F46901</code>, <code>#107C41</code>, <code>#C00000</code>.</div>
+      <div class="issue-fix"><span>Fix:</span> Atualizar 9 medidas via UPDATE batch para usar cores e fonte corretas.</div>
+    </div>
+    <div class="issue gap">
+      <div class="issue-title">📉 <span class="tag t-blue">GAP</span> -193.153h não visualizado</div>
+      <div class="issue-desc">O <strong>GAP Horas Realizadas x Horas Ideais</strong> é de <strong>-193.153 horas</strong> (83% de déficit de execução). Esse número crítico não aparece em nenhum card de alerta nas páginas do relatório — está enterrado na página Efetividade Operacional sem destaque visual.</div>
+      <div class="issue-fix"><span>Fix:</span> Criar card de alerta na página Visão Executiva com formatação condicional vermelha.</div>
+    </div>
+    <div class="issue bug">
+      <div class="issue-title">🐛 <span class="tag t-red">BUG</span> !Resumo HTML usa tabela inexistente</div>
+      <div class="issue-desc">A medida <strong>!Resumo Geral Mês (HTML)</strong> referencia <code>'fato_mobconnect_movimento'</code> mas o modelo tem <code>'fato_movimento'</code> e <code>'fato_mobconnect_visitas'</code>. Isso pode causar blank ou erro em contextos filtrados.</div>
+      <div class="issue-fix"><span>Fix:</span> Verificar e corrigir referência para <code>'fato_movimento'</code> na linha do DadosDisponiveis.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CORREÇÕES DAX -->
+<div id="tab-correcoes" class="tab">
+
+  <div class="sec">
+    <div class="sec-h"><h3>✅ Fix 1 — % Vendas MoM (BUG floating point)</h3><span class="badge-red badge">APLICAR AGORA</span></div>
+    <div class="sec-b">
+      <p style="color:#9BAAB8; font-size:12px; margin-bottom:12px;">Substituir a expressão atual por versão robusta com DIVIDE + ROUND para eliminar o -1.11e-16.</p>
+<pre><span class="dax-cmt">// ANTES: retorna -1.11e-16 sem contexto de filtro</span>
+<span class="dax-cmt">// DEPOIS: versão correta com VAR e ROUND</span>
+
+<span class="dax-kw">VAR</span> <span class="dax-var">VendaM1</span> = [Venda (R$) M-1]
+<span class="dax-kw">VAR</span> <span class="dax-var">VendaM2</span> = [Venda (R$) M-2]
+<span class="dax-kw">VAR</span> <span class="dax-var">Variacao</span> = <span class="dax-fn">DIVIDE</span>( <span class="dax-var">VendaM1</span> - <span class="dax-var">VendaM2</span>, <span class="dax-var">VendaM2</span>, <span class="dax-num">0</span> )
+<span class="dax-kw">RETURN</span>
+    <span class="dax-fn">ROUND</span>( <span class="dax-var">Variacao</span>, <span class="dax-num">4</span> )</pre>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h3>✅ Fix 2 — Renomear "Admnistrativa" → "Administrativa"</h3><span class="badge-red badge">TYPO — 3 medidas</span></div>
+    <div class="sec-b">
+      <p style="color:#9BAAB8; font-size:12px; margin-bottom:12px;">Operação RENAME batch via MCP — sem impacto em visuais (referências atualizam automaticamente no PBIP).</p>
+<pre><span class="dax-cmt">// 3 renomeações via powerbi_official__measure_operations RENAME</span>
+
+<span class="dax-str">"Ruptura Admnistrativa (Qtd.) Projeto"</span>
+    → <span class="dax-str">"Ruptura Administrativa (Qtd.) Projeto"</span>
+
+<span class="dax-str">"Ruptura Admnistrativa (R$) Projeto"</span>
+    → <span class="dax-str">"Ruptura Administrativa (R$) Projeto"</span>
+
+<span class="dax-str">"% Ruptura Admnistrativa (Qtd.)"</span>
+    → <span class="dax-str">"% Ruptura Administrativa (Qtd.)"</span></pre>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h3>✅ Fix 3 — Atualizar cores Brand nas medidas HTML</h3><span class="badge">DESIGN — 9 medidas</span></div>
+    <div class="sec-b">
+      <p style="color:#9BAAB8; font-size:12px; margin-bottom:12px;">Substituir cores hardcoded por paleta Mob2Con em todas as 9 medidas HTML e Auxiliares.</p>
+<pre><span class="dax-cmt">// Substituições globais nas expressões das medidas HTML:</span>
+
+<span class="dax-str">"font-family:Segoe UI"</span>  →  <span class="dax-str">"font-family:Raleway,Segoe UI"</span>
+<span class="dax-str">"color:#1aae4a"</span>         →  <span class="dax-str">"color:#107C41"</span>   <span class="dax-cmt">// verde Mob2Con</span>
+<span class="dax-str">"color:#d64545"</span>         →  <span class="dax-str">"color:#C00000"</span>   <span class="dax-cmt">// vermelho Mob2Con</span>
+<span class="dax-str">"#1aae4a"</span>               →  <span class="dax-str">"#107C41"</span>
+<span class="dax-str">"#d64545"</span>               →  <span class="dax-str">"#C00000"</span>
+<span class="dax-str">"background-color:#f7f7f7"</span> → <span class="dax-str">"background-color:#F3F6FA"</span></pre>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h3>✅ Fix 4 — Nova medida: Alerta GAP Horas (HTML)</h3><span class="badge">NOVO VISUAL</span></div>
+    <div class="sec-b">
+      <p style="color:#9BAAB8; font-size:12px; margin-bottom:12px;">Medida HTML para card de alerta na Visão Executiva com destaque visual do GAP crítico.</p>
+<pre><span class="dax-cmt">// !Alerta GAP Horas (HTML) — nova medida a criar</span>
+
+<span class="dax-kw">VAR</span> <span class="dax-var">HorasIdeais</span>   = [Horas Ideais]
+<span class="dax-kw">VAR</span> <span class="dax-var">HorasReais</span>    = [Horas Realizadas (Projeto)]
+<span class="dax-kw">VAR</span> <span class="dax-var">GAP</span>           = <span class="dax-var">HorasReais</span> - <span class="dax-var">HorasIdeais</span>
+<span class="dax-kw">VAR</span> <span class="dax-var">PctExec</span>       = <span class="dax-fn">DIVIDE</span>( <span class="dax-var">HorasReais</span>, <span class="dax-var">HorasIdeais</span>, <span class="dax-num">0</span> )
+<span class="dax-kw">VAR</span> <span class="dax-var">Cor</span>           = <span class="dax-fn">IF</span>( <span class="dax-var">PctExec</span> &gt;= <span class="dax-num">0.8</span>, <span class="dax-str">"#107C41"</span>, <span class="dax-fn">IF</span>( <span class="dax-var">PctExec</span> &gt;= <span class="dax-num">0.5</span>, <span class="dax-str">"#F46901"</span>, <span class="dax-str">"#C00000"</span> ) )
+<span class="dax-kw">VAR</span> <span class="dax-var">Icone</span>         = <span class="dax-fn">IF</span>( <span class="dax-var">PctExec</span> &gt;= <span class="dax-num">0.8</span>, <span class="dax-str">"✅"</span>, <span class="dax-fn">IF</span>( <span class="dax-var">PctExec</span> &gt;= <span class="dax-num">0.5</span>, <span class="dax-str">"⚠️"</span>, <span class="dax-str">"🔴"</span> ) )
+<span class="dax-kw">RETURN</span>
+    <span class="dax-str">"&lt;div style='font-family:Raleway,Segoe UI; padding:10px; border-left:4px solid "</span> &amp; <span class="dax-var">Cor</span> &amp; <span class="dax-str">"'&gt;"</span>
+    &amp; <span class="dax-var">Icone</span> &amp; <span class="dax-str">" &lt;b&gt;GAP Horas: &lt;/b&gt;&lt;span style='color:"</span> &amp; <span class="dax-var">Cor</span> &amp; <span class="dax-str">"'&gt;"</span>
+    &amp; <span class="dax-fn">FORMAT</span>( <span class="dax-var">GAP</span>, <span class="dax-str">"#,##0"</span> ) &amp; <span class="dax-str">"h ("</span> &amp; <span class="dax-fn">FORMAT</span>( <span class="dax-var">PctExec</span>, <span class="dax-str">"0.0%"</span> ) &amp; <span class="dax-str">" executado)&lt;/span&gt;&lt;/div&gt;"</span></pre>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-h"><h3>✅ Fix 5 — !Resumo Geral Mês: corrigir tabela fato</h3><span class="badge-red badge">BUG de referência</span></div>
+    <div class="sec-b">
+      <p style="color:#9BAAB8; font-size:12px; margin-bottom:12px;">A expressão atual usa <code>'fato_mobconnect_movimento'</code> que não existe. Corrigir para <code>'fato_movimento'</code>.</p>
+<pre><span class="dax-cmt">// ANTES (bugado):</span>
+<span class="dax-kw">VAR</span> <span class="dax-var">DadosDisponiveis</span> =
+    <span class="dax-fn">CALCULATE</span>(
+        <span class="dax-fn">MAX</span>( <span class="dax-str">'fato_mobconnect_movimento'</span>[dt_movimento] ),   <span class="dax-cmt">// ← tabela inexistente</span>
+        <span class="dax-fn">DATESINPERIOD</span>( ... )
+    )
+
+<span class="dax-cmt">// DEPOIS (correto):</span>
+<span class="dax-kw">VAR</span> <span class="dax-var">DadosDisponiveis</span> =
+    <span class="dax-fn">CALCULATE</span>(
+        <span class="dax-fn">MAX</span>( <span class="dax-str">'fato_movimento'</span>[dias_semana_inicio] ),   <span class="dax-cmt">// ← tabela correta</span>
+        <span class="dax-fn">DATESINPERIOD</span>( ... )
+    )</pre>
+    </div>
+  </div>
+</div>
+
+<!-- EMAIL TEMPLATE -->
+<div id="tab-email" class="tab">
+  <div class="sec">
+    <div class="sec-h"><h3>📧 Template de E-mail Diário — Mob2Con Brand</h3><span class="badge">Baseado nos dados reais de abr/2026</span></div>
+    <div class="sec-b">
+      <!-- E-MAIL PREVIEW -->
+      <div style="max-width:640px; font-family:'Segoe UI',Arial,sans-serif; background:#fff; border:1px solid #E2E8F0; border-radius:12px; overflow:hidden;">
+        <!-- Header -->
+        <div style="background:#111111; padding:20px 28px; display:flex; align-items:center; gap:12px;">
+          <div style="width:42px; height:42px; background:#F46901; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:900; color:#fff; font-family:Raleway,sans-serif;">M</div>
+          <div>
+            <div style="color:#fff; font-weight:700; font-size:16px; font-family:Raleway,sans-serif;">Analítico RG 2.0</div>
+            <div style="color:#9BAAB8; font-size:12px;">Resumo Diário — abr/2026 · Dados até 13/05/2026</div>
+          </div>
+        </div>
+        <!-- KPI Row -->
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0; border-bottom:1px solid #E2E8F0;">
+          <div style="padding:16px 18px; border-right:1px solid #E2E8F0; text-align:center;">
+            <div style="font-size:10px; color:#605E5C; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">VENDA M-1</div>
+            <div style="font-size:22px; font-weight:800; color:#F46901; font-family:Raleway,sans-serif;">R$ 23,2M</div>
+            <div style="font-size:11px; color:#107C41; margin-top:3px;">▲ +5.65% vs mar</div>
+          </div>
+          <div style="padding:16px 18px; border-right:1px solid #E2E8F0; text-align:center;">
+            <div style="font-size:10px; color:#605E5C; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">RUPTURA COM.</div>
+            <div style="font-size:22px; font-weight:800; color:#C00000; font-family:Raleway,sans-serif;">R$ 27,3M</div>
+            <div style="font-size:11px; color:#C00000; margin-top:3px;">⚠ 6.14% acima de 5%</div>
+          </div>
+          <div style="padding:16px 18px; text-align:center;">
+            <div style="font-size:10px; color:#605E5C; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px;">EFETIVIDADE</div>
+            <div style="font-size:22px; font-weight:800; color:#F46901; font-family:Raleway,sans-serif;">66.0%</div>
+            <div style="font-size:11px; color:#F46901; margin-top:3px;">Meta: 80% | -14pp</div>
+          </div>
+        </div>
+        <!-- Alertas -->
+        <div style="padding:16px 20px;">
+          <div style="font-size:12px; font-weight:700; color:#323130; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px;">🔴 Alertas do Dia</div>
+          <div style="background:#FFF4F4; border-left:3px solid #C00000; padding:10px 14px; border-radius:4px; margin-bottom:8px; font-size:12px;">
+            <strong>GAP de Horas Crítico:</strong> 39.956h realizadas de 233.109h ideais <span style="color:#C00000; font-weight:700;">(17% — 193k h de déficit)</span>
+          </div>
+          <div style="background:#FFF8F4; border-left:3px solid #F46901; padding:10px 14px; border-radius:4px; margin-bottom:8px; font-size:12px;">
+            <strong>Ruptura Operacional:</strong> R$ 120,5M em perdas por estoque/validade — <span style="color:#F46901; font-weight:700;">verificar reposição urgente</span>
+          </div>
+          <div style="background:#FFF8F4; border-left:3px solid #F46901; padding:10px 14px; border-radius:4px; font-size:12px;">
+            <strong>Promotores:</strong> 362 com atividades de 666 com acesso <span style="color:#F46901; font-weight:700;">(54% de ativação)</span>
+          </div>
+        </div>
+        <!-- Stats Row -->
+        <div style="background:#F3F6FA; padding:14px 20px; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; border-top:1px solid #E2E8F0;">
+          <div style="text-align:center;"><div style="font-size:16px; font-weight:800; color:#111;">152</div><div style="font-size:10px; color:#605E5C;">Lojas c/ Venda</div></div>
+          <div style="text-align:center;"><div style="font-size:16px; font-weight:800; color:#111;">666</div><div style="font-size:10px; color:#605E5C;">Promotores</div></div>
+          <div style="text-align:center;"><div style="font-size:16px; font-weight:800; color:#111;">254</div><div style="font-size:10px; color:#605E5C;">Fornecedores</div></div>
+          <div style="text-align:center;"><div style="font-size:16px; font-weight:800; color:#111;">28.298</div><div style="font-size:10px; color:#605E5C;">Visitas</div></div>
+        </div>
+        <!-- Footer -->
+        <div style="background:#111111; padding:12px 20px; text-align:center; font-size:11px; color:#666;">
+          Mob2Con Analytics · Gerado automaticamente em 14/05/2026 · <a href="#" style="color:#F46901;">Ver relatório completo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLANO -->
+<div id="tab-plano" class="tab">
+  <div class="steps">
+    <div class="step">
+      <div class="step-num done">✓</div>
+      <div class="step-content">
+        <h4>Fase 1 — Conexão e Mapeamento <span class="status-pill s-done">CONCLUÍDO</span></h4>
+        <p>Conectado ao Desktop (porta 53659). 428 medidas mapeadas. Dados reais extraídos via DAX: vendas, ruptura, horas, visitas, fornecedores. DAX das 9 medidas HTML lido na íntegra.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-content">
+        <h4>Fase 2 — Correções do Modelo <span class="status-pill s-now">PRÓXIMO</span></h4>
+        <p><strong>Fix 1:</strong> % Vendas MoM (BUG floating point) · <strong>Fix 2:</strong> Typo "Admnistrativa" (3 medidas) · <strong>Fix 3:</strong> Cores brand nas 9 medidas HTML · <strong>Fix 4:</strong> Criar !Alerta GAP Horas · <strong>Fix 5:</strong> Corrigir referência tabela no !Resumo HTML</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-content">
+        <h4>Fase 3 — Template E-mail HTML <span class="status-pill s-next">AGUARDANDO</span></h4>
+        <p>Finalizar template responsivo com identidade Mob2Con. Integrar KPIs via DAX REST API do Power BI Service. Configurar Power Automate com trigger de atualização do dataset.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-content">
+        <h4>Fase 4 — Automação &amp; Deploy <span class="status-pill s-next">AGUARDANDO</span></h4>
+        <p>Power Automate: trigger diário 07h00 → GET KPIs via API → gerar HTML → SendEmail segmentado (gestor / agência / fornecedor). Testar com 1 destinatário antes do deploy completo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-content">
+        <h4>Fase 5 — Melhorias do Relatório Power BI <span class="status-pill s-next">PARALELO</span></h4>
+        <p>Criar card de Alerta GAP Horas na Visão Executiva · Adicionar Score de Saúde Operacional · Resolver duplicidade de dimensões · Revisar agregação do Estoque (Qtd.) que retorna 28 bilhões.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top:24px;" class="sec">
+    <div class="sec-h"><h3>⚡ Aplicar correções agora?</h3><span class="badge">5 fixes prontos para deploy via MCP</span></div>
+    <div class="sec-b">
+      <table>
+        <thead><tr><th>Fix</th><th>Tipo</th><th>Risco</th><th>Impacto</th><th>Pronto</th></tr></thead>
+        <tbody>
+          <tr><td>% Vendas MoM → DIVIDE + ROUND</td><td><span class="tag t-red">BUG</span></td><td>Baixo</td><td>Elimina -1.11e-16 nos cards</td><td>✅ DAX pronto</td></tr>
+          <tr><td>Renomear 3 medidas "Admnistrativa"</td><td><span class="tag t-orange">TYPO</span></td><td>Nulo</td><td>Consistência nomenclatura</td><td>✅ RENAME pronto</td></tr>
+          <tr><td>Cores brand nas 9 medidas HTML</td><td><span class="tag t-purple">DESIGN</span></td><td>Baixo</td><td>Alinha com Mob2Con brand</td><td>✅ Expressões preparadas</td></tr>
+          <tr><td>Criar !Alerta GAP Horas</td><td><span class="tag t-blue">NOVO</span></td><td>Nulo</td><td>KPI crítico visível no exec</td><td>✅ DAX pronto</td></tr>
+          <tr><td>Corrigir tabela no !Resumo HTML</td><td><span class="tag t-red">BUG</span></td><td>Baixo</td><td>Remove erro de referência</td><td>⚠ Confirmar nome da coluna</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="footer">Analítico RG 2.0 MCP 2 · Dados reais via DAX · Mob2Con · 14/05/2026</div>
+
+<script>
+function sw(id) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+  // animate progress bars
+  document.querySelectorAll('.prog-bar').forEach(b => {
+    const w = b.style.width; b.style.width = '0';
+    setTimeout(() => b.style.width = w, 50);
+  });
+}
+// Init progress animation
+setTimeout(() => {
+  document.querySelectorAll('.prog-bar').forEach(b => {
+    const w = b.style.width; b.style.width = '0';
+    setTimeout(() => { b.style.transition='width 1.2s ease'; b.style.width = w; }, 100);
+  });
+}, 200);
+</script>
+
+
+</body></html>

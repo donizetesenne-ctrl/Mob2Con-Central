@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Validar Padrão Mob2Con no Power BI",
+  "description": "Quando um arquivo JSON de visual do Power BI é editado, o agente verifica se as cores, fontes e espaçamentos seguem o padrão Mob2Con (laranja #F46901, Raleway, grid 8px).",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.Report/**/*.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "O arquivo Power BI foi editado. Verifique se segue o padrão Mob2Con: cor primária #F46901 (nunca azul #0078D4), fonte Raleway (nunca Segoe UI), grid 8px. Se encontrar violações, liste-as e sugira correções."
+  }
+}

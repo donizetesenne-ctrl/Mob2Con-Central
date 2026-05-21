@@ -1,0 +1,18 @@
+{
+  "enabled": true,
+  "name": "DAX Expert - Revisar medidas criadas",
+  "description": "Quando uma medida DAX ou arquivo de modelo semântico é criado, o agente valida a sintaxe DAX, sugere otimizações de performance e verifica se segue o padrão de nomenclatura Mob2Con.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "**/*.SemanticModel/**/*.json",
+      "**/*medida*.md",
+      "**/*dax*.md"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Um arquivo de modelo semântico ou medida DAX foi criado. Como especialista DAX: 1) Valide a sintaxe das expressões DAX. 2) Verifique se usa CALCULATE, FILTER e iteradores de forma otimizada. 3) Confirme nomenclatura padrão Mob2Con (prefixo do tipo: [Qtd], [%], [R$], [Avg]). 4) Sugira melhorias de performance se aplicável."
+  }
+}

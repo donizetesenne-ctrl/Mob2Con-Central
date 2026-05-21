@@ -1,0 +1,103 @@
+{
+  "name": "Mob2Con",
+  "dataColors": [
+    "#F46901",
+    "#434343",
+    "#F97316",
+    "#16A34A",
+    "#DC2626",
+    "#6F05D4",
+    "#6B7280",
+    "#22C55E",
+    "#EF4444",
+    "#111111"
+  ],
+  "background": "#F3F6FA",
+  "foreground": "#111111",
+  "tableAccent": "#F46901",
+  "good": "#107C41",
+  "neutral": "#6B7280",
+  "bad": "#C00000",
+  "maximum": "#C00000",
+  "center": "#F46901",
+  "minimum": "#107C41",
+  "textClasses": {
+    "callout": {
+      "fontSize": 28,
+      "fontFace": "Raleway",
+      "color": "#111111",
+      "fontWeight": "bold"
+    },
+    "title": {
+      "fontSize": 14,
+      "fontFace": "Raleway",
+      "color": "#434343",
+      "fontWeight": "bold"
+    },
+    "header": {
+      "fontSize": 12,
+      "fontFace": "Raleway",
+      "color": "#434343",
+      "fontWeight": "bold"
+    },
+    "label": {
+      "fontSize": 10,
+      "fontFace": "Raleway",
+      "color": "#6B7280"
+    }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{"color": {"solid": {"color": "#FFFFFF"}}, "transparency": 0}],
+        "border": [{"color": {"solid": {"color": "#E2E8F0"}}, "show": true}],
+        "title": [{"fontFamily": "Raleway", "fontSize": 11, "fontColor": {"solid": {"color": "#434343"}}, "fontWeight": "bold"}]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{"color": {"solid": {"color": "#F3F6FA"}}, "transparency": 0}]
+      }
+    },
+    "shape": {
+      "*": {
+        "background": [{"show": false}],
+        "fill": [{"fillColor": {"solid": {"color": "#F46901"}}, "transparency": 0}]
+      }
+    },
+    "card": {
+      "*": {
+        "calloutValue": [{"fontFamily": "Raleway", "fontSize": 26, "fontColor": {"solid": {"color": "#111111"}}, "fontWeight": "bold"}],
+        "categoryLabel": [{"fontFamily": "Raleway", "fontSize": 10, "fontColor": {"solid": {"color": "#6B7280"}}}]
+      }
+    },
+    "barChart": {
+      "*": {
+        "dataPoint": [{"fill": {"solid": {"color": "#F46901"}}}]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "dataPoint": [{"fill": {"solid": {"color": "#F46901"}}}],
+        "lineStyles": [{"strokeWidth": 2}]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "dataPoint": [{"fill": {"solid": {"color": "#F46901"}}}]
+      }
+    },
+    "slicer": {
+      "*": {
+        "background": [{"color": {"solid": {"color": "#FFFFFF"}}, "transparency": 100}],
+        "border": [{"show": false}]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "columnHeaders": [{"fontFamily": "Raleway", "fontSize": 9, "fontColor": {"solid": {"color": "#434343"}}, "fontWeight": "bold", "backColor": {"solid": {"color": "#F3F6FA"}}}],
+        "values": [{"fontFamily": "Raleway", "fontSize": 10, "fontColor": {"solid": {"color": "#111111"}}}]
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.0.0/schema.json",
+  "pageOrder": [
+    "pg_executivo",
+    "pg_vendas",
+    "pg_ruptura",
+    "pg_operacao",
+    "pg_estoque",
+    "pg_produtividade",
+    "pg_feriados",
+    "a32a2079719774dc4c40"
+  ],
+  "activePageName": "pg_estoque"
+}

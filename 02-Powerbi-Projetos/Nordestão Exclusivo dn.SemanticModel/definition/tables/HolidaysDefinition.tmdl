@@ -1,0 +1,132 @@
+table HolidaysDefinition
+	isHidden
+	lineageTag: bb8763ac-9b47-4ff3-8718-d2ab659d741c
+	sourceLineageTag: 8163c3a7-4662-4b12-8d46-cde1396ec7df
+
+	column 'ISO Country'
+		dataType: string
+		isHidden
+		lineageTag: 04df275c-14b6-44ed-8434-d96901861e61
+		sourceLineageTag: eed717aa-7257-4935-af6f-0fb6bbb661d1
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ISO Country
+
+		annotation SummarizationSetBy = User
+
+	column MonthNumber
+		dataType: int64
+		isHidden
+		lineageTag: 660dbb3d-b2a7-4100-80d4-5e5b73835848
+		sourceLineageTag: bac2066b-f928-4445-93a3-8c634c2c2caa
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: MonthNumber
+
+		annotation SummarizationSetBy = User
+
+	column DayNumber
+		dataType: int64
+		isHidden
+		lineageTag: 02d6a717-041d-4d49-a1de-883642f0b93b
+		sourceLineageTag: ca3e3165-3684-4516-8e04-d1fbc24503a6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: DayNumber
+
+		annotation SummarizationSetBy = User
+
+	column WeekDayNumber
+		dataType: int64
+		isHidden
+		lineageTag: 1777a8ed-93d6-4f69-83e1-7b32b5917f11
+		sourceLineageTag: 7240a880-6bee-465d-8d29-22578813b16f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: WeekDayNumber
+
+		annotation SummarizationSetBy = User
+
+	column OffsetWeek
+		dataType: int64
+		isHidden
+		lineageTag: b17f3fab-d224-4383-8b62-69d43e48d6b2
+		sourceLineageTag: c09c6630-99f0-45fa-88de-ccdb9ea5f28f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: OffsetWeek
+
+		annotation SummarizationSetBy = User
+
+	column OffsetDays
+		dataType: int64
+		isHidden
+		lineageTag: 40063da2-050f-4b74-a3e6-8fbb6b4f6ce3
+		sourceLineageTag: a9f4ec3c-5d1b-49fb-8a22-3fec6f468e1d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: OffsetDays
+
+		annotation SummarizationSetBy = User
+
+	column HolidayName
+		dataType: string
+		isHidden
+		lineageTag: 19c26bfc-a21f-448c-820b-24d3b478669b
+		sourceLineageTag: 447b4c3a-e700-4f31-a5eb-f36bd1ea7731
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: HolidayName
+
+		annotation SummarizationSetBy = User
+
+	column SubstituteHoliday
+		dataType: int64
+		isHidden
+		lineageTag: 18dd112c-4ef8-467e-a78d-3372445a5c35
+		sourceLineageTag: 37e1ad11-1cc3-4434-8215-cca21799966b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: SubstituteHoliday
+
+		annotation SummarizationSetBy = User
+
+	column ConflictPriority
+		dataType: int64
+		isHidden
+		lineageTag: 26d8b266-6f6d-459d-bdd1-4ed1c550dad1
+		sourceLineageTag: 5649b697-da25-4116-8776-c7f0a8f3e69c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ConflictPriority
+
+		annotation SummarizationSetBy = User
+
+	column FirstYear
+		dataType: int64
+		isHidden
+		lineageTag: 09ed225a-e798-49ad-bd4b-cc8641fa46ee
+		sourceLineageTag: f84aff47-d2e5-4b13-bacb-a103c5f7c032
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: FirstYear
+
+		annotation SummarizationSetBy = User
+
+	column LastYear
+		dataType: int64
+		isHidden
+		lineageTag: 4a993817-599e-44ea-9a2d-57e0a9d893b9
+		sourceLineageTag: baf99db6-731c-47f1-a88a-54ecc964249d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: LastYear
+
+		annotation SummarizationSetBy = User
+
+	partition HolidaysDefinition = entity
+		mode: directQuery
+		source
+			entityName: HolidaysDefinition
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,25 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DirectQuery para AS – Analítico RG 2.0","tb_Dashboard estudo RG","tb_Relatório Financeiro - RG","tb_Consolidado_Captacao_RG_20"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+ref table 'tb_Dashboard estudo RG'
+ref table 'tb_Relatório Financeiro - RG'
+ref table DateTableTemplate_5d950173-097e-4084-b527-ce5f25761dab
+ref table tb_Consolidado_Captacao_RG_20
+ref table Métricas
+ref table dim_rede
+ref table LocalDateTable_15a9f245-0f91-431b-95ed-d8a03b4adecb
+ref table LocalDateTable_b36c144c-6197-4726-ba59-6c8bfd475e3f
+
+ref cultureInfo pt-BR
+

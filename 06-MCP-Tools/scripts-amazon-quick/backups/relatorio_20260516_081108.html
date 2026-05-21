@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Relatório Semanal — Mob2Con 11/05 – 16/05</title>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Raleway',sans-serif;background:#0d0d1a;color:#e2e2f0;min-height:100vh;padding:24px 16px}
+    .wrap{max-width:780px;margin:0 auto}
+    .header{background:linear-gradient(135deg,#F46901 0%,#c45200 45%,#1a1030 100%);
+             border-radius:20px;padding:32px 36px;margin-bottom:24px;
+             position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(244,105,1,.35)}
+    .header::after{content:'';position:absolute;top:-60px;right:-60px;
+                    width:240px;height:240px;background:rgba(255,255,255,.06);border-radius:50%}
+    .card{background:#13131f;border:1px solid #1e1e30;border-radius:16px;padding:18px 20px}
+    .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+    .kpi-card{background:#13131f;border:1px solid #1e1e30;border-radius:14px;
+               padding:18px 14px;text-align:center;transition:transform .2s}
+    .kpi-card:hover{transform:translateY(-3px)}
+    .cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:10px;margin-bottom:20px}
+    .cat-card{background:#13131f;border:1px solid #1e1e30;border-radius:12px;padding:14px}
+    .sec-label{font-size:10px;font-weight:700;color:#444;text-transform:uppercase;letter-spacing:2px;margin-bottom:12px}
+    .timeline{position:relative;padding-left:38px;margin-bottom:24px}
+    .timeline::before{content:'';position:absolute;left:11px;top:4px;bottom:4px;
+                       width:2px;background:linear-gradient(180deg,#F46901,#4285F4 60%,transparent)}
+    .tl-item{position:relative;margin-bottom:14px}
+    .tl-dot{position:absolute;left:-31px;top:14px;width:24px;height:24px;
+             border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px}
+    .tl-card{background:#13131f;border:1px solid #1e1e30;border-radius:14px;
+              padding:16px 18px;transition:border-color .2s,box-shadow .2s}
+    .tl-card:hover{border-color:#F46901;box-shadow:0 4px 20px rgba(244,105,1,.12)}
+    .tooltip-box{
+      margin-top:12px;padding:10px 14px;
+      background:#0a0a14;border:1px solid #2a2a3a;
+      border-radius:10px;display:none;
+    }
+    .tl-card:hover .tooltip-box{display:block}
+    .footer{text-align:center;font-size:11px;color:#333;padding:20px 0;border-top:1px solid #13131f}
+    @media(max-width:520px){.kpi-grid{grid-template-columns:repeat(2,1fr)}.header{padding:24px 20px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header">
+    <div style="display:flex;align-items:center;gap:16px;position:relative;z-index:1">
+      <span style="font-size:40px">📊</span>
+      <div>
+        <div style="font-size:22px;font-weight:900;color:#fff">Mob2Con — Relatório Semanal</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.75);margin-top:4px">
+          Período: 11/05 – 16/05 &nbsp;·&nbsp; 17 entregas registradas
+        </div>
+      </div>
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,.45);margin-top:14px;position:relative;z-index:1">
+      Responsável: <strong style="color:rgba(255,255,255,.7)">Donizete Senne</strong> &nbsp;→&nbsp; Mariliana Fagotti
+    </div>
+    <div style="margin-top:14px;position:relative;z-index:1">
+      <span style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);
+                   border-radius:100px;padding:5px 16px;font-size:12px;font-weight:700;color:#fff">
+        🗓 Semana 11/05 – 16/05
+      </span>
+      <span style="background:rgba(16,124,65,.3);border:1px solid rgba(16,124,65,.4);
+                   border-radius:100px;padding:5px 16px;font-size:12px;font-weight:700;
+                   color:#4ade80;margin-left:8px">
+        94% concluído
+      </span>
+    </div>
+  </div>
+
+  <div class="kpi-grid">
+        <div class="kpi-card" style="border-top:3px solid #F46901">
+          <div style="font-size:24px;margin-bottom:6px">📊</div>
+          <div style="font-size:30px;font-weight:900;color:#F46901;line-height:1">17</div>
+          <div style="font-size:10px;color:#666;font-weight:700;text-transform:uppercase;margin-top:4px">Total</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #107C41">
+          <div style="font-size:24px;margin-bottom:6px">✅</div>
+          <div style="font-size:30px;font-weight:900;color:#107C41;line-height:1">16</div>
+          <div style="font-size:10px;color:#666;font-weight:700;text-transform:uppercase;margin-top:4px">Concluídos</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #F2B100">
+          <div style="font-size:24px;margin-bottom:6px">⏳</div>
+          <div style="font-size:30px;font-weight:900;color:#F2B100;line-height:1">1</div>
+          <div style="font-size:10px;color:#666;font-weight:700;text-transform:uppercase;margin-top:4px">Pendentes</div>
+        </div>
+        <div class="kpi-card" style="border-top:3px solid #4285F4">
+          <div style="font-size:24px;margin-bottom:6px">📂</div>
+          <div style="font-size:30px;font-weight:900;color:#4285F4;line-height:1">6</div>
+          <div style="font-size:10px;color:#666;font-weight:700;text-transform:uppercase;margin-top:4px">Categorias</div>
+        </div></div>
+  
+    <div class="card" style="margin-bottom:20px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:8px">
+        <span style="font-size:12px;color:#aaa;font-weight:600">Progresso da semana</span>
+        <span style="font-size:13px;font-weight:800;color:#F46901">94% concluído</span>
+      </div>
+      <div style="background:#2a2a3a;border-radius:100px;height:10px;overflow:hidden">
+        <div style="width:94%;height:100%;background:linear-gradient(90deg,#F46901,#F2C811);border-radius:100px"></div>
+      </div>
+      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:#555">
+        <span>16 concluídos</span>
+        <span>1 pendentes</span>
+      </div>
+    </div>
+  <div class="sec-label">📂 Distribuição por Categoria</div>
+  <div class="cat-grid">
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">📊 Power BI</span>
+            <span style="font-size:20px;font-weight:900;color:#F2C811">5</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:29%;height:100%;background:#F2C811;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">29% do total</div>
+        </div>
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">⚙️ MCP</span>
+            <span style="font-size:20px;font-weight:900;color:#F46901">4</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:23%;height:100%;background:#F46901;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">23% do total</div>
+        </div>
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">🤖 Apps Script</span>
+            <span style="font-size:20px;font-weight:900;color:#6F05D4">4</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:23%;height:100%;background:#6F05D4;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">23% do total</div>
+        </div>
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">👥 Reunião</span>
+            <span style="font-size:20px;font-weight:900;color:#434343">1</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:5%;height:100%;background:#434343;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">5% do total</div>
+        </div>
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">🗄️ Dados</span>
+            <span style="font-size:20px;font-weight:900;color:#4285F4">2</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:11%;height:100%;background:#4285F4;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">11% do total</div>
+        </div>
+        <div class="cat-card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-size:12px;font-weight:700;color:#ccc">📝 Doc</span>
+            <span style="font-size:20px;font-weight:900;color:#107C41">1</span>
+          </div>
+          <div style="background:#2a2a3a;border-radius:100px;height:4px">
+            <div style="width:5%;height:100%;background:#107C41;border-radius:100px"></div>
+          </div>
+          <div style="font-size:10px;color:#555;margin-top:4px">5% do total</div>
+        </div></div>
+  <div class="sec-label">📅 Timeline de Entregas</div>
+  <div class="timeline">
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F46901;box-shadow:0 0 10px #F4690166">⚙️</div>
+          <div class="tl-card" title="MCP: Configurei o universal-control com OAuth Google completo">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F4690122;color:#F46901;border:1px solid #F4690144">
+                12/05 · MCP
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Configurei o universal-control com OAuth Google completo</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">MCP: Configurei o universal-control com OAuth Google completo</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F46901">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">MCP: Configurei o universal-control com OAuth Google completo</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F46901,#F46901);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Ajustei layout do dashboard RG via MCP, alinhei 12...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F46901;box-shadow:0 0 10px #F4690166">⚙️</div>
+          <div class="tl-card" title="Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F4690122;color:#F46901;border:1px solid #F4690144">
+                12/05 · MCP
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Ajustei layout do dashboard RG via MCP, alinhei 12 visuais</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F46901">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F46901,#6F05D4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Corrigi bug B3 do mapeamento Form CRM (r[1]=email,...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#6F05D4;box-shadow:0 0 10px #6F05D466">🤖</div>
+          <div class="tl-card" title="Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#6F05D422;color:#6F05D4;border:1px solid #6F05D444">
+                12/05 · Apps Script
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#6F05D4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#6F05D4,#434343);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Reunião com Zelone sobre métricas de conta corrent...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#434343;box-shadow:0 0 10px #43434366">👥</div>
+          <div class="tl-card" title="Reunião com Zelone sobre métricas de conta corrente #reuniao #rg">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#43434322;color:#434343;border:1px solid #43434344">
+                12/05 · Reunião
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Reunião com Zelone sobre métricas de conta corrente #reuniao #rg</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Reunião com Zelone sobre métricas de conta corrente #reuniao #rg</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #43434344;color:#434343;font-weight:600">reuniao</span><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #43434344;color:#434343;font-weight:600">rg</span></div>
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#434343">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Reunião com Zelone sobre métricas de conta corrente #reuniao #rg</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#434343,#F2C811);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Criei 3 medidas novas para conta corrente (Total V...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F2C811;box-shadow:0 0 10px #F2C81166">📊</div>
+          <div class="tl-card" title="DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F2C81122;color:#F2C811;border:1px solid #F2C81144">
+                13/05 · Power BI
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F2C811">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F2C811,#4285F4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Tratamento da base de implantação, limpeza de 2.50...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#4285F4;box-shadow:0 0 10px #4285F466">🗄️</div>
+          <div class="tl-card" title="Dados: Tratamento da base de implantação, limpeza de 2.500 registros">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#4285F422;color:#4285F4;border:1px solid #4285F444">
+                13/05 · Dados
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Tratamento da base de implantação, limpeza de 2.500 registros</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Dados: Tratamento da base de implantação, limpeza de 2.500 registros</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#4285F4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Dados: Tratamento da base de implantação, limpeza de 2.500 registros</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#4285F4,#F2C811);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Aplicação do tema Mob2Con no dashboard Nordestão...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F2C811;box-shadow:0 0 10px #F2C81166">📊</div>
+          <div class="tl-card" title="Power BI: Aplicação do tema Mob2Con no dashboard Nordestão">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F2C81122;color:#F2C811;border:1px solid #F2C81144">
+                13/05 · Power BI
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Aplicação do tema Mob2Con no dashboard Nordestão</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Power BI: Aplicação do tema Mob2Con no dashboard Nordestão</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F2C811">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Power BI: Aplicação do tema Mob2Con no dashboard Nordestão</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F2C811,#4285F4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Aguardando retorno do Gustavo sobre fontes de dado...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#4285F4;box-shadow:0 0 10px #4285F466">🗄️</div>
+          <div class="tl-card" title="Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#4285F422;color:#4285F4;border:1px solid #4285F444">
+                13/05 · Dados
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(242,177,0,.12);color:#F2B100;font-weight:700">⏳ Pendente</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Aguardando retorno do Gustavo sobre fontes de dados #bloqueado</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #4285F444;color:#4285F4;font-weight:600">bloqueado</span></div>
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#4285F4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#4285F4,#F2C811);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Preenchimento de todos os cards vazios do dashboar...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F2C811;box-shadow:0 0 10px #F2C81166">📊</div>
+          <div class="tl-card" title="Dashboard: Preenchimento de todos os cards vazios do dashboard principal Evolução de Vendas M-3→M-1 (R$ 20,6M → R$ 22,2M), Faturamento por Rede (7 redes), Ruptura por Rede com meta 5%, Ativação de Promotores, Documentação Regularizada, Scorecard completo com faturamento, variação, ruptura, promotores, doc e score Resultado: Dashboard 100% preenchido com dados reais, 133.799 bytes #dashboard">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F2C81122;color:#F2C811;border:1px solid #F2C81144">
+                14/05 · Power BI
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Preenchimento de todos os cards vazios do dashboard principal</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Dashboard: Preenchimento de todos os cards vazios do dashboard principal Evolução de Vendas M-3→M-1 (R$ 20,6M → R$ 22,2M), Faturamento por Rede (7 redes), Ruptura por Rede com meta 5%, Ativação de Promotores, Documentação Regularizada, Scorecard completo com faturamento, variação, ruptura, promotores, doc e score Resultado: Dashboard 100% preenchido com dados reais, 133.799 bytes #dashboard</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #F2C81144;color:#F2C811;font-weight:600">dashboard</span></div>
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F2C811">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Dashboard: Preenchimento de todos os cards vazios do dashboard principal Evolução de Vendas M-3→M-1 (R$ 20,6M → R$ 22,2M), Faturamento por Rede (7 redes), Ruptura por Rede com meta 5%, Ativação de Promotores, Documentação Regularizada, Scorecard completo com faturamento, variação, ruptura, promotores, doc e score Resultado: Dashboard 100% preenchido com dados reais, 133.799 bytes #dashboard</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F2C811,#F2C811);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Integração dos dados de Gestão Performance na aba ...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F2C811;box-shadow:0 0 10px #F2C81166">📊</div>
+          <div class="tl-card" title="Dashboard: Integração dos dados de Gestão Performance na aba CEO Confiabilidade por rede (GBARBOSA/NORDESTÃO/NOVA ERA/PREZUNIC 93%, BIGBOX 86%, PAGUE MENOS 0%), KPIs operacionais (124 lojas, 218.625h projetadas, GAP -56.239h, ruptura R$ 116,5M), Top 10 fornecedores por ruptura operacional, gráficos de efetividade e confiabilidade Resultado: Aba Análise Crítica CEO completa com alertas automáticos">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F2C81122;color:#F2C811;border:1px solid #F2C81144">
+                14/05 · Power BI
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Integração dos dados de Gestão Performance na aba CEO</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Dashboard: Integração dos dados de Gestão Performance na aba CEO Confiabilidade por rede (GBARBOSA/NORDESTÃO/NOVA ERA/PREZUNIC 93%, BIGBOX 86%, PAGUE MENOS 0%), KPIs operacionais (124 lojas, 218.625h projetadas, GAP -56.239h, ruptura R$ 116,5M), Top 10 fornecedores por ruptura operacional, gráficos de efetividade e confiabilidade Resultado: Aba Análise Crítica CEO completa com alertas automáticos</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F2C811">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Dashboard: Integração dos dados de Gestão Performance na aba CEO Confiabilidade por rede (GBARBOSA/NORDESTÃO/NOVA ERA/PREZUNIC 93%, BIGBOX 86%, PAGUE MENOS 0%), KPIs operacionais (124 lojas, 218.625h projetadas, GAP -56.239h, ruptura R$ 116,5M), Top 10 fornecedores por ruptura operacional, gráficos de efetividade e confiabilidade Resultado: Aba Análise Crítica CEO completa com alertas automáticos</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F2C811,#6F05D4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">6 bugs corrigidos no Sprint IC v8.0...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#6F05D4;box-shadow:0 0 10px #6F05D466">🤖</div>
+          <div class="tl-card" title="Apps Script: 6 bugs corrigidos no Sprint IC v8.0">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#6F05D422;color:#6F05D4;border:1px solid #6F05D444">
+                14/05 · Apps Script
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">6 bugs corrigidos no Sprint IC v8.0</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Apps Script: 6 bugs corrigidos no Sprint IC v8.0</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#6F05D4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Apps Script: 6 bugs corrigidos no Sprint IC v8.0</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#6F05D4,#F2C811);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Correção do link do Apps Script quebrado no dashbo...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F2C811;box-shadow:0 0 10px #F2C81166">📊</div>
+          <div class="tl-card" title="Apps Script: Correção do link do Apps Script quebrado no dashboard Novo endpoint implantado, atualizado em 2 locais, arquivo sincronizado no Drive Resultado: Dashboard carregando dados reais das planilhas Google Sheets">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F2C81122;color:#F2C811;border:1px solid #F2C81144">
+                15/05 · Power BI
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Correção do link do Apps Script quebrado no dashboard</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Apps Script: Correção do link do Apps Script quebrado no dashboard Novo endpoint implantado, atualizado em 2 locais, arquivo sincronizado no Drive Resultado: Dashboard carregando dados reais das planilhas Google Sheets</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F2C811">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Apps Script: Correção do link do Apps Script quebrado no dashboard Novo endpoint implantado, atualizado em 2 locais, arquivo sincronizado no Drive Resultado: Dashboard carregando dados reais das planilhas Google Sheets</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F2C811,#F46901);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Sistema de relatório semanal automático concluído ...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F46901;box-shadow:0 0 10px #F4690166">⚙️</div>
+          <div class="tl-card" title="MCP: Sistema de relatório semanal automático concluído e testado Python lê Google Docs, detecta categorias, gera HTML formatado e envia via Gmail API Token OAuth configurado com scopes Docs + Drive + Gmail Resultado: 25 registros processados, HTML gerado, email pronto para envio #mcp #automacao EXEMPLO PRÁTICO — Como preencher durante a semana">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F4690122;color:#F46901;border:1px solid #F4690144">
+                15/05 · MCP
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Sistema de relatório semanal automático concluído e testado</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">MCP: Sistema de relatório semanal automático concluído e testado Python lê Google Docs, detecta categorias, gera HTML formatado e envia via Gmail API Token OAuth configurado com scopes Docs + Drive + Gmail Resultado: 25 registros processados, HTML gerado, email pronto para envio #mcp #automacao EXEMPLO PRÁTICO — Como preencher durante a semana</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #F4690144;color:#F46901;font-weight:600">mcp</span><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #F4690144;color:#F46901;font-weight:600">automacao</span></div>
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F46901">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">MCP: Sistema de relatório semanal automático concluído e testado Python lê Google Docs, detecta categorias, gera HTML formatado e envia via Gmail API Token OAuth configurado com scopes Docs + Drive + Gmail Resultado: 25 registros processados, HTML gerado, email pronto para envio #mcp #automacao EXEMPLO PRÁTICO — Como preencher durante a semana</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F46901,#F46901);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Documentação completa do sistema de relatório sema...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#F46901;box-shadow:0 0 10px #F4690166">⚙️</div>
+          <div class="tl-card" title="MCP: Documentação completa do sistema de relatório semanal">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#F4690122;color:#F46901;border:1px solid #F4690144">
+                15/05 · MCP
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Documentação completa do sistema de relatório semanal</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">MCP: Documentação completa do sistema de relatório semanal</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#F46901">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">MCP: Documentação completa do sistema de relatório semanal</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#F46901,#6F05D4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Script de processamento automático do Google Docs...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#6F05D4;box-shadow:0 0 10px #6F05D466">🤖</div>
+          <div class="tl-card" title="Python: Script de processamento automático do Google Docs">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#6F05D422;color:#6F05D4;border:1px solid #6F05D444">
+                15/05 · Apps Script
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Script de processamento automático do Google Docs</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Python: Script de processamento automático do Google Docs</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#6F05D4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Python: Script de processamento automático do Google Docs</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#6F05D4,#6F05D4);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">Gerador de HTML formatado com envio por email...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#6F05D4;box-shadow:0 0 10px #6F05D466">🤖</div>
+          <div class="tl-card" title="Apps Script: Gerador de HTML formatado com envio por email">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#6F05D422;color:#6F05D4;border:1px solid #6F05D444">
+                15/05 · Apps Script
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">Gerador de HTML formatado com envio por email</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Apps Script: Gerador de HTML formatado com envio por email</p>
+            
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#6F05D4">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Apps Script: Gerador de HTML formatado com envio por email</span>
+            </div>
+          </div>
+        </div>
+        
+        <div style="display:flex;align-items:center;gap:8px;padding:6px 0 6px 0;margin-left:2px">
+          <div style="width:2px;height:24px;background:linear-gradient(#6F05D4,#107C41);margin-left:10px;border-radius:2px"></div>
+          <div style="font-size:10px;color:#444;font-style:italic;padding-left:8px">
+            levou a → <span style="color:#666">README com instruções de instalação e uso #documen...</span>
+          </div>
+        </div>
+        <div class="tl-item" style="position:relative">
+          <div class="tl-dot" style="background:#107C41;box-shadow:0 0 10px #107C4166">📝</div>
+          <div class="tl-card" title="Doc: README com instruções de instalação e uso #documentacao">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:6px;margin-bottom:8px">
+              <span style="font-size:10px;font-weight:700;padding:3px 10px;border-radius:100px;
+                           background:#107C4122;color:#107C41;border:1px solid #107C4144">
+                15/05 · Doc
+              </span>
+              <span style="font-size:10px;padding:3px 10px;border-radius:100px;
+                           background:rgba(16,124,65,.15);color:#4ade80;font-weight:700">✅ Concluído</span>
+            </div>
+            <h3 style="font-size:14px;font-weight:800;color:#fff;margin:0 0 6px;line-height:1.4">README com instruções de instalação e uso #documentacao</h3>
+            <p style="font-size:12px;color:#888;line-height:1.7;margin:0">Doc: README com instruções de instalação e uso #documentacao</p>
+            <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px"><span style="font-size:10px;padding:2px 8px;border-radius:100px;border:1px solid #107C4144;color:#107C41;font-weight:600">documentacao</span></div>
+            <!-- TOOLTIP VISUAL -->
+            <div class="tooltip-box">
+              <span style="font-size:10px;font-weight:700;color:#107C41">💡 O que foi feito</span><br>
+              <span style="font-size:11px;color:#bbb;line-height:1.6">Doc: README com instruções de instalação e uso #documentacao</span>
+            </div>
+          </div>
+        </div>
+        </div>
+  
+      <div class="card" style="border:1px solid rgba(242,177,0,.3);background:rgba(242,177,0,.06);margin-bottom:20px">
+        <h4 style="font-size:11px;font-weight:700;color:#F2B100;margin:0 0 12px;text-transform:uppercase;letter-spacing:1px">
+          ⚠️ Pendências / Em Andamento (1)
+        </h4>
+        
+          <div style="display:flex;align-items:center;gap:10px;padding:10px 0;
+                      border-bottom:1px solid rgba(242,177,0,.1);font-size:12px">
+            <span style="background:#4285F4;color:#fff;padding:3px 10px;
+                         border-radius:100px;font-size:10px;font-weight:700;white-space:nowrap">
+              Dados
+            </span>
+            <span style="color:#ccc"><strong style="color:#fff">Aguardando retorno do Gustavo sobre fontes de dados #bloqueado</strong></span>
+          </div>
+      </div>
+  <div class="footer">Gerado automaticamente por Python · Mob2Con · 16/05/2026 08:11</div>
+
+</div>
+</body>
+</html>

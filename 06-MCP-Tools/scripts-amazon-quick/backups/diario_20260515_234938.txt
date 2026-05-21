@@ -1,0 +1,96 @@
+═══════════════════════════════════════════════════════════════
+📝 DIÁRIO DE PRODUÇÃO SEMANAL — Mob2Con
+═══════════════════════════════════════════════════════════════
+
+[DATA] Quinta 14/05
+
+• Dashboard: Preenchimento de todos os cards vazios do dashboard principal
+  Evolução de Vendas M-3→M-1 (R$ 20,6M → R$ 22,2M), Faturamento por Rede (7 redes),
+  Ruptura por Rede com meta 5%, Ativação de Promotores, Documentação Regularizada,
+  Scorecard completo com faturamento, variação, ruptura, promotores, doc e score
+  Resultado: Dashboard 100% preenchido com dados reais, 133.799 bytes #dashboard
+
+• Dashboard: Integração dos dados de Gestão Performance na aba CEO
+  Confiabilidade por rede (GBARBOSA/NORDESTÃO/NOVA ERA/PREZUNIC 93%, BIGBOX 86%, PAGUE MENOS 0%),
+  KPIs operacionais (124 lojas, 218.625h projetadas, GAP -56.239h, ruptura R$ 116,5M),
+  Top 10 fornecedores por ruptura operacional, gráficos de efetividade e confiabilidade
+  Resultado: Aba Análise Crítica CEO completa com alertas automáticos
+
+---
+[DATA] Sexta 15/05
+
+• Apps Script: Correção do link do Apps Script quebrado no dashboard
+  Novo endpoint implantado, atualizado em 2 locais, arquivo sincronizado no Drive
+  Resultado: Dashboard carregando dados reais das planilhas Google Sheets
+
+• MCP: Sistema de relatório semanal automático concluído e testado
+  Python lê Google Docs, detecta categorias, gera HTML formatado e envia via Gmail API
+  Token OAuth configurado com scopes Docs + Drive + Gmail
+  Resultado: 25 registros processados, HTML gerado, email pronto para envio #mcp #automacao
+
+
+
+---
+
+SEMANA ATUAL:
+═══════════════════════════════════════════════════════════════
+
+
+
+
+═══════════════════════════════════════════════════════════════
+EXEMPLO PRÁTICO — Como preencher durante a semana
+═══════════════════════════════════════════════════════════════
+
+---
+[DATA] Segunda 12/05
+• MCP: Configurei o universal-control com OAuth Google completo
+• Power BI: Ajustei layout do dashboard RG via MCP, alinhei 12 visuais
+• Apps Script: Corrigi bug B3 do mapeamento Form CRM (r[1]=email, r[2]=nome)
+• Reunião com Zelone sobre métricas de conta corrente #reuniao #rg
+
+---
+[DATA] Terça 13/05
+• DAX: Criei 3 medidas novas para conta corrente (Total Vendas, % Meta, Variação)
+• Dados: Tratamento da base de implantação, limpeza de 2.500 registros
+• Power BI: Aplicação do tema Mob2Con no dashboard Nordestão
+• Pendência: Aguardando retorno do Gustavo sobre fontes de dados #bloqueado
+
+---
+[DATA] Quarta 14/05
+• Apps Script: 6 bugs corrigidos no Sprint IC v8.0
+  - B1: Data 31/12/1969 (Unix Epoch Zero)
+  - B2: Cards inválidos sem dados obrigatórios
+  - B3: Mapeamento errado Form CRM
+  - B4: Webhook travava com URL vazia
+  - B5: Aba Dashboard não encontrada
+  - B6: Cabeçalho "ID" lido como card inválido
+• Melhoria M1: Responsável sempre vai para triagem
+• Melhoria M2: Alerta no Google Chat para novos tickets
+• Validação 18/18 ✅ #apps-script #sprint-ic
+
+---
+[DATA] Quinta 15/05
+• MCP: Documentação completa do sistema de relatório semanal
+• Python: Script de processamento automático do Google Docs
+• Apps Script: Gerador de HTML formatado com envio por email
+• Doc: README com instruções de instalação e uso #documentacao
+
+---
+
+DICAS:
+✅ Use [DATA] para marcar o dia (detecta automaticamente)
+✅ Use • ou - para listar itens
+✅ Comece com categoria: MCP, Power BI, Apps Script, Dados, Reunião, Doc
+✅ Use #tags para marcar tópicos importantes
+✅ Escreva "Pendência:" ou "Aguardando" para destacar bloqueios
+✅ Pode escrever texto livre, o sistema detecta tudo automaticamente!
+
+NÃO PRECISA:
+❌ Formatar com cores ou negrito
+❌ Seguir formato rígido
+❌ Categorizar manualmente (o Python faz isso)
+❌ Contar quantos itens fez (o sistema conta)
+
+APENAS JOGUE O TEXTO E DEIXE O SISTEMA TRABALHAR! 🚀
+

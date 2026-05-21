@@ -1,0 +1,13 @@
+# === Mob2Con AI Tools - Requirements ===
+# Compressão de Prompt
+llmlingua
+# Cache Semântico
+semantic-cache[openai]
+# Observabilidade
+langfuse
+# Dependências comuns
+openai
+tiktoken
+torch
+transformers
+numpy

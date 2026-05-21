@@ -1,0 +1,35 @@
+# Backups automáticos
+*.bak-*
+*.bak
+
+# ZIPs e instaladores grandes
+06-MCP-Tools/zips-instaladores/*.zip
+
+# Arquivos Power BI compilados
+*.pbix
+
+# Temporários Windows
+Thumbs.db
+desktop.ini
+*.tmp
+~$*
+
+# Node
+node_modules/
+
+# Logs
+*.log
+
+# Sub-repositórios git (clones externos)
+06-MCP-Tools/awesome-design-md/
+07-AI-Tools/LLMLingua/
+07-AI-Tools/Toolkit-for-Prompt-Compression/
+07-AI-Tools/cpc/
+07-AI-Tools/langfuse/
+07-AI-Tools/semantic-cache-py/
+agent-manager-for-q-cli/
+
+# Credenciais
+*.credentials*
+token.json
+client_secret*.json

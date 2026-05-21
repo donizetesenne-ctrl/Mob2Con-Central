@@ -1,0 +1,6 @@
+/// Acesso filtrado por visitante/promotor do Nordestão.
+role 'Nordestão - Promotor'
+	modelPermission: read
+
+	annotation PBI_Id = 65e5309853884bf293eb79bdae52175f
+

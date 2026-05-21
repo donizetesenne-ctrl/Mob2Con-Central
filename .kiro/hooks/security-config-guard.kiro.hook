@@ -1,0 +1,19 @@
+{
+  "enabled": true,
+  "name": "Security Guard - Configs Sensíveis",
+  "description": "Quando arquivos de configuração sensíveis são editados (JSON configs, .env, credentials), valida que não há credenciais hardcoded, que conexões usam SSL, e que secrets não serão commitados.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*config*.json",
+      "**/*.env",
+      "**/credentials*.json",
+      "**/mcp.json"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "VALIDAÇÃO DE SEGURANÇA: O arquivo de configuração foi editado. Verifique: 1) Não há senhas, tokens ou chaves de API em texto plano — devem usar variáveis de ambiente. 2) Conexões de banco usam SSL (sslmode=require). 3) O arquivo está listado no .gitignore. 4) Não há IPs ou endpoints internos expostos desnecessariamente. Se encontrar problemas, alerte o usuário com severidade (CRÍTICO/ALERTA) e sugira a correção."
+  }
+}

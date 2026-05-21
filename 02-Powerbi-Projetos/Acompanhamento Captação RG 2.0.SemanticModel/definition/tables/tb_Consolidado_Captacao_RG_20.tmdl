@@ -1,0 +1,94 @@
+table tb_Consolidado_Captacao_RG_20
+	lineageTag: 1315407e-e6eb-425a-925f-6d6eb91865d9
+
+	column DT_REF
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 66e40410-cac8-42a4-a2f2-1e6ea2099c4c
+		summarizeBy: none
+		sourceColumn: DT_REF
+
+		variation Variation
+			isDefault
+			relationship: 9af5c2f0-373d-493e-b80c-106191c6b1bd
+			defaultHierarchy: LocalDateTable_b36c144c-6197-4726-ba59-6c8bfd475e3f.'Hierarquia de datas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column REDE
+		dataType: string
+		lineageTag: 636386c0-9fda-409d-88a1-7c5bdd3cb2ce
+		summarizeBy: none
+		sourceColumn: REDE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column PERDIDO
+		dataType: int64
+		formatString: 0
+		lineageTag: b5b2b7ff-e5a5-485b-8a78-d3985a66a582
+		summarizeBy: sum
+		sourceColumn: PERDIDO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column ARRECADADO
+		dataType: int64
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 1d8ee8d4-89a6-4b04-84ec-ce860f7b7fc7
+		summarizeBy: sum
+		sourceColumn: ARRECADADO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column PLANEJADO
+		dataType: int64
+		formatString: "R$"\ #,0.00;-"R$"\ #,0.00;"R$"\ #,0.00
+		lineageTag: 3cf9b3ce-662f-4d0a-8d13-0e6a51aa6e5c
+		summarizeBy: sum
+		sourceColumn: PLANEJADO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column FALTANTE
+		dataType: int64
+		formatString: 0
+		lineageTag: 79e88dd7-285a-418c-8896-697a6138bc63
+		summarizeBy: sum
+		sourceColumn: FALTANTE
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tb_Consolidado_Captacao_RG_20 = m
+		mode: import
+		source =
+				let
+				    Fonte = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1lYZr6Y5gAGZUESsvXboh5t0fvS5lSvyOm8N6ylHI2TA/edit"),
+				    Página1_Table = Fonte{[name="Página1",ItemKind="Table"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Página1_Table, [PromoteAllScalars=true]),
+				    #"Tipo Alterado" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos",{{"DT_REF", type date}, {"REDE", type text}, {"PERDIDO", Int64.Type}, {"ARRECADADO", Int64.Type}, {"PLANEJADO", Int64.Type}, {"FALTANTE", Int64.Type}})
+				in
+				    #"Tipo Alterado"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

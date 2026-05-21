@@ -1,0 +1,185 @@
+relationship 310b8be6-88f2-40aa-99ae-b4b542122997
+	fromColumn: fato_mobconnect_movimento.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship 2eecbdb5-dddd-4bbd-b3aa-e996c024bd26
+	fromColumn: fato_mobconnect_movimento.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship aa6fd3ec-9c8e-47f7-81c5-f253057d7a34
+	fromColumn: fato_mobconnect_movimento.sk_produto_rede
+	toColumn: dim_produto_rede.sk_produto_rede
+
+relationship 7ea19751-11e6-499a-9762-861b170ec445
+	fromColumn: fato_mobconnect_movimento.dt_movimento
+	toColumn: Date.dt_referencia
+
+relationship 3a6252f0-d4ff-4917-a331-77bd1397069f
+	fromColumn: fato_mobconnect_atividades.sk_visitante
+	toColumn: dim_visitante.sk_visitante
+
+relationship d4ebb3fd-676a-4bc2-9821-53f80ea6fe0d
+	fromColumn: fato_mobconnect_atividades.sk_mobconnect_status_atividade
+	toColumn: dim_mobconnect_status_atividade.sk_mobconnect_status_atividade
+
+relationship 1158733b-aa4e-449d-a15b-dc0af68ead96
+	fromColumn: fato_mobconnect_atividades.sk_mobconnect_tipo_problema
+	toColumn: dim_mobconnect_tipo_problema.sk_mobconnect_tipo_problema
+
+relationship d6a2aec0-812c-4b8d-81ab-7d91f43ee259
+	fromColumn: fato_mobconnect_atividades.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship 695ee673-47f1-4855-9ade-5d56c22eb94b
+	fromColumn: fato_mobconnect_atividades.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 72e8f4eb-d7e9-4d2a-a12b-0bbd09ac4661
+	fromColumn: fato_mobconnect_atividades.sk_produto_rede
+	toColumn: dim_produto_rede.sk_produto_rede
+
+relationship dc69c03d-e46e-4c93-a381-168d9de6d211
+	fromColumn: fato_mobconnect_atividades.dt_atividade
+	toColumn: Date.dt_referencia
+
+relationship f7b4200f-8905-4f83-90fe-935f39f05169
+	fromColumn: fato_mobconnect_atividades.sk_user
+	toColumn: dim_user.sk_user
+
+relationship 2b38b22d-e5b9-492c-8b47-7b9b743273f5
+	fromColumn: fato_mobconnect_atendimento_fornecedores.sk_visitante
+	toColumn: dim_visitante.sk_visitante
+
+relationship 2993c44e-1085-490e-99f5-e94a783820b3
+	fromColumn: fato_mobconnect_atendimento_fornecedores.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship 737ce385-2d98-4b06-82bd-2e523e0a3060
+	fromColumn: fato_mobconnect_atendimento_fornecedores.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship b2a48683-b818-4ba1-a9cd-df3da5beebbf
+	fromColumn: fato_mobconnect_atendimento_fornecedores.sk_agencia
+	toColumn: dim_agencia.sk_agencia
+
+relationship 062c9282-9118-4ba4-bc9d-23ed9eee1e33
+	fromColumn: fato_mobconnect_atendimento_fornecedores.dt_atendimento
+	toColumn: Date.dt_referencia
+
+relationship f6a84ba9-b2db-44a5-b714-2120907991e4
+	fromColumn: fato_mobconnect_atendimento_fornecedores.sk_user
+	toColumn: dim_user.sk_user
+
+relationship c9b52a66-cbe4-4fe4-98f5-1f0e8c8dfeac
+	fromColumn: dim_loja.sk_rede
+	toColumn: dim_rede.sk_rede
+
+relationship ac2aaaff-9346-4739-aa4d-797fdc51184f
+	fromColumn: fato_horas_ideais.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship 1c37ad6b-7086-4924-986d-aa0ab95a399f
+	fromColumn: fato_horas_ideais.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 2e6a3941-4cfb-418a-bfad-fad6dd7cb371
+	fromColumn: fato_horas_ideais.dt_referencia
+	toColumn: Date.dt_referencia
+
+relationship 5aec6d09-37a2-416d-98fc-eba6d8eb3744
+	fromColumn: fato_mobconnect_visitas.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship d1b76d34-b8af-4cfb-b0d8-0ebab2ddfc28
+	fromColumn: fato_mobconnect_visitas.sk_agencia
+	toColumn: dim_agencia.sk_agencia
+
+relationship dee13653-4a2e-4435-a658-48f9be6a366f
+	fromColumn: fato_mobconnect_visitas.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship d0d6b5f4-6f59-4f6d-ae38-e1964dda3e1c
+	fromColumn: fato_mobconnect_visitas.dt_visita
+	toColumn: Date.dt_referencia
+
+relationship f59308c6-00aa-4a0f-9b63-5f072f15b3f1
+	fromColumn: fato_mobconnect_visitas.sk_visitante
+	toColumn: dim_visitante.sk_visitante
+
+relationship a8dc28c1-4959-4217-998b-bae0d9e9dba4
+	fromColumn: fato_mobconnect_visitas.sk_user
+	toColumn: dim_user.sk_user
+
+relationship 'Feriados Natal RN_dt_feriado_Data_dt_referencia'
+	securityFilteringBehavior: none
+	fromColumn: 'Feriados Natal RN'.dt_feriado
+	toColumn: Date.dt_referencia
+
+relationship c9035fb5-0d08-4a93-aa0e-e9535be14a94
+	fromColumn: fato_acesso.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship b5aa581a-4f4a-48ab-9323-dcc4b97d567d
+	fromColumn: fato_acesso.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 2d5bca28-01bf-4088-bf81-98439c78b7e0
+	fromColumn: lkp_cadastro_agencia_fornecedor.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship a5aa18ed-cb4c-46e2-b85e-bdd698a0d658
+	fromColumn: lkp_cadastro_agencia_fornecedor.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 96c4cce1-acd4-4470-ba57-5bb235f4ac06
+	fromColumn: lkp_cadastro_agencia_fornecedor.sk_agencia
+	toColumn: dim_agencia.sk_agencia
+
+relationship 9780a2da-50e4-4ee2-bbad-0b581a137817
+	fromColumn: fato_projeto_agencia_fornecedor.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship f418fbb4-8a8e-417e-a943-ca9035fc08cc
+	fromColumn: fato_projeto_agencia_fornecedor.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship d3570ee7-4275-4944-a3f8-180dd8145e0a
+	fromColumn: fato_projeto_agencia_fornecedor.sk_agencia
+	toColumn: dim_agencia.sk_agencia
+
+relationship 362b7e22-ccd1-4eb8-97e0-fb29c75db32d
+	fromColumn: fato_projeto_agencia_fornecedor.dt_referencia
+	toColumn: Date.dt_referencia
+
+relationship a24a1db5-0ab0-4f0f-b01b-fc5c6b8db72e
+	fromColumn: input_manual_base_projetos.id_fornecedor
+	toColumn: dim_fornecedor.id_fornecedor
+
+relationship a52e80dd-c6c5-427b-885a-9480571e28bd
+	fromColumn: input_manual_base_projetos.nm_rede
+	toColumn: dim_rede.nm_rede
+
+relationship 4a562f0b-03c7-40f2-9adc-8109154a6e47
+	fromColumn: fato_mobconnect_movimento_mensal.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 28121dd3-4652-41c5-b32a-e44df0dd3477
+	fromColumn: fato_mobconnect_movimento_mensal.sk_produto_rede
+	toColumn: dim_produto_rede.sk_produto_rede
+
+relationship 05f5a6d7-5572-4a01-bae8-7049803ba749
+	fromColumn: fato_mobconnect_movimento_mensal.dt_movimento
+	toColumn: Date.dt_referencia
+
+relationship 3e4d99e7-525e-4b91-9dd2-f35f0167d86e
+	fromColumn: fato_mobconnect_movimento_mensal.sk_loja
+	toColumn: dim_loja.sk_loja
+
+relationship a8f6b88b-03f6-4240-ad6b-c930a8f3f310
+	fromColumn: lkp_status_cadastro_projeto.sk_fornecedor
+	toColumn: dim_fornecedor.sk_fornecedor
+
+relationship 3c0a190e-0a4a-442b-83fc-fd55bfc15f3d
+	fromColumn: lkp_status_cadastro_projeto.sk_rede
+	toColumn: dim_rede.sk_rede
+

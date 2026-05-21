@@ -1,0 +1,60 @@
+model Model
+	culture: pt-BR
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: pt-BR
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["DirectQuery para AS – Base Indicadores RG 2.0 - Projetos","DirectQuery para AS – Lista Target"]
+
+annotation PBI_ProTooling = ["MCP-PBIModeling","DevMode"]
+
+ref table Date
+ref table Métricas
+ref table dim_visitante
+ref table fato_mobconnect_movimento
+ref table fato_mobconnect_atividades
+ref table dim_mobconnect_tipo_problema
+ref table dim_mobconnect_status_atividade
+ref table fato_mobconnect_atendimento_fornecedores
+ref table dim_rede
+ref table dim_loja
+ref table dim_fornecedor
+ref table fato_horas_ideais
+ref table dim_produto_rede
+ref table dim_agencia
+ref table fato_mobconnect_visitas
+ref table dim_user
+ref table 'Feriados Natal RN'
+ref table HolidaysDefinition
+ref table Holidays
+ref table DateAutoTemplate
+ref table 'Measure Selection Ruptura'
+ref table 'Measure Selection Estoque'
+ref table fato_acesso
+ref table 'Measure Selection Ruptura (Fornecedor)'
+ref table 'Measure Selection Tipo Projeto'
+ref table doc_metricas
+ref table lkp_cadastro_agencia_fornecedor
+ref table controle_data_source
+ref table fato_projeto_agencia_fornecedor
+ref table input_manual_base_projetos
+ref table fato_mobconnect_movimento_mensal
+ref table lkp_status_cadastro_projeto
+
+ref role 'Nordestão - Executivo'
+ref role 'Nordestão - Gerente'
+ref role 'Nordestão - Promotor'
+ref role 'Nordestão - Fornecedor'
+ref role 'Nordestão - Analista'
+
+ref perspective 'Nordestão - Executivo'
+ref perspective 'Nordestão - Operação'
+ref perspective 'Nordestão - Estoque'
+ref perspective 'Nordestão - Vendas'
+
+ref cultureInfo pt-BR
+

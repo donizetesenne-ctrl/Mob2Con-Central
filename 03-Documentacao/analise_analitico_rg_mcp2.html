@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><style id="qw-theme">:root {
+  --color-bg: #19161d;
+  --color-text: #ffffff;
+  --color-navbar-bg: #211d25;
+  --color-bg-chat-view: #121218;
+  --color-bg-secondary: #211d25;
+  --color-bg-tertiary: #28242e;
+  --color-bg-hover: #352f3d;
+  --color-surface: #28242e;
+  --color-surface-hover: #352f3d;
+  --color-surface-active: #4a464f;
+  --color-border: #4a464f;
+  --color-border-light: #352f3d;
+  --color-border-strong: #4a464f;
+  --color-primary: #8575ff;
+  --color-primary-dark: #4200db;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-hover-border: #4200db;
+  --color-nav-icon-active: #8575ff;
+  --color-nav-hover-border: #8575ff;
+  --color-primary-alpha-3: color-mix(in srgb, #8575ff 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #8575ff 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #8575ff 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #8575ff 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #8575ff 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #8575ff 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #8575ff 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #8575ff 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-border: #8575ff;
+  --color-focus-ring: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-accent: #8575ff;
+  --color-accent-foreground: #8575ff;
+  --color-accent-dark: #4200db;
+  --color-accent-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-accent-inverse: #ffffff;
+  --color-link: #8575ff;
+  --color-primary-gradient-end: #4200db;
+  --color-primary-bg-solid: #28242e;
+  --color-user-bubble: #333843;
+  --color-text-secondary: #c1bec6;
+  --color-text-tertiary: #aaa6b0;
+  --color-text-muted: #938f9b;
+  --color-text-on-primary: #f2f1f4;
+  --color-success: #4ade80;
+  --color-success-dark: #00802f;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: rgba(0, 128, 47, .2);
+  --color-success-border: rgba(0, 128, 47, .4);
+  --color-success-foreground: #4ade80;
+  --color-success-dark-foreground: #00802f;
+  --color-error: #ff6b6b;
+  --color-error-dark: #db0000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: rgba(219, 0, 0, .2);
+  --color-error-bg: rgba(219, 0, 0, .2);
+  --color-error-border: rgba(219, 0, 0, .4);
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #ff6b6b;
+  --color-error-dark-foreground: #db0000;
+  --color-error-inverse: #ffffff;
+  --color-warning: #fbbf24;
+  --color-warning-dark: #f2b100;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: rgba(242, 177, 0, .2);
+  --color-warning-border: rgba(242, 177, 0, .4);
+  --color-warning-foreground: #fbbf24;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #60a5fa;
+  --color-info-dark: #006ce0;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: rgba(0, 108, 224, .2);
+  --color-info-border: rgba(0, 108, 224, .4);
+  --color-info-foreground: #60a5fa;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #ffffff;
+  --color-overlay: #19161d80;
+  --color-shadow: #19161d;
+  --color-hover: #ffffff0d;
+  --color-tooltip-bg: #352f3d;
+  --color-tooltip-text: #ffffff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #ff6b6b;
+  --color-voice-red-dark: #db0000;
+  --color-voice-amber: #fbbf24;
+  --color-voice-purple-glow: rgba(176, 128, 255, .4);
+  --color-voice-red-glow: rgba(219, 0, 0, .4);
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px #19161d;
+  --shadow-md: 0 4px 12px #19161d;
+  --color-success-bg-solid: rgba(0, 128, 47, .18);
+  --color-error-bg-solid: rgba(219, 0, 0, .18);
+  --color-error-border-solid: rgba(219, 0, 0, .32);
+  --color-warning-bg-solid: rgba(242, 177, 0, .2);
+  --color-warning-text: #fbbf24;
+  --color-info-bg-solid: rgba(0, 108, 224, .18);
+  --color-info-bg-solid-alt: rgba(0, 108, 224, .18);
+  --color-info-text: #60a5fa;
+  --color-info-text-alt: #60a5fa;
+  --color-emerald: #80ffb5;
+  --color-teal: #80f4ff;
+  --color-code-bg: #211d25;
+  --color-code-header-bg: #28242e;
+  --color-code-text: #ffffff;
+  --color-code-border: #352f3d;
+  --color-code-muted: #938f9b;
+  --color-inline-code-bg: #211d25;
+  --color-inline-code-text: #ffffff;
+  --color-inline-code-border: #352f3d;
+  --color-scrollbar-thumb: #4a464f;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #ffffff;
+  --color-graph-node-text-dim: #938f9b;
+  --color-graph-edge-default: #938f9b;
+  --color-graph-edge-cross: #ffcf99;
+  --color-graph-edge-text: #c1bec6;
+  --color-graph-edge-stroke: #19161d;
+  --color-graph-highlight-bg: #ff6b8a;
+  --color-graph-highlight-border: #e84573;
+  --color-graph-search-bg: #ffe066;
+  --color-graph-search-border: #ffc520;
+  --color-graph-focus-border: #ff5577;
+  --color-graph-external-border: #938f9b;
+  --color-graph-cat-file: #8dc8fb;
+  --color-graph-cat-folder: #c1bec6;
+  --color-graph-cat-file-aggregate: #6bb3f0;
+  --color-graph-cat-class: #b080ff;
+  --color-graph-cat-function: #80ffb5;
+  --color-graph-cat-method: #80f4ff;
+  --color-graph-cat-variable: #ffcf99;
+  --color-graph-cat-import: #ffad66;
+  --color-graph-cat-module: #a78bfa;
+  --color-graph-cat-concept: #ff8080;
+  --color-graph-cat-person: #ffd566;
+  --color-graph-cat-org: #66e0d0;
+  --color-graph-cat-organization: #66e0d0;
+  --color-graph-cat-product: #ff80d5;
+  --color-graph-cat-metric: #c8ff80;
+  --color-graph-cat-location: #7E9BB5;
+  --color-graph-cat-date: #ffe680;
+  --color-graph-cat-code: #8dc8fb;
+  --color-graph-cat-doc: #c1bec6;
+  --color-graph-cat-url: #80ffb5;
+  --color-graph-cat-email: #a78bfa;
+  --color-graph-cat-unknown: #938f9b;
+  --color-graph-rel-contains: #938f9b;
+  --color-graph-rel-extends: #b080ff;
+  --color-graph-rel-implements: #8dc8fb;
+  --color-graph-rel-imports: #ffad66;
+  --color-graph-rel-uses: #80ffb5;
+  --color-graph-rel-calls: #80ffb5;
+  --color-graph-rel-references: #ffcf99;
+  --color-graph-rel-related-to: #938f9b;
+  --color-graph-rel-works-on: #ff8080;
+  --color-graph-rel-owns: #80f4ff;
+  --color-graph-rel-depends-on: #ffad66;
+  --color-graph-rel-parent-of: #938f9b;
+  --qs-content: #211d25;
+  --qs-main: #28242e;
+  --qs-primary-foreground: #ffffff;
+  --qs-secondary-foreground: #c1bec6;
+  --qs-tertiary-foreground: #938f9b;
+  --qs-placeholder-foreground: #938f9b;
+  --qs-divider: #4a464f;
+  --qs-default-border: #4a464f;
+  --qs-neutral-soft: #4a464f;
+  --qs-neutral-gray-50: #28242e;
+  --qs-tertiary-background: #28242e;
+  --qs-action-hover: #ffffff0d;
+  --qs-primary-default: #8575ff;
+  --qs-primary-dark: #4200db;
+  --qs-primary-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --qs-success-default: #4ade80;
+  --qs-error-default: #ff6b6b;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: rgba(180, 0, 170, 1);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 1);
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+}
+body { background: var(--color-bg); }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise — Analítico RG 2.0 MCP 2</title>
+<style>
+  :root {
+    --mob-blue: #0D47A1; --mob-blue-light: #1565C0; --mob-accent: #00B0FF;
+    --mob-green: #00C853; --mob-orange: #FF6D00; --mob-red: #D32F2F;
+    --mob-yellow: #FFD600; --mob-purple: #7C4DFF;
+    --bg: #0F1923; --bg2: #162030; --bg3: #1E2D3D; --bg4: #243447;
+    --border: #2A3F55; --text: #E8EDF2; --text2: #9BAAB8; --text3: #5C7A94;
+    --radius: 10px; --font: 'Segoe UI', system-ui, sans-serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: var(--font); font-size: 14px; line-height: 1.6; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, var(--mob-blue) 0%, #0A2744 100%); padding: 28px 36px; border-bottom: 2px solid var(--mob-accent); }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: 0.5px; }
+  .header h1 span { color: var(--mob-accent); }
+  .header p { color: #9BAAB8; font-size: 13px; margin-top: 6px; }
+  .header-meta { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+  .meta-pill { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 4px 14px; font-size: 12px; display: flex; align-items: center; gap: 6px; }
+
+  /* NAV */
+  .nav { background: var(--bg2); border-bottom: 1px solid var(--border); padding: 0 36px; display: flex; gap: 4px; overflow-x: auto; }
+  .nav-btn { background: none; border: none; color: var(--text2); padding: 14px 18px; cursor: pointer; font-size: 13px; font-family: var(--font); border-bottom: 2px solid transparent; white-space: nowrap; transition: all .2s; }
+  .nav-btn:hover { color: var(--text); }
+  .nav-btn.active { color: var(--mob-accent); border-bottom-color: var(--mob-accent); }
+
+  /* CONTENT */
+  .content { display: none; padding: 32px 36px; max-width: 1400px; }
+  .content.active { display: block; }
+
+  /* CARDS ROW */
+  .cards-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 16px; margin-bottom: 28px; }
+  .kpi-card { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; border-top: 3px solid; transition: transform .2s; }
+  .kpi-card:hover { transform: translateY(-2px); }
+  .kpi-card .label { font-size: 11px; color: var(--text2); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .kpi-card .value { font-size: 26px; font-weight: 700; }
+  .kpi-card .sub { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* SECTION */
+  .section { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 24px; overflow: hidden; }
+  .section-header { padding: 16px 20px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none; }
+  .section-header h3 { font-size: 15px; font-weight: 600; flex: 1; }
+  .section-header .badge { background: rgba(0,176,255,0.15); color: var(--mob-accent); border: 1px solid rgba(0,176,255,0.3); border-radius: 12px; padding: 2px 10px; font-size: 11px; }
+  .section-body { padding: 20px; }
+
+  /* TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .data-table th { background: var(--bg3); color: var(--text2); font-weight: 600; text-align: left; padding: 10px 14px; border-bottom: 2px solid var(--border); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .data-table td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(255,255,255,0.03); }
+  .tag { display: inline-block; border-radius: 4px; padding: 2px 8px; font-size: 11px; font-weight: 600; margin: 1px; }
+  .tag-blue { background: rgba(13,71,161,0.4); color: #82B1FF; border: 1px solid rgba(13,71,161,0.6); }
+  .tag-green { background: rgba(0,200,83,0.15); color: #69F0AE; border: 1px solid rgba(0,200,83,0.3); }
+  .tag-orange { background: rgba(255,109,0,0.15); color: #FFD180; border: 1px solid rgba(255,109,0,0.3); }
+  .tag-red { background: rgba(211,47,47,0.2); color: #FF8A80; border: 1px solid rgba(211,47,47,0.3); }
+  .tag-purple { background: rgba(124,77,255,0.15); color: #B388FF; border: 1px solid rgba(124,77,255,0.3); }
+  .tag-gray { background: rgba(255,255,255,0.07); color: var(--text2); border: 1px solid var(--border); }
+  .tag-yellow { background: rgba(255,214,0,0.12); color: #FFD740; border: 1px solid rgba(255,214,0,0.3); }
+
+  /* PAGE GRID */
+  .pages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+  .page-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+  .page-card .page-name { font-size: 14px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+  .page-card .page-icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+  .page-card .metrics-list { font-size: 12px; color: var(--text2); }
+  .page-card .visual-types { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 10px; }
+  .visual-count { display: flex; align-items: center; gap: 6px; font-size: 12px; background: var(--bg4); border-radius: 6px; padding: 4px 10px; color: var(--text2); }
+
+  /* GAP/IMPROVEMENT CARDS */
+  .gap-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .gap-card { background: var(--bg3); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; border-left: 4px solid; }
+  .gap-card.critical { border-left-color: var(--mob-red); }
+  .gap-card.medium { border-left-color: var(--mob-orange); }
+  .gap-card.low { border-left-color: var(--mob-yellow); }
+  .gap-card.opportunity { border-left-color: var(--mob-green); }
+  .gap-card .gap-title { font-weight: 700; font-size: 13px; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .gap-card .gap-desc { font-size: 12px; color: var(--text2); line-height: 1.7; }
+  .gap-card .gap-action { margin-top: 10px; font-size: 11px; color: var(--mob-accent); font-style: italic; }
+
+  /* SOURCE DIAGRAM */
+  .source-flow { display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+  .source-box { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 14px 18px; min-width: 200px; }
+  .source-box .ws { font-size: 11px; color: var(--mob-accent); margin-bottom: 4px; }
+  .source-box .sname { font-weight: 700; font-size: 13px; }
+  .source-box .stables { font-size: 11px; color: var(--text2); margin-top: 6px; }
+  .arrow { color: var(--text3); font-size: 20px; }
+
+  /* RELATIONAL MAP */
+  .rel-list { display: flex; flex-direction: column; gap: 6px; }
+  .rel-item { display: flex; align-items: center; gap: 8px; font-size: 12px; background: var(--bg3); padding: 8px 12px; border-radius: 6px; }
+  .rel-from { color: #82B1FF; font-weight: 600; min-width: 200px; }
+  .rel-arrow { color: var(--text3); }
+  .rel-to { color: #69F0AE; font-weight: 600; }
+  .rel-via { color: var(--text3); font-size: 11px; margin-left: auto; }
+
+  /* PROGRESS BAR */
+  .progress-wrap { background: var(--bg4); border-radius: 4px; height: 6px; margin-top: 8px; overflow: hidden; }
+  .progress-bar { height: 100%; border-radius: 4px; }
+
+  /* FOOTER */
+  .footer { background: var(--bg2); border-top: 1px solid var(--border); padding: 16px 36px; font-size: 12px; color: var(--text3); text-align: center; }
+
+  /* HIGHLIGHT BOX */
+  .highlight-box { background: rgba(0,176,255,0.07); border: 1px solid rgba(0,176,255,0.2); border-radius: 8px; padding: 16px 20px; margin-bottom: 20px; font-size: 13px; color: var(--text2); }
+  .highlight-box strong { color: var(--mob-accent); }
+
+  /* TOGGLE */
+  .toggle-icon { transition: transform .2s; }
+  .section.collapsed .toggle-icon { transform: rotate(-90deg); }
+  .section.collapsed .section-body { display: none; }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .header, .content { padding: 20px 16px; }
+    .nav { padding: 0 16px; }
+    .cards-row { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔍 Análise Completa — <span>Analítico RG 2.0 MCP 2</span></h1>
+  <p>Mapeamento estruturado do modelo semântico, abas do relatório, lacunas e oportunidades de melhoria</p>
+  <div class="header-meta">
+    <div class="meta-pill">📁 projetos BI / Analítico RG 2.0 MCP 2.pbip</div>
+    <div class="meta-pill">🗃️ 74 Tabelas no Modelo</div>
+    <div class="meta-pill">📑 13 Páginas de Relatório</div>
+    <div class="meta-pill">📊 211 Visuais</div>
+    <div class="meta-pill">🔗 5 Fontes DirectQuery</div>
+    <div class="meta-pill">📅 Análise: 14/05/2026</div>
+  </div>
+</div>
+
+<nav class="nav">
+  <button class="nav-btn active" onclick="switchTab('visao')">🏠 Visão Geral</button>
+  <button class="nav-btn" onclick="switchTab('fontes')">🔗 Fontes de Dados</button>
+  <button class="nav-btn" onclick="switchTab('tabelas')">🗃️ Tabelas</button>
+  <button class="nav-btn" onclick="switchTab('metricas')">📐 Métricas</button>
+  <button class="nav-btn" onclick="switchTab('abas')">📑 Abas do Relatório</button>
+  <button class="nav-btn" onclick="switchTab('relacoes')">🔀 Relacionamentos</button>
+  <button class="nav-btn" onclick="switchTab('lacunas')">⚠️ Lacunas &amp; Melhorias</button>
+  <button class="nav-btn" onclick="switchTab('projeto')">🚀 Projeto E-mail HTML</button>
+</nav>
+
+<!-- TAB: VISÃO GERAL -->
+<div id="tab-visao" class="content active">
+  <div class="cards-row">
+    <div class="kpi-card" style="border-top-color: #00B0FF;">
+      <div class="label">Tabelas de Fato</div>
+      <div class="value" style="color:#00B0FF;">12</div>
+      <div class="sub">fato_movimento, fato_acesso, MobConnect...</div>
+    </div>
+    <div class="kpi-card" style="border-top-color: #69F0AE;">
+      <div class="label">Tabelas Dimensão</div>
+      <div class="value" style="color:#69F0AE;">12</div>
+      <div class="sub">loja, rede, fornecedor, produto, user...</div>
+    </div>
+    <div class="kpi-card" style="border-top-color: #B388FF;">
+      <div class="label">Tabelas Base por Rede</div>
+      <div class="value" style="color:#B388FF;">10</div>
+      <div class="sub">NORDESTAO, GBARBOSA, BRETAS...</div>
+    </div>
+    <div class="kpi-card" style="border-top-color: #FFD740;">
+      <div class="label">Tabelas de Métricas</div>
+      <div class="value" style="color:#FFD740;">7</div>
+      <div class="sub">Métricas, Métricas 2, 3, 4 + Selections</div>
+    </div>
+    <div class="kpi-card" style="border-top-color: #FF8A80;">
+      <div class="label">Fontes DirectQuery</div>
+      <div class="value" style="color:#FF8A80;">5</div>
+      <div class="sub">4× AS (Fabric) + 1× Import</div>
+    </div>
+    <div class="kpi-card" style="border-top-color: #00C853;">
+      <div class="label">Relacionamentos</div>
+      <div class="value" style="color:#00C853;">63+</div>
+      <div class="sub">Star schema + cross-source</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📋 Arquitetura do Modelo</h3>
+      <span class="badge">Resumo</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="highlight-box">
+        O <strong>Analítico RG 2.0 MCP 2</strong> é um modelo híbrido com <strong>DirectQuery via Analysis Services (Fabric)</strong> para todas as tabelas de fato e dimensões principais. Agrupa dados de <strong>4 workspaces distintos</strong> do Power BI Service, mais uma tabela de <strong>import</strong> (Faturamento). O padrão é <strong>Star Schema com Composite Model</strong> — cada fonte AS representa um domínio de negócio independente.
+      </div>
+      <table class="data-table">
+        <thead><tr><th>Domínio</th><th>Workspace Fabric</th><th>Tipo</th><th>Tabelas Principais</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Projetos &amp; Operação</strong></td><td>Datasets - RG 2.0</td><td><span class="tag tag-blue">DirectQuery AS</span></td><td>fato_acesso, fato_horas_ideais, dim_loja, dim_fornecedor, Métricas</td></tr>
+          <tr><td><strong>Sell-Out &amp; Ruptura</strong></td><td>Datasets - PPU</td><td><span class="tag tag-blue">DirectQuery AS</span></td><td>fato_movimento, fato_sortimento, fato_declaracao, Métricas 2/3</td></tr>
+          <tr><td><strong>Lista Target &amp; Analítico</strong></td><td>Gestão RG 2.0</td><td><span class="tag tag-blue">DirectQuery AS</span></td><td>tb_analitico_geral_unica, logos</td></tr>
+          <tr><td><strong>Captação Comercial</strong></td><td>Gestão Inteligência Comercial</td><td><span class="tag tag-blue">DirectQuery AS</span></td><td>tb_dados_funil_rg, dEtapas, dNegocios, fEventos, Métricas 4</td></tr>
+          <tr><td><strong>Faturamento Fornecedores</strong></td><td>—</td><td><span class="tag tag-green">Import</span></td><td>Faturamento_Fornec_Geral_RG</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>🏪 Redes Varejistas Cobertas</h3>
+      <span class="badge">10 redes</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <div style="display:flex; flex-wrap:wrap; gap:10px;">
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 NORDESTÃO</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 GBARBOSA</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 BRETAS</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 BIGBOX</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 COOP</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 GIGA</span>
+        <span class="tag tag-blue" style="font-size:13px; padding:6px 14px;">🛒 IMEC</span>
+        <span class="tag tag-purple" style="font-size:13px; padding:6px 14px;">💊 NOVAERA</span>
+        <span class="tag tag-purple" style="font-size:13px; padding:6px 14px;">💊 PAGUEMENOS</span>
+        <span class="tag tag-purple" style="font-size:13px; padding:6px 14px;">💊 PREZUNIC</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: FONTES -->
+<div id="tab-fontes" class="content">
+  <div class="source-flow">
+    <div class="source-box">
+      <div class="ws">Workspace: Datasets - RG 2.0</div>
+      <div class="sname">📊 Base Indicadores RG 2.0 - Projetos</div>
+      <div class="stables">fato_acesso · fato_horas_ideais · fato_mobconnect_* · dim_loja · dim_rede · dim_fornecedor · dim_agencia · dim_visitante · dim_user · Métricas · controle_data_source</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="source-box">
+      <div class="ws">Workspace: Datasets - PPU</div>
+      <div class="sname">📊 Base Indicadores RG 2.0</div>
+      <div class="stables">fato_movimento · fato_sortimento · fato_declaracao · fato_horas_ideais 2 · fato_acesso 2 · dim_produto · dim_tempo · Métricas 2 · Métricas 3</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="source-box">
+      <div class="ws">Workspace: Gestão RG 2.0</div>
+      <div class="sname">🎯 Lista Target</div>
+      <div class="stables">tb_analitico_geral_unica · logos</div>
+    </div>
+  </div>
+  <br>
+  <div class="source-flow">
+    <div class="source-box">
+      <div class="ws">Workspace: Gestão Inteligência Comercial</div>
+      <div class="sname">📈 Acompanhamento Captação RG 2.0</div>
+      <div class="stables">tb_dados_funil_rg · dEtapas · dCalendario · dNegocios · fEventos · tb_Consolidado_Captacao · tb_Rel_Financeiro · Métricas 4</div>
+    </div>
+    <div class="arrow">→</div>
+    <div class="source-box">
+      <div class="ws">Import Direto (atualização manual)</div>
+      <div class="sname">💰 Faturamento_Fornec_Geral_RG</div>
+      <div class="stables">DATA_REF · REDE · ID_MOB · FORNECEDOR · VLR_MENSAL · CHAVE</div>
+    </div>
+  </div>
+
+  <br>
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>⚠️ Problemas Identificados nas Fontes</h3>
+      <span class="badge">3 alertas</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Problema</th><th>Impacto</th><th>Ação Recomendada</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-red">CRÍTICO</span> Tabelas duplicadas (dim_rede, dim_loja, dim_fornecedor com sufixo "2")</td>
+            <td>Ambiguidade nas relações, risco de cruzamento incorreto entre fontes AS distintas</td>
+            <td>Consolidar ou isolar explicitamente por namespace/schema</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-orange">MÉDIO</span> Faturamento em modo Import</td>
+            <td>Pode ficar desatualizado se não houver refresh agendado; incompatível com DQ</td>
+            <td>Migrar para DirectQuery ou automatizar carga via dataflow</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-yellow">BAIXO</span> Múltiplas tabelas Métricas (1, 2, 3, 4)</td>
+            <td>Dificulta manutenção e criação de novas medidas. Risco de inconsistência</td>
+            <td>Centralizar em tabela única de métricas com namespacing por pasta</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: TABELAS -->
+<div id="tab-tabelas" class="content">
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📦 Tabelas de Fato</h3>
+      <span class="badge">12 tabelas</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Tabela</th><th>Fonte</th><th>Colunas-Chave</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>fato_movimento</strong></td>
+            <td><span class="tag tag-blue">Base Indicadores RG 2.0</span></td>
+            <td>sk_loja, sk_fornecedor, sk_produto, dias_semana_inicio</td>
+            <td>Vendas, estoque, ruptura operacional e comercial por SKU/loja/semana</td>
+          </tr>
+          <tr>
+            <td><strong>fato_acesso</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_visitante, sk_loja, sk_fornecedor, dt_entrada</td>
+            <td>Registros de acesso/entrada de promotores às lojas</td>
+          </tr>
+          <tr>
+            <td><strong>fato_mobconnect_visitas</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_loja, sk_agencia, sk_fornecedor, dt_visita, sk_user</td>
+            <td>Visitas realizadas e registradas via app MobConnect</td>
+          </tr>
+          <tr>
+            <td><strong>fato_mobconnect_atividades</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_visitante, sk_loja, sk_produto_rede, dt_atividade, status, tipo_problema</td>
+            <td>Atividades operacionais executadas (ruptura, merchandising, etc.)</td>
+          </tr>
+          <tr>
+            <td><strong>fato_mobconnect_atendimento_fornecedores</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_visitante, sk_loja, sk_fornecedor, dt_atendimento, sk_user</td>
+            <td>Atendimentos a fornecedores registrados no MobConnect</td>
+          </tr>
+          <tr>
+            <td><strong>fato_horas_ideais</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_loja, sk_fornecedor, dt_referencia</td>
+            <td>Meta de horas de execução por loja/fornecedor</td>
+          </tr>
+          <tr>
+            <td><strong>fato_projeto_agencia_fornecedor</strong></td>
+            <td><span class="tag tag-green">RG 2.0 - Projetos</span></td>
+            <td>sk_loja, sk_fornecedor, sk_agencia, dt_referencia</td>
+            <td>Projetos comerciais vinculados entre agência e fornecedor</td>
+          </tr>
+          <tr>
+            <td><strong>fato_sortimento</strong></td>
+            <td><span class="tag tag-blue">Base Indicadores RG 2.0</span></td>
+            <td>sk_loja, sk_fornecedor, sk_produto</td>
+            <td>Mix de produtos por loja (sortimento vigente)</td>
+          </tr>
+          <tr>
+            <td><strong>fato_declaracao</strong></td>
+            <td><span class="tag tag-blue">Base Indicadores RG 2.0</span></td>
+            <td>sk_loja, sk_fornecedor, dt_referencia</td>
+            <td>Declarações de execução (autoverificação)</td>
+          </tr>
+          <tr>
+            <td><strong>Faturamento_Fornec_Geral_RG</strong></td>
+            <td><span class="tag tag-orange">Import</span></td>
+            <td>DATA_REF, REDE, ID_MOB, CD_FORNEC, VLR_MENSAL</td>
+            <td>Faturamento mensal por fornecedor e rede</td>
+          </tr>
+          <tr>
+            <td><strong>tb_dados_funil_rg</strong></td>
+            <td><span class="tag tag-purple">Captação RG 2.0</span></td>
+            <td>etapa_negocio, dt_fechamento, ID_Registro</td>
+            <td>Pipeline comercial — funil de oportunidades de captação</td>
+          </tr>
+          <tr>
+            <td><strong>tb_analitico_geral_unica</strong></td>
+            <td><span class="tag tag-purple">Lista Target</span></td>
+            <td>SK, Cliente, ID MOB, Tier, FTE, Filtro ABGR</td>
+            <td>Visão consolidada analítica por fornecedor (horas, vendas, visitas)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📐 Tabelas Dimensão</h3>
+      <span class="badge">12 dimensões</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Dimensão</th><th>Chave</th><th>Descrição</th></tr></thead>
+        <tbody>
+          <tr><td><strong>dim_loja / dim_loja 2</strong></td><td>sk_loja</td><td>Cadastro completo de lojas, bandeiras e redes. Versão "2" vinculada ao schema PPU.</td></tr>
+          <tr><td><strong>dim_rede / dim_rede 2 / 3</strong></td><td>sk_rede / nm_rede</td><td>Redes varejistas. Múltiplas versões por contexto de fonte.</td></tr>
+          <tr><td><strong>dim_fornecedor / 2</strong></td><td>sk_fornecedor / id_fornecedor</td><td>Fornecedores com código ID MOB. Versão "2" para schema PPU.</td></tr>
+          <tr><td><strong>dim_agencia / 2</strong></td><td>sk_agencia</td><td>Agências de promoção e execução.</td></tr>
+          <tr><td><strong>dim_visitante / 2</strong></td><td>sk_visitante</td><td>Promotores de campo registrados no sistema.</td></tr>
+          <tr><td><strong>dim_user</strong></td><td>sk_user</td><td>Usuários do sistema MobConnect (supervisores, gestores).</td></tr>
+          <tr><td><strong>dim_produto</strong></td><td>sk_produto</td><td>Catálogo de produtos (SKUs).</td></tr>
+          <tr><td><strong>dim_produto_rede</strong></td><td>sk_produto_rede</td><td>Produtos configurados por rede (SKUs ativos por canal).</td></tr>
+          <tr><td><strong>dim_tempo / Date / dCalendario</strong></td><td>dt_referencia / dt_referencia / Date</td><td>Dimensões de tempo. Três versões por contexto — oportunidade de consolidação.</td></tr>
+          <tr><td><strong>dim_mobconnect_status_atividade</strong></td><td>sk_mobconnect_status_atividade</td><td>Status das atividades MobConnect (aberto, encerrado, pendente…).</td></tr>
+          <tr><td><strong>dim_mobconnect_tipo_problema</strong></td><td>sk_mobconnect_tipo_problema</td><td>Categorias de problemas registrados no MobConnect.</td></tr>
+          <tr><td><strong>logos</strong></td><td>nm_cliente_mob</td><td>Tabela de logos dos clientes, vinculada a tb_analitico e dNegocios.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>🏪 Bases por Rede</h3>
+      <span class="badge">10 tabelas</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_NORDESTAO</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_GBARBOSA</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_BRETAS</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_BIGBOX</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_COOP</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_GIGA</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_IMEC</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_NOVAERA</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_PAGUEMENOS</span>
+        <span class="tag tag-gray" style="font-size:13px; padding:6px 14px;">tb_base_PREZUNIC</span>
+      </div>
+      <p style="color:var(--text2); font-size:12px; margin-top:12px;">⚠️ Cada rede tem sua própria tabela isolada. Considerar consolidação via <strong>tb_analitico_geral_unica</strong> ou um dataflow unificado.</p>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: MÉTRICAS -->
+<div id="tab-metricas" class="content">
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📐 Grupos de Métricas — Tabela Métricas (Principal)</h3>
+      <span class="badge">Fonte: Base Indicadores RG 2.0 - Projetos</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Grupo</th><th>Medidas Disponíveis</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><span class="tag tag-blue">Vendas Geral</span></td>
+            <td>Venda (Qtd.) M-1 · Venda (Qtd.) M-2 · Venda (Qtd.) M-3 · Venda (R$) · Vendas LM Projeto · Venda (R$) Projeto · Venda (Qtd.) Projeto · Vendas (M2 x M1) · Vendas (M3 x M2) · Venda (Qtd.) Total Rede · Venda (Qtd.) sem Projeto</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-green">Lojas — Cadastro e Acesso</span></td>
+            <td>Lojas Cadastradas (Rede) · Lojas Cadastradas no Projeto · Promotores com Acesso</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-green">Lojas — Vendas</span></td>
+            <td>Lojas com venda M-1 · Lojas sem Vendas M-1 · Lojas Com estoque Sem Vendas M-1 · % Lojas Projetadas x Vendas · Lojas com venda no Projeto M-1</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-orange">Estoque Geral</span></td>
+            <td>Estoque Última Posição · Estoque (Qtd.) Última Posição Mês Projeto · Estoque (Qtd.) M-1 Projeto · Dias de Estoque (DDE) - Lojas Projeto</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-red">Ruptura Comercial</span></td>
+            <td>Ruptura Comercial (Qtd.) · Ruptura Comercial (R$) · % Ruptura Comercial (Qtd.) · % Ruptura Comercial (R$) · Ruptura Comercial (R$) Saneado · % Ruptura Comercial Saneado</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-yellow">Produtos</span></td>
+            <td>Qtd Produto Com estoque Sem Vendas M-1 · Qtd Produto Sem Vendas M-1 · Qtd Produto Sem Estoque M-1 · Qtd Produto Sem Vendas Últimos 2M</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-purple">Textos e Datas</span></td>
+            <td>Data Descrição Mês/Ano M-1 · Data Início M-1 · Data Início M-3 · Qtd Dias Mês · Data Max FT_Mov · Card Período M-4</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-gray">Redes</span></td>
+            <td>Venda (Qtd.) Total Rede · Vendas LM Rede</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-green">Target / Analítico</span></td>
+            <td>Fornecedores com Potencial · Fornecedores sem Potencial · Verba com Potencial · Verba sem Potencial</td>
+          </tr>
+          <tr>
+            <td><span class="tag tag-orange">Score / Diagnóstico</span></td>
+            <td>Score Qualidade Dados · Flag Saude Estoque · Estoque Negativo (Ocorrencias) · Lojas Sem Atendimento com Ruptura · Produto Avariado (Qtd)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📊 Medidas Identificadas nos Visuais</h3>
+      <span class="badge">Amostrado — Vendas, Diag. Lojas, Ruptura</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <div style="display:flex; flex-wrap:wrap; gap:8px;">
+        <span class="tag tag-blue">Venda (R$) Projeto</span>
+        <span class="tag tag-blue">Venda (R$) M-1</span>
+        <span class="tag tag-blue">Venda (R$) Média</span>
+        <span class="tag tag-blue">Venda (R$)</span>
+        <span class="tag tag-blue">Venda (Qtd.) Total Rede</span>
+        <span class="tag tag-green">Lojas com venda</span>
+        <span class="tag tag-green">Promotores com Acesso (Projeto)</span>
+        <span class="tag tag-green">% Vendas MoM</span>
+        <span class="tag tag-orange">nm_rede</span>
+        <span class="tag tag-orange">nm_loja</span>
+        <span class="tag tag-orange">nm_bandeira</span>
+        <span class="tag tag-red">Ruptura Comercial (R$) Saneado</span>
+        <span class="tag tag-red">% Ruptura Comercial Saneado</span>
+        <span class="tag tag-red">Flag Saude Estoque</span>
+        <span class="tag tag-red">Lojas Sem Atendimento com Ruptura</span>
+        <span class="tag tag-red">Estoque Negativo (Ocorrencias)</span>
+        <span class="tag tag-yellow">Score Qualidade Dados</span>
+        <span class="tag tag-yellow">Produto Avariado (Qtd)</span>
+        <span class="tag tag-purple">Vendas (R$) Liquido</span>
+        <span class="tag tag-purple">Lojas com venda</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: ABAS -->
+<div id="tab-abas" class="content">
+  <div class="highlight-box">
+    O relatório possui <strong>13 páginas</strong> totalizando <strong>211 visuais</strong>. Todas as páginas usam dimensão 1280×720 (FHD) com fundo <strong>#F5F5F5</strong>. Padrão entre 15–17 visuais por página.
+  </div>
+  <div class="pages-grid">
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,176,255,0.15)">🏠</div>Visão Executiva</div>
+      <div class="metrics-list">KPIs consolidados, comparativo de desempenho geral</div>
+      <div class="visual-types">
+        <span class="visual-count">🃏 cards</span>
+        <span class="visual-count">📊 gráficos</span>
+        <span class="visual-count">🔽 slicers</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,200,83,0.15)">💰</div>Vendas</div>
+      <div class="metrics-list">Venda (R$) Projeto · Venda R$ M-1 · % Vendas MoM · Venda Qtd. Total Rede · Lojas com venda</div>
+      <div class="visual-types">
+        <span class="visual-count">🃏 8 cards</span>
+        <span class="visual-count">📊 2 colunas</span>
+        <span class="visual-count">📋 1 tabela</span>
+        <span class="visual-count">🔽 3 slicers</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(211,47,47,0.15)">🏪</div>Diagnóstico Lojas</div>
+      <div class="metrics-list">Ruptura Comercial · Flag Saúde Estoque · Score Qualidade · Lojas sem Atendimento · Estoque Negativo</div>
+      <div class="visual-types">
+        <span class="visual-count">🃏 8 cards</span>
+        <span class="visual-count">📊 2 colunas</span>
+        <span class="visual-count">🍩 1 donut</span>
+        <span class="visual-count">🔽 2 slicers</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(255,109,0,0.15)">🔴</div>Rupturas</div>
+      <div class="metrics-list">Ruptura operacional/comercial, % ruptura por rede, valor perdido</div>
+      <div class="visual-types">
+        <span class="visual-count">16 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(255,109,0,0.15)">🔍</div>Análise Ruptura Motivo</div>
+      <div class="metrics-list">Produto Avariado, motivos detalhados de ruptura por tipo</div>
+      <div class="visual-types">
+        <span class="visual-count">🃏 1 card</span>
+        <span class="visual-count">🖼️ 9 shapes/img</span>
+        <span class="visual-count">17 visuais total</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,176,255,0.15)">⚙️</div>Efetividade Operacional</div>
+      <div class="metrics-list">Horas Ideais vs. Realizadas, GAP, FTE, atividades MobConnect</div>
+      <div class="visual-types">
+        <span class="visual-count">16 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(124,77,255,0.15)">👷</div>Produtividade Promotor</div>
+      <div class="metrics-list">Desempenho por promotor, visitas, horas realizadas, atividades</div>
+      <div class="visual-types">
+        <span class="visual-count">17 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,200,83,0.15)">🔎</div>Drill Loja/Projeto</div>
+      <div class="metrics-list">Visão detalhada por loja, drill-through de projeto</div>
+      <div class="visual-types">
+        <span class="visual-count">15 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(255,214,0,0.15)">💰</div>Financeiro</div>
+      <div class="metrics-list">Faturamento mensal por fornecedor/rede, valor ajustado, verba</div>
+      <div class="visual-types">
+        <span class="visual-count">16 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,176,255,0.15)">🤝</div>Fornecedor &amp; Negociação</div>
+      <div class="metrics-list">Pipeline de negociação por fornecedor, potencial/verba</div>
+      <div class="visual-types">
+        <span class="visual-count">15 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,200,83,0.15)">🗣️</div>Negociações</div>
+      <div class="metrics-list">Funil de negociações ativas, etapas, datas de fechamento</div>
+      <div class="visual-types">
+        <span class="visual-count">17 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(124,77,255,0.15)">📥</div>Captação</div>
+      <div class="metrics-list">Captação comercial RG, funil de oportunidades, consolidado</div>
+      <div class="visual-types">
+        <span class="visual-count">17 visuais</span>
+      </div>
+    </div>
+    <div class="page-card">
+      <div class="page-name"><div class="page-icon" style="background:rgba(0,200,83,0.15)">🎯</div>Lista Target</div>
+      <div class="metrics-list">tb_analitico_geral_unica: Tier, FTE, Horas, Categorias, Potencial</div>
+      <div class="visual-types">
+        <span class="visual-count">17 visuais</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: RELACIONAMENTOS -->
+<div id="tab-relacoes" class="content">
+  <div class="highlight-box">
+    Foram identificados <strong>63+ relacionamentos</strong> no modelo. A maioria segue o padrão <strong>Many-to-One</strong> (fato → dimensão). Relacionamentos cross-source (entre tabelas de fontes AS distintas) foram detectados via chaves surrogate/natural.
+  </div>
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>🔗 Relacionamentos Principais</h3>
+      <span class="badge">Fatos → Dimensões</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <div class="rel-list">
+        <div class="rel-item"><span class="rel-from">fato_acesso</span><span class="rel-arrow">→</span><span class="rel-to">dim_visitante</span><span class="rel-via">via sk_visitante</span></div>
+        <div class="rel-item"><span class="rel-from">fato_acesso</span><span class="rel-arrow">→</span><span class="rel-to">dim_loja</span><span class="rel-via">via sk_loja</span></div>
+        <div class="rel-item"><span class="rel-from">fato_acesso</span><span class="rel-arrow">→</span><span class="rel-to">dim_fornecedor</span><span class="rel-via">via sk_fornecedor</span></div>
+        <div class="rel-item"><span class="rel-from">fato_acesso</span><span class="rel-arrow">→</span><span class="rel-to">Date</span><span class="rel-via">via dt_entrada</span></div>
+        <div class="rel-item"><span class="rel-from">fato_movimento</span><span class="rel-arrow">→</span><span class="rel-to">dim_loja 2</span><span class="rel-via">via sk_loja</span></div>
+        <div class="rel-item"><span class="rel-from">fato_movimento</span><span class="rel-arrow">→</span><span class="rel-to">dim_fornecedor 2</span><span class="rel-via">via sk_fornecedor</span></div>
+        <div class="rel-item"><span class="rel-from">fato_movimento</span><span class="rel-arrow">→</span><span class="rel-to">dim_produto</span><span class="rel-via">via sk_produto</span></div>
+        <div class="rel-item"><span class="rel-from">fato_movimento</span><span class="rel-arrow">→</span><span class="rel-to">dim_tempo</span><span class="rel-via">via dias_da_semana_inicio</span></div>
+        <div class="rel-item"><span class="rel-from">fato_mobconnect_atividades</span><span class="rel-arrow">→</span><span class="rel-to">dim_loja</span><span class="rel-via">via sk_loja</span></div>
+        <div class="rel-item"><span class="rel-from">fato_mobconnect_atividades</span><span class="rel-arrow">→</span><span class="rel-to">dim_mobconnect_status_atividade</span><span class="rel-via">via sk_status</span></div>
+        <div class="rel-item"><span class="rel-from">fato_mobconnect_atividades</span><span class="rel-arrow">→</span><span class="rel-to">dim_mobconnect_tipo_problema</span><span class="rel-via">via sk_tipo_problema</span></div>
+        <div class="rel-item"><span class="rel-from">Faturamento_Fornec_Geral_RG</span><span class="rel-arrow">→</span><span class="rel-to">Date</span><span class="rel-via">via DATA_REF (securityFilter: none)</span></div>
+        <div class="rel-item"><span class="rel-from">Faturamento_Fornec_Geral_RG</span><span class="rel-arrow">→</span><span class="rel-to">dim_rede</span><span class="rel-via">via REDE = nm_rede</span></div>
+        <div class="rel-item"><span class="rel-from">tb_analitico_geral_unica</span><span class="rel-arrow">→</span><span class="rel-to">logos</span><span class="rel-via">via Cliente = nm_cliente_mob</span></div>
+        <div class="rel-item"><span class="rel-from">tb_dados_funil_rg</span><span class="rel-arrow">→</span><span class="rel-to">dEtapas</span><span class="rel-via">via etapa_negocio</span></div>
+        <div class="rel-item"><span class="rel-from">tb_dados_funil_rg</span><span class="rel-arrow">→</span><span class="rel-to">dCalendario</span><span class="rel-via">via dt_fechamento</span></div>
+        <div class="rel-item"><span class="rel-from">tb_dados_funil_rg</span><span class="rel-arrow">→</span><span class="rel-to">dNegocios</span><span class="rel-via">via ID do Registro</span></div>
+        <div class="rel-item"><span class="rel-from">dim_loja</span><span class="rel-arrow">→</span><span class="rel-to">dim_rede</span><span class="rel-via">via sk_rede (bridge)</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: LACUNAS -->
+<div id="tab-lacunas" class="content">
+  <div class="gap-grid">
+    <div class="gap-card critical">
+      <div class="gap-title">🔴 Tabelas Duplicadas de Dimensão</div>
+      <div class="gap-desc">dim_loja, dim_fornecedor, dim_rede e dim_visitante existem em versões "1" e "2" para contextos de fontes distintos (Projetos vs. PPU). Gera ambiguidade, duplica manutenção e pode causar resultados divergentes em análises cruzadas.</div>
+      <div class="gap-action">→ Criar dimensões compartilhadas via Shared Dataset ou consolidar em um único modelo semântico base.</div>
+    </div>
+    <div class="gap-card critical">
+      <div class="gap-title">🔴 Múltiplas Tabelas de Métricas (4 versões)</div>
+      <div class="gap-desc">Métricas, Métricas 2, Métricas 3, Métricas 4 existem em paralelo, cada uma vinculada a uma fonte AS diferente. Isso fragmenta a experiência do desenvolvedor DAX e dificulta a criação de KPIs compostos.</div>
+      <div class="gap-action">→ Consolidar usando EXTERNALMEASURE com prefixo de namespace, ou criar um Metrics Table virtual centralizado.</div>
+    </div>
+    <div class="gap-card medium">
+      <div class="gap-title">🟠 Faturamento em Mode Import</div>
+      <div class="gap-desc">A tabela Faturamento_Fornec_Geral_RG é a única em modo Import, enquanto todo o restante usa DirectQuery. Isso cria uma assimetria na estratégia de atualização e pode gerar dados defasados em análises financeiras.</div>
+      <div class="gap-action">→ Migrar para dataflow no Fabric ou DirectQuery via API.</div>
+    </div>
+    <div class="gap-card medium">
+      <div class="gap-title">🟠 Bases por Rede Isoladas (10 tabelas)</div>
+      <div class="gap-desc">Cada rede (NORDESTAO, GBARBOSA etc.) tem sua própria tb_base_REDE. Qualquer adição de nova rede exige replicação de tabela no modelo. Não há consolidação automática.</div>
+      <div class="gap-action">→ Criar tabela unificada via UNION em M ou DAX; parametrizar a rede como dimensão.</div>
+    </div>
+    <div class="gap-card medium">
+      <div class="gap-title">🟠 Ausência de Página de Alerta / KPI Summary</div>
+      <div class="gap-desc">Não há uma aba dedicada a alertas automáticos (estoque zerado, metas não atingidas, lojas críticas). Os dados para isso existem no modelo (Score Qualidade Dados, Flag Saúde Estoque), mas não são expostos de forma operacional.</div>
+      <div class="gap-action">→ Criar página "Alertas Diários" com visuais condicionais para envio via e-mail HTML.</div>
+    </div>
+    <div class="gap-card medium">
+      <div class="gap-title">🟠 Sem Dimensão de Tempo Unificada</div>
+      <div class="gap-desc">Existem 3 tabelas de calendário: Date, dim_tempo e dCalendario, cada uma vinculada a uma fonte diferente. Impossibilita comparação temporal cross-source sem DAX específico.</div>
+      <div class="gap-action">→ Criar uma dimensão de data master compartilhada entre todos os fatos via Composite Model.</div>
+    </div>
+    <div class="gap-card low">
+      <div class="gap-title">🟡 Sem Análise de Eficiência de Custo</div>
+      <div class="gap-desc">Existem "Custo Saldo de Horas" e "Valor Ajustado" na tb_analitico_geral_unica, mas não há uma análise de ROI ou custo por visita/hora no relatório.</div>
+      <div class="gap-action">→ Criar medida ROI = Venda (R$) / Custo Saldo de Horas e expor na página Financeiro.</div>
+    </div>
+    <div class="gap-card low">
+      <div class="gap-title">🟡 Página "Análise Ruptura Motivo" Pouco Dinâmica</div>
+      <div class="gap-desc">A página tem apenas 1 card de medida (Produto Avariado) e 9 shapes/images — indica uso intenso de layouts estáticos/pré-montados, sem drilldown dinâmico.</div>
+      <div class="gap-action">→ Substituir shapes estáticos por visuais nativos com filtros por tipo de problema.</div>
+    </div>
+    <div class="gap-card opportunity">
+      <div class="gap-title">✅ Oportunidade — Relatório Diário por E-mail HTML</div>
+      <div class="gap-desc">O modelo possui todas as métricas necessárias para um e-mail diário rico: KPIs de vendas, estoque, ruptura, promotor, captação. A tabela Atualização Power BI pode ser o gatilho de última atualização.</div>
+      <div class="gap-action">→ Conectar via Power Automate + DAX Query + template HTML Mob2Con para envio automatizado.</div>
+    </div>
+    <div class="gap-card opportunity">
+      <div class="gap-title">✅ Oportunidade — Score Composto de Saúde</div>
+      <div class="gap-desc">Score Qualidade Dados e Flag Saúde Estoque já existem como medidas, mas não são combinados em um único índice de saúde operacional por fornecedor/rede.</div>
+      <div class="gap-action">→ Criar "Score de Saúde Operacional" = f(ruptura, estoque, visitas, horas) como KPI principal.</div>
+    </div>
+    <div class="gap-card opportunity">
+      <div class="gap-title">✅ Oportunidade — Detalhamento de Fornecedor por Tier</div>
+      <div class="gap-desc">A tabela tb_analitico_geral_unica tem colunas Tier, FTE, Filtro ABGR que segmentam fornecedores, mas não há página dedicada a comparação entre tiers.</div>
+      <div class="gap-action">→ Criar página "Análise por Tier" com ranking e comparativo entre A/B/G/R.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB: PROJETO E-MAIL -->
+<div id="tab-projeto" class="content">
+  <div class="highlight-box">
+    Com base na análise completa do modelo, o <strong>Projeto de Envio Diário em HTML</strong> pode aproveitar diretamente as métricas, tabelas e estrutura existentes sem necessidade de alterações no modelo semântico.
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>🏗️ Arquitetura do Projeto HTML Diário</h3>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Etapa</th><th>Tecnologia</th><th>Dados de Origem</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>1. Trigger Diário</td>
+            <td><span class="tag tag-blue">Power Automate</span> Agendado (06h00)</td>
+            <td>tabela Atualização Power BI (última atualização)</td>
+          </tr>
+          <tr>
+            <td>2. Extração de KPIs</td>
+            <td><span class="tag tag-blue">DAX Query API</span> via Power BI REST API</td>
+            <td>Métricas: Venda (R$), Ruptura, Estoque, Lojas, Score</td>
+          </tr>
+          <tr>
+            <td>3. Extração de Tabelas</td>
+            <td><span class="tag tag-green">DAX EVALUATE</span></td>
+            <td>tb_analitico_geral_unica (top 10 fornecedores), fato_movimento (alertas)</td>
+          </tr>
+          <tr>
+            <td>4. Geração HTML</td>
+            <td><span class="tag tag-orange">Python / Node.js</span> Template Mob2Con</td>
+            <td>KPIs + Tabelas → HTML responsivo com cores brand</td>
+          </tr>
+          <tr>
+            <td>5. Envio E-mail</td>
+            <td><span class="tag tag-purple">Power Automate SendEmail</span> ou SMTP</td>
+            <td>Lista de destinatários por perfil (gestor, agência, fornecedor)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>📧 KPIs Recomendados para o E-mail Diário</h3>
+      <span class="badge">Seção 1 — Executivo</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>KPI</th><th>Medida DAX</th><th>Tabela</th><th>Seção no E-mail</th></tr></thead>
+        <tbody>
+          <tr><td>💰 Venda do Mês (R$)</td><td>Venda (R$) Projeto</td><td>Métricas</td><td>Header Card</td></tr>
+          <tr><td>📈 % vs. Mês Anterior</td><td>% Vendas MoM</td><td>Métricas</td><td>Header Card</td></tr>
+          <tr><td>🏪 Lojas com Venda</td><td>Lojas com venda M-1</td><td>Métricas</td><td>Header Card</td></tr>
+          <tr><td>🔴 Ruptura Comercial (R$)</td><td>Ruptura Comercial (R$) Saneado</td><td>Métricas</td><td>Alerta Card</td></tr>
+          <tr><td>📦 Estoque Última Posição</td><td>Estoque Última Posição</td><td>Métricas</td><td>Alerta Card</td></tr>
+          <tr><td>⚠️ Lojas Sem Atendimento</td><td>Lojas Sem Atendimento com Ruptura</td><td>Métricas</td><td>Alerta Card</td></tr>
+          <tr><td>🎯 Fornecedores com Potencial</td><td>Fornecedores com Potencial</td><td>tb_analitico_geral_unica</td><td>Seção Analítico</td></tr>
+          <tr><td>💵 Verba com Potencial</td><td>Verba com Potencial</td><td>tb_analitico_geral_unica</td><td>Seção Analítico</td></tr>
+          <tr><td>⭐ Score Qualidade Dados</td><td>Score Qualidade Dados</td><td>Métricas</td><td>Footer</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>🗂️ Tabelas Recomendadas para o E-mail</h3>
+      <span class="badge">Seção 2 — Detalhes</span>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>Tabela no E-mail</th><th>Fonte</th><th>Colunas</th><th>Segmento</th></tr></thead>
+        <tbody>
+          <tr><td>🏆 Top 10 Fornecedores por Venda</td><td>tb_analitico_geral_unica</td><td>Nome MOB, Tier, # Lojas com venda, Média Hrs Realizadas, Valor Ajustado</td><td>Gestor</td></tr>
+          <tr><td>🔴 Lojas em Alerta de Ruptura</td><td>fato_movimento + dim_loja</td><td>nm_loja, nm_rede, qt_ruptura_comercial, vl_ruptura_comercial</td><td>Agência + Fornecedor</td></tr>
+          <tr><td>📊 Performance por Rede</td><td>fato_movimento + dim_rede</td><td>nm_rede, qt_vendida, qt_estoque, % ruptura</td><td>Todos</td></tr>
+          <tr><td>👷 Promotores sem Visita</td><td>fato_mobconnect_visitas + dim_visitante</td><td>nm_visitante, último acesso, lojas sem visita</td><td>Supervisor</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="section-header" onclick="toggleSection(this)">
+      <h3>✅ Próximos Passos</h3>
+      <span class="toggle-icon">▾</span>
+    </div>
+    <div class="section-body">
+      <table class="data-table">
+        <thead><tr><th>#</th><th>Ação</th><th>Prioridade</th><th>Complexidade</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Criar as queries DAX para extração dos KPIs via API REST do Power BI</td><td><span class="tag tag-red">Alta</span></td><td>Média</td></tr>
+          <tr><td>2</td><td>Desenvolver template HTML responsivo Mob2Con para o e-mail</td><td><span class="tag tag-red">Alta</span></td><td>Baixa</td></tr>
+          <tr><td>3</td><td>Configurar Power Automate: trigger diário → API → gerar HTML → enviar</td><td><span class="tag tag-red">Alta</span></td><td>Média</td></tr>
+          <tr><td>4</td><td>Definir lista de destinatários por segmento (gestor, agência, fornecedor)</td><td><span class="tag tag-orange">Média</span></td><td>Baixa</td></tr>
+          <tr><td>5</td><td>Resolver duplicidade das dimensões no modelo semântico</td><td><span class="tag tag-orange">Média</span></td><td>Alta</td></tr>
+          <tr><td>6</td><td>Migrar Faturamento de Import para DirectQuery/Dataflow</td><td><span class="tag tag-yellow">Baixa</span></td><td>Alta</td></tr>
+          <tr><td>7</td><td>Criar Score de Saúde Operacional unificado</td><td><span class="tag tag-yellow">Baixa</span></td><td>Média</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  Analítico RG 2.0 MCP 2 · Análise gerada por Amazon Quick · Mob2Con · 14/05/2026
+</div>
+
+<script>
+function switchTab(id) {
+  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.target.classList.add('active');
+}
+
+function toggleSection(header) {
+  header.parentElement.classList.toggle('collapsed');
+}
+
+// Animate in
+document.querySelectorAll('.kpi-card, .page-card, .gap-card').forEach((el, i) => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(12px)';
+  setTimeout(() => {
+    el.style.transition = 'opacity .3s ease, transform .3s ease';
+    el.style.opacity = '1';
+    el.style.transform = 'translateY(0)';
+  }, 50 + i * 30);
+});
+</script>
+
+
+
+</body></html>

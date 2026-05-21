@@ -1,0 +1,13 @@
+{
+  "enabled": true,
+  "name": "Validação Pré-Tarefa",
+  "description": "Antes de iniciar qualquer tarefa de spec, roda validação rápida de segurança e estrutura para prevenir erros desde o início.",
+  "version": "1",
+  "when": {
+    "type": "preTaskExecution"
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "VALIDAÇÃO PRÉ-TAREFA: Antes de começar, faça uma checagem rápida (máx 30 segundos):\n1. SEGURANÇA: Verifique se há credenciais expostas nos arquivos que serão modificados.\n2. ESTRUTURA: Confirme que os arquivos-alvo existem e estão acessíveis.\n3. BRAND: Se a tarefa envolve Power BI, confirme que o tema usa #F46901 (laranja), fonte Raleway, e grid 8px.\n4. DEPENDÊNCIAS: Se a tarefa envolve Python, confirme que os imports necessários estão disponíveis.\nSe encontrar problemas, alerte ANTES de prosseguir. Se tudo OK, diga \"✅ Pré-validação OK\" e continue."
+  }
+}

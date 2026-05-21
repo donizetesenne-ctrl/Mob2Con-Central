@@ -1,0 +1,209 @@
+table 'tb_Relatório Financeiro - RG'
+	lineageTag: 3c367603-7375-4db6-9e69-8a51b5db6fb5
+
+	column Rede
+		dataType: string
+		lineageTag: a15fbe2b-7a5b-4446-b5eb-794e2c66a38b
+		summarizeBy: none
+		sourceColumn: Rede
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Mês
+		dataType: string
+		lineageTag: 0465781a-27ad-4a03-abb1-e67420ff6246
+		summarizeBy: none
+		sourceColumn: Mês
+		sortByColumn: NU_MÊS
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column NU_MÊS
+		dataType: int64
+		formatString: 0
+		lineageTag: 4c05e867-72c8-4ff8-b40d-0b02de56e0ba
+		summarizeBy: none
+		sourceColumn: NU_MÊS
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column NM_MÊS
+		dataType: string
+		lineageTag: 50257b72-4809-427a-97a9-43979dc95238
+		summarizeBy: none
+		sourceColumn: NM_MÊS
+		sortByColumn: NU_MÊS
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Arrecadação
+		dataType: decimal
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: eabe07cf-1c46-4fbf-85a9-4f0e2367fe47
+		summarizeBy: none
+		sourceColumn: Arrecadação
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column Agência
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 5c21b0a2-2f32-4a10-9685-7c6ad240322f
+		summarizeBy: none
+		sourceColumn: Agência
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column Mob2con
+		dataType: decimal
+		formatString: #,0
+		lineageTag: 5c4853eb-6c45-414e-a7b2-314c707e100a
+		summarizeBy: none
+		sourceColumn: Mob2con
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column Saldo
+		dataType: decimal
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 05bbe4b0-a54d-488a-88bc-872320d7ea69
+		summarizeBy: sum
+		sourceColumn: Saldo
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"currencyCulture":"pt-BR"}
+
+	column 'Número Forn'
+		dataType: int64
+		formatString: 0
+		lineageTag: fb9c338e-3e8f-40df-90a6-599e71594ccc
+		summarizeBy: none
+		sourceColumn: Número Forn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	column ANO
+		dataType: string
+		lineageTag: 08bf97a4-85aa-40b4-9934-e89917aacff1
+		summarizeBy: none
+		sourceColumn: ANO
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NM_MÊS / ANO' = 'tb_Relatório Financeiro - RG'[NM_MÊS]&"/"&'tb_Relatório Financeiro - RG'[ANO]
+		lineageTag: 7e85c7e7-89cb-4441-8ec4-de4dd2fb26f5
+		summarizeBy: none
+		sortByColumn: MÊS_SÉRIE
+
+		changedProperty = SortByColumn
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column MÊS_SÉRIE
+		dataType: int64
+		formatString: 0
+		lineageTag: f4ac7e43-d6ca-446d-9618-581e79c03432
+		summarizeBy: sum
+		sourceColumn: MÊS_SÉRIE
+
+		changedProperty = DataType
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fat_Ñ_Comercial
+		dataType: decimal
+		lineageTag: 273f8c52-51ba-4314-9a77-c6f48ce725ed
+		summarizeBy: sum
+		sourceColumn: Fat_Ñ_Comercial
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Column1
+		dataType: string
+		lineageTag: 2412d7b4-05c1-4bbe-af9c-32f898998a8f
+		summarizeBy: none
+		sourceColumn: Column1
+
+		annotation SummarizationSetBy = Automatic
+
+	hierarchy 'Mês Hierarquia'
+		lineageTag: 332c1dd6-c03d-46e4-8a04-4e414336493b
+
+		level Mês
+			lineageTag: 0ecabf87-448a-4602-8d8b-a4867bbaf1e0
+			column: Mês
+
+		changedProperty = IsHidden
+
+	partition 'tb_Relatório Financeiro - RG' = m
+		mode: import
+		source =
+				let
+				    Fonte = GoogleSheets.Contents("https://docs.google.com/spreadsheets/d/1cB15O8Q7I7Pr9bUCk_iGc0yHnNQChRAlEU-1d6k5YxM/edit"),
+				    Página1_Table = Fonte{[name="Página1",ItemKind="Table"]}[Data],
+				    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Página1_Table, [PromoteAllScalars=true]),
+				    #"Tipo Alterado com Localidade" = Table.TransformColumnTypes(#"Cabeçalhos Promovidos", {{"Arrecadação", Currency.Type}}, "pt-BR"),
+				    #"Tipo Alterado com Localidade1" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade", {{"Agência", Currency.Type}}, "pt-BR"),
+				    #"Tipo Alterado com Localidade2" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade1", {{"Mob2con", Currency.Type}}, "pt-BR"),
+				    #"Tipo Alterado com Localidade3" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade2", {{"Saldo", Currency.Type}}, "pt-BR"),
+				    #"Tipo Alterado com Localidade4" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade3", {{"Fat_Ñ_Comercial", Currency.Type}}, "pt-BR"),
+				    #"Tipo Alterado3" = Table.TransformColumnTypes(#"Tipo Alterado com Localidade4",{{"Número Forn", Int64.Type}}),
+				    #"Personalização Adicionada" = Table.AddColumn(#"Tipo Alterado3", "NM_MÊS", each Text.Upper(Text.Start(Date.ToText([Mês], "MMM"), 3))),
+				    #"Personalização Adicionada1" = Table.AddColumn(#"Personalização Adicionada", "NU_MÊS", each Date.Month([Mês])),
+				    #"Colunas Reordenadas" = Table.ReorderColumns(#"Personalização Adicionada1",{"Rede", "Mês", "NU_MÊS", "NM_MÊS", "Arrecadação", "Agência", "Mob2con", "Saldo", "Número Forn"}),
+				    #"Personalização Adicionada2" = Table.AddColumn(#"Colunas Reordenadas", "ANO", each Date.Year([Mês])),
+				    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Personalização Adicionada2",{{"NU_MÊS", Int64.Type}}),
+				    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado1", each true),
+				    #"Personalização Adicionada3" = Table.AddColumn(#"Linhas Filtradas", "MÊS_SÉRIE", each let
+				    // Ajuste #"Tipo Alterado2" da Última etapa
+				    PrimeiraDataGeral = List.Min(#"Linhas Filtradas"[Mês])
+				in
+				
+				((Date.Year([Mês]) - Date.Year(PrimeiraDataGeral)) * 12)
+				+ (Date.Month([Mês]) - Date.Month(PrimeiraDataGeral))
+				+ 1),
+				    #"Linhas Filtradas1" = Table.SelectRows(#"Personalização Adicionada3", each true)
+				in
+				    #"Linhas Filtradas1"
+
+	annotation PBI_NavigationStepName = Navegação
+
+	annotation PBI_ResultType = Table
+

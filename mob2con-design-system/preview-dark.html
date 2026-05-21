@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mob2Con — Design Preview (Dark)</title>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --orange: #F46901;
+  --graphite: #434343;
+  --black: #111111;
+  --purple: #6F05D4;
+  --blue: #4285F4;
+  --success: #34D399;
+  --danger: #F87171;
+  --warning: #FBBF24;
+  --bg: #1A1A2E;
+  --surface: #16213E;
+  --card: #0F3460;
+  --white: #E8E8E8;
+  --gray500: #94A3B8;
+  --gray300: #334155;
+  --alt-row: rgba(244,105,1,0.06);
+  --total-row: rgba(244,105,1,0.12);
+  --shadow-card: 0 2px 8px rgba(0,0,0,0.3);
+  --shadow-hover: 0 4px 16px rgba(244,105,1,0.25);
+  --radius: 8px;
+  --font: 'Raleway', 'Segoe UI', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: var(--font); background: var(--bg); color: var(--white); padding: 32px; line-height: 1.4; }
+h1 { font-size: 28px; font-weight: 900; color: var(--white); margin-bottom: 8px; }
+h2 { font-size: 18px; font-weight: 900; color: var(--white); margin: 40px 0 16px; border-bottom: 2px solid var(--orange); padding-bottom: 8px; }
+h3 { font-size: 14px; font-weight: 700; color: var(--gray500); margin: 24px 0 12px; }
+p.subtitle { font-size: 12px; color: var(--gray500); margin-bottom: 32px; }
+p.note { margin-top: 48px; font-size: 11px; color: var(--orange); background: var(--surface); padding: 16px; border-radius: var(--radius); border-left: 3px solid var(--orange); }
+
+/* Swatches */
+.swatches { display: flex; flex-wrap: wrap; gap: 12px; }
+.swatch { width: 120px; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); background: var(--surface); }
+.swatch-color { height: 60px; }
+.swatch-info { padding: 8px; font-size: 10px; }
+.swatch-info strong { display: block; font-size: 11px; color: var(--white); }
+.swatch-info span { color: var(--gray500); }
+
+/* Typography */
+.type-scale { display: flex; flex-direction: column; gap: 12px; background: var(--surface); padding: 24px; border-radius: var(--radius); box-shadow: var(--shadow-card); }
+.type-row { display: flex; align-items: baseline; gap: 16px; }
+.type-label { width: 120px; font-size: 10px; color: var(--gray500); flex-shrink: 0; }
+
+/* Cards */
+.cards-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.kpi-card { flex: 1; min-width: 200px; background: var(--surface); border: 1px solid var(--gray300); border-radius: var(--radius); padding: 16px; box-shadow: var(--shadow-card); transition: box-shadow 0.2s; }
+.kpi-card:hover { box-shadow: var(--shadow-hover); }
+.kpi-card .kpi-value { font-size: 28px; font-weight: 900; color: var(--white); }
+.kpi-card .kpi-label { font-size: 10px; font-weight: 700; color: var(--gray500); margin-top: 4px; }
+.kpi-card .kpi-trend { font-size: 11px; margin-top: 8px; }
+.kpi-card .kpi-trend.up { color: var(--success); }
+.kpi-card .kpi-trend.down { color: var(--danger); }
+
+/* Buttons */
+.buttons-row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.btn { padding: 12px 24px; border-radius: 6px; font-family: var(--font); font-size: 11pt; font-weight: 700; cursor: pointer; border: none; }
+.btn-primary { background: var(--orange); color: #fff; }
+.btn-secondary { background: transparent; color: var(--orange); border: 1px solid var(--orange); }
+.btn-disabled { background: var(--orange); color: #fff; opacity: 0.4; cursor: not-allowed; }
+
+/* Header */
+.header-demo { background: var(--surface); height: 64px; border-radius: var(--radius); display: flex; align-items: center; padding: 0 16px; gap: 16px; border: 1px solid var(--gray300); }
+.header-demo .logo { font-size: 16px; font-weight: 900; color: var(--white); }
+.header-demo .logo span { color: var(--orange); }
+.header-demo .spacer { flex: 1; }
+.header-demo .filter-pill { background: rgba(244,105,1,0.15); color: var(--orange); font-size: 10px; padding: 6px 12px; border-radius: 4px; }
+
+/* Table */
+.table-demo { width: 100%; border-collapse: collapse; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-card); }
+.table-demo th { background: var(--card); color: var(--white); font-size: 10px; font-weight: 700; padding: 10px 12px; text-align: left; }
+.table-demo td { padding: 10px 12px; font-size: 11px; border-bottom: 1px solid var(--gray300); color: var(--white); }
+.table-demo tr:nth-child(even) td { background: var(--alt-row); }
+.table-demo tr.total td { background: var(--total-row); font-weight: 700; }
+
+/* Shadows */
+.shadow-demo { display: flex; gap: 24px; flex-wrap: wrap; }
+.shadow-box { width: 160px; height: 80px; background: var(--surface); border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--gray500); }
+
+/* Chart colors */
+.chart-colors { display: flex; gap: 8px; align-items: center; }
+.chart-dot { width: 24px; height: 24px; border-radius: 50%; }
+
+/* Spacing */
+.spacing-demo { display: flex; gap: 8px; align-items: end; }
+.spacing-bar { background: var(--orange); border-radius: 3px; width: 32px; opacity: 0.8; }
+.spacing-label { font-size: 9px; color: var(--gray500); text-align: center; margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<h1>Mob2Con — Design Preview (Dark)</h1>
+<p class="subtitle">Visual catalog • Dark surfaces • Conceptual exploration</p>
+
+<!-- COLORS -->
+<h2>Color Palette</h2>
+<h3>Brand</h3>
+<div class="swatches">
+  <div class="swatch"><div class="swatch-color" style="background:#F46901"></div><div class="swatch-info"><strong>Orange</strong><span>#F46901 — Primary</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#434343"></div><div class="swatch-info"><strong>Graphite</strong><span>#434343 — Titles</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#111111"></div><div class="swatch-info"><strong>Black</strong><span>#111111 — Text</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#6F05D4"></div><div class="swatch-info"><strong>Purple</strong><span>#6F05D4 — Accent</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#4285F4"></div><div class="swatch-info"><strong>Blue</strong><span>#4285F4 — MobConnect</span></div></div>
+</div>
+
+<h3>Semantic (dark-adapted)</h3>
+<div class="swatches">
+  <div class="swatch"><div class="swatch-color" style="background:#34D399"></div><div class="swatch-info"><strong>Success</strong><span>#34D399</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#F87171"></div><div class="swatch-info"><strong>Danger</strong><span>#F87171</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#FBBF24"></div><div class="swatch-info"><strong>Warning</strong><span>#FBBF24</span></div></div>
+  <div class="swatch"><div class="swatch-color" style="background:#60A5FA"></div><div class="swatch-info"><strong>Info</strong><span>#60A5FA</span></div></div>
+</div>
+
+<!-- TYPOGRAPHY -->
+<h2>Typography Scale</h2>
+<div class="type-scale">
+  <div class="type-row"><span class="type-label">Page Title — 20pt/900</span><span style="font-size:20pt;font-weight:900">Reposição Garantida</span></div>
+  <div class="type-row"><span class="type-label">Visual Title — 14pt/700</span><span style="font-size:14pt;font-weight:700">Captação por Regional</span></div>
+  <div class="type-row"><span class="type-label">Subtitle — 12pt/700</span><span style="font-size:12pt;font-weight:700;color:var(--gray500)">Período: Jan–Mai 2026</span></div>
+  <div class="type-row"><span class="type-label">Body — 11pt/400</span><span style="font-size:11pt;font-weight:400">Total de lojas ativas no programa.</span></div>
+  <div class="type-row"><span class="type-label">KPI Value — 28pt/900</span><span style="font-size:28pt;font-weight:900">R$ 2.4M</span></div>
+</div>
+
+<!-- HEADER -->
+<h2>Header Bar</h2>
+<div class="header-demo">
+  <div class="logo">Mob<span>2</span>Con</div>
+  <div class="spacer"></div>
+  <div class="filter-pill">📅 Jan–Mai 2026</div>
+  <div class="filter-pill">🏪 Todas as lojas</div>
+</div>
+
+<!-- KPI CARDS -->
+<h2>KPI Cards</h2>
+<div class="cards-row">
+  <div class="kpi-card">
+    <div class="kpi-label">FATURAMENTO</div>
+    <div class="kpi-value">R$ 2.4M</div>
+    <div class="kpi-trend up">▲ 12.3% vs mês anterior</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">LOJAS ATIVAS</div>
+    <div class="kpi-value">847</div>
+    <div class="kpi-trend up">▲ 23 novas</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">RUPTURA</div>
+    <div class="kpi-value">3.2%</div>
+    <div class="kpi-trend down">▼ -0.8pp</div>
+  </div>
+  <div class="kpi-card">
+    <div class="kpi-label">SLA ATENDIMENTO</div>
+    <div class="kpi-value">94.7%</div>
+    <div class="kpi-trend up">▲ Meta: 92%</div>
+  </div>
+</div>
+
+<!-- BUTTONS -->
+<h2>Buttons</h2>
+<div class="buttons-row">
+  <button class="btn btn-primary">Primary Action</button>
+  <button class="btn btn-secondary">Secondary</button>
+  <button class="btn btn-disabled" disabled>Disabled</button>
+</div>
+
+<!-- TABLE -->
+<h2>Table / Matrix</h2>
+<table class="table-demo">
+  <thead><tr><th>Regional</th><th>Lojas</th><th>Faturamento</th><th>Ruptura</th><th>SLA</th></tr></thead>
+  <tbody>
+    <tr><td>Nordeste</td><td>312</td><td>R$ 890K</td><td style="color:#34D399">2.1%</td><td>96.2%</td></tr>
+    <tr><td>Sudeste</td><td>285</td><td>R$ 780K</td><td style="color:#34D399">2.8%</td><td>94.1%</td></tr>
+    <tr><td>Sul</td><td>142</td><td>R$ 420K</td><td style="color:#F87171">4.5%</td><td>91.3%</td></tr>
+    <tr><td>Centro-Oeste</td><td>108</td><td>R$ 310K</td><td style="color:#FBBF24">3.9%</td><td>93.7%</td></tr>
+    <tr class="total"><td>Total</td><td>847</td><td>R$ 2.4M</td><td>3.2%</td><td>94.7%</td></tr>
+  </tbody>
+</table>
+
+<!-- CHART COLORS -->
+<h2>Chart Series Colors</h2>
+<div class="chart-colors">
+  <div class="chart-dot" style="background:#F46901"></div>
+  <div class="chart-dot" style="background:#6F05D4"></div>
+  <div class="chart-dot" style="background:#60A5FA"></div>
+  <div class="chart-dot" style="background:#34D399"></div>
+  <div class="chart-dot" style="background:#FBBF24"></div>
+  <div class="chart-dot" style="background:#F87171"></div>
+  <span style="font-size:10px;color:var(--gray500);margin-left:8px">S1 → S6</span>
+</div>
+
+<!-- SHADOWS -->
+<h2>Elevation / Shadows</h2>
+<div class="shadow-demo">
+  <div><div class="shadow-box" style="box-shadow:none;border:1px solid var(--gray300)">Level 0</div><div class="spacing-label">Flat</div></div>
+  <div><div class="shadow-box" style="box-shadow:var(--shadow-card)">Level 1</div><div class="spacing-label">Card</div></div>
+  <div><div class="shadow-box" style="box-shadow:var(--shadow-hover)">Level 2</div><div class="spacing-label">Hover</div></div>
+</div>
+
+<!-- SPACING -->
+<h2>Spacing Scale</h2>
+<div class="spacing-demo">
+  <div><div class="spacing-bar" style="height:8px"></div><div class="spacing-label">8</div></div>
+  <div><div class="spacing-bar" style="height:16px"></div><div class="spacing-label">16</div></div>
+  <div><div class="spacing-bar" style="height:24px"></div><div class="spacing-label">24</div></div>
+  <div><div class="spacing-bar" style="height:32px"></div><div class="spacing-label">32</div></div>
+  <div><div class="spacing-bar" style="height:48px"></div><div class="spacing-label">48</div></div>
+  <div><div class="spacing-bar" style="height:64px"></div><div class="spacing-label">64</div></div>
+</div>
+
+<p class="note">⚠️ <strong>Nota:</strong> O tema dark é uma exploração conceitual. O padrão oficial Mob2Con é sempre light (#F3F6FA). Use dark apenas para apresentações em tela ou contextos específicos aprovados.</p>
+
+</body>
+</html>

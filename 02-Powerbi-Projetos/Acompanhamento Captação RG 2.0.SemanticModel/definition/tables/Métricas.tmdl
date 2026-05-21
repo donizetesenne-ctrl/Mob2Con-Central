@@ -1,0 +1,1778 @@
+table Métricas
+	lineageTag: 72ffdf83-60a2-4130-8854-bda09c1fd07b
+	sourceLineageTag: fc56e519-cdec-4371-a3f8-8992e3606c82
+
+	/// Lojas no projeto respondendo aos filtros de rede da página. Dados embutidos no DAX para compatibilidade com o serviço online.
+	measure 'Lojas no Projeto (Filtro)' =
+			VAR _base =
+			    DATATABLE(
+			        "nm_rede", STRING,
+			        "qtd_lojas", INTEGER,
+			        {
+			            { "GBARBOSA",    69 },
+			            { "PREZUNIC",    39 },
+			            { "BIGBOX",      34 },
+			            { "NOVA ERA",    28 },
+			            { "NORDESTAO",   20 },
+			            { "PAGUE MENOS",  1 }
+			        }
+			    )
+			VAR _redes_selecionadas =
+			    CALCULATETABLE(
+			        VALUES(dim_rede[nm_rede]),
+			        CROSSFILTER('tb_Dashboard estudo RG'[REDE ATENDIDA], dim_rede[nm_rede], BOTH)
+			    )
+			RETURN
+			    SUMX(
+			        FILTER(_base, [nm_rede] IN _redes_selecionadas),
+			        [qtd_lojas]
+			    )
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 64a31c41-5969-4003-8b19-39aa6564d054
+
+	measure 'Lojas Cadastradas (Rede)' = EXTERNALMEASURE("Lojas Cadastradas (Rede)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 08917810-8775-4abc-9d97-e37757bda1d1
+		sourceLineageTag: dd7cc01c-8d83-48b2-8548-5bd63149b241
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Total Rede' = EXTERNALMEASURE("Venda (Qtd.) Total Rede", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: c3dfb65a-3b58-4bd3-a16d-fe18c05f7dd9
+		sourceLineageTag: 4cbe5b77-1f0c-4b6e-8ef2-6630a4ca67eb
+		dataCategory: Uncategorized
+
+	measure 'Estoque Última Posição' = EXTERNALMEASURE("Estoque Última Posição", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: c934aacc-a9c9-42c8-b861-33725ccfeba5
+		sourceLineageTag: 47971be4-cfe5-4e1b-9281-698b4ea20c8b
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Com estoque Sem Vendas M-1' = EXTERNALMEASURE("Qtd Produto Com estoque Sem Vendas M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: b5263365-5f75-4373-9b10-c82414a1a227
+		sourceLineageTag: 33c87657-296b-45a8-aba7-968a8dc1e2ac
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-1' = EXTERNALMEASURE("Venda (Qtd.) M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 5f656fbb-eaae-4905-9466-1f9166c5ae1a
+		sourceLineageTag: c61c8930-d80a-44d0-984c-adb9380ef8a2
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Última Posição Mês (M-1) Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Última Posição Mês (M-1) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a71c0091-e228-43ed-8619-6dc0e2a3bd96
+		sourceLineageTag: c386c7de-d582-4b6d-b3ee-6eb50a40db2e
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-1 e M-2' = EXTERNALMEASURE("Venda (Qtd.) M-1 e M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: f4261e42-8e45-47dc-870c-354b3cf32880
+		sourceLineageTag: fbc91f39-b82b-4f5d-ae2a-f5dfa67994ad
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (Qtd.) M-2' = EXTERNALMEASURE("Venda (Qtd.) M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e693ca57-9d59-408c-a870-c3ee859eca00
+		sourceLineageTag: 2a28beb3-4148-448d-a98d-d0f5254b263b
+		dataCategory: Uncategorized
+
+	measure 'Vendas (M2 x M1)' = EXTERNALMEASURE("Vendas (M2 x M1)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: a6ba5757-047d-4ce8-952c-4005f9fbba93
+		sourceLineageTag: 9c6abfd2-4c09-411d-9a3f-c3a5fea5280c
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-3' = EXTERNALMEASURE("Venda (Qtd.) M-3", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: b45d92b0-aa92-487e-a43f-ad30f5b0a0d6
+		sourceLineageTag: 3036e131-0375-4d78-b167-5d2542906b3b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vendas (M3 x M2)' = EXTERNALMEASURE("Vendas (M3 x M2)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: b6b36933-7792-4468-837d-641c919ee900
+		sourceLineageTag: 21caa750-bbc7-4399-a9a5-1e4a86c3896f
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda M-1' = EXTERNALMEASURE("Lojas com venda M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: ece44ada-71e5-44c8-a8ca-df74de6e2d30
+		sourceLineageTag: 40546b9b-3b0c-402a-84da-aa5d51a78d76
+		dataCategory: Uncategorized
+
+	measure 'Lojas sem Vendas M-1' = EXTERNALMEASURE("Lojas sem Vendas M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 6253214a-25ed-40f3-a191-ee788e0846c1
+		sourceLineageTag: 27f32e63-eb00-4f16-87f5-fbe37fe4b1e1
+		dataCategory: Uncategorized
+
+	measure 'Lojas Com estoque Sem Vendas M-1' = EXTERNALMEASURE("Lojas Com estoque Sem Vendas M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 1ae20970-aae4-4d1c-932b-d520cb4b5edd
+		sourceLineageTag: ad84cee6-549a-4da6-80c1-70e6c800ac80
+		dataCategory: Uncategorized
+
+	measure 'Lojas Cadastradas no Projeto' = EXTERNALMEASURE("Lojas Cadastradas no Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 6fb81975-7200-4e82-a9e1-f703078a36dd
+		sourceLineageTag: 9e2f2d67-8d96-4516-a3a0-30852c400a0c
+		dataCategory: Uncategorized
+
+	measure '% Lojas Projetadas x Vendas' = EXTERNALMEASURE("% Lojas Projetadas x Vendas", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: d43a9300-5472-4463-80de-30e623fb7e24
+		sourceLineageTag: 2e98ecec-ee87-4db0-9537-f70549f06a7f
+		dataCategory: Uncategorized
+
+	measure 'Dias de Estoque (DDE) - Lojas Projeto' = EXTERNALMEASURE("Dias de Estoque (DDE) - Lojas Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00
+		displayFolder: Sell Out
+		lineageTag: ca0f475f-ef9d-4e04-b398-21647337969e
+		sourceLineageTag: 99f9827a-1385-490b-883c-eb7d85eb44b8
+		dataCategory: Uncategorized
+
+	measure 'Calculo Vendas Média' = EXTERNALMEASURE("Calculo Vendas Média", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 3047b363-c8ff-44f2-8fe1-4e01f97a355d
+		sourceLineageTag: cdc195f2-9c73-4baf-95fe-2463c84e5707
+		dataCategory: Uncategorized
+
+	measure 'Qtd Dias Mês' = EXTERNALMEASURE("Qtd Dias Mês", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: ba3cc9a7-a3dd-47ef-ba80-93567fe32585
+		sourceLineageTag: 4377edf7-245b-432b-89ea-c788f066d4f0
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas M-1' = EXTERNALMEASURE("Qtd Produto Sem Vendas M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a1bef6da-06e6-4e12-85f4-30d54466564f
+		sourceLineageTag: 6b912721-460c-40f6-a35f-2ddb85abd358
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Estoque M-1' = EXTERNALMEASURE("Qtd Produto Sem Estoque M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e9037b18-5857-48bc-99d9-4d607ed0a778
+		sourceLineageTag: ea2008ec-a30c-415e-bb92-35c02bde1269
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas Últimos 2M' = EXTERNALMEASURE("Qtd Produto Sem Vendas Últimos 2M", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 29f60d4c-960c-4c26-bcdc-0b3f4ea4af79
+		sourceLineageTag: c3e56414-b0fd-444c-9912-e4ccd5aabe2b
+		dataCategory: Uncategorized
+
+	measure 'Data Descrição Mês/Ano M-1' = EXTERNALMEASURE("Data Descrição Mês/Ano M-1", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Textos (Data Card)
+		lineageTag: ca9edf02-7ee7-46ba-8bd1-90d8659dec59
+		sourceLineageTag: 9602d670-6455-4db0-86f4-074dc9960037
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Data Início M-1' = EXTERNALMEASURE("Data Início M-1", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: a0a5baea-2c9b-41ba-aca8-cb7837081ed8
+		sourceLineageTag: e0c42af1-fbde-4810-a3ee-98df93b99b29
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto' = EXTERNALMEASURE("Venda (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: bbc3ca34-1b6a-4d01-9aeb-e4d1c5aee3dc
+		sourceLineageTag: a25ca839-872d-4aa1-bc01-75a7ef9b175e
+		dataCategory: Uncategorized
+
+	measure 'Card Período M-4' = EXTERNALMEASURE("Card Período M-4", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Textos (Data Card)
+		lineageTag: ed128446-ecf8-4acd-b869-4fa1caaa5504
+		sourceLineageTag: 844cadfa-2f80-4453-9d0e-ab8a7ca6ad59
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Data Max FT_Mov' = EXTERNALMEASURE("Data Max FT_Mov", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 236f038b-53e0-4eca-8dfb-e16af1859818
+		sourceLineageTag: fc4f56fa-a180-48c7-bec2-718f57e0c746
+		dataCategory: Uncategorized
+
+	measure 'Data Início M-3' = EXTERNALMEASURE("Data Início M-3", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: 900e5607-6b0e-4c2b-8465-e325474fc3a8
+		sourceLineageTag: 34eb2d2c-f165-425b-9530-dc1753f3fd07
+		dataCategory: Uncategorized
+
+	measure '% Vendas MoM' = EXTERNALMEASURE("% Vendas MoM", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: acd4026b-30c3-408f-b5da-73d66801e3f1
+		sourceLineageTag: 7d2310da-8da6-4111-9940-faf881491b60
+		dataCategory: Uncategorized
+
+	measure 'Vendas LM Projeto' = EXTERNALMEASURE("Vendas LM Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: e6af9e9d-5df3-4f1a-b719-e6327c89f940
+		sourceLineageTag: 9247e49c-a4f7-4695-a08a-00ab79bf685b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (Qtd.) sem Projeto' = EXTERNALMEASURE("Venda (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 0fee450a-34d0-45bf-89a8-062a3038d878
+		sourceLineageTag: baf9a357-881c-4491-973e-84f0b935d1d7
+		dataCategory: Uncategorized
+
+	measure '% Vendas MoM Projeto' = EXTERNALMEASURE("% Vendas MoM Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 969f871b-0f03-4885-8c6f-592c778ba19c
+		sourceLineageTag: e7f17eec-1224-4711-a739-6286d4bf5bb9
+		dataCategory: Uncategorized
+
+	measure 'Vendas LM Rede' = EXTERNALMEASURE("Vendas LM Rede", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 66cf1bf5-fa00-4c54-9bb4-05c5855afa11
+		sourceLineageTag: ef15f342-24da-4c4f-b840-dccb4889a68e
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Vendas LM sem Projeto' = EXTERNALMEASURE("Vendas LM sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 5df9f5b5-a96c-42d8-b54e-b9309dccb027
+		sourceLineageTag: 95aa7b1b-f366-41a1-a226-2e7500f81e3f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Vendas MoM sem Projeto' = EXTERNALMEASURE("% Vendas MoM sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: c2aec533-64f1-4136-bf64-b70796dc9b48
+		sourceLineageTag: 8857d2fb-b55c-4939-98ab-baac4a0b2aef
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda no Projeto M-1' = EXTERNALMEASURE("Lojas com venda no Projeto M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 02d8da0a-5c31-4510-863b-4d15fb7fb9c7
+		sourceLineageTag: feb8a892-383e-4fe1-a84b-da3db7434dd4
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.)' = EXTERNALMEASURE("Ruptura Comercial (Qtd.)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8d93c764-bd57-4919-94ad-34367ff53991
+		sourceLineageTag: e2458b34-1b98-477b-91cb-81c8a5f70289
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$)' = EXTERNALMEASURE("Ruptura Comercial (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 66ff62c9-b971-4cbc-866f-270458dc5887
+		sourceLineageTag: 8e949c1e-1aa7-4b01-aec3-41bf77885438
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$)' = EXTERNALMEASURE("Venda (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 777fa802-3092-41fb-9c87-3a50526a3c0d
+		sourceLineageTag: 9177e60d-6895-4614-84e9-bd97a72e41c2
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.)' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: d6940946-03fc-43de-a154-ac7276ffd126
+		sourceLineageTag: d6220145-bc26-445d-93f0-db34ddce403b
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$)' = EXTERNALMEASURE("% Ruptura Comercial (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5bd2278b-242f-4a70-8e2c-7e7e5cc14040
+		sourceLineageTag: d377faaf-2563-469d-9f4c-cf7e0f1607ba
+		dataCategory: Uncategorized
+
+	measure LastDateCurrentYear = EXTERNALMEASURE("LastDateCurrentYear", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: 11773d0a-b237-489e-93d1-28d4e80bf7e6
+		sourceLineageTag: 94cc9dab-71f0-4b1c-a7da-3d5c7662094b
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Última Posição Mês Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Última Posição Mês Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: c1dd5615-e95c-40cb-adac-9dc63dea7084
+		sourceLineageTag: 48a6174d-a50c-47ae-945b-b83d6b1ec466
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda' = EXTERNALMEASURE("Lojas com venda", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: a84a277e-734b-4e5e-bdb3-b41a9d19c51c
+		sourceLineageTag: 20ebd886-8249-4714-8336-6e15904d4d38
+		dataCategory: Uncategorized
+
+	measure 'Produto (Qtd.)' = EXTERNALMEASURE("Produto (Qtd.)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: ecaa006c-50f7-4255-8527-2010dd553555
+		sourceLineageTag: e309ffa3-643b-4ec3-a160-01e06be14f32
+		dataCategory: Uncategorized
+
+	measure 'Horas Ideais' = EXTERNALMEASURE("Horas Ideais", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.0
+		displayFolder: Sell Out
+		lineageTag: 3f61529b-cbbf-412b-8bb5-d0274cfaee67
+		sourceLineageTag: a51d04b6-0ff7-4f20-9bc1-49170327c12c
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$)' = EXTERNALMEASURE("Ruptura Operacional (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 6a9377fe-ed2a-4e59-96e0-78245c37805b
+		sourceLineageTag: 678e560e-78f7-49c6-a421-8a5e7006421f
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (Qtd.)' = EXTERNALMEASURE("Ruptura Operacional (Qtd.)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 1f083c3c-d1c8-4de0-bb9f-ac31cc1bc1fe
+		sourceLineageTag: 7cb89ccb-c44d-4e5e-a283-210757925dca
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (% Estoque)' = EXTERNALMEASURE("Indicador Selecionado (% Estoque)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Indicador
+		lineageTag: 9920079e-9ad0-4205-8f00-c5f01845514c
+		sourceLineageTag: 7bea027a-5561-4c11-819e-4e78bf7e7c13
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo' = EXTERNALMEASURE("% Ocorrências Estoque Negativo", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: dc3315ee-8d8a-4d04-859f-85db33453710
+		sourceLineageTag: fd5340d8-0949-4f4c-9861-12e0031c1468
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero' = EXTERNALMEASURE("% Ocorrências Estoque Zero", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 471cbf51-4031-4009-a55d-ab23ea3cdb31
+		sourceLineageTag: 61b86b0c-5f28-481d-991d-ee0963e2e0d1
+		dataCategory: Uncategorized
+
+	measure 'Ocorrências de Produtos' = EXTERNALMEASURE("Ocorrências de Produtos", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: fb7bb722-6901-4976-979a-c3b7167cb2ba
+		sourceLineageTag: ee290010-9187-40e7-9971-d04207cfa14a
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo' = EXTERNALMEASURE("Produto com estoque negativo", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8b6e52e0-407b-4ca6-ae8a-d91a77e15018
+		sourceLineageTag: 8050fff5-d341-4653-9f60-2269ec4f02c9
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero' = EXTERNALMEASURE("Produto estoque zero", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a5369356-7c96-436c-9e2a-8e57cb824e93
+		sourceLineageTag: bc057267-106a-4783-a92b-9f13c45ae1c5
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque virtual' = EXTERNALMEASURE("Produto com estoque virtual", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7f2df40b-2ffc-45e8-9119-0536e71da955
+		sourceLineageTag: 6c927a0d-c201-4874-8ea4-7302cb5c708b
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (Ruptura)' = EXTERNALMEASURE("Indicador Selecionado (Ruptura)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Indicador
+		lineageTag: 2b595129-c805-49bc-a96d-f2fbf8713ea9
+		sourceLineageTag: 43ca9bd0-85d6-4ca0-9911-3a9b862fd2ce
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$)' = EXTERNALMEASURE("% Ruptura Operacional (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 899fef54-0cba-4aaa-80c7-5fdb6919b809
+		sourceLineageTag: f56da6aa-0323-49b1-bec9-81d0c2fa8ff7
+		dataCategory: Uncategorized
+
+	measure 'Horas Realizadas (Rede)' = EXTERNALMEASURE("Horas Realizadas (Rede)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 98bc71d1-63fe-4a92-b312-677b50addbc5
+		sourceLineageTag: b9f08604-6e52-48c7-82a0-2bf5adb2a128
+		dataCategory: Uncategorized
+
+	measure 'Horas Realizadas (Projeto)' = EXTERNALMEASURE("Horas Realizadas (Projeto)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 4b6d40cf-fcec-4308-a319-c27a8497ff5f
+		sourceLineageTag: 994a6335-99e2-4ba4-8139-924f524b580c
+		dataCategory: Uncategorized
+
+	measure 'Loja com Acesso (Projeto)' = EXTERNALMEASURE("Loja com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 367089c9-435c-41f1-9002-7f5dff374f87
+		sourceLineageTag: 404eb11b-16f4-400b-a934-98c97ac413ad
+		dataCategory: Uncategorized
+
+	measure 'GAP Horas Realizadas x Horas Ideais' = EXTERNALMEASURE("GAP Horas Realizadas x Horas Ideais", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 0018a1f5-a9eb-4739-a342-c6b9c38955bb
+		sourceLineageTag: 5d1107bf-7ef5-4cb5-8c06-a412f2bb3ef4
+		dataCategory: Uncategorized
+
+	measure 'Data Max Estoque' = EXTERNALMEASURE("Data Max Estoque", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 9b956084-16b3-4605-9d36-4cf6882b0d26
+		sourceLineageTag: fcb7d4cf-4ab8-417b-aa12-3d172f0c78e4
+		dataCategory: Uncategorized
+
+	measure 'Ocorrências de Produtos Projeto' = EXTERNALMEASURE("Ocorrências de Produtos Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: bf44b095-784a-4814-98f7-db6e2f653786
+		sourceLineageTag: 51ca0d6f-372a-49ff-8193-901eb359fae6
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 77128f7c-3535-4300-ae9d-bde4ff632d4b
+		sourceLineageTag: 4b1608d1-179b-451a-91b8-da56f06c8d2c
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) sem Projeto' = EXTERNALMEASURE("Ruptura Comercial (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00
+		displayFolder: Sell Out
+		lineageTag: c0a61723-d918-4b54-b2d8-df5bd7b9fcf8
+		sourceLineageTag: 31464ec5-3e21-4544-94f5-8dec9065b6c0
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Comercial (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 822f17af-0204-42c9-a281-554df5b2912d
+		sourceLineageTag: 584e2c69-d03a-4395-8523-afc15e0a6b19
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.) sem Projeto' = EXTERNALMEASURE("Ruptura Comercial (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e8835ad4-853d-4789-9143-fcee36927352
+		sourceLineageTag: 52fec8ea-fce2-430d-b103-0ffa18b5c544
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) Projeto' = EXTERNALMEASURE("Venda (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 25cc432a-5143-4dd1-93f0-e87ba2f06329
+		sourceLineageTag: 71bfd222-5d7f-4e24-aa01-5ce6494635fa
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Operacional (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Operacional (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a45a62c2-15ee-4cc7-ab8b-4172728bf5d6
+		sourceLineageTag: e6354a43-94d6-4737-84b2-acd1bc74f840
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (Qtd.) sem Projeto' = EXTERNALMEASURE("Ruptura Operacional (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: cfabb43b-79c3-40e4-bf62-cc829ec31e5f
+		sourceLineageTag: b47e8db1-5582-49a7-928b-aa80f9f34548
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 10cbd4ad-3e11-463c-85f0-29d4961a8c52
+		sourceLineageTag: 7311cb0f-170f-4103-aad6-b9ff80f28d21
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) sem Projeto' = EXTERNALMEASURE("Ruptura Operacional (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: cd6b500d-1c20-47ca-8651-260a24b6b2a1
+		sourceLineageTag: baa92a0d-8df5-4dcf-8e0e-ea9e75e9c540
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.) Projeto' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: ab43b06f-974d-4bb3-ac68-2167fb34faa6
+		sourceLineageTag: 5575bdc2-038e-46f3-a678-708c510c395c
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.) sem Projeto' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5f9fd12e-3ca5-4f73-9f88-fd6cd6b98f92
+		sourceLineageTag: 242bab31-0bfb-4677-b183-79297aeba907
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 67dbb9ac-3273-4adc-9945-a801f779fe12
+		sourceLineageTag: ab2a5786-4ebc-4039-86b3-ccd425640631
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) sem Projeto' = EXTERNALMEASURE("% Ruptura Comercial (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 309dd6ff-a4f5-400c-9b89-7db4c81d4117
+		sourceLineageTag: d72b39e9-6675-4a1b-90f5-603f1db6eb4b
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (Qtd.) Projeto' = EXTERNALMEASURE("% Ruptura Operacional (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 107f71fd-b15f-4181-8e3c-064333fa6d69
+		sourceLineageTag: 5a1e6ccf-d998-435e-9347-0ffba1fdfcb7
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (Qtd.) sem Projeto' = EXTERNALMEASURE("% Ruptura Operacional (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 9d8d356a-c847-4e3a-bf0c-033ad47d727f
+		sourceLineageTag: cba2fdc2-3343-451d-8b9a-c057f5c7679f
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5a498db2-309f-4cef-a360-7f376868b362
+		sourceLineageTag: 9fb7c9f5-9b59-4263-808c-b99c0802a5c6
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) sem Projeto' = EXTERNALMEASURE("% Ruptura Operacional (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: a594d776-4779-46c9-b787-f7cf276c80ea
+		sourceLineageTag: 9431e95a-1e8b-43f1-a8fe-c907085cd226
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo Projeto' = EXTERNALMEASURE("Produto com estoque negativo Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8c40d29a-af85-41e4-86ed-9a58fa5bb48d
+		sourceLineageTag: 17a29018-bcb2-4c5d-869d-85fe76fb27e5
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo sem Projeto' = EXTERNALMEASURE("Produto com estoque negativo sem Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: f1caefae-214f-4dbf-9f39-93f57f3706b8
+		sourceLineageTag: 5107c31c-cd98-4dfd-bce6-ffc691eb78ab
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero Projeto' = EXTERNALMEASURE("Produto estoque zero Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 3da84581-f6be-4e83-8a97-2ee3bee05e0f
+		sourceLineageTag: 8e7490e3-b5f4-4140-8aa8-d716f68d1ff7
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero sem Projeto' = EXTERNALMEASURE("Produto estoque zero sem Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a8434905-c773-4f1d-893a-9d651a0a00e0
+		sourceLineageTag: d6239035-4b94-4910-b584-633f279d0b83
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Negativo Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: c7fa8d83-7fb4-4d6d-8f3f-a205b6e3b0c2
+		sourceLineageTag: 2ebdd612-d0db-4304-a365-660f38cd16ec
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo sem Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Negativo sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 6ab33068-bc70-42cb-a76d-e974a14cb832
+		sourceLineageTag: 34d71888-d52c-4fe8-a7db-ed447ba72ee7
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Zero Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 6b8b09c3-9847-41eb-b504-13d637047adb
+		sourceLineageTag: 0d84a1f8-1e71-4d86-915d-32e1d9eee886
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero sem Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Zero sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 994063fd-428a-45c4-a270-0f5cf6a1b904
+		sourceLineageTag: b5d730a3-b792-4b0e-bb7d-faa049b0c62b
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo (Selection)' = EXTERNALMEASURE("% Ocorrências Estoque Negativo (Selection)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 1c238b51-4ab9-44e1-a2c3-60e80b0249e5
+		sourceLineageTag: ea71a85b-526c-447a-a783-61c6e0430856
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero (Selection)' = EXTERNALMEASURE("% Ocorrências Estoque Zero (Selection)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 2c598ac2-8ae6-4d4a-83eb-9b271dff786d
+		sourceLineageTag: c2342517-5400-44a8-a359-8d41d687b481
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Ruptura Comercial (R$) (Selection)' = EXTERNALMEASURE("% Ruptura Comercial (R$) (Selection)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 3fbb018f-44fd-496d-8954-b065852c1b73
+		sourceLineageTag: 43fb7a10-5aeb-4212-8922-2828668dfe70
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) (Selection)' = EXTERNALMEASURE("% Ruptura Operacional (R$) (Selection)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 9c8469cd-fb0c-4d7b-8615-8f6f095b0c94
+		sourceLineageTag: 5f990e54-a272-4a3b-ac6a-856b7c4f0922
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (Qtd.) M-Atual' = EXTERNALMEASURE("Venda (Qtd.) M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 76435e3b-57e4-4033-a6c4-cb0fa9743427
+		sourceLineageTag: c008611e-efbf-40d5-b2fb-4cc1430fe17f
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-Atual' = EXTERNALMEASURE("Venda (R$) M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 3e395072-bde0-4fa9-a59f-9cb170bb93d0
+		sourceLineageTag: 09c4079b-7027-4ca5-a68f-765b78c27a03
+		dataCategory: Uncategorized
+
+	measure 'Venda Média (Dias com Vendas)' = EXTERNALMEASURE("Venda Média (Dias com Vendas)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 3e52a618-173d-4f65-a684-0f50c130b168
+		sourceLineageTag: 98456d24-3e89-4ceb-a96a-653429d72334
+		dataCategory: Uncategorized
+
+	measure 'Dias com vendas' = EXTERNALMEASURE("Dias com vendas", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: d6d441fb-262d-447d-9915-bf413bf33458
+		sourceLineageTag: 101fa1f4-40f2-4f4f-b64e-f29058368b21
+		dataCategory: Uncategorized
+
+	measure 'Vl Estoque Última Posição Mês Projeto' = EXTERNALMEASURE("Vl Estoque Última Posição Mês Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e4d3cb7f-3eb5-4e0d-a506-db583695d2ee
+		sourceLineageTag: c4384498-93b8-45ba-a504-81f5048713a3
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-1' = EXTERNALMEASURE("Venda (R$) M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 5727dfe6-8878-4d78-884b-3bb5b1c95c13
+		sourceLineageTag: 9c9c4539-8c4a-4ad9-932a-8ab523a9e8ad
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-2' = EXTERNALMEASURE("Venda (R$) M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: d75ab0b2-a36e-477f-b4bb-ed2a65a72412
+		sourceLineageTag: fd2e89d3-7be7-41fe-a458-b30da0122efb
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-3' = EXTERNALMEASURE("Venda (R$) M-3", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7ebdde7c-c5e9-47c1-ae96-d5fb88fbbc0b
+		sourceLineageTag: 55b25bec-0221-4ada-a94f-625c33810a3a
+		dataCategory: Uncategorized
+
+	measure 'Venda Média Praticado (R$)' = EXTERNALMEASURE("Venda Média Praticado (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 3886658b-b1eb-471e-800f-8fb5b59cff7e
+		sourceLineageTag: 86c33cb7-d4be-44cc-885e-02ffdee0cf8b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (Qtd.) Média' = EXTERNALMEASURE("Venda (Qtd.) Média", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 4543c38e-e069-48ea-969c-47bf6b1005e5
+		sourceLineageTag: 2b5ebe64-10a1-4301-809a-ab910890b90c
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (R$) Média' = EXTERNALMEASURE("Venda (R$) Média", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 8b106f01-68d4-48eb-aa4c-340891be8b17
+		sourceLineageTag: 3b73d203-7383-4798-aa8a-b32e3ae23d4b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Estoque (R$) Média' = EXTERNALMEASURE("Estoque (R$) Média", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 1a8eac7d-44a2-43c1-829b-0af758e2b37d
+		sourceLineageTag: 5089006c-e983-458d-921c-0179fca6b16e
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Venda (Qtd.) M-1 a M-3' = EXTERNALMEASURE("Venda (Qtd.) M-1 a M-3", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: b68a0eee-322c-4473-9e9f-bdb08de112ac
+		sourceLineageTag: ea9a8576-13db-47ac-9aa0-019eae271a64
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas M-1 a M3' = EXTERNALMEASURE("Qtd Produto Sem Vendas M-1 a M3", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 40c49ccd-3735-4f11-a80e-a7b40bc8b87e
+		sourceLineageTag: 451f3f2d-132b-47f9-8fec-522634cf5e35
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto M-1' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 589d17f3-b636-4aad-b75f-b28d946bfa14
+		sourceLineageTag: cb098ca3-17fa-4862-a880-41f8132ef74a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Operacional (R$) Projeto M-1' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: d27341ee-cd11-4bee-8731-37e6ffcf6094
+		sourceLineageTag: d63a866b-bf14-45c5-a4c8-302c3d772d6c
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Ruptura Operacional (R$) Projeto M-1' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 17a83d85-b93f-4781-851b-fbd7c6d2eb58
+		sourceLineageTag: 17ae3db4-fc05-4aec-bd1f-b6bf595c40da
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto M-1' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 0d3d1d1b-a4a9-4f2c-b4ed-d68d66fdf1d7
+		sourceLineageTag: 9c8f1a24-557a-43f5-bec0-786935861c91
+		dataCategory: Uncategorized
+
+	measure 'Promotores com Acesso (Projeto)' = EXTERNALMEASURE("Promotores com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 48d07315-33d4-41ca-bee1-2adc130b8142
+		sourceLineageTag: cecf18f5-7166-4e7b-aa4b-3bfb0316fe9e
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto/Promotor' = EXTERNALMEASURE("Venda (Qtd.) Projeto/Promotor", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 0ea21368-5ce9-463d-ba14-6ecd95bfaa3c
+		sourceLineageTag: 5c2d87eb-5d12-46fe-912c-125d333c38ef
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Administrativa (Qtd.)' = EXTERNALMEASURE("Ruptura Administrativa (Qtd.)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 00bb6e11-f456-4284-8cd9-aa95c2cbf5b5
+		sourceLineageTag: badd1c20-f4b5-4702-8501-63a95d1dc42a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Administrativa (R$)' = EXTERNALMEASURE("Ruptura Administrativa (R$)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7e7545b6-9297-4ffe-b5b6-fcc72ab4054e
+		sourceLineageTag: da69eab7-95cf-4d07-970a-60402f7bd7fb
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Admnistrativa (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Admnistrativa (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 3b8dacde-6d12-43ee-b9a5-84b1ce91a581
+		sourceLineageTag: 789a39fa-9e85-405f-a45f-fa6befcf97b3
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Administrativa (R$) Projeto' = EXTERNALMEASURE("Ruptura Administrativa (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 35f1f75d-d65e-44b9-9af6-f71e5670a655
+		sourceLineageTag: 6c31f1ed-3235-4bd1-86e2-1ef03eaabaac
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Administrativa (R$) Projeto' = EXTERNALMEASURE("% Ruptura Administrativa (R$) Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 46b1d87a-c999-42cb-a816-0eba10177ba4
+		sourceLineageTag: 9e3f8091-5dda-4d63-8129-7d859980ac07
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Administrativa (Qtd.)' = EXTERNALMEASURE("% Ruptura Administrativa (Qtd.)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 285ea7ed-6b51-4c9a-bb8a-adeb40025f86
+		sourceLineageTag: b6c5b6ae-ed8c-4209-99f0-dc36653b93a9
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Indicador Selecionado (% Estoque) Projeto/sem Projeto' = EXTERNALMEASURE("Indicador Selecionado (% Estoque) Projeto/sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Indicador
+		lineageTag: 7266b8ca-2e7a-4696-af0e-98c1bf63ef69
+		sourceLineageTag: d83b4b98-25a9-43dd-9548-ab4ea3d6b49a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Indicador Selecionado (Vendas) Projeto/sem Projeto' = EXTERNALMEASURE("Indicador Selecionado (Vendas) Projeto/sem Projeto", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Indicador
+		lineageTag: 2bc9bc92-26bf-4393-abd4-ebc3803b2d64
+		sourceLineageTag: 13834be7-f409-4523-99f8-a3663ec22ad4
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dias de estoque por (R$) (AVG)' = EXTERNALMEASURE("Dias de estoque por (R$) (AVG)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 9e5b2fdc-86ae-4e6e-aa60-e7d301cbc9ff
+		sourceLineageTag: c6adff2b-143b-4522-8087-926aab0cdc5f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Qtd Produto com venda M-1' = EXTERNALMEASURE("Qtd Produto com venda M-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 3446b986-555e-4eb7-a122-af98319c1a23
+		sourceLineageTag: 95abcbd2-0304-47c0-bf4a-b18262e9d067
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto com venda M-2' = EXTERNALMEASURE("Qtd Produto com venda M-2", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 367c5782-826e-4e2a-b495-6eadd4c2b667
+		sourceLineageTag: a9afab29-bb06-4abe-80f4-3f7fe9e70191
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 36e733ed-0de3-4fb3-9a92-5c91654f9c8b
+		sourceLineageTag: 97717950-7296-49d5-ac96-2fad72d9aa1c
+		dataCategory: Uncategorized
+
+	measure 'Status Atividades' = EXTERNALMEASURE("Status Atividades", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: MobConnect
+		lineageTag: 2fd60a3a-42a3-418b-816f-af82f03802c4
+		sourceLineageTag: e2ecb4ad-5bec-4731-b9a1-f08e656c848b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Atividades (Qtd)' = EXTERNALMEASURE("Atividades (Qtd)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: ea9e4dd4-75e0-4638-8f05-1b036ab7f729
+		sourceLineageTag: 29f7fb2d-e5dc-4ff5-a6b3-672ec2c26b71
+		dataCategory: Uncategorized
+
+	measure 'Data Atividade' = EXTERNALMEASURE("Data Atividade", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: General Number
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 0cf26233-bb89-4d76-af40-c57245179e9d
+		sourceLineageTag: 5c6ca9e6-5579-4d43-a7a5-41731919cffd
+		dataCategory: Uncategorized
+
+	measure 'Atividades (Qtd) Problema Reportado' = EXTERNALMEASURE("Atividades (Qtd) Problema Reportado", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 7aa08e46-705d-4d93-98c1-4d0367eb6578
+		sourceLineageTag: ef7ad584-11ef-44c6-a06c-7d4913a720c0
+		dataCategory: Uncategorized
+
+	measure 'Tarefas (Qtd) Concluída' = EXTERNALMEASURE("Tarefas (Qtd) Concluída", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: b21b43e6-5bc0-44ba-b454-d71c60646ff1
+		sourceLineageTag: 478a7591-88c1-491b-b13c-2f0b3e80558c
+		dataCategory: Uncategorized
+
+	measure 'Tarefas (Qtd) Pendente Alocada' = EXTERNALMEASURE("Tarefas (Qtd) Pendente Alocada", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: dc96e0c5-c6f6-42a3-9f6d-5cd2f6c05e68
+		sourceLineageTag: 3a160540-3b2e-42e0-a418-5440b16d8400
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Problema Reportado' = EXTERNALMEASURE("% Tarefas Problema Reportado", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: 6b98e7a3-e650-4540-a0f3-cc80a24b399f
+		sourceLineageTag: f7a3fd3b-35c8-47a6-8435-aa78c4d69cda
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Concluída' = EXTERNALMEASURE("% Tarefas Concluída", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: e1ea7e6f-f765-4339-8eb9-4ab79319ff97
+		sourceLineageTag: 331b5901-201a-46bf-aee1-45ac609f5114
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Pendente Alocada' = EXTERNALMEASURE("% Tarefas Pendente Alocada", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: 1854e1e7-4b43-45ca-9909-95a62d448767
+		sourceLineageTag: 7b6b7bab-01e5-4a48-b686-06a8c9321730
+		dataCategory: Uncategorized
+
+	measure 'Data Selecionada Min' = EXTERNALMEASURE("Data Selecionada Min", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 0b7b0807-84c8-418f-ad0b-f978815f142f
+		sourceLineageTag: 3106b5b1-b8f5-42f7-ad1a-26806861a636
+		dataCategory: Uncategorized
+
+	measure 'Fornecedores Cadastrados no Projeto' = EXTERNALMEASURE("Fornecedores Cadastrados no Projeto", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: bd76e810-2bb8-4ac4-ab89-9e6bc6bc7919
+		sourceLineageTag: 985a79f5-2ed0-407e-9d6d-12186266c9ae
+		dataCategory: Uncategorized
+
+	measure 'Data Min FT_Mov' = EXTERNALMEASURE("Data Min FT_Mov", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 077b5dd5-e122-46b7-85a7-2b2a1c7f182d
+		sourceLineageTag: 05093b8b-a172-4299-9604-5672c6827f60
+		dataCategory: Uncategorized
+
+	measure 'Fornecedor com Acesso (Projeto)' = EXTERNALMEASURE("Fornecedor com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: cd4f1da6-4770-4afe-a7c5-e22bf14b3f71
+		sourceLineageTag: caab7b11-0104-4229-9e12-d9ebc8bef906
+		dataCategory: Uncategorized
+
+	measure 'Fornecedor com Atividades' = EXTERNALMEASURE("Fornecedor com Atividades", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 6e4b9319-03f7-4b93-98c3-20cc9d49fda5
+		sourceLineageTag: bc98cdfb-a7d6-4bcb-83ee-26a7f1ebab78
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento' = EXTERNALMEASURE("Horas Atendimento", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 5da01464-7c2c-4e7c-9daf-e2220839f21e
+		sourceLineageTag: f8ed9e70-190b-4dd3-80bf-8ff831bc6bf2
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto/Atendimento' = EXTERNALMEASURE("Venda (Qtd.) Projeto/Atendimento", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: e360e9a3-758d-426d-ae85-76b595d4c848
+		sourceLineageTag: 6f007f7b-beeb-4106-8998-46a9ffe88bff
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Dias com Atendimento' = EXTERNALMEASURE("Dias com Atendimento", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 5cdee767-e63c-411f-9007-07b88f7d4292
+		sourceLineageTag: 08987366-7b29-416d-b20b-ba32115a2bce
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento (decimal)' = EXTERNALMEASURE("Horas Atendimento (decimal)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00
+		displayFolder: MobConnect
+		lineageTag: e3430154-7955-4d98-a6e1-3c317a2f851e
+		sourceLineageTag: 2298ba61-9ff6-464e-a6cd-8543a3d440ad
+		dataCategory: Uncategorized
+
+	measure 'GAP Horas Atendimento x Horas Ideais' = EXTERNALMEASURE("GAP Horas Atendimento x Horas Ideais", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 17590f98-5174-40a2-af3e-57cfe1b577c0
+		sourceLineageTag: 66289744-1f53-4217-8faf-f5f9fa098422
+		dataCategory: Uncategorized
+
+	measure 'Promotores com Atividades' = EXTERNALMEASURE("Promotores com Atividades", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: 68cf0197-9f50-42cf-8f23-d241cf816414
+		sourceLineageTag: 7fd13358-58ad-45f9-8af0-ed8fa8730c31
+		dataCategory: Uncategorized
+
+	measure 'Vendas (M1 x M Atual)' = EXTERNALMEASURE("Vendas (M1 x M Atual)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 378ae1d8-3724-40a7-a8d0-14f311be7108
+		sourceLineageTag: 74c57199-dab2-4174-bd6e-7aaf61e9fc99
+		dataCategory: Uncategorized
+
+	measure 'Venda Acumulada M-Atual' = EXTERNALMEASURE("Venda Acumulada M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 31815d98-22fd-4c83-a8d7-cd03804f32fa
+		sourceLineageTag: f5be2277-2fb9-4ce6-82d6-d64eafb4a14d
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Representatividade Venda (Qtd.) M-Atual' = EXTERNALMEASURE("% Representatividade Venda (Qtd.) M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 463f6d4b-6a3a-4344-95e7-268135b95b9e
+		sourceLineageTag: 40d4a966-b204-4d5b-9ec0-0d9cb0fef45d
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto M-2' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: f6e005c4-d643-4496-82c9-5874235ef901
+		sourceLineageTag: 1dfefbf8-6f79-4b6c-80a3-8e9fb3bddc70
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto M-2' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: f1b1329b-8c7e-493b-a9cc-5c043290ae8c
+		sourceLineageTag: 39bb1145-7bca-483a-a266-67e6fd0bb06f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Comercial (R$) Projeto M-Atual' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: aabad03e-2f25-4234-b939-67e8961834da
+		sourceLineageTag: 45642cc5-c6d1-47cf-a52f-078ad595c9fe
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Ruptura Comercial (R$) Projeto M-Atual' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 622c7b1b-4f0f-4401-bce3-75fa6e220fc7
+		sourceLineageTag: ac604a4d-1c38-4423-9cf2-2b06827cde71
+		dataCategory: Uncategorized
+
+	measure 'Data Última Venda' = EXTERNALMEASURE("Data Última Venda", DATETIME, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 5f9df4ba-2d64-45fb-a57a-ff2ee86af88a
+		sourceLineageTag: ff45e7bc-af66-4252-99df-fcaa945dbbe5
+		dataCategory: Uncategorized
+
+	measure 'Estoque Última Posição (Rup Comercial)' = EXTERNALMEASURE("Estoque Última Posição (Rup Comercial)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 72af7a17-2d84-431c-bfce-c188872b86df
+		sourceLineageTag: 1e165c68-dccd-40ed-9b9d-bfc7a96597ab
+		dataCategory: Uncategorized
+
+	measure 'Produtos Ruptura Comercial' = EXTERNALMEASURE("Produtos Ruptura Comercial", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: b04b151a-1e6a-4a85-b5ab-72e3ea32e236
+		sourceLineageTag: 8b307c1f-a4eb-47f3-9b93-a5679a854b7d
+		dataCategory: Uncategorized
+
+	measure 'Horas Projetadas' = EXTERNALMEASURE("Horas Projetadas", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0.00
+		displayFolder: Cadastro / Acesso
+		lineageTag: 966463ee-6edd-4235-9c8c-48891217e408
+		sourceLineageTag: 2e1c8a51-7642-4ee8-84b3-24af0e25a1e4
+		dataCategory: Uncategorized
+
+	measure 'GAP (Horas Projetadas x Horas Atendimento)' = EXTERNALMEASURE("GAP (Horas Projetadas x Horas Atendimento)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 1f0f3d4a-3be6-4cbe-a8a7-6c2ef7d1b933
+		sourceLineageTag: ddc01758-d914-46db-9f9f-e662a3eee049
+		dataCategory: Uncategorized
+
+	measure 'Produtos Ruptura Operacional' = EXTERNALMEASURE("Produtos Ruptura Operacional", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 2134f77d-64ae-418e-b0b6-4584826e6745
+		sourceLineageTag: 8411d18d-67a3-40d0-9466-41e76fa0a6a1
+		dataCategory: Uncategorized
+
+	measure 'Qtd fornecedores/lojas (Projeto)' = EXTERNALMEASURE("Qtd fornecedores/lojas (Projeto)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 0e532446-3666-4e35-a325-4c5f2d699ae8
+		sourceLineageTag: 09341eca-aac8-4c63-b005-f17eaa4261f5
+		dataCategory: Uncategorized
+
+	measure 'Qtd fornecedores/lojas (Atendimento)' = EXTERNALMEASURE("Qtd fornecedores/lojas (Atendimento)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: e6544fd8-2467-4e6e-9de9-50433cef6c63
+		sourceLineageTag: 29dd3922-3abe-4eb4-bdb4-4c81b5761949
+		dataCategory: Uncategorized
+
+	measure '% Atendimento (Projeto/Loja)' = EXTERNALMEASURE("% Atendimento (Projeto/Loja)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cadastro / Acesso
+		lineageTag: 587a8c38-1435-4c74-bb18-2670388a03a7
+		sourceLineageTag: ddce2195-15b5-4dba-89e5-cd6d2f4f811a
+		dataCategory: Uncategorized
+
+	measure '% Horas Atend. (Projeto/Loja)' = EXTERNALMEASURE("% Horas Atend. (Projeto/Loja)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cadastro / Acesso
+		lineageTag: 5743001b-8626-43f2-99f4-9cc4d6113cb7
+		sourceLineageTag: 2001ef96-c8a0-4ef7-820c-690d3385e1dd
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto M-Atual' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: dc948256-4991-4c1a-9bfd-cd837cea2769
+		sourceLineageTag: 702b2e0b-4be8-4c9a-b3cc-cee6cc79b7eb
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Ruptura Operacional (R$) Projeto M-2' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: 69ae39d8-708a-49cc-86fb-9ad7b819d214
+		sourceLineageTag: 4c829e07-b91c-413f-939d-4db72015d976
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '% Ruptura Operacional (R$) Projeto M-Atual' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: f0905403-3c8d-40d8-a385-fe0774703290
+		sourceLineageTag: 0610a3ce-9447-4151-b65e-73ec9968bdad
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto M-2' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 1c5f126d-18ef-42cc-934b-3d828664e050
+		sourceLineageTag: d747378d-79d2-47cb-ba42-1ad8538fc6a5
+		dataCategory: Uncategorized
+
+	measure 'Lojas com Atividades' = EXTERNALMEASURE("Lojas com Atividades", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: 3de0a203-e8bc-4789-9715-c13f77ed6984
+		sourceLineageTag: 766418c8-eec3-42b4-b304-8438af69c095
+		dataCategory: Uncategorized
+
+	measure 'Dias no mês Atual D-1' = EXTERNALMEASURE("Dias no mês Atual D-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 95d56051-9aed-413f-8615-6fb388346937
+		sourceLineageTag: 3afa0305-edb3-49ed-a284-9be4a44557ef
+		dataCategory: Uncategorized
+
+	measure 'Índice de Confiabilidade Rede' = EXTERNALMEASURE("Índice de Confiabilidade Rede", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		displayFolder: Textos (Data Card)
+		lineageTag: 3a27812d-72fc-4082-98a4-7629dfc702ef
+		sourceLineageTag: 21b8b548-05a5-420f-844c-eb09a64aa996
+		dataCategory: Uncategorized
+
+	measure 'Texto Índice de Confiabilidade' = EXTERNALMEASURE("Texto Índice de Confiabilidade", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Textos (Data Card)
+		lineageTag: 44e5720d-c8bc-479a-bf1c-c614dd1769b5
+		sourceLineageTag: 6472893c-dd88-4e53-8e67-e1bb67490c78
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Dias com vendas mês Atual D-1' = EXTERNALMEASURE("Dias com vendas mês Atual D-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 1b6df78e-ceea-4f86-ac1e-dd8e95f291dd
+		sourceLineageTag: 665c881e-03d6-4340-96e3-b5e15bbb8f5d
+		dataCategory: Uncategorized
+
+	measure 'Dias sem vendas mês Atual D-1' = EXTERNALMEASURE("Dias sem vendas mês Atual D-1", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 0935df6c-b6d5-4165-a6d4-f1395d262b1a
+		sourceLineageTag: d4ecf5a2-14d8-475c-9f1d-000ef09f6c42
+		dataCategory: Uncategorized
+
+	measure 'Meses com vendas' = EXTERNALMEASURE("Meses com vendas", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 5344f70e-5dfe-46bb-a861-74f71b82014a
+		sourceLineageTag: aeb3501f-8502-43c5-b3f5-d0899add18dc
+		dataCategory: Uncategorized
+
+	measure 'Média de Vendas / Mês' = EXTERNALMEASURE("Média de Vendas / Mês", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Sell Out
+		lineageTag: aa2faf8a-f646-44a6-b303-88a3c596a54e
+		sourceLineageTag: 4ec8fb6e-18aa-4345-a179-e897b5da309a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatação Gatilho 1' = EXTERNALMEASURE("Formatação Gatilho 1", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: f4b9327b-9c27-4829-bf59-36fcf50d61b3
+		sourceLineageTag: e155b3d2-8883-4c5f-a962-e617544fd645
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Gatilho 1' = EXTERNALMEASURE("Gatilho 1", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 4c50d5b6-5851-45de-bf1f-71308304911e
+		sourceLineageTag: caf60593-cadd-4fa3-958a-664728e18111
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gatilho 2' = EXTERNALMEASURE("Gatilho 2", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 27ca9163-e14b-47c0-9968-01db6e2cdfe0
+		sourceLineageTag: db07d685-bfec-4720-99e9-12e95355021d
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gatilho 3' = EXTERNALMEASURE("Gatilho 3", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 4121e543-5405-4b51-95bf-011a90450f74
+		sourceLineageTag: e8c49cac-d372-4e6e-9fa8-38d92c67b6a9
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gatilho 4' = EXTERNALMEASURE("Gatilho 4", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 2945358d-2203-44a2-af29-1bdf7b4d095e
+		sourceLineageTag: 02a529ef-7706-44af-aa8a-a9206441de52
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Gatilho 5' = EXTERNALMEASURE("Gatilho 5", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 9d1c6a74-1060-4cd6-8865-1483ef497164
+		sourceLineageTag: 8ebf673e-ca44-46bb-90ba-13287aa643f5
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Formatação Gatilho 2' = EXTERNALMEASURE("Formatação Gatilho 2", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 3b0a1d47-dfe5-4a3e-830c-2b1ec6ad0c1b
+		sourceLineageTag: 5e7fd642-e93b-4a77-b715-cfe8c8f09634
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatação Gatilho 3' = EXTERNALMEASURE("Formatação Gatilho 3", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 6fd812e6-0dff-4b46-8f73-e48f3f1ed4b0
+		sourceLineageTag: 983285ec-664c-4b0d-9a47-2cce770e5a59
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatação Gatilho 0' = EXTERNALMEASURE("Formatação Gatilho 0", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: 544e27fb-fd11-4206-be0f-78c96aca37a6
+		sourceLineageTag: 55a3f27f-ecf2-4a1e-a73c-74e3f9700cb0
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatação Gatilho 4' = EXTERNALMEASURE("Formatação Gatilho 4", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: d220b225-a87d-48d1-987c-3418faea37d0
+		sourceLineageTag: 1262cc22-43e6-4679-b3d1-aa88e0edef0f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Formatação Gatilho 5' = EXTERNALMEASURE("Formatação Gatilho 5", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: Gestão RG
+		lineageTag: c8ecbdf4-18cd-4451-8e67-279c45c56887
+		sourceLineageTag: 674edc79-ccf3-461d-861d-285873649c4a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Dias com vendas mês (Anterior)' = EXTERNALMEASURE("Dias com vendas mês (Anterior)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: de2e8729-9690-4df2-b09e-08a560f15735
+		sourceLineageTag: 79156cca-951a-4039-be0b-771f0e4bbc1c
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M1 x M Atual)' = EXTERNALMEASURE("Vendas (R$) (M1 x M Atual)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 20f5f72f-c0ce-4af4-8d8c-26041e3a3568
+		sourceLineageTag: 8f525d49-d877-4290-a090-8d8bac8d547b
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M2 x M1)' = EXTERNALMEASURE("Vendas (R$) (M2 x M1)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 1de83ddf-1238-4e51-8c86-63a1b4b0d31b
+		sourceLineageTag: 1ee42a5b-9e37-4c73-9519-c0d99e57d584
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M3 x M2)' = EXTERNALMEASURE("Vendas (R$) (M3 x M2)", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: f9ebd9b1-6e42-4ccb-90d2-965940288a8b
+		sourceLineageTag: 58888eeb-2551-49bc-8fff-3372392467cc
+		dataCategory: Uncategorized
+
+	measure 'Visitas Planejadas (Qtd)' = EXTERNALMEASURE("Visitas Planejadas (Qtd)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: 8bc4d97c-20b9-4d86-978f-d5cacd98d86e
+		sourceLineageTag: d5bd8b1c-c7ed-4e79-96b9-13c087b3121e
+		dataCategory: Uncategorized
+
+	measure 'Visitas Realizadas (Qtd)' = EXTERNALMEASURE("Visitas Realizadas (Qtd)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 34d22307-73dd-419e-9afd-67be99d007de
+		sourceLineageTag: 494aba87-bc38-4595-970d-ab8709f7d3cb
+		dataCategory: Uncategorized
+
+	measure '!Comparativo vendas m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo vendas m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 71931157-2fd7-430d-be6c-05ab64834fa8
+		sourceLineageTag: 9cbf6049-fdd2-47da-add4-464d7efc4b6b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Comparativo rupt op m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo rupt op m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 9462a92c-4982-432e-bf7b-848565c933c3
+		sourceLineageTag: 2296a2ef-1c46-46aa-b4b9-eda1e0c74213
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Comparativo rupt com m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo rupt com m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 45cff826-41b3-4241-9d69-56db2e258421
+		sourceLineageTag: 083e00e4-24ca-4b26-9651-69bca1665851
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Resumo Geral Mês (HTML)' = EXTERNALMEASURE("!Resumo Geral Mês (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 051672dc-57c8-441e-8c36-13a122b497d0
+		sourceLineageTag: 7d0d0aeb-80c0-4336-a23d-dac2e73e7069
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure %VISITAS = EXTERNALMEASURE("%VISITAS", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0.0%;-0.0%;0.0%
+		lineageTag: 96c001a6-70cd-472d-a45d-c4eb29acb7e7
+		sourceLineageTag: d3275d2a-b660-4920-a37c-3102edf1a18c
+		dataCategory: Uncategorized
+
+	measure '!Comparativo efetiv m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo efetiv m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 0c62cd96-da5e-45bb-9fc6-828ee46edb8e
+		sourceLineageTag: 60ef10f2-5576-492c-9dbc-8b6fab3ad34e
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure !RedeSelecionada = EXTERNALMEASURE("!RedeSelecionada", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: dbd55575-675b-452b-85fe-885ca608c9f2
+		sourceLineageTag: 8558a218-a9e1-4c65-91a5-ea7459cfb8dd
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Comparativo arrecadação m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo arrecadação m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: e3abab79-64f1-4219-ad67-cfbc07c350c2
+		sourceLineageTag: 43cfc10b-d292-42b0-b677-053cda25decc
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure !Arrecadação = EXTERNALMEASURE("!Arrecadação", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: "R$"\ #,0;-"R$"\ #,0;"R$"\ #,0
+		lineageTag: 1580876d-93e0-4272-bdef-73101822c0d4
+		sourceLineageTag: 0ec59469-23eb-4d49-b83c-3c6218a7b788
+		dataCategory: Uncategorized
+
+	measure '!Comparativo atividades m1 m2 (HTML)' = EXTERNALMEASURE("!Comparativo atividades m1 m2 (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 79edabed-46be-49f9-bfce-bee9cf99583f
+		sourceLineageTag: 25990cb0-9b87-422a-b95b-061cc3ac40f2
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Cor Classificacao Fornecedor (teste)' = EXTERNALMEASURE("!Cor Classificacao Fornecedor (teste)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 258177ea-8f9d-42e3-a1fb-15466151e6e3
+		sourceLineageTag: 2023ca22-9dfc-4462-8347-0a77149044d7
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!calendario atividades' = EXTERNALMEASURE("!calendario atividades", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 915dec2b-af57-4a78-91b2-73566398a392
+		sourceLineageTag: 92c05c6f-6c43-4d15-95e2-b044cb6502e8
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Formt.final.seman' = EXTERNALMEASURE("!Formt.final.seman", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 586132fb-8838-4d17-befa-c12c010481b4
+		sourceLineageTag: 1c09625b-b101-4e97-85bc-9412ae06c98e
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Tabela_Confiabilidade (HTML)' = EXTERNALMEASURE("!Tabela_Confiabilidade (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 6b9ae6e5-fc48-4275-8612-f11b0fcf2055
+		sourceLineageTag: 76135843-9b1f-42ad-96f5-442d56228806
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Resumo Geral (Todo o Período) (HTML)' = EXTERNALMEASURE("!Resumo Geral (Todo o Período) (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: c8387045-6e0d-48f9-9c2a-ed30b52fd3f3
+		sourceLineageTag: e083237c-ee40-475b-bf8a-56dd9f338811
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Top/Bottom 5 Vendas Fornecedor (HTML)' = EXTERNALMEASURE("!Top/Bottom 5 Vendas Fornecedor (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 30af6a0d-9dba-48f0-abea-7606a1ff8f61
+		sourceLineageTag: 79687234-b1f5-42e3-9eea-cef38b7b1f46
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Painel_Dashboard_Completo (HTML)' = EXTERNALMEASURE("!Painel_Dashboard_Completo (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 52a6ebb8-15a2-498c-999b-4e8a299e69b7
+		sourceLineageTag: 7e02d87b-80b2-4119-b1f6-137437f52a61
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Análise Vendas 4 Semanas (HTML)' = EXTERNALMEASURE("!Análise Vendas 4 Semanas (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: a7326eb8-b79b-46eb-bb5e-547b8876b6de
+		sourceLineageTag: d59bd949-9cb7-46b7-948d-6315d2b533d5
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure %Efetividade = EXTERNALMEASURE("%Efetividade", DOUBLE, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0%;-0%;0%
+		lineageTag: c3806cc1-12cb-4d54-abe7-598e55019d74
+		sourceLineageTag: 0c3c795f-67ff-4bf8-b63c-46bbadfeb5bb
+		dataCategory: Uncategorized
+
+	measure '!Análise Semanal Top & Bottom Fornecedores (HTML)' = EXTERNALMEASURE("!Análise Semanal Top & Bottom Fornecedores (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: ce8014e1-30c3-4d7a-b366-a8f216aa1ba2
+		sourceLineageTag: 0bac1599-7530-4ff9-b702-fa463621fe6d
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Análise Semanal Top & Bottom LOJAS (HTML)' = EXTERNALMEASURE("!Análise Semanal Top & Bottom LOJAS (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: a45636aa-13ca-49b2-81c1-f7e47b9b7918
+		sourceLineageTag: e80a049f-9abe-45d4-8f3b-64ba179d96ef
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Análise Semanal Top & Bottom Lojas por RUPTURA (HTML)' = EXTERNALMEASURE("!Análise Semanal Top & Bottom Lojas por RUPTURA (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 9f42c49e-0053-49cb-9893-bcb76796e23f
+		sourceLineageTag: 9bb51c65-2fd3-4e66-bd65-a6fb9901e1cc
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Análise Semanal Top & Bottom Fornecedores Ruptura Operacional (HTML)' = EXTERNALMEASURE("!Análise Semanal Top & Bottom Fornecedores Ruptura Operacional (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: ef880300-46f7-4168-a08a-14dab8af9d3e
+		sourceLineageTag: 8fb0cfb0-8710-4fc8-8daf-e4fd8c7da1af
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Resumo (HTML)' = EXTERNALMEASURE("!Resumo (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 4e698b53-04c7-420f-b54b-e2134d8232f6
+		sourceLineageTag: ee8ca38b-d5e0-463e-8964-533bb204311a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Resumo Painel Gerencial' = EXTERNALMEASURE("Resumo Painel Gerencial", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 9f3e78bc-6801-4795-9230-4766264b540c
+		sourceLineageTag: 5929c14a-8c27-4128-95e0-4aea5032c33f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Pagina Completa HTML' = EXTERNALMEASURE("Pagina Completa HTML", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 07749da1-266b-4a89-99bd-3877fbac7716
+		sourceLineageTag: 19fc676c-28aa-4295-8ffd-3563eea70937
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel gcabeçalho' = EXTERNALMEASURE("Painel gcabeçalho", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 0dbf62bb-37d3-447d-bc73-7df3a57e8691
+		sourceLineageTag: c8c585df-e417-4199-9d3a-d53e2868d72f
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure pResumo = EXTERNALMEASURE("pResumo", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: e708c8dd-959f-4879-9e05-ec9161087ca6
+		sourceLineageTag: 8f92c4c4-8eac-4d1b-8b7e-4641cf41bec8
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Calendario Final Ordenado HTML' = EXTERNALMEASURE("!Calendario Final Ordenado HTML", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 212e48c9-7373-427f-b029-aa2fcabf6225
+		sourceLineageTag: 350beeb6-230d-4719-a4e7-533d84299ac3
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel efetividade' = EXTERNALMEASURE("Painel efetividade", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 4c5799fd-6634-4ec3-aa79-d842576bd504
+		sourceLineageTag: dc09d0ef-d4a9-4da8-9e80-ed5467a4b1a2
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Análise Mensal Vendas (Todos os Fornecedores)' = EXTERNALMEASURE("!Análise Mensal Vendas (Todos os Fornecedores)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 79b8d62d-a346-422f-8bf8-435391f7fa2d
+		sourceLineageTag: 44252a5d-b34f-4981-a4e6-374b3ca1ab71
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel performance' = EXTERNALMEASURE("Painel performance", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: b6385d0a-137d-48eb-a876-5dd33efbb316
+		sourceLineageTag: 5383ad04-69e5-4fb2-89e0-7e1b4cfc846c
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Dias Sem Visita (Qtd)' = EXTERNALMEASURE("Dias Sem Visita (Qtd)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: d2017196-aaac-436e-a7f8-a3f87c9c6f7c
+		sourceLineageTag: 2fee6fde-9898-4796-b2fb-d434d6e28894
+		dataCategory: Uncategorized
+
+	measure 'Dias COM Visita (Qtd)' = EXTERNALMEASURE("Dias COM Visita (Qtd)", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: f168ad44-b0c7-45e1-adf0-d2a121802b37
+		sourceLineageTag: dad08bf8-5daa-438e-b99d-d113379348b9
+		dataCategory: Uncategorized
+
+	measure 'HTML Tabela Visitas Faltantes' = EXTERNALMEASURE("HTML Tabela Visitas Faltantes", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 7242b8bd-90b5-4922-9569-cc90f968a1e5
+		sourceLineageTag: 968ac448-9af3-41f8-8014-b40e8c69d5f5
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Lojas Sem Visita Flag' = EXTERNALMEASURE("!Lojas Sem Visita Flag", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 7093de94-69e9-4e10-b142-ddb04895b76a
+		sourceLineageTag: 1bc4f54e-6b98-4144-9f7a-0a8833c17b68
+		dataCategory: Uncategorized
+
+	measure 'Painel analise geral' = EXTERNALMEASURE("Painel analise geral", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 78d1451f-879a-47df-8304-c9745254d495
+		sourceLineageTag: 42e8f9ee-b792-412c-8845-592fbc54e25a
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Clusterização HTML' = EXTERNALMEASURE("Clusterização HTML", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 785ab185-260d-43b3-82ad-07a8ce268838
+		sourceLineageTag: 5a83c1b0-126b-468b-b0ba-5696eed18a5e
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Classificação Fornecedor' = EXTERNALMEASURE("!Classificação Fornecedor", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: fb13ac34-dacd-4d92-b2da-d984d00f3c21
+		sourceLineageTag: 2621b892-3a62-44ad-9546-e9ad0695e935
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel analise de venda' = EXTERNALMEASURE("Painel analise de venda", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: b147c01c-60dd-477d-a13d-70a7c5c36888
+		sourceLineageTag: ee476ff3-4cd1-4c79-8d2c-17419d38a839
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel comparativo rupturas (p.p.)' = EXTERNALMEASURE("Painel comparativo rupturas (p.p.)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 4456a87e-d3ed-44eb-bc96-b9b4a5fb5ff4
+		sourceLineageTag: 174198cd-75ab-4a28-b552-5664c1984590
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel efetividade nova era' = EXTERNALMEASURE("Painel efetividade nova era", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 16268edb-5325-420f-ad46-634030b76b30
+		sourceLineageTag: 1e66eac7-20ae-4338-964b-0cb62e244428
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure GraficoHTML_Completo = EXTERNALMEASURE("GraficoHTML_Completo", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: aa3cbac8-9aa9-4f51-bdf8-46348d56dca2
+		sourceLineageTag: 1fdff0a6-77a1-4022-b4fc-0fe4318fd0dd
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure '!Top/Bottom 10 Ruptura Fornecedor (HTML)' = EXTERNALMEASURE("!Top/Bottom 10 Ruptura Fornecedor (HTML)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: ac8d41c6-417a-40da-9c75-76b5a1783642
+		sourceLineageTag: 10422248-e8f7-4932-880b-fde6833c821b
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Painel Analitico fornecedores' = EXTERNALMEASURE("Painel Analitico fornecedores", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		lineageTag: 8a3a45b9-bd26-4af2-bdc8-b60446509c11
+		sourceLineageTag: 35e64a5e-0f0c-434c-a0bb-ce15384b7673
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	measure 'Contagem Fora de Validade' = EXTERNALMEASURE("Contagem Fora de Validade", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 678bfd9d-9662-4827-84de-1d3f207e8543
+		sourceLineageTag: dbaa43db-6e23-4da3-9d61-6c44c7294f08
+		dataCategory: Uncategorized
+
+	measure 'Contagem Nao Repoe' = EXTERNALMEASURE("Contagem Nao Repoe", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 57f107f7-67a9-47e3-92a6-7e3956f2e21d
+		sourceLineageTag: bff86595-63ea-4777-b488-5fb1af8a58b2
+		dataCategory: Uncategorized
+
+	measure 'Contagem Nao Vende na Loja' = EXTERNALMEASURE("Contagem Nao Vende na Loja", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 11b9eba3-ea00-4f52-b0a4-525d5abe5f0a
+		sourceLineageTag: 6e7a989e-ad90-4c8d-8f1d-ed57b95c5465
+		dataCategory: Uncategorized
+
+	measure 'Contagem Produto Avariado' = EXTERNALMEASURE("Contagem Produto Avariado", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: b164aed9-dcc2-4f38-97c7-73d0d4d4ef8c
+		sourceLineageTag: 6e4d9442-dbe7-4024-8a57-dd1bbeef394b
+		dataCategory: Uncategorized
+
+	measure 'Contagem Ruptura Parcial' = EXTERNALMEASURE("Contagem Ruptura Parcial", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 5c757008-ba49-45b1-8c70-abf4e0291fe8
+		sourceLineageTag: 8ca9d16a-5c58-45f5-8540-10e182308fe6
+		dataCategory: Uncategorized
+
+	measure 'Contagem Ruptura Total' = EXTERNALMEASURE("Contagem Ruptura Total", INTEGER, "DirectQuery para AS – Analítico RG 2.0")
+		formatString: 0
+		lineageTag: 9fcf0d2e-7714-4c65-9d50-7cde1787e1a7
+		sourceLineageTag: 873f6627-e095-476c-9292-f1dec1c3084b
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento (HH:MM)' = EXTERNALMEASURE("Horas Atendimento (HH:MM)", STRING, "DirectQuery para AS – Analítico RG 2.0")
+		displayFolder: MobConnect
+		lineageTag: 822b19df-da7c-4670-ae91-2460b6e74542
+		sourceLineageTag: c047bd15-6bbb-477e-a7a0-33d5b4b9dff0
+		dataCategory: Uncategorized
+
+		annotation PBI_FormatHint = {"isText":true}
+
+	column Column
+		dataType: int64
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: a02c814e-5d3c-4234-a598-6383a2cc99aa
+		sourceLineageTag: d17973b6-8503-4712-8021-dd4a8f63971b
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Column
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = User
+
+	partition Métricas = entity
+		mode: directQuery
+		source
+			entityName: Métricas
+			expressionSource: 'DirectQuery para AS – Analítico RG 2.0'
+

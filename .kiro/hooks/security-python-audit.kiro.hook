@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Security Audit - Python Novo",
+  "description": "Quando scripts Python são criados, verifica vulnerabilidades de segurança: SQL injection (f-strings em queries), credenciais hardcoded, uso de eval/exec, e conexões sem SSL.",
+  "version": "1",
+  "when": {
+    "type": "fileCreated",
+    "patterns": [
+      "**/*.py"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "AUDITORIA DE SEGURANÇA PYTHON: Um novo script Python foi criado. Verifique: 1) Queries SQL usam parameterized queries (cursor.execute(sql, params)) e NÃO f-strings ou .format(). 2) Não há credenciais hardcoded (passwords, API keys, tokens). 3) Não há uso de eval(), exec(), ou __import__() com input do usuário. 4) Conexões de banco usam SSL/TLS. 5) Erros são tratados sem expor stack traces sensíveis. 6) Imports são de pacotes conhecidos e confiáveis. Reporte problemas com severidade 🔴 CRÍTICO ou 🟡 ALERTA."
+  }
+}

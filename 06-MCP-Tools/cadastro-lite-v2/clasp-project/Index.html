@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cadastro Lite - Mob2Con CS</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--orange:#f46901;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--bg:#f6f7f9;--card:#fff;--green:#15803d;--red:#b91c1c;--blue:#1d4ed8;--purple:#6b21a8}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);font-size:14px}
+header{background:#151827;color:#fff;padding:18px 28px;display:flex;align-items:center;gap:14px}
+.mark{width:38px;height:38px;border-radius:8px;background:var(--orange);display:grid;place-items:center;font-weight:800;font-size:18px;flex-shrink:0}
+header h1{margin:0;font-size:22px}.sub{color:#b9c0cc;font-size:12px;margin-top:4px}
+.hdr-right{margin-left:auto;text-align:right;font-size:11px;color:#b9c0cc}
+.report-nav{display:flex;gap:6px;flex-wrap:wrap;padding:14px 28px 0;background:#fff;border-bottom:1px solid var(--line)}
+.report-tab{border:1px solid var(--line);background:#fff;color:#374151;height:36px;padding:0 14px;margin:0 0 -1px;border-radius:6px 6px 0 0;cursor:pointer;font-size:13px;font-weight:600;transition:background .15s}
+.report-tab:hover{background:#fff7ed;border-color:var(--orange)}.report-tab.active{background:var(--orange);color:#fff;border-color:var(--orange)}
+.filters{display:flex;flex-wrap:wrap;gap:10px;background:var(--card);border-bottom:1px solid var(--line);padding:14px 28px}
+label{display:flex;flex-direction:column;gap:4px;font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase}
+select,input[type=text],input[type=number]{height:34px;border:1px solid var(--line);border-radius:6px;padding:0 10px;background:#fff;color:var(--ink);font-size:13px;min-width:130px;transition:border-color .2s}
+select:focus,input:focus{outline:none;border-color:var(--orange)}
+.btn{border:0;border-radius:6px;background:var(--orange);color:#fff;font-weight:700;cursor:pointer;height:34px;padding:0 16px;font-size:13px;margin-top:20px;transition:transform .1s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 4px 8px rgba(244,105,1,.3)}
+.btn:active{transform:translateY(0)}.btn.sec{background:#151827}
+.filter-count{margin-left:auto;align-self:center;font-size:12px;color:var(--muted);margin-top:16px}
+main{max-width:1540px;margin:0 auto;padding:20px 28px 40px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;min-height:96px;position:relative;cursor:help;transition:all .25s;animation:fadeUp .4s ease both}
+.kpi:hover{box-shadow:0 6px 16px rgba(0,0,0,.1);transform:translateY(-2px);border-color:var(--orange)}
+.kpi>span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:700}
+.kpi strong{display:block;margin-top:7px;font-size:28px;line-height:1;color:var(--ink)}
+.kpi small{display:block;margin-top:7px;color:var(--muted);font-size:12px}
+.trend{font-size:11px;font-weight:700;margin-left:4px}.t-up{color:var(--red)}.t-dn{color:var(--green)}.t-eq{color:var(--muted)}
+.tip{position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#1f2937;color:#fff;font-size:11px;padding:8px 12px;border-radius:6px;white-space:normal;max-width:280px;line-height:1.4;opacity:0;pointer-events:none;transition:opacity .2s;z-index:100;text-transform:none;font-weight:400}
+.tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1f2937}
+.kpi:hover .tip{opacity:1}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;margin-bottom:14px;overflow:auto;animation:fadeUp .5s ease both;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,.06)}
+.card-title{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 0 12px}
+.card-title h2{margin:0;font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-0.3px}.card-title span{color:var(--muted);font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}@media(min-width:901px) and (max-width:1200px){.kpis{grid-template-columns:repeat(3,1fr)}}
+.tbl-wrap{overflow-x:auto;max-height:500px;overflow-y:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}
+th{background:#fafafa;color:#374151;position:sticky;top:0;z-index:1;cursor:pointer;white-space:nowrap;user-select:none}
+th:hover{background:#f3f4f6}td.num,th.num{text-align:right}tr:hover{background:#fff7ed}
+.pill{display:inline-flex;align-items:center;border-radius:999px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap}
+.p-cliente{background:#dcfce7;color:var(--green)}.p-nao{background:#fee2e2;color:var(--red)}
+.p-ag{background:#ede9fe;color:#5b21b6}.p-dir{background:#dbeafe;color:var(--blue)}.p-forn{background:#fff7ed;color:var(--orange)}
+.score-normal{background:#e0f2fe;color:#0369a1}.score-atencao{background:#fef3c7;color:#92400e}
+.score-suspeito{background:#ffedd5;color:#c2410c}.score-alta{background:#fee2e2;color:var(--red)}.score-critico{background:#f3e8ff;color:var(--purple)}
+.sbar{display:inline-block;width:72px;height:6px;background:#e5e7eb;border-radius:3px;overflow:hidden;vertical-align:middle;margin-right:5px}
+.sbar-fill{height:100%;border-radius:3px}
+.alert-item{display:flex;align-items:flex-start;gap:12px;padding:14px;border-radius:10px;margin-bottom:8px;border-left:4px solid;transition:transform .15s}
+.alert-item:hover{transform:translateX(4px)}
+.alert-item.critico{background:#fdf4ff;border-color:var(--purple)}.alert-item.alta{background:#fff5f5;border-color:var(--red)}.alert-item.suspeito{background:#fff8f0;border-color:var(--orange)}
+.alert-item .al-title{font-weight:700;font-size:13px}.alert-item .al-sub{font-size:12px;color:var(--muted);margin-top:3px}
+.pager{display:flex;align-items:center;gap:8px;margin-top:10px;font-size:12px;color:var(--muted)}
+.pager button{padding:3px 10px;border:1px solid var(--line);border-radius:5px;background:#fff;cursor:pointer;font-size:12px;color:var(--ink)}
+.pager button:disabled{opacity:.4;cursor:default}
+canvas{max-height:300px;border-radius:10px}.page{display:none}.page.active{display:block}
+#loading{position:fixed;inset:0;background:rgba(255,255,255,.95);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;gap:14px}
+.spinner{width:48px;height:48px;border:5px solid var(--line);border-top-color:var(--orange);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+#load-msg{color:var(--muted);font-size:14px}
+.note{color:var(--muted);font-size:12px;line-height:1.45;margin:8px 0 0}
+.kpi strong{transition:all .3s ease}
+.kpi:nth-child(1){animation-delay:.1s}.kpi:nth-child(2){animation-delay:.2s}.kpi:nth-child(3){animation-delay:.3s}.kpi:nth-child(4){animation-delay:.4s}.kpi:nth-child(5){animation-delay:.5s}.kpi:nth-child(6){animation-delay:.6s}.kpi:nth-child(7){animation-delay:.7s}.kpi:nth-child(8){animation-delay:.8s}
+</style>
+</head>
+<body>
+<div id="loading"><div class="spinner"></div><p id="load-msg">Carregando dados…</p></div>
+
+<header>
+  <div class="mark">M</div>
+  <div><h1>Cadastro Lite – Monitoramento CS</h1><div class="sub" id="hdr-sub">Fonte: Base Power BI | desde 2025-10-01</div></div>
+  <div class="hdr-right" id="hdr-updated"></div>
+</header>
+<nav class="report-nav" id="reportNav">
+  <button class="report-tab active" data-page="visao">Visao Geral</button>
+  <button class="report-tab" data-page="naoclientes">Nao Clientes</button>
+  <button class="report-tab" data-page="clientes">Clientes</button>
+  <button class="report-tab" data-page="alertas">Alertas</button>
+  <button class="report-tab" data-page="priorizacao">Priorizacao</button>
+  <button class="report-tab" data-page="redes">Redes</button>
+  <button class="report-tab" data-page="comparativo">Conv vs Lite</button>
+  <button class="report-tab" data-page="acaocs">Acao CS</button>
+</nav>
+<div class="filters">
+  <label>Status<select id="f-status"><option value="">Todos</option><option value="Nao Cliente">Nao Cliente</option><option value="Cliente">Cliente</option></select></label>
+  <label>Tipo<select id="f-tipo"><option value="">Todos</option><option value="Agencia">Agencia</option><option value="Fornecedor">Fornecedor</option></select></label>
+  <label>Risco<select id="f-class"><option value="">Todos</option><option value="Normal">Normal</option><option value="Atencao">Atencao</option><option value="Suspeito">Suspeito</option><option value="Alta Suspeita">Alta Suspeita</option><option value="Critico">Critico</option></select></label>
+  <label>Empresa<input id="f-empresa" type="text" placeholder="Buscar…"></label>
+  <label>Min. prom.<input id="f-minprom" type="number" min="0" value="0" style="min-width:100px"></label>
+  <button class="btn sec" onclick="resetFilters()">Limpar</button>
+  <button class="btn" onclick="exportCSV()">CSV</button>
+  <div class="filter-count" id="filter-count"></div>
+</div>
+<main>
+<div class="kpis" id="kpis-global"></div>
+
+<!-- PAGE: VISAO GERAL -->
+<div class="page active" id="page-visao">
+  <div class="grid2">
+    <div class="card"><div class="card-title"><h2>Evolucao Mensal – Cadastros Lite</h2></div><canvas id="ch-evolucao"></canvas></div>
+    <div class="card"><div class="card-title"><h2>Lite vs Convencional (promotores)</h2></div><canvas id="ch-litevconv"></canvas></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><div class="card-title"><h2>Distribuicao por Tipo</h2></div><canvas id="ch-tipo"></canvas></div>
+    <div class="card"><div class="card-title"><h2>Top 10 Nao Clientes</h2></div><canvas id="ch-top10nc"></canvas></div>
+  </div>
+</div>
+<!-- PAGE: NAO CLIENTES -->
+<div class="page" id="page-naoclientes">
+  <div class="kpis" id="kpis-nc"></div>
+  <div class="card">
+    <div class="card-title"><h2>Empresas Nao Cliente com Cadastro Lite</h2><span id="cnt-nc"></span></div>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th onclick="sortTbl('tnc',0)">Empresa</th><th onclick="sortTbl('tnc',1)">Tipo</th>
+      <th class="num" onclick="sortTbl('tnc',2)">Cadastros</th><th class="num" onclick="sortTbl('tnc',3)">Promotores</th>
+      <th class="num" onclick="sortTbl('tnc',4)">Score</th><th onclick="sortTbl('tnc',5)">Class.</th>
+      <th onclick="sortTbl('tnc',6)">Primeiro</th><th onclick="sortTbl('tnc',7)">Ultimo</th>
+    </tr></thead><tbody id="tnc-body"></tbody></table></div>
+    <div class="pager" id="pager-tnc"></div>
+    <p class="note">Score v2: NC +25 | &gt;200 prom +25 | &gt;50 +15 | &gt;10 +5 | Agencia +5 | Fornecedor +10 | &gt;5 redes +5</p>
+  </div>
+</div>
+<!-- PAGE: CLIENTES -->
+<div class="page" id="page-clientes">
+  <div class="kpis" id="kpis-cl"></div>
+  <div class="card">
+    <div class="card-title"><h2>Empresas Cliente com Cadastro Lite</h2><span id="cnt-cl"></span></div>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th onclick="sortTbl('tcl',0)">Empresa</th><th onclick="sortTbl('tcl',1)">Tipo</th>
+      <th class="num" onclick="sortTbl('tcl',2)">Cadastros</th><th class="num" onclick="sortTbl('tcl',3)">Promotores</th>
+      <th class="num" onclick="sortTbl('tcl',4)">Score</th><th onclick="sortTbl('tcl',5)">Class.</th>
+      <th onclick="sortTbl('tcl',6)">Primeiro</th><th onclick="sortTbl('tcl',7)">Ultimo</th>
+    </tr></thead><tbody id="tcl-body"></tbody></table></div>
+    <div class="pager" id="pager-tcl"></div>
+  </div>
+</div>
+<!-- PAGE: ALERTAS -->
+<div class="page" id="page-alertas"><div class="kpis" id="kpis-al"></div><div id="alertas-body"></div></div>
+<!-- PAGE: PRIORIZACAO -->
+<div class="page" id="page-priorizacao">
+  <div class="card">
+    <div class="card-title"><h2>Ranking Priorizacao Comercial</h2><span id="cnt-prio"></span></div>
+    <p class="note" style="margin-bottom:12px">Score v2: NC +25 | &gt;200 prom +25 | &gt;50 +15 | &gt;10 +5 | Agencia +5 | Fornecedor +10 | &gt;5 redes +5</p>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th>#</th><th onclick="sortTbl('tprio',1)">Empresa</th><th onclick="sortTbl('tprio',2)">Tipo</th>
+      <th onclick="sortTbl('tprio',3)">Status</th><th class="num" onclick="sortTbl('tprio',4)">Prom.</th>
+      <th class="num" onclick="sortTbl('tprio',5)">Score</th><th onclick="sortTbl('tprio',6)">Class.</th>
+      <th class="num" onclick="sortTbl('tprio',7)">Impacto R$/mes</th>
+    </tr></thead><tbody id="tprio-body"></tbody></table></div>
+    <div class="pager" id="pager-tprio"></div>
+  </div>
+</div>
+
+<!-- PAGE: REDES (CORRIGIDO - agora mostra nome empresa) -->
+<div class="page" id="page-redes">
+  <div class="kpis" id="kpis-rede"></div>
+  <div class="card">
+    <div class="card-title"><h2>Empresas por Rede</h2><span id="cnt-rede"></span></div>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th onclick="sortTbl('trede',0)">Tipo</th>
+      <th onclick="sortTbl('trede',1)">Empresa</th>
+      <th class="num" onclick="sortTbl('trede',2)">Qt Redes</th>
+      <th onclick="sortTbl('trede',3)">Redes</th>
+    </tr></thead><tbody id="trede-body"></tbody></table></div>
+    <div class="pager" id="pager-trede"></div>
+  </div>
+</div>
+<!-- PAGE: COMPARATIVO (MELHORADO) -->
+<div class="page" id="page-comparativo">
+  <div class="kpis" id="kpis-comp"></div>
+  <div class="grid2">
+    <div class="card"><div class="card-title"><h2>Cadastros Lite vs Conv (mensal)</h2></div><canvas id="ch-comp-linha"></canvas></div>
+    <div class="card"><div class="card-title"><h2>Promotores Lite vs Conv (mensal)</h2></div><canvas id="ch-comp-prom"></canvas></div>
+  </div>
+  <div class="card">
+    <div class="card-title"><h2>Empresas Convencional (snapshot)</h2><span id="cnt-conv"></span></div>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th onclick="sortTbl('tconv',0)">Tipo</th><th onclick="sortTbl('tconv',1)">Empresa</th>
+      <th onclick="sortTbl('tconv',2)">Plano</th><th class="num" onclick="sortTbl('tconv',3)">Promotores</th>
+      <th class="num" onclick="sortTbl('tconv',4)">Registros</th><th onclick="sortTbl('tconv',5)">Ref.</th>
+    </tr></thead><tbody id="tconv-body"></tbody></table></div>
+    <div class="pager" id="pager-tconv"></div>
+  </div>
+</div>
+<!-- PAGE: ACAO CS (NOVA) -->
+<div class="page" id="page-acaocs">
+  <div class="kpis" id="kpis-acao"></div>
+  <div class="card">
+    <div class="card-title"><h2>Historico de Acoes CS</h2><span id="cnt-acao"></span></div>
+    <p class="note" style="margin-bottom:12px">Registre acoes para empresas com desvio. Dados na aba Acoes_CS.</p>
+    <div class="tbl-wrap"><table><thead><tr>
+      <th>Empresa</th><th>Acao</th><th>Responsavel</th><th>Data</th><th>Status</th><th>Obs</th>
+    </tr></thead><tbody id="tacao-body"></tbody></table></div>
+    <div id="acao-empty" style="text-align:center;padding:24px;color:var(--muted)">Nenhuma acao registrada.</div>
+  </div>
+  <div class="card">
+    <div class="card-title"><h2>Registrar Nova Acao</h2></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px">
+      <label>Empresa<input id="acao-empresa" type="text" placeholder="Nome"></label>
+      <label>Acao<select id="acao-tipo"><option>Contato comercial</option><option>Alerta enviado</option><option>Reuniao agendada</option><option>Reversao solicitada</option><option>Bloqueio</option><option>Outro</option></select></label>
+      <label>Responsavel<input id="acao-resp" type="text" placeholder="Nome"></label>
+    </div>
+    <label style="margin-top:10px">Obs<input id="acao-obs" type="text" placeholder="Detalhes..." style="width:100%"></label>
+    <button class="btn" style="margin-top:14px" onclick="salvarAcao()">Salvar</button>
+  </div>
+</div>
+</main>
+
+<script>
+const DATA={kpis:{},empresas:[],mensal:[],convMensal:[],convencional:[],redes:[],acoes:[]};
+let FILTERED=[];const TBL={};const PAGE_SIZE=100;const SORT={};let charts={};
+const TIPS={
+  'Total Cadastros Lite':'Soma de registros com origem_cadastro=lite desde 01/10/2025',
+  'Promotores Unicos Lite':'Contagem distinta de id_promotor com pelo menos 1 cadastro Lite',
+  'Empresas no Filtro':'Empresas visiveis com os filtros atuais',
+  'Nao Clientes (filtro)':'Empresas que usam Lite mas NAO pagam',
+  'Clientes (filtro)':'Empresas clientes pagantes com cadastros Lite',
+  'Novos Lite (7d)':'Cadastros criados nos ultimos 7 dias',
+  'Impacto R$/mes (NC)':'Promotores NC x R$12,10 (ticket medio)',
+  'Promotores Conv':'Promotores convencionais (snapshot)',
+  'Empresas (filtro)':'Empresas no filtro atual',
+  'Promotores':'Promotores unicos nestas empresas',
+  'Impacto Mensal R$':'Promotores x R$12,10 - receita potencial',
+  'Criticos (score>80)':'Score de suspeita acima de 80',
+  'Cadastros':'Registros de cadastro Lite',
+  'Promotores Lite':'Promotores Lite acumulado',
+  'Registros Conv':'Registros convencionais no periodo',
+  'Razao Lite/Conv':'% promotores Lite vs convencional',
+  'Empresas com Rede':'Empresas com vinculo a redes',
+  'Total Redes':'Soma vinculos empresa-rede',
+  '% Lite/Total':'Lite / (Lite+Conv) para clientes',
+  'Novos NC (7d)':'Cadastros Lite de Nao Clientes criados nos ultimos 7 dias',
+  'Score Medio':'Media do score de suspeita de todas as empresas no filtro',
+  'Atencao':'Empresas com classificacao Atencao (score 20-40)',
+  'Impacto Total R$':'Receita potencial total: promotores NC x R$12,10'
+};
+window.onload=()=>{
+  document.getElementById('reportNav').addEventListener('click',e=>{
+    const btn=e.target.closest('.report-tab');if(!btn)return;
+    document.querySelectorAll('.report-tab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');document.getElementById('page-'+btn.dataset.page).classList.add('active');
+  });
+  ['f-status','f-tipo','f-class','f-empresa','f-minprom'].forEach(id=>{
+    const el=document.getElementById(id);el.addEventListener('change',applyFilters);el.addEventListener('input',applyFilters);
+  });
+  loadData();
+};
+function loadData(){
+  msg('Carregando KPIs...');
+  google.script.run.withSuccessHandler(k=>{DATA.kpis=k;msg('Empresas...');
+  google.script.run.withSuccessHandler(e=>{DATA.empresas=e;msg('Mensal...');
+  google.script.run.withSuccessHandler(m=>{DATA.mensal=m;
+  google.script.run.withSuccessHandler(cm=>{DATA.convMensal=cm;
+  google.script.run.withSuccessHandler(cv=>{DATA.convencional=cv;
+  google.script.run.withSuccessHandler(rd=>{DATA.redes=rd;
+  google.script.run.withSuccessHandler(ac=>{DATA.acoes=ac||[];boot();})
+    .withFailureHandler(()=>boot()).getAcoesCS();
+  }).withFailureHandler(()=>boot()).getRedes();
+  }).withFailureHandler(()=>boot()).getConvencional();
+  }).withFailureHandler(()=>boot()).getConvMensal();
+  }).withFailureHandler(()=>boot()).getMensal();
+  }).withFailureHandler(e=>alert('Erro: '+e)).getEmpresas();
+  }).withFailureHandler(e=>alert('Erro: '+e)).getKpis();
+}
+function msg(t){document.getElementById('load-msg').textContent=t;}
+function boot(){
+  document.getElementById('loading').style.display='none';
+  const gen=DATA.kpis['Gerado em:']||'';
+  if(gen){
+    var d=gen.replace('T',' ').slice(0,16).split(/[- :]/);
+    var fmtGen=d[2]+'/'+d[1]+'/'+d[0]+' '+d[3]+':'+d[4];
+    document.getElementById('hdr-updated').textContent='Atualizado: '+fmtGen;
+    document.getElementById('hdr-sub').textContent='Fonte: Base Power BI | desde 01/10/2025 | atualizado '+fmtGen;}
+  applyFilters();renderCharts();renderComparativo();renderAcoes();
+}
+</script>
+
+<script>
+function applyFilters(){
+  Object.values(TBL).forEach(s=>{s.page=0;});
+  const status=document.getElementById('f-status').value,tipo=document.getElementById('f-tipo').value,cls=document.getElementById('f-class').value,emp=document.getElementById('f-empresa').value.toLowerCase(),minP=+(document.getElementById('f-minprom').value)||0;
+  FILTERED=DATA.empresas.filter(c=>{
+    if(status&&String(c.status_empresa||'')!==status)return false;
+    if(tipo&&String(c.contratante_tipo||'')!==tipo)return false;
+    if(cls&&String(c.classificacao||'')!==cls)return false;
+    if(emp&&!String(c.empresa||'').toLowerCase().includes(emp))return false;
+    if(minP&&(+c.promotores||0)<minP)return false;return true;
+  });
+  document.getElementById('filter-count').textContent=FILTERED.length+' de '+DATA.empresas.length;
+  renderKpisGlobal();renderNaoClientes();renderClientes();renderAlertas();renderPriorizacao();renderRedesTab();
+}
+function resetFilters(){['f-status','f-tipo','f-class'].forEach(id=>document.getElementById(id).value='');document.getElementById('f-empresa').value='';document.getElementById('f-minprom').value='0';applyFilters();}
+function renderKpisGlobal(){
+  const k=DATA.kpis,nc=FILTERED.filter(c=>c.status_empresa==='Nao Cliente'),cl=FILTERED.filter(c=>c.status_empresa==='Cliente');
+  const totalLite=+k['Total Cadastros Lite']||DATA.empresas.reduce((s,c)=>s+(+c.cadastros||0),0);
+  const totalProm=+k['Promotores Unicos Lite']||DATA.empresas.reduce((s,c)=>s+(+c.promotores||0),0);
+  const novos7d=+k['Novos Lite (7d)']||0;
+  const impNC=nc.reduce((s,c)=>s+(+c.promotores||0),0)*12.10;
+  const pConv=+k['Promotores Conv (snapshot)']||DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
+  kpiHtml('kpis-global',[
+    {l:'Total Cadastros Lite',v:fmt(totalLite),s:'desde 01/10/2025'},
+    {l:'Promotores Unicos Lite',v:fmt(totalProm)},
+    {l:'Empresas no Filtro',v:fmt(FILTERED.length)},
+    {l:'Nao Clientes (filtro)',v:fmt(nc.length),s:'empresas'},
+    {l:'Clientes (filtro)',v:fmt(cl.length),s:'empresas'},
+    {l:'Novos Lite (7d)',v:fmt(novos7d)},
+    {l:'Impacto R$/mes (NC)',v:'R$ '+fmtCur(impNC),s:'NC x R$12,10'},
+    {l:'Promotores Conv',v:fmt(pConv),s:'snapshot'}
+  ]);
+}
+function kpiHtml(id,items){
+  document.getElementById(id).innerHTML=items.map(i=>{
+    const tip=TIPS[i.l]||'';
+    return `<div class="kpi">${tip?`<div class="tip">${tip}</div>`:''}<span>${i.l}</span><strong>${i.v}</strong>${i.s?`<small>${i.s}</small>`:''}</div>`;
+  }).join('');
+}
+</script>
+
+<script>
+function mkChart(id,cfg){if(charts[id])charts[id].destroy();const ctx=document.getElementById(id);if(!ctx)return;charts[id]=new Chart(ctx,cfg);}
+function renderCharts(){
+  const meses=[...new Set(DATA.mensal.map(m=>String(m.mes||'')).filter(Boolean))].sort();
+  const ncM=meses.map(m=>DATA.mensal.filter(r=>String(r.mes)===m&&r.status_empresa==='Nao Cliente').reduce((s,r)=>s+(+r.cadastros||0),0));
+  const clM=meses.map(m=>DATA.mensal.filter(r=>String(r.mes)===m&&r.status_empresa==='Cliente').reduce((s,r)=>s+(+r.cadastros||0),0));
+  mkChart('ch-evolucao',{type:'line',data:{labels:meses.map(m=>m.slice(0,7)),datasets:[{label:'Nao Cliente',data:ncM,borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.25)',fill:true,tension:.4,borderWidth:3,pointRadius:5,pointBackgroundColor:'#f46901',pointBorderColor:'#fff',pointBorderWidth:2},{label:'Cliente',data:clM,borderColor:'#15803d',backgroundColor:'rgba(21,128,61,0.15)',fill:true,tension:.4,borderWidth:3,pointRadius:5,pointBackgroundColor:'#15803d',pointBorderColor:'#fff',pointBorderWidth:2}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true}},title:{display:true,text:'Evolucao Mensal - Cadastros Lite',font:{size:14,weight:'bold'}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}},interaction:{mode:'index',intersect:false}}})
+  const mAll=[...new Set([...DATA.mensal,...DATA.convMensal].map(m=>String(m.mes||'')).filter(Boolean))].sort();
+  const lP=mAll.map(m=>DATA.mensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores||0),0));
+  const cP=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores_conv||0),0));
+  mkChart('ch-litevconv',{type:'line',data:{labels:mAll.map(m=>m.slice(0,7)),datasets:[{label:'Lite',data:lP,borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.2)',fill:true,tension:.4,borderWidth:3,pointRadius:5,pointBackgroundColor:'#f46901',pointBorderColor:'#fff',pointBorderWidth:2,yAxisID:'y'},{label:'Conv',data:cP,borderColor:'#1d4ed8',backgroundColor:'rgba(29,78,216,0.08)',fill:true,tension:.4,borderWidth:3,pointRadius:5,pointBackgroundColor:'#1d4ed8',pointBorderColor:'#fff',pointBorderWidth:2,yAxisID:'y1'}]},options:{responsive:true,interaction:{mode:'index',intersect:false},plugins:{legend:{position:'bottom',labels:{usePointStyle:true}},title:{display:true,text:'Lite vs Convencional (promotores)',font:{size:14,weight:'bold'}}},scales:{y:{position:'left',title:{display:true,text:'Lite',color:'#f46901',font:{weight:'bold'}},ticks:{color:'#f46901'},grid:{color:'rgba(0,0,0,0.04)'}},y1:{position:'right',title:{display:true,text:'Conv',color:'#1d4ed8',font:{weight:'bold'}},ticks:{color:'#1d4ed8'},grid:{drawOnChartArea:false}}}}})
+  const ag=DATA.empresas.filter(c=>c.contratante_tipo==='Agencia').length;
+  const forn=DATA.empresas.length-ag;
+  mkChart('ch-tipo',{type:'doughnut',data:{labels:['Agencia','Fornecedor'],datasets:[{data:[ag,forn],backgroundColor:['#6b21a8','#f46901'],hoverOffset:8,borderWidth:0,borderRadius:4}]},options:{responsive:true,cutout:'70%',plugins:{legend:{position:'bottom',labels:{usePointStyle:true,pointStyle:'circle',padding:16}},title:{display:true,text:'Distribuicao por Tipo',font:{size:14,weight:'bold'}}}}});
+  const t10=[...DATA.empresas].filter(c=>c.status_empresa==='Nao Cliente').sort((a,b)=>(+b.promotores||0)-(+a.promotores||0)).slice(0,10);
+  mkChart('ch-top10nc',{type:'bar',data:{labels:t10.map(c=>String(c.empresa||'').slice(0,22)),datasets:[{label:'Promotores',data:t10.map(c=>+c.promotores||0),backgroundColor:t10.map(function(c,i){return'rgba(244,105,1,'+(1-i*0.07)+')'}),borderColor:'transparent',borderWidth:0,borderRadius:8,barThickness:20}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true}}}});
+}
+</script>
+
+<script>
+function renderNaoClientes(){
+  const rows=FILTERED.filter(c=>c.status_empresa==='Nao Cliente').sort((a,b)=>(+b.score_suspeita||0)-(+a.score_suspeita||0));
+  const prom=rows.reduce((s,c)=>s+(+c.promotores||0),0);
+  kpiHtml('kpis-nc',[{l:'Empresas (filtro)',v:fmt(rows.length)},{l:'Promotores',v:fmt(prom)},{l:'Impacto Mensal R$',v:'R$ '+fmtCur(prom*12.10)},{l:'Novos NC (7d)',v:fmt(+DATA.kpis['Novos Lite Nao Cliente (7d)']||0)}]);
+  document.getElementById('cnt-nc').textContent=rows.length+' reg';
+  renderPaged('tnc',rows,rowEmpresa);
+}
+function renderClientes(){
+  const rows=FILTERED.filter(c=>c.status_empresa==='Cliente').sort((a,b)=>(+b.promotores||0)-(+a.promotores||0));
+  const prom=rows.reduce((s,c)=>s+(+c.promotores||0),0);
+  const convP=DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
+  const pct=convP?(prom/(prom+convP)*100).toFixed(1)+'%':'–';
+  kpiHtml('kpis-cl',[{l:'Empresas (filtro)',v:fmt(rows.length)},{l:'Promotores',v:fmt(prom)},{l:'Cadastros',v:fmt(rows.reduce((s,c)=>s+(+c.cadastros||0),0))},{l:'% Lite/Total',v:pct}]);
+  document.getElementById('cnt-cl').textContent=rows.length+' reg';
+  renderPaged('tcl',rows,rowEmpresa);
+}
+function rowEmpresa(c){
+  const s=+c.score_suspeita||0;
+  return '<tr><td><strong>'+esc(c.empresa)+'</strong></td><td>'+pillTipo(c.contratante_tipo)+'</td><td class="num">'+fmt(+c.cadastros||0)+'</td><td class="num">'+fmt(+c.promotores||0)+'</td><td class="num"><span class="sbar"><span class="sbar-fill" style="width:'+s+'%;background:'+scoreColor(s)+'"></span></span>'+s+'</td><td><span class="pill '+scoreClass(c.classificacao)+'">'+(c.classificacao||'Normal')+'</span></td><td>'+fmtDate(c.primeiro_cadastro)+'</td><td>'+fmtDate(c.ultimo_cadastro)+'</td></tr>';
+}
+function renderAlertas(){
+  const crit=FILTERED.filter(c=>+c.score_suspeita>80).sort((a,b)=>(+b.score_suspeita||0)-(+a.score_suspeita||0)).slice(0,50);
+  const alta=FILTERED.filter(c=>c.classificacao==='Alta Suspeita').sort((a,b)=>(+b.promotores||0)-(+a.promotores||0)).slice(0,50);
+  const susp=FILTERED.filter(c=>c.classificacao==='Suspeito').sort((a,b)=>(+b.promotores||0)-(+a.promotores||0)).slice(0,50);
+  kpiHtml('kpis-al',[{l:'Suspeito',v:fmt(FILTERED.filter(c=>c.classificacao==='Suspeito').length)},{l:'Atencao',v:fmt(FILTERED.filter(c=>c.classificacao==='Atencao').length)},{l:'Score Medio',v:fmt(Math.round(FILTERED.reduce((s,c)=>s+(+c.score_suspeita||0),0)/(FILTERED.length||1)))},{l:'Impacto Total R$',v:'R$ '+fmtCur(FILTERED.filter(c=>c.status_empresa==='Nao Cliente').reduce((s,c)=>s+(+c.promotores||0),0)*12.10)}]);
+  let h='';
+  if(crit.length){h+='<div class="card"><div class="card-title"><h2>Criticos ('+crit.length+')</h2></div>';crit.forEach(c=>{h+=alertItem(c,'critico');});h+='</div>';}
+  if(alta.length){h+='<div class="card"><div class="card-title"><h2>Alta Suspeita ('+alta.length+')</h2></div>';alta.forEach(c=>{h+=alertItem(c,'alta');});h+='</div>';}
+  if(susp.length){h+='<div class="card"><div class="card-title"><h2>Suspeito ('+susp.length+')</h2></div>';susp.forEach(c=>{h+=alertItem(c,'suspeito');});h+='</div>';}
+  if(!h)h='<div class="card" style="padding:32px;text-align:center;color:var(--muted)">Nenhum alerta</div>';
+  document.getElementById('alertas-body').innerHTML=h;
+}
+function alertItem(c,type){
+  const imp=c.status_empresa==='Nao Cliente'?' | R$ '+fmtCur((+c.promotores||0)*12.10)+'/mes':'';
+  return '<div class="alert-item '+type+'"><div><div class="al-title">'+esc(c.empresa)+' — Score '+c.score_suspeita+'</div><div class="al-sub">'+esc(c.contratante_tipo)+' | '+esc(c.status_empresa)+' | '+fmt(+c.promotores||0)+' prom'+imp+'</div></div></div>';
+}
+function renderPriorizacao(){
+  const rows=[...FILTERED].sort((a,b)=>(+b.score_suspeita||0)-(+a.score_suspeita||0));
+  document.getElementById('cnt-prio').textContent=rows.length+' empresas';
+  renderPaged('tprio',rows,(c,i)=>{
+    const s=+c.score_suspeita||0,imp=c.status_empresa==='Nao Cliente'?'R$ '+fmtCur((+c.promotores||0)*12.10):'–';
+    return '<tr><td><strong>'+(i+1)+'</strong></td><td>'+esc(c.empresa)+'</td><td>'+pillTipo(c.contratante_tipo)+'</td><td><span class="pill '+(c.status_empresa==='Nao Cliente'?'p-nao':'p-cliente')+'">'+esc(c.status_empresa)+'</span></td><td class="num">'+fmt(+c.promotores||0)+'</td><td class="num"><span class="sbar"><span class="sbar-fill" style="width:'+s+'%;background:'+scoreColor(s)+'"></span></span>'+s+'</td><td><span class="pill '+scoreClass(c.classificacao)+'">'+(c.classificacao||'Normal')+'</span></td><td class="num">'+imp+'</td></tr>';
+  });
+}
+</script>
+
+<script>
+function renderRedesTab(){
+  const empIds=new Set(FILTERED.map(c=>String(c.empresa_id)));
+  const rows=DATA.redes.filter(r=>!empIds.size||empIds.has(String(r.empresa_id)));
+  kpiHtml('kpis-rede',[{l:'Empresas com Rede',v:fmt(rows.length)},{l:'Total Redes',v:fmt(rows.reduce((s,r)=>s+(+r.qt_redes||0),0))}]);
+  document.getElementById('cnt-rede').textContent=rows.length+' empresas';
+  renderPaged('trede',rows,r=>'<tr><td>'+pillTipo(r.contratante_tipo)+'</td><td><strong>'+esc(r.empresa_nome||r.empresa_id)+'</strong></td><td class="num">'+fmt(+r.qt_redes||0)+'</td><td style="color:var(--muted);font-size:11px">'+esc(r.redes)+'</td></tr>');
+}
+function renderComparativo(){
+  const liteProm=DATA.empresas.reduce((s,c)=>s+(+c.promotores||0),0);
+  const convProm=DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
+  const convReg=DATA.convencional.reduce((s,c)=>s+(+c.promotores_conv||0),0);
+  kpiHtml('kpis-comp',[{l:'Promotores Lite',v:fmt(liteProm)},{l:'Promotores Conv',v:fmt(convProm)},{l:'Total Conv',v:fmt(convReg)},{l:'Razao Lite/Conv',v:convProm?((liteProm/convProm)*100).toFixed(1)+'%':'--'}]);
+  const mAll=[...new Set([...DATA.mensal,...DATA.convMensal].map(m=>String(m.mes||'')).filter(Boolean))].sort();
+  const liteCad=mAll.map(m=>DATA.mensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.cadastros||0),0));
+  const convCad=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores_conv||0),0));
+  mkChart('ch-comp-linha',{type:'line',data:{labels:mAll.map(m=>m.slice(0,7)),datasets:[
+    {label:'Cadastros Lite',data:liteCad,borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.2)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y'},
+    {label:'Promotores Conv',data:convCad,borderColor:'#1d4ed8',backgroundColor:'rgba(29,78,216,0.1)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y1'}
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+  const lP=mAll.map(m=>DATA.mensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores||0),0));
+  const cP=mAll.map(m=>DATA.convMensal.filter(r=>String(r.mes)===m).reduce((s,r)=>s+(+r.promotores_conv||0),0));
+  mkChart('ch-comp-prom',{type:'line',data:{labels:mAll.map(m=>m.slice(0,7)),datasets:[
+    {label:'Prom Lite',data:lP,borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.15)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y'},
+    {label:'Prom Conv',data:cP,borderColor:'#1d4ed8',backgroundColor:'rgba(29,78,216,0.1)',tension:.4,fill:true,borderWidth:3,pointRadius:4,yAxisID:'y1'}
+  ]},options:{responsive:true,plugins:{legend:{position:'bottom'}}}});
+  const convRows=[...DATA.convencional].sort((a,b)=>(+b.promotores_conv||0)-(+a.promotores_conv||0));
+  document.getElementById('cnt-conv').textContent=convRows.length+' empresas';
+  renderPaged('tconv',convRows,c=>'<tr><td>'+pillTipo(c.contratante_tipo)+'</td><td>'+esc(c.empresa)+'</td><td>'+esc(c.nm_plano_cliente||c.tp_plano_cliente)+'</td><td class="num">'+fmt(+c.promotores_conv||0)+'</td><td class="num">'+fmt(+c.registros_conv||0)+'</td><td>'+fmtDate(c.dt_referencia)+'</td></tr>');
+}
+function renderAcoes(){
+  const rows=DATA.acoes||[];
+  kpiHtml('kpis-acao',[{l:'Acoes Registradas',v:fmt(rows.length)},{l:'Pendentes',v:fmt(rows.filter(a=>a.status==='Pendente').length)}]);
+  document.getElementById('cnt-acao').textContent=rows.length+' acoes';
+  const tbody=document.getElementById('tacao-body'),empty=document.getElementById('acao-empty');
+  if(!rows.length){tbody.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  tbody.innerHTML=rows.map(a=>'<tr><td>'+esc(a.empresa)+'</td><td>'+esc(a.acao)+'</td><td>'+esc(a.responsavel)+'</td><td>'+fmtDate(a.data_acao)+'</td><td>'+esc(a.status)+'</td><td style="font-size:11px">'+esc(a.observacao)+'</td></tr>').join('');
+}
+function salvarAcao(){
+  const d={empresa:document.getElementById('acao-empresa').value,acao:document.getElementById('acao-tipo').value,responsavel:document.getElementById('acao-resp').value,observacao:document.getElementById('acao-obs').value,status:'Pendente'};
+  if(!d.empresa){alert('Informe a empresa');return;}
+  google.script.run.withSuccessHandler(()=>{alert('Salvo!');document.getElementById('acao-empresa').value='';document.getElementById('acao-obs').value='';
+    google.script.run.withSuccessHandler(ac=>{DATA.acoes=ac||[];renderAcoes();}).getAcoesCS();
+  }).withFailureHandler(e=>alert('Erro: '+e)).addAcaoCS(d);
+}
+</script>
+
+<script>
+function renderPaged(id,rows,rowFn){if(!TBL[id])TBL[id]={page:0};TBL[id].rows=rows;TBL[id].rowFn=rowFn;_drawPage(id);}
+function _drawPage(id){
+  const s=TBL[id];if(!s)return;const total=s.rows.length;const pages=Math.max(1,Math.ceil(total/PAGE_SIZE));
+  if(s.page>=pages)s.page=0;if(s.page<0)s.page=pages-1;
+  const start=s.page*PAGE_SIZE;const slice=s.rows.slice(start,start+PAGE_SIZE);
+  const tbody=document.getElementById(id+'-body');
+  if(tbody)tbody.innerHTML=slice.map((r,i)=>s.rowFn(r,start+i)).join('');
+  const pager=document.getElementById('pager-'+id);if(!pager)return;
+  pager.innerHTML='<button onclick="gotoPage(\''+id+'\',-1)" '+(s.page===0?'disabled':'')+'>&#8592;</button><span>Pag '+(s.page+1)+'/'+pages+' ('+total+')</span><button onclick="gotoPage(\''+id+'\',1)" '+(s.page>=pages-1?'disabled':'')+'>&#8594;</button>';
+}
+function gotoPage(id,dir){if(!TBL[id])return;TBL[id].page+=dir;_drawPage(id);}
+function sortTbl(id,col){
+  const key=id+'_'+col;SORT[key]=!SORT[key];const asc=SORT[key];
+  const tbody=document.getElementById(id+'-body');if(!tbody)return;
+  const rows=[...tbody.querySelectorAll('tr')];
+  rows.sort((a,b)=>{const va=a.cells[col]?.textContent.trim()||'';const vb=b.cells[col]?.textContent.trim()||'';
+    const na=parseFloat(va.replace(/[^0-9.-]/g,''));const nb=parseFloat(vb.replace(/[^0-9.-]/g,''));
+    if(!isNaN(na)&&!isNaN(nb))return asc?na-nb:nb-na;return asc?va.localeCompare(vb,'pt-BR'):vb.localeCompare(va,'pt-BR');});
+  rows.forEach(r=>tbody.appendChild(r));
+}
+function exportCSV(){
+  const hdr=['empresa_id','empresa','contratante_tipo','status_empresa','cadastros','promotores','primeiro_cadastro','ultimo_cadastro','score_suspeita','classificacao'];
+  const lines=[hdr.join(',')];
+  FILTERED.forEach(c=>lines.push(hdr.map(h=>'"'+String(c[h]||'').replace(/"/g,'""')+'"').join(',')));
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob(['\ufeff'+lines.join('\n')],{type:'text/csv;charset=utf-8'}));
+  a.download='cadastro-lite-mob2con.csv';a.click();
+}
+function fmt(n){return Number(n).toLocaleString('pt-BR');}
+function fmtCur(n){return Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtDate(d){if(!d)return'--';const s=String(d).slice(0,10);if(s.includes('-')){const p=s.split('-');return p[2]+'/'+p[1]+'/'+p[0];}return s;}
+function esc(s){const d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
+function pillTipo(t){return t==='Agencia'?'<span class="pill p-ag">Agencia</span>':t==='Fornecedor'?'<span class="pill p-forn">Fornecedor</span>':'<span class="pill p-dir">Direto</span>';}
+function scoreClass(c){return{Normal:'score-normal',Atencao:'score-atencao',Suspeito:'score-suspeito','Alta Suspeita':'score-alta',Critico:'score-critico'}[c]||'score-normal';}
+function scoreColor(s){if(s<=20)return'#0369a1';if(s<=40)return'#92400e';if(s<=60)return'#c2410c';if(s<=80)return'#b91c1c';return'#6b21a8';}
+</script>
+</body>
+</html>

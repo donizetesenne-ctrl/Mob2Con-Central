@@ -1,0 +1,2994 @@
+table Métricas
+	lineageTag: fc56e519-cdec-4371-a3f8-8992e3606c82
+	sourceLineageTag: dcba25b8-646d-4400-9cf5-932382554096
+
+	/// Venda total em R$ filtrada para a rede NORDESTAO.
+	measure 'NE | Venda (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: 60122dbd-88f7-4cc5-8d01-3b126af8cf2d
+
+	/// Venda R$ M-1 Nordestão.
+	measure 'Venda M-1' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH)
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: 85aa14bc-e07b-48ad-993e-a16dbe8a5e50
+
+	/// Venda R$ M-2 Nordestão.
+	measure 'Venda M-2' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -2, MONTH)
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: ce15ff3d-633e-49a7-aa5a-efe201707a37
+
+	/// Venda R$ M-3 Nordestão.
+	measure 'Venda M-3' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -3, MONTH)
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: e78856fd-8f78-4842-b24b-c6cd75385778
+
+	/// Venda R$ mês atual Nordestão.
+	measure 'NE | Venda (R$) M-Atual' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATESMTD('Date'[dt_referencia])
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: 6dcc78a8-ccf8-4451-a9c6-588ac5ffaaa5
+
+	/// Venda acumulada mês atual Nordestão.
+	measure 'NE | Venda Acumulada M-Atual' =
+			TOTALMTD(
+			    CALCULATE(SUM('fato_mobconnect_movimento'[vl_venda_total]), 'dim_rede'[nm_rede] = "NORDESTAO"),
+			    'Date'[dt_referencia]
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: 36366d1f-6ca0-4aa5-9111-afd270f42b3f
+
+	/// Variação percentual de vendas MoM Nordestão.
+	measure 'NE | Variação Vendas MoM' =
+			DIVIDE(
+			    [Venda M-1] - [Venda M-2],
+			    [Venda M-2]
+			)
+		formatString: 0.0%
+		displayFolder: 01 - Vendas
+		lineageTag: 31b61163-90cc-4469-a592-5f490e6a35b1
+
+	/// Variação percentual de vendas M-2 vs M-3 Nordestão.
+	measure 'NE | Variação Vendas M-2 vs M-3' =
+			DIVIDE(
+			    [Venda M-2] - [Venda M-3],
+			    [Venda M-3]
+			)
+		formatString: 0.0%
+		displayFolder: 01 - Vendas
+		lineageTag: 2bcab941-5bf5-474c-8ac0-cf7be92331d8
+
+	/// Tendência de vendas Nordestão vs média 3 meses.
+	measure 'NE | Tendência Vendas vs Média 3M' =
+			VAR _m1 = [Venda M-1]
+			VAR _media = DIVIDE([Venda M-1] + [Venda M-2] + [Venda M-3], 3)
+			RETURN DIVIDE(_m1 - _media, _media)
+		formatString: 0.0%
+		displayFolder: 01 - Vendas
+		lineageTag: 99c4718a-b7d7-4655-b246-a88d772dacb7
+
+	/// Venda YTD Nordestão.
+	measure 'YTD' =
+			TOTALYTD(
+			    CALCULATE(SUM('fato_mobconnect_movimento'[vl_venda_total]), 'dim_rede'[nm_rede] = "NORDESTAO"),
+			    'Date'[dt_referencia]
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: b51e07ca-0188-415e-a13d-b2778a4758a6
+
+	/// Venda média por loja ativa no Nordestão M-1.
+	measure 'Venda / Loja' =
+			DIVIDE(
+			    [Venda M-1],
+			    CALCULATE(DISTINCTCOUNT('dim_loja'[sk_loja]), 'dim_rede'[nm_rede] = "NORDESTAO")
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 01 - Vendas
+		lineageTag: 7982853c-d72c-442c-86d1-f7bceb1dc554
+
+	/// Quantidade vendida M-1 Nordestão.
+	measure 'NE | Venda (Qtd.) M-1' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[qt_vendida]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH)
+			)
+		formatString: #,0
+		displayFolder: 01 - Vendas
+		lineageTag: d2db3877-c87c-4760-b854-a1d280bff8cd
+
+	/// Lojas com venda M-1 no Nordestão.
+	measure 'Lojas c/ Venda' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH),
+			    'fato_mobconnect_movimento'[qt_vendida] > 0
+			)
+		formatString: 0
+		displayFolder: 01 - Vendas
+		lineageTag: a36ab08a-a33a-4015-87bb-7e5f029e910d
+
+	/// Lojas sem venda M-1 no Nordestão.
+	measure 'Lojas s/ Venda' =
+			VAR _comVenda =
+			    CALCULATE(
+			        DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        DATEADD('Date'[dt_referencia], -1, MONTH),
+			        'fato_mobconnect_movimento'[qt_vendida] > 0
+			    )
+			VAR _total =
+			    CALCULATE(
+			        DISTINCTCOUNT('dim_loja'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO"
+			    )
+			RETURN _total - _comVenda
+		formatString: 0
+		displayFolder: 01 - Vendas
+		lineageTag: 4d7d2bd4-117f-4c36-a4b0-2ac70731bc2b
+
+	/// Ícone de tendência de vendas Nordestão.
+	measure 'NE | Status Tendência Vendas' =
+			VAR _t = [NE | Tendência Vendas vs Média 3M]
+			RETURN SWITCH(TRUE(), _t > 0.05, "Crescimento", _t < -0.05, "Queda", "Estavel")
+		displayFolder: 01 - Vendas
+		lineageTag: 46488a5e-2271-43b7-93b7-44f5c20045e6
+
+	/// Ruptura operacional R$ Nordestão.
+	measure 'NE | Ruptura Operacional (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 1109d691-3447-4177-a438-34c66596320f
+
+	/// Ruptura comercial R$ Nordestão.
+	measure 'NE | Ruptura Comercial (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_comercial]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 7d0bc0b7-1c1f-42b9-be09-cae9c4889f98
+
+	/// Ruptura administrativa R$ Nordestão.
+	measure 'NE | Ruptura Administrativa (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_administrativa]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: b44bfeaf-68bf-4450-851a-8d5daa7858ac
+
+	/// Ruptura total (op + com + adm) Nordestão.
+	measure 'NE | Ruptura Total (R$)' =
+			VAR _op = [NE | Ruptura Operacional (R$)] + 0
+			VAR _com = [NE | Ruptura Comercial (R$)] + 0
+			VAR _adm = [NE | Ruptura Administrativa (R$)] + 0
+			RETURN _op + _com + _adm
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: ab1c22c2-7a9f-4693-8566-2638dd62e302
+
+	/// % Ruptura operacional sobre venda Nordestão.
+	measure 'NE | % Ruptura Operacional' = DIVIDE([NE | Ruptura Operacional (R$)], [NE | Venda (R$)])
+		formatString: 0.0%
+		displayFolder: 02 - Ruptura
+		lineageTag: 36092800-9d82-402a-849a-84c088b8a9c5
+
+	/// % Ruptura comercial sobre venda Nordestão.
+	measure 'NE | % Ruptura Comercial' = DIVIDE([NE | Ruptura Comercial (R$)], [NE | Venda (R$)])
+		formatString: 0.0%
+		displayFolder: 02 - Ruptura
+		lineageTag: 2daf37f9-a313-44b4-aebe-7aa37c00dbdf
+
+	/// % Ruptura administrativa sobre venda Nordestão.
+	measure 'NE | % Ruptura Administrativa' = DIVIDE([NE | Ruptura Administrativa (R$)], [NE | Venda (R$)])
+		formatString: 0.0%
+		displayFolder: 02 - Ruptura
+		lineageTag: fd000d56-3159-43e6-9709-bba6d3c23f6a
+
+	/// Variação MoM da ruptura operacional Nordestão.
+	measure 'NE | Variação Ruptura Op MoM' =
+			DIVIDE(
+			    [NE | Ruptura Operacional (R$)] - [NE | Ruptura Operacional M-1 (R$)],
+			    [NE | Ruptura Operacional M-1 (R$)]
+			)
+		formatString: 0.0%
+		displayFolder: 02 - Ruptura
+		lineageTag: 8df84875-5c42-4372-8dae-ec9ffe6242f0
+
+	/// Ruptura operacional M-1 Nordestão.
+	measure 'NE | Ruptura Operacional M-1 (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH)
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 8c2c7e20-957f-46c0-a846-9bb509e53bc8
+
+	/// Ruptura operacional M-2 Nordestão.
+	measure 'NE | Ruptura Operacional M-2 (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -2, MONTH)
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 970f28cd-7bd9-49df-b2d7-4d8c5a42fe4d
+
+	/// Ruptura operacional M-Atual Nordestão.
+	measure 'NE | Ruptura Operacional M-Atual (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATESMTD('Date'[dt_referencia])
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: cdf5ef03-c0e8-46fb-8ec6-99b4f69da4b8
+
+	/// Receita potencial recuperável com redução de ruptura operacional Nordestão (60% de captura).
+	measure 'NE | Receita Recuperável Ruptura Op' = [NE | Ruptura Operacional (R$)] * 0.6
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 59660412-ca73-41a9-8205-04ce2f907187
+
+	/// Receita potencial recuperável total (op + com) Nordestão.
+	measure 'NE | Receita Recuperável Total' = ([NE | Ruptura Operacional (R$)] + [NE | Ruptura Comercial (R$)]) * 0.6
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 517840d7-7220-4f36-bfe8-4b6490c62fc8
+
+	/// Semáforo de ruptura operacional Nordestão.
+	measure 'NE | Semáforo Ruptura Op' =
+			VAR _pct = [NE | % Ruptura Operacional]
+			RETURN SWITCH(TRUE(), _pct <= 0.05, "Verde", _pct <= 0.10, "Amarelo", "Vermelho")
+		displayFolder: 02 - Ruptura
+		lineageTag: bb8be2d9-2a60-42f6-873b-9ad6fd126a63
+
+	/// Forecast de ruptura operacional para o próximo mês Nordestão.
+	measure 'NE | Forecast Ruptura Op Próx. Mês' =
+			VAR _m1 = [NE | Ruptura Operacional M-1 (R$)]
+			VAR _m2 = [NE | Ruptura Operacional M-2 (R$)]
+			VAR _tendencia = _m1 - _m2
+			RETURN _m1 + _tendencia
+		formatString: "R$" #,0.00
+		displayFolder: 02 - Ruptura
+		lineageTag: 48837e7b-fb44-4737-8246-c41eb069977a
+
+	/// Produtos com ruptura operacional Nordestão.
+	measure 'NE | Produtos Ruptura Operacional' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'fato_mobconnect_movimento'[qt_ruptura_operacional] > 0
+			)
+		formatString: 0
+		displayFolder: 02 - Ruptura
+		lineageTag: 7e0c25e1-c3b5-4481-ab19-555a07ff0f9e
+
+	/// Produtos com ruptura comercial Nordestão.
+	measure 'NE | Produtos Ruptura Comercial' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'fato_mobconnect_movimento'[qt_ruptura_comercial] > 0
+			)
+		formatString: 0
+		displayFolder: 02 - Ruptura
+		lineageTag: ef86f7f4-619f-41ce-8f5a-6bcf59dd1c96
+
+	/// Contagem de ruptura total Nordestão.
+	measure 'NE | Contagem Ruptura Total' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Ruptura Total"
+			)
+		formatString: 0
+		displayFolder: 02 - Ruptura
+		lineageTag: b2716269-3a31-4f6f-b992-ef2e5b069a6f
+
+	/// Contagem de ruptura parcial Nordestão.
+	measure 'NE | Contagem Ruptura Parcial' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Ruptura Parcial"
+			)
+		formatString: 0
+		displayFolder: 02 - Ruptura
+		lineageTag: 13899345-d47e-4ae8-8972-70b2c59100e9
+
+	/// Ranking de lojas Nordestão por ruptura operacional.
+	measure 'NE | Ranking Loja Ruptura Op' =
+			RANKX(
+			    ALLSELECTED('dim_loja'[nm_loja]),
+			    CALCULATE([NE | Ruptura Operacional (R$)], 'dim_rede'[nm_rede] = "NORDESTAO")
+			)
+		formatString: 0
+		displayFolder: 02 - Ruptura
+		lineageTag: 6d98139c-7d6f-4340-bcb4-5f44938a265a
+
+	/// Horas ideais contratadas Nordestão.
+	measure 'NE | Horas Ideais' =
+			CALCULATE(
+			    SUM('fato_horas_ideais'[qt_horas_ideais]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0.0
+		displayFolder: 03 - Operação
+		lineageTag: b9ec14c5-9c89-4c89-b4fb-04e94d86d2d5
+
+	/// Horas realizadas de atendimento Nordestão.
+	measure 'NE | Horas Realizadas' =
+			CALCULATE(
+			    SUM('fato_mobconnect_atendimento_fornecedores'[qt_horas_atendimento]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0.0
+		displayFolder: 03 - Operação
+		lineageTag: e7f970f9-ff15-4474-a55f-b07043ad4fb9
+
+	/// GAP entre horas realizadas e ideais Nordestão.
+	measure 'NE | GAP Horas' = [NE | Horas Realizadas] - [NE | Horas Ideais]
+		formatString: 0.0
+		displayFolder: 03 - Operação
+		lineageTag: 5a64252e-6c79-4330-834e-3b3b4dcccd7f
+
+	/// % Eficiência de horas Nordestão.
+	measure 'NE | % Eficiência Horas' = DIVIDE([NE | Horas Realizadas], [NE | Horas Ideais])
+		formatString: 0.0%
+		displayFolder: 03 - Operação
+		lineageTag: 38b075ee-f2e6-47da-888f-1c716879330e
+
+	/// Semáforo de eficiência de horas Nordestão.
+	measure 'NE | Semáforo Eficiência Horas' =
+			VAR _pct = [NE | % Eficiência Horas]
+			RETURN SWITCH(TRUE(), _pct >= 0.95, "Verde", _pct >= 0.80, "Amarelo", "Vermelho")
+		displayFolder: 03 - Operação
+		lineageTag: f6710087-dd17-4963-b68a-5ccec5abb289
+
+	/// Visitas planejadas Nordestão.
+	measure 'NE | Visitas Planejadas' =
+			CALCULATE(
+			    SUM('fato_mobconnect_visitas'[qt_visitas_planejadas]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: 6210d5d4-f34f-483c-96c9-b8e66b1b8262
+
+	/// Visitas realizadas Nordestão.
+	measure 'NE | Visitas Realizadas' =
+			CALCULATE(
+			    SUM('fato_mobconnect_visitas'[qt_visitas_realizadas]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: befee412-d7e6-49b1-a030-3e180e4a67e8
+
+	/// % Execução de visitas Nordestão.
+	measure 'NE | % Execução Visitas' = DIVIDE([NE | Visitas Realizadas], [NE | Visitas Planejadas])
+		formatString: 0.0%
+		displayFolder: 03 - Operação
+		lineageTag: c48f3b1b-287e-4c80-a417-0598e535c768
+
+	/// GAP de visitas Nordestão.
+	measure 'NE | GAP Visitas' = [NE | Visitas Realizadas] - [NE | Visitas Planejadas]
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: cc522a7b-3f65-4890-abe2-72fca3b20a5c
+
+	/// Total de atividades MobConnect Nordestão.
+	measure 'NE | Atividades (Qtd)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_atividades'[qt_atividades]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: 2c6b2db6-68e2-4b63-b109-5d8b93019207
+
+	/// Tarefas concluídas Nordestão.
+	measure 'NE | Tarefas Concluídas' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_status_atividade'[ds_status_atividade] = "Concluida"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: d5a84faf-c388-4fac-b911-1b0b6c163895
+
+	/// Atividades com problema reportado Nordestão.
+	measure 'NE | Atividades Problema' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    NOT ISBLANK('fato_mobconnect_atividades'[sk_mobconnect_tipo_problema])
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: 7aae4914-1483-46e3-9db9-69ac92263df6
+
+	/// % Tarefas concluídas Nordestão.
+	measure 'NE | % Tarefas Concluídas' = DIVIDE([NE | Tarefas Concluídas], [NE | Atividades (Qtd)])
+		formatString: 0.0%
+		displayFolder: 03 - Operação
+		lineageTag: d4a05d2c-b2b1-4a40-adc6-4bafe5eaddf3
+
+	/// % Atividades com problema Nordestão.
+	measure 'NE | % Atividades Problema' = DIVIDE([NE | Atividades Problema], [NE | Atividades (Qtd)])
+		formatString: 0.0%
+		displayFolder: 03 - Operação
+		lineageTag: b9fb9eca-99a0-4027-9569-6a2a59665f78
+
+	/// Promotores com acesso no projeto Nordestão.
+	measure 'NE | Promotores com Acesso' =
+			CALCULATE(
+			    DISTINCTCOUNT('dim_visitante'[sk_visitante]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: e61ccd4b-4187-4e33-8381-4ea0fccede23
+
+	/// Lojas com atividades MobConnect Nordestão.
+	measure 'NE | Lojas com Atividades' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_atividades'[sk_loja]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: c75022ab-43b5-4897-8660-4281d536aa1d
+
+	/// % Cobertura de lojas visitadas Nordestão.
+	measure 'NE | % Cobertura Lojas' =
+			DIVIDE(
+			    [NE | Lojas com Atividades],
+			    CALCULATE(DISTINCTCOUNT('dim_loja'[sk_loja]), 'dim_rede'[nm_rede] = "NORDESTAO")
+			)
+		formatString: 0.0%
+		displayFolder: 03 - Operação
+		lineageTag: 139ec295-aeb2-47a6-a8d5-cda0d7311dbb
+
+	/// Horas médias por visita Nordestão. (Redireciona para medida unificada)
+	measure 'NE | Horas Médias por Visita' = [NE | Prod - Horas por Visita]
+		formatString: 0.00
+		displayFolder: 03 - Operação
+		lineageTag: d6ba2616-42ac-4fce-8eef-741eb8d23fd1
+
+	/// Atividades médias por visita Nordestão.
+	measure 'NE | Atividades Médias por Visita' = DIVIDE([NE | Atividades (Qtd)], [NE | Visitas Realizadas])
+		formatString: 0.0
+		displayFolder: 03 - Operação
+		lineageTag: 0f7f946f-b8a5-49e8-b90a-37e157433407
+
+	/// Ranking de promotores por horas realizadas no Nordestão.
+	measure 'NE | Ranking Promotor Horas' =
+			RANKX(
+			    ALLSELECTED('dim_visitante'[nm_visitante]),
+			    CALCULATE([NE | Horas Realizadas], 'dim_rede'[nm_rede] = "NORDESTAO")
+			)
+		formatString: 0
+		displayFolder: 03 - Operação
+		lineageTag: 087b70fa-382b-4efb-a853-13fc143751c6
+
+	/// Estoque última posição Nordestão.
+	measure 'NE | Estoque Última Posição' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[qt_estoque_ultima_posicao]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: e76e5dc5-4492-414b-a748-91361198ef71
+
+	/// Produtos com estoque zero Nordestão.
+	measure 'NE | Produtos Estoque Zero' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'fato_mobconnect_movimento'[qt_estoque] = 0
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 8b61e676-0066-45ad-99f0-44451ee808e2
+
+	/// Produtos com estoque negativo Nordestão.
+	measure 'NE | Produtos Estoque Negativo' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'fato_mobconnect_movimento'[qt_estoque] < 0
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 44112d94-8d4f-4779-ac3f-f744b1d5bff7
+
+	/// Dias de estoque (DDE) Nordestão.
+	measure 'NE | Dias de Estoque (DDE)' =
+			DIVIDE(
+			    [NE | Estoque Última Posição],
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[qt_vendida]), 30),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        DATEADD('Date'[dt_referencia], -1, MONTH)
+			    )
+			)
+		formatString: 0.0
+		displayFolder: 04 - Estoque
+		lineageTag: cba0d7eb-d228-4e2e-b00d-9fa1a5ba8964
+
+	/// Total de produtos no projeto Nordestão.
+	measure 'NE | Produtos (Qtd.)' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 206ae032-02c8-4408-98ad-a0048076395c
+
+	/// Produtos sem venda M-1 Nordestão.
+	measure 'NE | Produtos Sem Venda M-1' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH),
+			    'fato_mobconnect_movimento'[qt_vendida] = 0
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 43b064b5-0492-440c-8e6e-f4d6be1643db
+
+	/// Produtos com estoque mas sem venda M-1 Nordestão.
+	measure 'NE | Produtos com Estoque Sem Venda' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_produto_rede]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    DATEADD('Date'[dt_referencia], -1, MONTH),
+			    'fato_mobconnect_movimento'[qt_estoque] > 0,
+			    'fato_mobconnect_movimento'[qt_vendida] = 0
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 93f473f0-6727-4234-9846-4358adc97efd
+
+	/// Produtos fora de validade Nordestão.
+	measure 'NE | Fora de Validade' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Fora de Validade"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 0f67161f-566d-4e23-9284-f668e073efce
+
+	/// Produtos avariados Nordestão.
+	measure 'NE | Produto Avariado' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Produto Avariado"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 6d1d2317-545a-441a-8447-cada745d24aa
+
+	/// Produtos que não repõem Nordestão.
+	measure 'NE | Produtos Não Repõe' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Nao Repoe"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 3f789b6b-ff22-4e63-81f2-e2653aeb6670
+
+	/// Produtos que não vendem na loja Nordestão.
+	measure 'NE | Produtos Não Vende na Loja' =
+			CALCULATE(
+			    COUNTROWS('fato_mobconnect_atividades'),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    'dim_mobconnect_tipo_problema'[ds_tipo_problema] = "Nao Vende na Loja"
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 136a7984-4f63-4a2a-a836-4bab1274ca2b
+
+	/// % Produtos com problema de estoque Nordestão.
+	measure 'NE | % Produtos Problema Estoque' =
+			DIVIDE(
+			    [NE | Produtos Estoque Zero] + [NE | Produtos Estoque Negativo],
+			    [NE | Produtos (Qtd.)]
+			)
+		formatString: 0.0%
+		displayFolder: 04 - Estoque
+		lineageTag: 2aa2c495-434a-4546-ab4b-1d0be502e104
+
+	/// Ranking de produtos Nordestão por ruptura operacional.
+	measure 'NE | Ranking Produto Ruptura Op' =
+			RANKX(
+			    ALLSELECTED('dim_produto_rede'[ds_produto_rede]),
+			    CALCULATE([NE | Ruptura Operacional (R$)], 'dim_rede'[nm_rede] = "NORDESTAO")
+			)
+		formatString: 0
+		displayFolder: 04 - Estoque
+		lineageTag: 6c9946b7-69bf-4c16-a2a7-426c9aa6edc2
+
+	/// % acumulado de ruptura por produto para Pareto Nordestão.
+	measure 'NE | % Acumulado Ruptura Produto' =
+			VAR _totalRuptura = CALCULATE([NE | Ruptura Operacional (R$)], ALL('dim_produto_rede'))
+			RETURN DIVIDE(
+			    CALCULATE([NE | Ruptura Operacional (R$)], 'dim_rede'[nm_rede] = "NORDESTAO"),
+			    _totalRuptura
+			)
+		formatString: 0.0%
+		displayFolder: 04 - Estoque
+		lineageTag: 13e2eec4-ff65-40e7-9348-b7413f80d053
+
+	/// Score de saúde operacional do Nordestão (0-100) combinando horas, visitas, tarefas e ruptura.
+	measure 'NE | Score Saúde Operacional' =
+			VAR _scoreHoras = MIN(1, [NE | % Eficiência Horas]) * 25
+			VAR _scoreVisitas = MIN(1, [NE | % Execução Visitas]) * 25
+			VAR _scoreTarefas = MIN(1, [NE | % Tarefas Concluídas]) * 25
+			VAR _scoreRuptura = (1 - MIN(1, [NE | % Ruptura Operacional] / 0.20)) * 25
+			RETURN _scoreHoras + _scoreVisitas + _scoreTarefas + _scoreRuptura
+		formatString: 0.0
+		displayFolder: 05 - Executivo
+		lineageTag: 7c906f3f-945c-4f15-8ae4-9964cce7e82a
+
+	/// Classifica o score de saúde operacional do Nordestão.
+	measure 'NE | Faixa Saúde Operacional' =
+			VAR _score = [NE | Score Saúde Operacional]
+			RETURN SWITCH(TRUE(), _score >= 80, "Saudavel", _score >= 60, "Atencao", _score >= 40, "Critico", "Grave")
+		displayFolder: 05 - Executivo
+		lineageTag: b8fa064f-4b57-4182-930e-d6451877a032
+
+	/// Lojas cadastradas na rede Nordestão.
+	measure 'NE | Lojas Cadastradas' =
+			CALCULATE(
+			    DISTINCTCOUNT('dim_loja'[sk_loja]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 05 - Executivo
+		lineageTag: 0d44977d-2398-4e5e-86e3-e101fd11cedd
+
+	/// Lojas no projeto Nordestão.
+	measure 'NE | Lojas no Projeto' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 05 - Executivo
+		lineageTag: 1899fccb-937c-4599-953c-a4fb5be31006
+
+	/// Fornecedores cadastrados no projeto Nordestão.
+	measure 'NE | Fornecedores no Projeto' =
+			CALCULATE(
+			    DISTINCTCOUNT('fato_mobconnect_movimento'[sk_fornecedor]),
+			    'dim_rede'[nm_rede] = "NORDESTAO"
+			)
+		formatString: 0
+		displayFolder: 05 - Executivo
+		lineageTag: 3f738839-ae63-4456-971f-dbe580fb6be4
+
+	/// Compara ruptura operacional do Nordestão vs média geral de todas as redes.
+	measure 'NE | GAP Ruptura vs Média Geral' =
+			VAR _ne = [NE | % Ruptura Operacional]
+			VAR _geral = CALCULATE(
+			    DIVIDE(SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]), SUM('fato_mobconnect_movimento'[vl_venda_total])),
+			    ALL('dim_rede')
+			)
+			RETURN _ne - _geral
+		formatString: 0.0%
+		displayFolder: 05 - Executivo
+		lineageTag: bbf1c371-9516-458d-98d6-967575b74cbf
+
+	/// Status do Nordestão vs média geral de ruptura.
+	measure 'NE | Status vs Média Geral' =
+			VAR _gap = [NE | GAP Ruptura vs Média Geral]
+			RETURN SWITCH(TRUE(), _gap < 0, "Abaixo da Media", _gap = 0, "Na Media", "Acima da Media")
+		displayFolder: 05 - Executivo
+		lineageTag: ae871249-e6bd-4f5b-8598-5eb8f91d374c
+
+	/// Representação do Nordestão no total de vendas de todas as redes.
+	measure 'NE | % Representação nas Vendas Totais' =
+			DIVIDE(
+			    [NE | Venda (R$)],
+			    CALCULATE(SUM('fato_mobconnect_movimento'[vl_venda_total]), ALL('dim_rede'))
+			)
+		formatString: 0.0%
+		displayFolder: 05 - Executivo
+		lineageTag: 6e97ab30-0355-4ecc-9fce-1b1b9025f148
+
+	/// Card executivo de vendas Nordestão.
+	measure 'NE | Card Vendas' =
+			VAR _venda = [Venda M-1]
+			VAR _var = [NE | Variação Vendas MoM]
+			RETURN "Venda M-1: " & FORMAT(_venda, "R$ #,0") & " | Var: " & FORMAT(_var, "0.0%")
+		displayFolder: 05 - Executivo
+		lineageTag: 797f5594-1102-488e-b5db-ed547a83317e
+
+	/// Card executivo de ruptura Nordestão.
+	measure 'NE | Card Ruptura' =
+			VAR _rup = [NE | Ruptura Operacional (R$)]
+			VAR _pct = [NE | % Ruptura Operacional]
+			RETURN "Ruptura Op: " & FORMAT(_rup, "R$ #,0") & " | %: " & FORMAT(_pct, "0.0%")
+		displayFolder: 05 - Executivo
+		lineageTag: 559fdb73-2116-4c03-8f96-50dbb040ff7d
+
+	/// Card executivo operacional Nordestão.
+	measure 'NE | Card Operação' =
+			VAR _hrs = [NE | % Eficiência Horas]
+			VAR _vis = [NE | % Execução Visitas]
+			RETURN "Efic. Horas: " & FORMAT(_hrs, "0.0%") & " | Exec. Visitas: " & FORMAT(_vis, "0.0%")
+		displayFolder: 05 - Executivo
+		lineageTag: 747cde1a-fe49-44e3-a523-fba3f0c44bb7
+
+	/// Painel de alertas executivo consolidado Nordestão.
+	measure 'NE | Painel Alertas Executivo' =
+			VAR _semRuptura = IF([NE | Semáforo Ruptura Op] = "Vermelho", "ALERTA: Ruptura alta | ", "")
+			VAR _semHoras = IF([NE | Semáforo Eficiência Horas] = "Vermelho", "ALERTA: Horas baixas | ", "")
+			VAR _saude = "Saude: " & [NE | Faixa Saúde Operacional]
+			RETURN _semRuptura & _semHoras & _saude
+		displayFolder: 05 - Executivo
+		lineageTag: 0a2942f6-e6fb-4d48-8f65-48cfd931e899
+
+	/// Impacto financeiro total de ruptura Nordestão.
+	measure 'NE | Impacto Total Ruptura (R$)' = [NE | Ruptura Total (R$)]
+		formatString: "R$" #,0.00
+		displayFolder: 05 - Executivo
+		lineageTag: 82f2b995-a224-4001-87be-230f285b8023
+
+	/// Venda YoY Nordestão.
+	measure 'NE | Venda YoY (R$)' =
+			CALCULATE(
+			    SUM('fato_mobconnect_movimento'[vl_venda_total]),
+			    'dim_rede'[nm_rede] = "NORDESTAO",
+			    SAMEPERIODLASTYEAR('Date'[dt_referencia])
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 05 - Executivo
+		lineageTag: 3842a6eb-21e6-41d6-b95a-740e629edc9c
+
+	/// Variação YoY de vendas Nordestão.
+	measure 'NE | Variação Vendas YoY' =
+			DIVIDE(
+			    [NE | Venda (R$)] - [NE | Venda YoY (R$)],
+			    [NE | Venda YoY (R$)]
+			)
+		formatString: 0.0%
+		displayFolder: 05 - Executivo
+		lineageTag: debc2e11-4892-4136-b73d-65827b5957d1
+
+	/// Horas realizadas por visita - mede densidade de trabalho por visita
+	measure 'NE | Prod - Horas por Visita' =
+			DIVIDE(
+			    [NE | Horas Realizadas],
+			    [NE | Visitas Realizadas]
+			)
+		formatString: 0.00
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: 35e2f843-f182-4025-942a-47d91db62191
+
+	/// Atividades realizadas por visita - mede intensidade operacional por visita
+	measure 'NE | Prod - Atividades por Visita' =
+			DIVIDE(
+			    [NE | Atividades (Qtd)],
+			    [NE | Visitas Realizadas]
+			)
+		formatString: 0.00
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: d01d150d-9597-4f74-9258-cf5e7457b135
+
+	/// Tarefas concluídas por hora trabalhada - eficiência operacional
+	measure 'NE | Prod - Tarefas por Hora' =
+			DIVIDE(
+			    [NE | Tarefas Concluídas],
+			    [NE | Horas Realizadas]
+			)
+		formatString: 0.00
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: 1a651148-cf2d-4eb2-832e-2a08f7ccec17
+
+	/// % de lojas visitadas com atividades registradas - cobertura efetiva
+	measure 'NE | Prod - Cobertura Efetiva' =
+			DIVIDE(
+			    [NE | Lojas com Atividades],
+			    [NE | Lojas no Projeto]
+			)
+		formatString: 0.0%
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: 7a998588-eb19-4960-9076-c98b74b7d60a
+
+	/// Score composto de produtividade do promotor (0-100)
+	measure 'NE | Prod - Score Produtividade' =
+			VAR _eficHoras   = MIN(1, [NE | % Eficiência Horas])   * 30
+			VAR _execVisitas = MIN(1, [NE | % Execução Visitas]) * 30
+			VAR _cobertura   = MIN(1, [NE | Prod - Cobertura Efetiva]) * 20
+			VAR _tarefas     = MIN(1, [NE | % Tarefas Concluídas])  * 20
+			RETURN _eficHoras + _execVisitas + _cobertura + _tarefas
+		formatString: 0.0
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: 26932598-0c40-47d8-95a5-b2549135ab20
+
+	/// Classifica o score de produtividade em faixas
+	measure 'NE | Prod - Faixa Produtividade' =
+			VAR _s = [NE | Prod - Score Produtividade]
+			RETURN SWITCH(TRUE(),
+			    _s >= 80, "Alta",
+			    _s >= 60, "Media",
+			    _s >= 40, "Baixa",
+			    "Critica"
+			)
+		displayFolder: 06 - Correlação Produtividade\01 - Indicadores Base
+		lineageTag: 26a35b91-4dda-4798-8e7b-9f7e4df8b916
+
+	/// Ruptura operacional por loja visitada - quanto de ruptura existe por loja atendida
+	measure 'NE | Corr - Ruptura por Loja Visitada' =
+			DIVIDE(
+			    [NE | Ruptura Operacional (R$)],
+			    [NE | Lojas com Atividades]
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\02 - Correlação Ruptura
+		lineageTag: 13ba478c-80c6-4db1-93f3-29da4bedfe04
+
+	/// Variação da ruptura quando a eficiência de horas é alta (>=80%) vs baixa
+	measure 'NE | Corr - Impacto Efic Horas na Ruptura' =
+			VAR _rupturaAltaEfic =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]), SUM('fato_mobconnect_movimento'[vl_venda_total])),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        FILTER(
+			            VALUES('dim_visitante'[sk_visitante]),
+			            DIVIDE(
+			                CALCULATE(SUM('fato_mobconnect_atendimento_fornecedores'[qt_horas_atendimento])),
+			                CALCULATE(SUM('fato_horas_ideais'[qt_horas_ideais]))
+			            ) >= 0.8
+			        )
+			    )
+			VAR _rupturaBaixaEfic =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]), SUM('fato_mobconnect_movimento'[vl_venda_total])),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        FILTER(
+			            VALUES('dim_visitante'[sk_visitante]),
+			            DIVIDE(
+			                CALCULATE(SUM('fato_mobconnect_atendimento_fornecedores'[qt_horas_atendimento])),
+			                CALCULATE(SUM('fato_horas_ideais'[qt_horas_ideais]))
+			            ) < 0.8
+			        )
+			    )
+			RETURN _rupturaBaixaEfic - _rupturaAltaEfic
+		formatString: 0.0%
+		displayFolder: 06 - Correlação Produtividade\02 - Correlação Ruptura
+		lineageTag: e318958a-9403-4317-a34a-b3a8aaa2b5e0
+
+	/// Ruptura média nas lojas COM visita vs SEM visita no mês
+	measure 'NE | Corr - Ruptura Lojas Com vs Sem Visita' =
+			VAR _lojasComVisita =
+			    CALCULATETABLE(
+			        VALUES('fato_mobconnect_visitas'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        'fato_mobconnect_visitas'[qt_visitas_realizadas] > 0
+			    )
+			VAR _lojasSemVisita =
+			    CALCULATETABLE(
+			        EXCEPT(
+			            VALUES('dim_loja'[sk_loja]),
+			            VALUES('fato_mobconnect_visitas'[sk_loja])
+			        ),
+			        'dim_rede'[nm_rede] = "NORDESTAO"
+			    )
+			VAR _rupturaComVisita =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]), SUM('fato_mobconnect_movimento'[vl_venda_total])),
+			        KEEPFILTERS('fato_mobconnect_movimento'[sk_loja] IN _lojasComVisita)
+			    )
+			VAR _rupturaSemVisita =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_ruptura_operacional]), SUM('fato_mobconnect_movimento'[vl_venda_total])),
+			        KEEPFILTERS('fato_mobconnect_movimento'[sk_loja] IN _lojasSemVisita)
+			    )
+			RETURN _rupturaSemVisita - _rupturaComVisita
+		formatString: 0.0%
+		displayFolder: 06 - Correlação Produtividade\02 - Correlação Ruptura
+		lineageTag: b54f8cba-cddf-41ce-af28-a7eced9b0420
+
+	/// Redução estimada de ruptura por ponto percentual de melhora na eficiência de horas
+	measure 'NE | Corr - Redução Ruptura por 1% Efic' =
+			DIVIDE(
+			    [NE | Corr - Impacto Efic Horas na Ruptura],
+			    0.2
+			)
+		formatString: 0.0%
+		displayFolder: 06 - Correlação Produtividade\02 - Correlação Ruptura
+		lineageTag: 4451fc9d-40d2-461a-8455-e0954707ad1b
+
+	/// Receita recuperável se a eficiência de horas chegar a 100%
+	measure 'NE | Corr - Receita Recuperável por Produtividade' =
+			VAR _gapEfic = 1 - [NE | % Eficiência Horas]
+			VAR _impactoPorPonto = [NE | Corr - Redução Ruptura por 1% Efic]
+			VAR _reducaoRupturaEstimada = _gapEfic * _impactoPorPonto
+			RETURN [NE | Venda (R$)] * _reducaoRupturaEstimada
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\02 - Correlação Ruptura
+		lineageTag: 4e1fe771-22a4-48e2-9de4-9876d3d4222e
+
+	/// Venda por hora trabalhada pelo promotor - produtividade financeira
+	measure 'NE | Corr - Venda por Hora Trabalhada' =
+			DIVIDE(
+			    [NE | Venda (R$)],
+			    [NE | Horas Realizadas]
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\03 - Correlação Vendas
+		lineageTag: 10290ba5-9ce0-49e3-bf26-a8fb7787e83c
+
+	/// Venda por visita realizada - retorno financeiro por visita
+	measure 'NE | Corr - Venda por Visita' =
+			DIVIDE(
+			    [NE | Venda (R$)],
+			    [NE | Visitas Realizadas]
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\03 - Correlação Vendas
+		lineageTag: c83b6395-3001-4e8c-8e36-b53583a43d25
+
+	/// Diferença de venda média entre lojas COM visita vs SEM visita
+	measure 'NE | Corr - Uplift Venda Com Visita' =
+			VAR _lojasComVisita =
+			    CALCULATETABLE(
+			        VALUES('fato_mobconnect_visitas'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        'fato_mobconnect_visitas'[qt_visitas_realizadas] > 0
+			    )
+			VAR _lojasSemVisita =
+			    CALCULATETABLE(
+			        EXCEPT(
+			            VALUES('dim_loja'[sk_loja]),
+			            VALUES('fato_mobconnect_visitas'[sk_loja])
+			        ),
+			        'dim_rede'[nm_rede] = "NORDESTAO"
+			    )
+			VAR _vendaComVisita =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_venda_total]), DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja])),
+			        KEEPFILTERS('fato_mobconnect_movimento'[sk_loja] IN _lojasComVisita)
+			    )
+			VAR _vendaSemVisita =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_venda_total]), DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja])),
+			        KEEPFILTERS('fato_mobconnect_movimento'[sk_loja] IN _lojasSemVisita)
+			    )
+			RETURN _vendaComVisita - _vendaSemVisita
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\03 - Correlação Vendas
+		lineageTag: f640832b-f218-4396-9979-3ddffee7ec4b
+
+	/// Venda incremental estimada se todas as lojas fossem visitadas
+	measure 'NE | Corr - Venda Incremental Pot Cobertura' =
+			VAR _lojasSemVisita =
+			    CALCULATE(
+			        DISTINCTCOUNT('dim_loja'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO"
+			    ) -
+			    CALCULATE(
+			        DISTINCTCOUNT('fato_mobconnect_visitas'[sk_loja]),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        'fato_mobconnect_visitas'[qt_visitas_realizadas] > 0
+			    )
+			RETURN _lojasSemVisita * [NE | Corr - Uplift Venda Com Visita]
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\03 - Correlação Vendas
+		lineageTag: 2e582a87-0f67-480d-90ed-b7438cb1d2c0
+
+	/// Variação de venda quando eficiência de horas é alta vs baixa
+	measure 'NE | Corr - Impacto Efic Horas na Venda' =
+			VAR _vendaAltaEfic =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_venda_total]), DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja])),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        FILTER(
+			            VALUES('dim_visitante'[sk_visitante]),
+			            DIVIDE(
+			                CALCULATE(SUM('fato_mobconnect_atendimento_fornecedores'[qt_horas_atendimento])),
+			                CALCULATE(SUM('fato_horas_ideais'[qt_horas_ideais]))
+			            ) >= 0.8
+			        )
+			    )
+			VAR _vendaBaixaEfic =
+			    CALCULATE(
+			        DIVIDE(SUM('fato_mobconnect_movimento'[vl_venda_total]), DISTINCTCOUNT('fato_mobconnect_movimento'[sk_loja])),
+			        'dim_rede'[nm_rede] = "NORDESTAO",
+			        FILTER(
+			            VALUES('dim_visitante'[sk_visitante]),
+			            DIVIDE(
+			                CALCULATE(SUM('fato_mobconnect_atendimento_fornecedores'[qt_horas_atendimento])),
+			                CALCULATE(SUM('fato_horas_ideais'[qt_horas_ideais]))
+			            ) < 0.8
+			        )
+			    )
+			RETURN _vendaAltaEfic - _vendaBaixaEfic
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\03 - Correlação Vendas
+		lineageTag: 7673c31c-c26a-46ab-8560-d5006f51a8bc
+
+	/// Ranking do promotor por score de produtividade
+	measure 'NE | Rank - Promotor por Produtividade' =
+			RANKX(
+			    ALLSELECTED('dim_visitante'[nm_visitante]),
+			    [NE | Prod - Score Produtividade],
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		displayFolder: 06 - Correlação Produtividade\04 - Ranking Promotores
+		lineageTag: b04244c5-91ce-49a7-b3fa-fb2558c10619
+
+	/// Ranking do promotor por impacto na redução de ruptura (menor ruptura nas lojas que atende)
+	measure 'NE | Rank - Promotor por Menor Ruptura' =
+			RANKX(
+			    ALLSELECTED('dim_visitante'[nm_visitante]),
+			    [NE | % Ruptura Operacional],
+			    ,
+			    ASC,
+			    DENSE
+			)
+		formatString: 0
+		displayFolder: 06 - Correlação Produtividade\04 - Ranking Promotores
+		lineageTag: ce770fd8-e9b9-478d-ac1d-3942edcebdbe
+
+	/// Ranking do promotor por venda gerada nas lojas que atende
+	measure 'NE | Rank - Promotor por Venda' =
+			RANKX(
+			    ALLSELECTED('dim_visitante'[nm_visitante]),
+			    [NE | Venda (R$)],
+			    ,
+			    DESC,
+			    DENSE
+			)
+		formatString: 0
+		displayFolder: 06 - Correlação Produtividade\04 - Ranking Promotores
+		lineageTag: f015cd63-bc83-4b08-b265-898782657ff6
+
+	/// Classifica o promotor em quadrante: Alta Prod + Baixa Ruptura = Estrela, etc.
+	measure 'NE | Rank - Quadrante Promotor' =
+			VAR _prod = [NE | Prod - Score Produtividade]
+			VAR _rupt = [NE | % Ruptura Operacional]
+			VAR _mediaRupt = CALCULATE([NE | % Ruptura Operacional], ALL('dim_visitante'))
+			VAR _mediaProd = CALCULATE([NE | Prod - Score Produtividade], ALL('dim_visitante'))
+			RETURN SWITCH(TRUE(),
+			    _prod >= _mediaProd && _rupt <= _mediaRupt, "Estrela",
+			    _prod >= _mediaProd && _rupt >  _mediaRupt, "Potencial",
+			    _prod <  _mediaProd && _rupt <= _mediaRupt, "Eficiente",
+			    "Critico"
+			)
+		displayFolder: 06 - Correlação Produtividade\04 - Ranking Promotores
+		lineageTag: bed92f06-1689-420b-a644-faac9e6a7570
+
+	/// Venda incremental estimada se todos os promotores atingissem score >= 80
+	measure 'NE | Rank - Potencial Venda se 100% Visitas' =
+			VAR _vendaAtual = [NE | Venda (R$)]
+			VAR _upliftPorVisita = [NE | Corr - Venda por Visita]
+			VAR _gapVisitas = [NE | Visitas Planejadas] - [NE | Visitas Realizadas]
+			RETURN IF(_gapVisitas > 0, _gapVisitas * _upliftPorVisita, 0)
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\04 - Ranking Promotores
+		lineageTag: 003636a2-5d4a-41f6-95e7-0ddd56569087
+
+	/// Simula o impacto financeiro total se a produtividade atingir meta de 80%
+	measure 'NE | Sim - Impacto Financeiro Meta 80%' =
+			VAR _gapEficHoras   = MAX(0, 0.8 - [NE | % Eficiência Horas])
+			VAR _gapExecVisitas = MAX(0, 0.8 - [NE | % Execução Visitas])
+			VAR _ganhoVendaHoras   = _gapEficHoras   * [NE | Corr - Impacto Efic Horas na Venda]
+			VAR _ganhoVendaVisitas = _gapExecVisitas * [NE | Corr - Venda por Visita] * [NE | Visitas Planejadas]
+			VAR _reducaoRuptura    = _gapEficHoras   * [NE | Corr - Redução Ruptura por 1% Efic] * [NE | Venda (R$)]
+			RETURN _ganhoVendaHoras + _ganhoVendaVisitas + _reducaoRuptura
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\05 - Simulação de Impacto
+		lineageTag: 46a51ff8-d43e-4eaf-b057-86d3d7884cc8
+
+	/// Simula o impacto financeiro total se a produtividade atingir meta de 100%
+	measure 'NE | Sim - Impacto Financeiro Meta 100%' =
+			VAR _gapEficHoras   = MAX(0, 1 - [NE | % Eficiência Horas])
+			VAR _gapExecVisitas = MAX(0, 1 - [NE | % Execução Visitas])
+			VAR _ganhoVendaHoras   = _gapEficHoras   * [NE | Corr - Impacto Efic Horas na Venda]
+			VAR _ganhoVendaVisitas = _gapExecVisitas * [NE | Corr - Venda por Visita] * [NE | Visitas Planejadas]
+			VAR _reducaoRuptura    = _gapEficHoras   * [NE | Corr - Redução Ruptura por 1% Efic] * [NE | Venda (R$)]
+			RETURN _ganhoVendaHoras + _ganhoVendaVisitas + _reducaoRuptura
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\05 - Simulação de Impacto
+		lineageTag: bc217ebb-562b-4530-a595-da4f64f87cfa
+
+	/// ROI estimado de cada hora adicional de promotor em campo
+	measure 'NE | Sim - ROI por Hora de Promotor' =
+			DIVIDE(
+			    [NE | Corr - Venda por Hora Trabalhada] + DIVIDE([NE | Corr - Receita Recuperável por Produtividade], [NE | Horas Realizadas]),
+			    1
+			)
+		formatString: "R$" #,0.00
+		displayFolder: 06 - Correlação Produtividade\05 - Simulação de Impacto
+		lineageTag: 630e98ee-283b-4a38-b639-7b1d9a4155fd
+
+	/// Texto resumo do impacto da produtividade para card executivo
+	measure 'NE | Sim - Card Impacto Produtividade' =
+			VAR _score    = [NE | Prod - Score Produtividade]
+			VAR _faixa    = [NE | Prod - Faixa Produtividade]
+			VAR _impacto  = [NE | Sim - Impacto Financeiro Meta 80%]
+			VAR _ruptura  = [NE | Corr - Impacto Efic Horas na Ruptura]
+			RETURN
+			    "Score: " & FORMAT(_score, "0.0") & " (" & _faixa & ")" &
+			    " | Pot. Ganho: " & FORMAT(_impacto, "R$ #,0") &
+			    " | Redução Ruptura: " & FORMAT(_ruptura, "0.0%")
+		displayFolder: 06 - Correlação Produtividade\05 - Simulação de Impacto
+		lineageTag: 23affec7-d104-4646-b417-2fb4c52bfd51
+
+	/// Retorna 1 se a data selecionada é feriado em Natal/RN
+	measure 'NE | Fer - É Feriado' =
+			IF(
+			    COUNTROWS(
+			        FILTER('Feriados Natal RN', 'Feriados Natal RN'[dt_feriado] = MAX('Date'[dt_referencia]))
+			    ) > 0, 1, 0
+			)
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: b32c6369-cf57-44ad-ba62-250f8bc21712
+
+	/// Nome do feriado na data selecionada, ou vazio se não for feriado
+	measure 'NE | Fer - Nome Feriado' =
+			VAR _data = MAX('Date'[dt_referencia])
+			RETURN
+			    CALCULATE(
+			        FIRSTNONBLANK('Feriados Natal RN'[nm_feriado], 1),
+			        'Feriados Natal RN'[dt_feriado] = _data
+			    )
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: a31017a7-bb38-4254-862b-0129ab36959f
+
+	/// Tipo do feriado: Nacional, Estadual, Municipal ou Facultativo
+	measure 'NE | Fer - Tipo Feriado' =
+			VAR _data = MAX('Date'[dt_referencia])
+			RETURN
+			    CALCULATE(
+			        FIRSTNONBLANK('Feriados Natal RN'[tp_feriado], 1),
+			        'Feriados Natal RN'[dt_feriado] = _data
+			    )
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: e974341c-7bd3-4c49-aa95-d344cfb28cb7
+
+	/// Quantidade de feriados no período selecionado
+	measure 'NE | Fer - Qtd Feriados no Período' =
+			CALCULATE(
+			    COUNTROWS('Feriados Natal RN'),
+			    DATESBETWEEN(
+			        'Date'[dt_referencia],
+			        MIN('Date'[dt_referencia]),
+			        MAX('Date'[dt_referencia])
+			    )
+			)
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: 2d90d6da-cff3-44ff-9895-d495df4190a6
+
+	/// Quantidade de feriados no mês atual do contexto
+	measure 'NE | Fer - Feriados no Mês' =
+			CALCULATE(
+			    COUNTROWS('Feriados Natal RN'),
+			    DATESMTD('Date'[dt_referencia])
+			)
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: ac7b7de0-a177-48f1-b21f-ec5912357d16
+
+	/// Dias úteis esperados no mês descontando feriados e fins de semana
+	measure 'NE | Fer - Dias Úteis no Mês' =
+			VAR _diasMes = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			VAR _feriados = [NE | Fer - Feriados no Mês]
+			VAR _fimSemana = CALCULATE(
+			    COUNTROWS('Date'),
+			    DATESMTD('Date'[dt_referencia]),
+			    'Date'[nu_dia_semana] IN {1, 7}
+			)
+			RETURN _diasMes - _feriados - _fimSemana
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\01 - Contexto
+		lineageTag: a394333e-b19b-41a5-8551-f4fe5ad50e98
+
+	/// Visitas realizadas ajustadas pelos dias úteis reais (desconta feriados)
+	measure 'NE | Fer - Visitas Ajustadas por Feriado' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			VAR _fatorAjuste = DIVIDE(_diasMes, IF(_diasUteis = 0, 1, _diasUteis))
+			RETURN [NE | Visitas Realizadas] * _fatorAjuste
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: 0159f19d-d609-4081-8350-fb135158a988
+
+	/// % execução de visitas recalculada considerando feriados como dias não trabalhados
+	measure 'NE | Fer - % Execução Visitas Ajustada' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			VAR _metaAjustada = [NE | Visitas Planejadas] * DIVIDE(_diasUteis, IF(_diasMes = 0, 1, _diasMes))
+			RETURN DIVIDE([NE | Visitas Realizadas], _metaAjustada)
+		formatString: 0.0%
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: 13f38588-7318-4fbc-bca1-58782e727011
+
+	/// Horas realizadas ajustadas pelos dias úteis reais (desconta feriados)
+	measure 'NE | Fer - Horas Ajustadas por Feriado' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			VAR _fatorAjuste = DIVIDE(_diasMes, IF(_diasUteis = 0, 1, _diasUteis))
+			RETURN [NE | Horas Realizadas] * _fatorAjuste
+		formatString: 0.0
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: ab40ce64-c964-4c67-9336-ff6981dfb871
+
+	/// Eficiência de horas recalculada considerando feriados como dias não trabalhados
+	measure 'NE | Fer - % Eficiência Horas Ajustada' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			VAR _metaAjustada = [NE | Horas Ideais] * DIVIDE(_diasUteis, IF(_diasMes = 0, 1, _diasMes))
+			RETURN DIVIDE([NE | Horas Realizadas], _metaAjustada)
+		formatString: 0.0%
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: 8d53229e-38b8-42fb-9745-1f6aaadbb447
+
+	/// Score de produtividade recalculado descontando o impacto dos feriados
+	measure 'NE | Fer - Score Produtividade Ajustado' =
+			VAR _eficHoras   = MIN(1, [NE | Fer - % Eficiência Horas Ajustada])   * 30
+			VAR _execVisitas = MIN(1, [NE | Fer - % Execução Visitas Ajustada]) * 30
+			VAR _cobertura   = MIN(1, [NE | Prod - Cobertura Efetiva])             * 20
+			VAR _tarefas     = MIN(1, [NE | % Tarefas Concluídas])                * 20
+			RETURN _eficHoras + _execVisitas + _cobertura + _tarefas
+		formatString: 0.0
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: 67da3b7a-be7b-4136-840a-af06e45a3107
+
+	/// Diferença entre o score ajustado e o score original — mostra o impacto dos feriados
+	measure 'NE | Fer - Impacto Feriado no Score' = [NE | Fer - Score Produtividade Ajustado] - [NE | Prod - Score Produtividade]
+		formatString: 0.0
+		displayFolder: 07 - Feriados Natal RN\02 - Produtividade Ajustada
+		lineageTag: fbf1d080-725b-4f83-8b96-1cec83fdd7a3
+
+	/// Explica o motivo da baixa produtividade considerando feriados no período
+	measure 'NE | Fer - Diagnóstico Produtividade' =
+			VAR _feriados    = [NE | Fer - Qtd Feriados no Período]
+			VAR _execVisitas = [NE | % Execução Visitas]
+			VAR _execAjust   = [NE | Fer - % Execução Visitas Ajustada]
+			VAR _eficHoras   = [NE | % Eficiência Horas]
+			VAR _eficAjust   = [NE | Fer - % Eficiência Horas Ajustada]
+			VAR _nomeFer     = [NE | Fer - Nome Feriado]
+			RETURN SWITCH(TRUE(),
+			    _feriados > 0 && _execVisitas < 0.7 && _execAjust >= 0.8,
+			        "Baixa visita justificada por feriado: " & _nomeFer,
+			    _feriados > 0 && _eficHoras < 0.7 && _eficAjust >= 0.8,
+			        "Baixa efic. horas justificada por feriado: " & _nomeFer,
+			    _feriados > 0 && _execVisitas < 0.7,
+			        "Feriado (" & _nomeFer & ") não justifica totalmente a baixa visita",
+			    _feriados = 0 && _execVisitas < 0.7,
+			        "Baixa visita SEM feriado — requer investigação",
+			    _feriados = 0 && _eficHoras < 0.7,
+			        "Baixa eficiência SEM feriado — requer investigação",
+			    "Produtividade dentro do esperado"
+			)
+		displayFolder: 07 - Feriados Natal RN\03 - Diagnóstico
+		lineageTag: cdff65eb-6892-4d00-946e-eab4e0afd1ef
+
+	/// Classifica se a baixa produtividade é justificada por feriado ou não
+	measure 'NE | Fer - Status Justificativa' =
+			VAR _feriados  = [NE | Fer - Qtd Feriados no Período]
+			VAR _execAjust = [NE | Fer - % Execução Visitas Ajustada]
+			VAR _eficAjust = [NE | Fer - % Eficiência Horas Ajustada]
+			RETURN SWITCH(TRUE(),
+			    _feriados > 0 && _execAjust >= 0.8 && _eficAjust >= 0.8, "Justificado",
+			    _feriados > 0 && (_execAjust >= 0.6 || _eficAjust >= 0.6), "Parcialmente Justificado",
+			    _feriados = 0, "Não Justificado",
+			    "Investigar"
+			)
+		displayFolder: 07 - Feriados Natal RN\03 - Diagnóstico
+		lineageTag: 51477455-9fe5-43e2-9350-1ee188690051
+
+	/// Lista os feriados do mês atual para exibir em tooltip ou card
+	measure 'NE | Fer - Card Contexto Feriado' =
+			VAR _qtd = [NE | Fer - Feriados no Mês]
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _impactoScore = [NE | Fer - Impacto Feriado no Score]
+			RETURN
+			    "Feriados no mês: " & _qtd &
+			    " | Dias úteis: " & _diasUteis &
+			    " | Impacto no Score: +" & FORMAT(_impactoScore, "0.0")
+		displayFolder: 07 - Feriados Natal RN\03 - Diagnóstico
+		lineageTag: cd516858-4284-481d-a8a3-75bf7dc5d810
+
+	/// Visitas esperadas ajustadas pela proporção de dias úteis reais no mês
+	measure 'NE | Fer - Meta Visitas Ajustada' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes   = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			RETURN [NE | Visitas Planejadas] * DIVIDE(_diasUteis, IF(_diasMes = 0, 1, _diasMes))
+		formatString: 0
+		displayFolder: 07 - Feriados Natal RN\03 - Diagnóstico
+		lineageTag: a146bc21-bdc3-4962-bc92-fd8f09f69f30
+
+	/// Horas ideais ajustadas pela proporção de dias úteis reais no mês
+	measure 'NE | Fer - Meta Horas Ajustada' =
+			VAR _diasUteis = [NE | Fer - Dias Úteis no Mês]
+			VAR _diasMes   = COUNTROWS(DATESMTD('Date'[dt_referencia]))
+			RETURN [NE | Horas Ideais] * DIVIDE(_diasUteis, IF(_diasMes = 0, 1, _diasMes))
+		formatString: 0.0
+		displayFolder: 07 - Feriados Natal RN\03 - Diagnóstico
+		lineageTag: 432bc93b-713b-43bb-aa01-6ebf9431dbcf
+
+	measure 'Lojas Cadastradas (Rede)' = EXTERNALMEASURE("Lojas Cadastradas (Rede)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: cbfdaba5-2321-4991-ace2-0517cf5d9370
+		sourceLineageTag: a9421aa7-72f5-4da7-8ab2-8ff228a2cf2b
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Total Rede' = EXTERNALMEASURE("Venda (Qtd.) Total Rede", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 37a90acd-cd93-4519-bd75-282f4f99a9c3
+		sourceLineageTag: 08f42dc5-ceab-49b9-a014-64dbf39c4911
+		dataCategory: Uncategorized
+
+	measure 'Estoque Última Posição' = EXTERNALMEASURE("Estoque Última Posição", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: c9fa566d-a480-4bc0-88bb-4d98eaaf796a
+		sourceLineageTag: b959208c-4220-4be1-a875-cea4d6adac80
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Com estoque Sem Vendas M-1' = EXTERNALMEASURE("Qtd Produto Com estoque Sem Vendas M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 02180ead-3430-4461-8675-76dfbbdf5701
+		sourceLineageTag: a065a1a0-13df-4205-82db-4449c87ea098
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-1' = EXTERNALMEASURE("Venda (Qtd.) M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 24bb2e57-a333-423a-a572-a9b1672ffe3d
+		sourceLineageTag: 48a63fcb-7e26-44e9-8ba8-87025c9143ba
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Última Posição Mês (M-1) Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Última Posição Mês (M-1) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 1c36989a-8529-4eed-ad0f-49d42997dfe3
+		sourceLineageTag: 242af75e-0ff1-4228-8bee-c82e6f12978f
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-1 e M-2' = EXTERNALMEASURE("Venda (Qtd.) M-1 e M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: a831bd7c-472f-4130-b94c-005cd7d5fcc0
+		sourceLineageTag: 84b39135-e9b0-496b-bdfc-4e3112afa616
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-2' = EXTERNALMEASURE("Venda (Qtd.) M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8ad5f09c-5d20-4efe-a686-b1347083a84b
+		sourceLineageTag: ebf8395c-e7b3-482a-a733-e204ca2515ce
+		dataCategory: Uncategorized
+
+	measure 'Vendas (M2 x M1)' = EXTERNALMEASURE("Vendas (M2 x M1)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 88d63e9a-599b-4b8b-9fe0-09bd8481a2ad
+		sourceLineageTag: ed65bad7-dc37-4d12-8a6e-c376a225ccc7
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-3' = EXTERNALMEASURE("Venda (Qtd.) M-3", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: ba6d97db-e758-4c1c-a000-1e1b7d690438
+		sourceLineageTag: 4ab63828-922b-4975-b554-b818e890c4e7
+		dataCategory: Uncategorized
+
+	measure 'Vendas (M3 x M2)' = EXTERNALMEASURE("Vendas (M3 x M2)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: f9fe3e93-527e-4d5a-831f-8445c99ae29a
+		sourceLineageTag: ef796afa-3727-469e-b57b-1347e71906f0
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda M-1' = EXTERNALMEASURE("Lojas com venda M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: e007613c-d3c0-4f66-a2e4-d0f6fc5f40f3
+		sourceLineageTag: 8d7669d7-0d5d-4720-bd1b-264fbb91c73a
+		dataCategory: Uncategorized
+
+	measure 'Lojas sem Vendas M-1' = EXTERNALMEASURE("Lojas sem Vendas M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 6a0ad60c-1e78-412a-ab44-90ef7b764117
+		sourceLineageTag: b5a15a25-e117-4d00-b4f1-d609c78345c7
+		dataCategory: Uncategorized
+
+	measure 'Lojas Com estoque Sem Vendas M-1' = EXTERNALMEASURE("Lojas Com estoque Sem Vendas M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: f7c6cd5b-a494-4265-a551-a1b92c4d0c9e
+		sourceLineageTag: 8dd8c1d3-0caf-4ade-8c27-71406790685d
+		dataCategory: Uncategorized
+
+	measure 'Lojas Cadastradas no Projeto' = EXTERNALMEASURE("Lojas Cadastradas no Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 9e2e29b5-9587-4073-8e7b-1d66fc8e486c
+		sourceLineageTag: 38e0918d-8d3d-4210-a937-55ad534d0a20
+		dataCategory: Uncategorized
+
+	measure '% Lojas Projetadas x Vendas' = EXTERNALMEASURE("% Lojas Projetadas x Vendas", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 2a079a1c-1796-4d88-945e-3cd3867ce471
+		sourceLineageTag: 34044a54-436a-488d-970f-6f800ede1a8a
+		dataCategory: Uncategorized
+
+	measure 'Dias de Estoque (DDE) - Lojas Projeto' = EXTERNALMEASURE("Dias de Estoque (DDE) - Lojas Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00
+		displayFolder: Sell Out
+		lineageTag: da0e692d-3ee2-46d3-84aa-4578194bf98a
+		sourceLineageTag: d160097c-8725-4ce0-ab75-d83b36687df5
+		dataCategory: Uncategorized
+
+	measure 'Calculo Vendas Média' = EXTERNALMEASURE("Calculo Vendas Média", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: b0f19361-6e4f-4cba-97f9-b310e34a2e21
+		sourceLineageTag: 13083eca-bdea-45db-be51-67226a8469c2
+		dataCategory: Uncategorized
+
+	measure 'Qtd Dias Mês' = EXTERNALMEASURE("Qtd Dias Mês", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 85dc99b8-6fcf-4b51-9567-ef1da5889f97
+		sourceLineageTag: 935786b4-8b10-4445-8aed-9cbce06271ba
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas M-1' = EXTERNALMEASURE("Qtd Produto Sem Vendas M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8830d140-0250-4e61-98d3-d0e0c727988d
+		sourceLineageTag: c71dd14a-7090-4189-aa39-467a2b4ec37f
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Estoque M-1' = EXTERNALMEASURE("Qtd Produto Sem Estoque M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 268b34a8-707c-47a2-9219-464c8ecca525
+		sourceLineageTag: 4c766ab6-7951-4e85-8750-2711bc00b22a
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas Últimos 2M' = EXTERNALMEASURE("Qtd Produto Sem Vendas Últimos 2M", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 72289107-b2ff-4924-a0d5-984182390033
+		sourceLineageTag: 86d1485f-1605-4f5a-956d-59f73f3b6134
+		dataCategory: Uncategorized
+
+	measure 'Data Descrição Mês/Ano M-1' = EXTERNALMEASURE("Data Descrição Mês/Ano M-1", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Textos (Data Card)
+		lineageTag: a7a6ce88-dc5a-4848-a84e-7664cfdcbbc7
+		sourceLineageTag: 0cf96ea3-c1a2-4fcd-bfbf-ac9386918c9c
+		dataCategory: Uncategorized
+
+	measure 'Data Início M-1' = EXTERNALMEASURE("Data Início M-1", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: 4f7ce8eb-bc13-49a5-af91-cc2a80aafc2b
+		sourceLineageTag: d2724dc5-9830-4927-8244-328ef19f25bd
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto' = EXTERNALMEASURE("Venda (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 15684e7f-c94d-4721-bcf0-feee312ffbb3
+		sourceLineageTag: 98d3ea4c-a1f8-4746-9caa-03de3b512366
+		dataCategory: Uncategorized
+
+	measure 'Card Período M-4' = EXTERNALMEASURE("Card Período M-4", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Textos (Data Card)
+		lineageTag: 86e888e1-0aa5-4cb6-8c25-2594f0017349
+		sourceLineageTag: fc34f2e8-2a56-4124-a83a-b03cabd4780f
+		dataCategory: Uncategorized
+
+	measure 'Data Max FT_Mov' = EXTERNALMEASURE("Data Max FT_Mov", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: f32ee1ad-9c6d-4bb6-bd4d-99138af5fe9f
+		sourceLineageTag: 8b761171-2fb0-4d3b-97c4-475675af2646
+		dataCategory: Uncategorized
+
+	measure 'Data Início M-3' = EXTERNALMEASURE("Data Início M-3", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: 85380d9e-db31-4201-9ab1-946a47f0bc18
+		sourceLineageTag: b89593e0-079d-4d3d-983f-6b74f15f5b52
+		dataCategory: Uncategorized
+
+	measure '% Vendas MoM' = EXTERNALMEASURE("% Vendas MoM", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 1e930ea9-41cf-49b7-ba6b-76a47b93ddfb
+		sourceLineageTag: 12b4980f-ad72-49c1-9849-603d195eedad
+		dataCategory: Uncategorized
+
+	measure 'Vendas LM Projeto' = EXTERNALMEASURE("Vendas LM Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 57a98582-e311-461f-91fe-b79aa977bb08
+		sourceLineageTag: d955e9c0-c1c2-4673-97b5-52a9f7135d34
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) sem Projeto' = EXTERNALMEASURE("Venda (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 2d3e1604-7438-424c-b696-c782ea368096
+		sourceLineageTag: 9d06d4c7-7d55-49ec-b2d6-21662d79e404
+		dataCategory: Uncategorized
+
+	measure '% Vendas MoM Projeto' = EXTERNALMEASURE("% Vendas MoM Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: e6df6070-aae4-448c-acde-5f9bc200a0fc
+		sourceLineageTag: 03a91eb3-3541-425a-9dd2-b9c5e074e3cb
+		dataCategory: Uncategorized
+
+	measure 'Vendas LM Rede' = EXTERNALMEASURE("Vendas LM Rede", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: abb60be4-b6c5-481f-85ed-8b6783a75527
+		sourceLineageTag: 75ad6da0-8c89-42f5-80dd-fde81bc06628
+		dataCategory: Uncategorized
+
+	measure 'Vendas LM sem Projeto' = EXTERNALMEASURE("Vendas LM sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 3e74da49-34f8-4bfe-a3e6-dc987924236c
+		sourceLineageTag: 2c8c5213-239e-4512-a2a9-c11e189c0708
+		dataCategory: Uncategorized
+
+	measure '% Vendas MoM sem Projeto' = EXTERNALMEASURE("% Vendas MoM sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0%;-0%;0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: bce58842-4161-4404-a883-fb2b4e98c570
+		sourceLineageTag: 5fa7482a-1fa6-4801-a7bd-c1e9350a1ce2
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda no Projeto M-1' = EXTERNALMEASURE("Lojas com venda no Projeto M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 42948fa5-e554-479c-8a97-c84a4a2a81da
+		sourceLineageTag: fd11f22a-137c-4099-b32f-a49f722fc1cd
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.)' = EXTERNALMEASURE("Ruptura Comercial (Qtd.)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 20765cd5-b81f-4077-9232-cdbea06ff819
+		sourceLineageTag: bd4c6ccd-1dd1-4754-96e4-3c65201c796e
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$)' = EXTERNALMEASURE("Ruptura Comercial (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7e57a11b-31c8-4313-b27c-2585300520f3
+		sourceLineageTag: 946c60cc-3b24-47a6-b0ff-4a72fd878440
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$)' = EXTERNALMEASURE("Venda (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7c61e317-3d47-4c9e-a684-ba032d4f2583
+		sourceLineageTag: fc67c0e7-4c5c-467d-aec5-d6a5d02deadb
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.)' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: ad437279-05f3-4b69-ac7e-02800d5ba3a0
+		sourceLineageTag: 24bff967-92ac-43b1-8393-3048fadc006c
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$)' = EXTERNALMEASURE("% Ruptura Comercial (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 7345bcc1-b4f8-4258-adf1-9ace945b8886
+		sourceLineageTag: 0405869f-1097-4de7-ad16-dbb3b325dc7f
+		dataCategory: Uncategorized
+
+	measure LastDateCurrentYear = EXTERNALMEASURE("LastDateCurrentYear", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: General Number
+		displayFolder: Textos (Data Card)
+		lineageTag: fef0c731-3527-4e8f-a536-7a688e164a15
+		sourceLineageTag: 3133e63e-089f-448b-8b33-aeeb85791968
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Última Posição Mês Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Última Posição Mês Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 9ee273e8-3a2d-46cf-b9ab-027cec7a5d88
+		sourceLineageTag: 7d39d3fe-2558-45f8-be0f-9df9d6024550
+		dataCategory: Uncategorized
+
+	measure 'Lojas com venda' = EXTERNALMEASURE("Lojas com venda", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: dcef8719-8d5d-426f-a0f8-c812c16ca2b9
+		sourceLineageTag: fca7e166-1658-41bc-a48d-0029688fe95c
+		dataCategory: Uncategorized
+
+	measure 'Produto (Qtd.)' = EXTERNALMEASURE("Produto (Qtd.)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: ede981e6-acbd-465a-8ed4-d69c212fc1b7
+		sourceLineageTag: a60948ee-d6bc-4e7d-84aa-2caa93addc05
+		dataCategory: Uncategorized
+
+	measure 'Horas Ideais' = EXTERNALMEASURE("Horas Ideais", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.0
+		displayFolder: Sell Out
+		lineageTag: 6903174b-d877-47ef-a1d2-fb3d3a63e20d
+		sourceLineageTag: ee73a5be-e6c0-4371-b87d-ff973f9138ee
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$)' = EXTERNALMEASURE("Ruptura Operacional (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 3e0f49f4-6c9b-44fe-bcd5-cd797b0704a1
+		sourceLineageTag: 340551f5-0bc0-435e-aba2-14b8da4a285d
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (Qtd.)' = EXTERNALMEASURE("Ruptura Operacional (Qtd.)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 93c80423-f89c-41d8-b2a9-90c0bf3fff6b
+		sourceLineageTag: 810e3631-476d-4c69-b087-0106263d5cf7
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (% Estoque)' = EXTERNALMEASURE("Indicador Selecionado (% Estoque)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Indicador
+		lineageTag: fc82e161-09be-46d7-9c9b-f2ee73118efc
+		sourceLineageTag: d5e6e036-8c28-4c14-8a47-46bbd067c07c
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo' = EXTERNALMEASURE("% Ocorrências Estoque Negativo", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 8509db61-f816-43ba-b37e-e68754d98fa5
+		sourceLineageTag: 647d80af-0f09-4d4c-b025-3e34e08de3f9
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero' = EXTERNALMEASURE("% Ocorrências Estoque Zero", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 6706e564-1c04-4277-923d-fae309fd2787
+		sourceLineageTag: 6ff8e80b-8e3b-4e44-9301-92fe0c012dec
+		dataCategory: Uncategorized
+
+	measure 'Ocorrências de Produtos' = EXTERNALMEASURE("Ocorrências de Produtos", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: b1848b4d-aa40-4ea9-8e84-dc775ed9c2a2
+		sourceLineageTag: 4bdae531-6dfe-427e-a705-72917bb62646
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo' = EXTERNALMEASURE("Produto com estoque negativo", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 01eda296-ae28-4280-ab4a-35ad2b534c15
+		sourceLineageTag: 98ae87e6-8967-4151-942d-49e2cc34d2c5
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero' = EXTERNALMEASURE("Produto estoque zero", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a609bf32-da82-4136-beff-8cfb614dce5b
+		sourceLineageTag: 869b8052-cb15-46b7-ad85-722337b1080c
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque virtual' = EXTERNALMEASURE("Produto com estoque virtual", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e98e6677-d074-4390-9109-b11b136e1ddc
+		sourceLineageTag: 7089e4c4-16f6-4428-aeaa-bdfb02d8725f
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (Ruptura)' = EXTERNALMEASURE("Indicador Selecionado (Ruptura)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Indicador
+		lineageTag: 46fff9c8-65f0-49f5-9fa8-49a5f305ec46
+		sourceLineageTag: 469c328b-f489-4b19-9728-7f36d4133b8e
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$)' = EXTERNALMEASURE("% Ruptura Operacional (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 9dd65430-be47-4642-9ccc-ae5d8febf6ee
+		sourceLineageTag: 71d3cda2-d7a3-40e6-a641-d1980662b4a2
+		dataCategory: Uncategorized
+
+	measure 'Horas Realizadas (Rede)' = EXTERNALMEASURE("Horas Realizadas (Rede)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: f7a927b4-5459-47ca-ae6a-d22219f5382a
+		sourceLineageTag: f7372b9e-77e4-473a-bd4c-6252b8124ef0
+		dataCategory: Uncategorized
+
+	measure 'Horas Realizadas (Projeto)' = EXTERNALMEASURE("Horas Realizadas (Projeto)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 758f053a-f09a-4981-b3a1-9932771d801d
+		sourceLineageTag: dd3ec509-f9b8-44dc-a2d9-f32338c22516
+		dataCategory: Uncategorized
+
+	measure 'Loja com Acesso (Projeto)' = EXTERNALMEASURE("Loja com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: c0e84fe8-b3d6-432d-836c-909a75e89243
+		sourceLineageTag: e7035c9d-23ae-4a95-84bc-e9a269ff015e
+		dataCategory: Uncategorized
+
+	measure 'GAP Horas Realizadas x Horas Ideais' = EXTERNALMEASURE("GAP Horas Realizadas x Horas Ideais", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5a5f4317-ca59-4a00-8136-0c78e03f29e1
+		sourceLineageTag: a602db8c-aba5-4e2b-b569-4f7c734a1219
+		dataCategory: Uncategorized
+
+	measure 'Data Max Estoque' = EXTERNALMEASURE("Data Max Estoque", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: ac962398-6d0c-4624-9b27-ec3fb0fcb8b5
+		sourceLineageTag: 8dc853f6-be1e-4951-b623-82951cb30b40
+		dataCategory: Uncategorized
+
+	measure 'Ocorrências de Produtos Projeto' = EXTERNALMEASURE("Ocorrências de Produtos Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 0f201da7-25d5-43ad-b85b-6e2afc39d97f
+		sourceLineageTag: dc3a4406-80bb-482c-a92f-35eb2d014f4c
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 68a6f2e5-b48f-43a1-8ace-5ec0d8f4f6f0
+		sourceLineageTag: 611d81fa-c675-434c-9271-82feb6b51761
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) sem Projeto' = EXTERNALMEASURE("Ruptura Comercial (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00
+		displayFolder: Sell Out
+		lineageTag: 2f6de7ac-bad4-4c57-b284-6cfed738d914
+		sourceLineageTag: eb88a0a3-9f4b-4ffd-b1e4-dc8c21188273
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Comercial (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 7acf5e90-a7d9-48e3-b002-9da3a7be7a81
+		sourceLineageTag: fe4eadfd-59e7-4d6b-bbd0-49de047a41cd
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (Qtd.) sem Projeto' = EXTERNALMEASURE("Ruptura Comercial (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: cbbfe24d-431b-4db4-a626-6f1c29ad1dfd
+		sourceLineageTag: 47e4a0a4-142e-4aa3-ad14-9f1ad326f44e
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) Projeto' = EXTERNALMEASURE("Venda (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 164a0ed9-0e6b-4172-98f3-c45ae4174d5a
+		sourceLineageTag: 2f3dd21a-00c5-484a-9574-d255acb79e0d
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Operacional (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e9acb041-5a04-4296-a967-b5b913f475f0
+		sourceLineageTag: 290a0f28-8ac8-4620-98a6-21f8231b9eec
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (Qtd.) sem Projeto' = EXTERNALMEASURE("Ruptura Operacional (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 2a9af734-544e-488d-8508-211156ba7edc
+		sourceLineageTag: d2cbbfbc-040b-498a-9b77-4395c112bd50
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: f93957b0-4ca9-492c-b224-ed05785f50d4
+		sourceLineageTag: 0dda969f-89ac-48f3-ab04-7a3caf7735c9
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) sem Projeto' = EXTERNALMEASURE("Ruptura Operacional (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 6617312b-e612-447a-ab50-74cb33a36c58
+		sourceLineageTag: 43bbf767-e312-4edb-927f-56e294e15128
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.) Projeto' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 87284b66-ad2b-4028-8159-df1434f8e94a
+		sourceLineageTag: 453aebb4-d138-4ad9-a1a6-4a97f6e2c7aa
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (Qtd.) sem Projeto' = EXTERNALMEASURE("% Ruptura Comercial (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 26f29451-8e5e-4dac-b652-c36ddf7349e7
+		sourceLineageTag: fea006f9-bc77-4548-a587-7a911fd565a8
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 23e318d3-4e1b-4a2b-82ed-ca67b10b0c46
+		sourceLineageTag: cdd5af6d-e120-4bcd-b397-27887b0b58cb
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) sem Projeto' = EXTERNALMEASURE("% Ruptura Comercial (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: eaf875e0-c24e-4277-840c-d9afeab92a7d
+		sourceLineageTag: 355a81e6-4dcc-4460-9db0-c62561dbb0c4
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (Qtd.) Projeto' = EXTERNALMEASURE("% Ruptura Operacional (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: ba5875f1-4049-47cf-a95c-96ee18a13a11
+		sourceLineageTag: a6595eb6-1169-4cef-9933-cd98eda9069f
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (Qtd.) sem Projeto' = EXTERNALMEASURE("% Ruptura Operacional (Qtd.) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 14fdef54-c174-4103-aaf5-c93b0b1474f3
+		sourceLineageTag: aead79a9-a439-408d-99a0-c0403028a401
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 1da10383-d922-4a90-a17f-914defd28917
+		sourceLineageTag: f9936c66-c27b-4f84-acc5-10e2b860d2ca
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) sem Projeto' = EXTERNALMEASURE("% Ruptura Operacional (R$) sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 37940862-8425-4c66-ab30-0e973d066dcd
+		sourceLineageTag: 85551239-dc02-4985-bac0-f7ea44d96a18
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo Projeto' = EXTERNALMEASURE("Produto com estoque negativo Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: f5a41dba-cff0-4a4b-90b9-e8f560faad9c
+		sourceLineageTag: b847e2ef-702e-4cfb-b6e3-b3e0677bf5f5
+		dataCategory: Uncategorized
+
+	measure 'Produto com estoque negativo sem Projeto' = EXTERNALMEASURE("Produto com estoque negativo sem Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: e07f6425-9f23-4a02-a7b3-8b68394268f5
+		sourceLineageTag: fbd0463a-67ca-4eeb-87c2-ad770f6a71ea
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero Projeto' = EXTERNALMEASURE("Produto estoque zero Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 4d559cb5-31e7-4a99-bb05-d0a705dcfa79
+		sourceLineageTag: 38488a45-a07c-47bb-9673-afbb53126660
+		dataCategory: Uncategorized
+
+	measure 'Produto estoque zero sem Projeto' = EXTERNALMEASURE("Produto estoque zero sem Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8cd981be-2007-45af-843c-2c3a0516ca73
+		sourceLineageTag: ecafc460-13ae-4fb0-ab48-8ebac4a2e351
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Negativo Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 0f68f449-4337-46b3-a5f4-f01e035eadc4
+		sourceLineageTag: 6c95958c-9310-4461-ba94-bf147cfd54b0
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo sem Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Negativo sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: ba259fb2-d243-4d20-a271-9251960e92b2
+		sourceLineageTag: 0f162377-5047-430b-935c-ab3982c012dd
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Zero Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 9caccfae-9bb3-478e-8c18-a9108f13f684
+		sourceLineageTag: d3097d83-5226-4af1-8b28-f45d58755a8b
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero sem Projeto' = EXTERNALMEASURE("% Ocorrências Estoque Zero sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: ac48cd00-fdef-458d-905a-7d5926d64b03
+		sourceLineageTag: a7b0f7e9-529d-4a58-882d-260879768772
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Negativo (Selection)' = EXTERNALMEASURE("% Ocorrências Estoque Negativo (Selection)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 954ab788-787f-4449-9a82-136d2d0892f1
+		sourceLineageTag: c70161e1-dfa2-4b14-9657-e3bb07e86d5b
+		dataCategory: Uncategorized
+
+	measure '% Ocorrências Estoque Zero (Selection)' = EXTERNALMEASURE("% Ocorrências Estoque Zero (Selection)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: b54a56e3-9226-492e-831b-58efa4b6329a
+		sourceLineageTag: 0f297917-d0e0-49fe-84d3-ecd3e3382c00
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) (Selection)' = EXTERNALMEASURE("% Ruptura Comercial (R$) (Selection)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 8adb8779-b111-4e7d-bfc9-2e6d000378ef
+		sourceLineageTag: 2aed685c-1e76-47a0-9bf3-bc04a4f67b5a
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) (Selection)' = EXTERNALMEASURE("% Ruptura Operacional (R$) (Selection)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: be21e55b-54e7-416e-84e2-8254c68d51c3
+		sourceLineageTag: 3cf5d13c-2a90-4ff1-a051-a67c76219612
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-Atual' = EXTERNALMEASURE("Venda (Qtd.) M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8399c140-6c3a-4686-87ad-80a735c8865b
+		sourceLineageTag: afe1eb0c-7609-4612-a065-b47aa2269769
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-Atual' = EXTERNALMEASURE("Venda (R$) M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 2fa04be3-dcdc-485c-88ce-929dd88ed7d0
+		sourceLineageTag: b2ea4873-48d6-48d1-864e-b9a5c5bad204
+		dataCategory: Uncategorized
+
+	measure 'Venda Média (Dias com Vendas)' = EXTERNALMEASURE("Venda Média (Dias com Vendas)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: f07f7371-3e20-483e-8f79-8e943ac1bd58
+		sourceLineageTag: a7cc0b97-ccaa-40b2-9409-a85ad6eef4bd
+		dataCategory: Uncategorized
+
+	measure 'Dias com vendas' = EXTERNALMEASURE("Dias com vendas", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 1ddfe60b-6f76-411d-96a1-2ae728df4c00
+		sourceLineageTag: c441ff73-b40c-4189-a862-8070e1758440
+		dataCategory: Uncategorized
+
+	measure 'Vl Estoque Última Posição Mês Projeto' = EXTERNALMEASURE("Vl Estoque Última Posição Mês Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a7009b80-5e6b-47e3-b148-03c810b9b233
+		sourceLineageTag: 89744787-bed2-4dab-96f3-d0b78225e868
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-1' = EXTERNALMEASURE("Venda (R$) M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 3fed49ba-0431-45be-9670-d874b090f9ee
+		sourceLineageTag: 09dcfaab-5c52-4f22-85cb-8614853f794d
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-2' = EXTERNALMEASURE("Venda (R$) M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: aaf8041f-6c35-4c1d-956d-fd014ac490c4
+		sourceLineageTag: f166452a-8417-4a0c-8467-ba96cbcac290
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) M-3' = EXTERNALMEASURE("Venda (R$) M-3", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 75c6d28b-b593-4d1d-a15e-ebd4fc724012
+		sourceLineageTag: 527c4923-f671-4a1e-a80b-4c9c0180f1f1
+		dataCategory: Uncategorized
+
+	measure 'Venda Média Praticado (R$)' = EXTERNALMEASURE("Venda Média Praticado (R$)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 3a47a80b-8806-4dee-9aa7-9e036a92071c
+		sourceLineageTag: 04b099fc-6bef-43a2-9830-a10b1fba2b02
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Média' = EXTERNALMEASURE("Venda (Qtd.) Média", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 1e649e9d-46ec-4171-84a9-c95da391edb5
+		sourceLineageTag: 37416757-e309-4eb0-be44-a91c7036986e
+		dataCategory: Uncategorized
+
+	measure 'Venda (R$) Média' = EXTERNALMEASURE("Venda (R$) Média", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 78c061c6-a13b-47f4-b991-1ed940800805
+		sourceLineageTag: 904f5329-5093-4b4e-8aa1-33c734719579
+		dataCategory: Uncategorized
+
+	measure 'Estoque (R$) Média' = EXTERNALMEASURE("Estoque (R$) Média", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: ee5fd9b4-f5f0-4c9e-98ca-0b2204b937fd
+		sourceLineageTag: a4405c71-5dde-446d-b288-45a784d87810
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) M-1 a M-3' = EXTERNALMEASURE("Venda (Qtd.) M-1 a M-3", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 576f53f3-65fd-4d5d-b361-155b92f28a74
+		sourceLineageTag: 5aa27453-fb97-437e-a9a3-660a0711d02f
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto Sem Vendas M-1 a M3' = EXTERNALMEASURE("Qtd Produto Sem Vendas M-1 a M3", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 4c2b3ef8-2b5c-42ec-8b3e-995629485dac
+		sourceLineageTag: 85716814-bd86-4a43-abf1-bf27de709f0f
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto M-1' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 397da55b-0bc1-41d8-9cee-d80939aa837c
+		sourceLineageTag: 47cc16af-cb7c-4583-a656-33a395dc9842
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto M-1' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: e5ab451f-af09-4a69-a574-623d46b6ab25
+		sourceLineageTag: 6c6f7f4a-5853-4eeb-81fa-8e763ca987a1
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto M-1' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 49ec2b34-e897-43a7-b2e8-b34ac13ba86e
+		sourceLineageTag: d5ebe150-1408-4446-893b-453412a2ceb2
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto M-1' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: e81b9f29-df4a-443e-b347-9cd49e3c0fd8
+		sourceLineageTag: e84d1e27-ecef-4c53-bed5-245d1db0cd8f
+		dataCategory: Uncategorized
+
+	measure 'Promotores com Acesso (Projeto)' = EXTERNALMEASURE("Promotores com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: a1e4375d-f2e0-4838-ad9e-df51dc319655
+		sourceLineageTag: 828cc105-14b2-4aa2-a69f-f913f1828dae
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto/Promotor' = EXTERNALMEASURE("Venda (Qtd.) Projeto/Promotor", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 43c2251d-eeb1-4779-a4a0-16d635c50f97
+		sourceLineageTag: 229d014b-e0f0-4800-bda7-3244a1eae8a4
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Administrativa (Qtd.)' = EXTERNALMEASURE("Ruptura Administrativa (Qtd.)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 860f0ef5-dbfe-466f-86b9-3ddd63e3bbaa
+		sourceLineageTag: fac67a2c-7f11-42b6-af01-5df7ab6c3b2e
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Administrativa (R$)' = EXTERNALMEASURE("Ruptura Administrativa (R$)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 8590ed6f-096d-45ab-b889-ed668c4f4542
+		sourceLineageTag: dd2e86b2-0e28-4b0f-a359-2f0590f7e7f0
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Admnistrativa (Qtd.) Projeto' = EXTERNALMEASURE("Ruptura Admnistrativa (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: acbce61e-3231-4616-a991-65fa50cb7a39
+		sourceLineageTag: 4c383a30-de54-4a58-ae00-a908280bba69
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Administrativa (R$) Projeto' = EXTERNALMEASURE("Ruptura Administrativa (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 129aac54-4f7e-4953-85d6-cec9de49dac7
+		sourceLineageTag: 212a42d5-c2a1-4ded-aac4-b6f52ef2ee4a
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Administrativa (R$) Projeto' = EXTERNALMEASURE("% Ruptura Administrativa (R$) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: c6974509-7ee4-4198-a694-c5830931be07
+		sourceLineageTag: 529a7f6a-6f71-4b1f-af8d-12cc5537a4f0
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Administrativa (Qtd.)' = EXTERNALMEASURE("% Ruptura Administrativa (Qtd.)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: a2a96610-1b65-4f42-a63c-a1b63d955072
+		sourceLineageTag: 434868e3-a8aa-4b3c-9b9f-f8da86550c81
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (% Estoque) Projeto/sem Projeto' = EXTERNALMEASURE("Indicador Selecionado (% Estoque) Projeto/sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Indicador
+		lineageTag: 27584083-180f-4191-9af6-1324c66ad63b
+		sourceLineageTag: 2457a1d6-fa19-4c93-ba28-8027b19cc33b
+		dataCategory: Uncategorized
+
+	measure 'Indicador Selecionado (Vendas) Projeto/sem Projeto' = EXTERNALMEASURE("Indicador Selecionado (Vendas) Projeto/sem Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Indicador
+		lineageTag: 5f02e244-613d-488f-ae12-5f41a3172406
+		sourceLineageTag: 101fa206-55b4-4618-8a1a-72361450bfd6
+		dataCategory: Uncategorized
+
+	measure 'Dias de estoque por (R$) (AVG)' = EXTERNALMEASURE("Dias de estoque por (R$) (AVG)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 7a0aac85-4094-4025-ade0-b493bc4a9331
+		sourceLineageTag: a9e06619-fe34-4612-abdc-97a93a65cc62
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto com venda M-1' = EXTERNALMEASURE("Qtd Produto com venda M-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 76685e92-0590-41d9-a033-ab4cba2cfcf3
+		sourceLineageTag: 02d95530-0e54-4594-a62f-a1db1dfbfcaf
+		dataCategory: Uncategorized
+
+	measure 'Qtd Produto com venda M-2' = EXTERNALMEASURE("Qtd Produto com venda M-2", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 1ffa4a64-8298-4b97-8870-fff6c228f9cc
+		sourceLineageTag: 9c1084fb-13a5-4ea8-8cc8-56b11231bd6a
+		dataCategory: Uncategorized
+
+	measure 'Estoque (Qtd.) Projeto' = EXTERNALMEASURE("Estoque (Qtd.) Projeto", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Sell Out
+		lineageTag: 1ebaa074-5266-4baa-8c0a-f4461d61964d
+		sourceLineageTag: a7972b2d-c68e-4998-aadf-1bae62ab5e8f
+		dataCategory: Uncategorized
+
+	measure 'Status Atividades' = EXTERNALMEASURE("Status Atividades", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: MobConnect
+		lineageTag: 1cc52cc9-6c3c-4db2-8e57-4dbd3e896e59
+		sourceLineageTag: c78e832c-e0ea-4ef7-8dce-3ed51bac3e47
+		dataCategory: Uncategorized
+
+	measure 'Atividades (Qtd)' = EXTERNALMEASURE("Atividades (Qtd)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 98c0eb5a-ec61-4fc2-9f28-a81281f31f6c
+		sourceLineageTag: 922d7851-3d10-4e6c-8ae7-289821d125f2
+		dataCategory: Uncategorized
+
+	measure 'Data Atividade' = EXTERNALMEASURE("Data Atividade", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: General Number
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 6dd9e29e-2449-49dd-8bf8-0b4a90871c2e
+		sourceLineageTag: c4a53712-4de5-432a-bebf-3d55dbf4f620
+		dataCategory: Uncategorized
+
+	measure 'Atividades (Qtd) Problema Reportado' = EXTERNALMEASURE("Atividades (Qtd) Problema Reportado", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 4a084c6d-8894-4ead-bac6-e764a6728535
+		sourceLineageTag: 97f37bc7-f72b-4fc7-8dd9-8309da2b81c4
+		dataCategory: Uncategorized
+
+	measure 'Tarefas (Qtd) Concluída' = EXTERNALMEASURE("Tarefas (Qtd) Concluída", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 70228ac8-d362-4144-8811-3c2575a9ff3b
+		sourceLineageTag: 0d8a153d-254f-40e6-84a7-76c5d707ad78
+		dataCategory: Uncategorized
+
+	measure 'Tarefas (Qtd) Pendente Alocada' = EXTERNALMEASURE("Tarefas (Qtd) Pendente Alocada", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: a9374b6b-31a9-4105-a362-e996c309029e
+		sourceLineageTag: 682acfd1-8f92-40fe-b13a-f06cd5977c7b
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Problema Reportado' = EXTERNALMEASURE("% Tarefas Problema Reportado", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: 1a717903-55db-49c5-a658-4ee31a850eff
+		sourceLineageTag: 24889ec5-5897-4610-93ea-72fc2c2acba8
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Concluída' = EXTERNALMEASURE("% Tarefas Concluída", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: d969a03a-8ff5-4d36-b581-4acddc05944d
+		sourceLineageTag: 508b450a-aeef-4d80-afa3-1612c1f86ae0
+		dataCategory: Uncategorized
+
+	measure '% Tarefas Pendente Alocada' = EXTERNALMEASURE("% Tarefas Pendente Alocada", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: MobConnect
+		lineageTag: 6c2de3e5-6e6d-41e0-bb95-d78dbb64a59c
+		sourceLineageTag: 2e620f71-4cf5-4e93-a522-9980a8fa0bab
+		dataCategory: Uncategorized
+
+	measure 'Data Selecionada Min' = EXTERNALMEASURE("Data Selecionada Min", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 196831a4-29af-4801-8d5b-f34ea89ae88d
+		sourceLineageTag: a686dc99-3cc3-413a-8831-0cf38d1f9a10
+		dataCategory: Uncategorized
+
+	measure 'Fornecedores Cadastrados no Projeto' = EXTERNALMEASURE("Fornecedores Cadastrados no Projeto", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: d2a19180-61ab-444b-b881-bd4c5428a2fc
+		sourceLineageTag: 5d7cb94d-8706-4a93-9db3-9b417cd9ed9a
+		dataCategory: Uncategorized
+
+	measure 'Data Min FT_Mov' = EXTERNALMEASURE("Data Min FT_Mov", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: a7cd08d5-b4cb-4fed-bc4c-7dc7f7bf8124
+		sourceLineageTag: 69148e26-1b91-4703-aa16-bb7e1fe9188b
+		dataCategory: Uncategorized
+
+	measure 'Fornecedor com Acesso (Projeto)' = EXTERNALMEASURE("Fornecedor com Acesso (Projeto)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cadastro / Acesso
+		lineageTag: 0e0420c8-8351-4810-b5a9-7720f98977d1
+		sourceLineageTag: d8c55b91-0f50-49ae-8964-97ecc1600d1f
+		dataCategory: Uncategorized
+
+	measure 'Fornecedor com Atividades' = EXTERNALMEASURE("Fornecedor com Atividades", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 1a5e35b4-391d-4eb8-b3ab-aad9b9a05581
+		sourceLineageTag: 763ea41c-a6f2-4803-801e-da46e225c34c
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento' = EXTERNALMEASURE("Horas Atendimento", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 105596f9-d4ec-4f38-82ab-35fec3149589
+		sourceLineageTag: 38abe346-3262-4087-a485-9278bd04144d
+		dataCategory: Uncategorized
+
+	measure 'Venda (Qtd.) Projeto/Atendimento' = EXTERNALMEASURE("Venda (Qtd.) Projeto/Atendimento", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: fd0ffe36-aeee-44ba-8ae0-6d047226461b
+		sourceLineageTag: 1c8cde72-113e-4deb-9175-3a18701f572c
+		dataCategory: Uncategorized
+
+	measure 'Dias com Atendimento' = EXTERNALMEASURE("Dias com Atendimento", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: e7f244e8-68db-4bbf-8a60-503f12ce7c25
+		sourceLineageTag: f8b9e86c-ad07-4149-92b7-7acd297027ce
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento (decimal)' = EXTERNALMEASURE("Horas Atendimento (decimal)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00
+		displayFolder: MobConnect
+		lineageTag: 76560f95-0baa-4584-991d-94a8566a2633
+		sourceLineageTag: c6608e1f-e102-4b75-9419-8ae154510b8b
+		dataCategory: Uncategorized
+
+	measure 'GAP Horas Atendimento x Horas Ideais' = EXTERNALMEASURE("GAP Horas Atendimento x Horas Ideais", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5970cdfc-1361-4e05-a557-8529f4352440
+		sourceLineageTag: dac640ee-d6d2-496b-bd8f-6cd55e7bae0e
+		dataCategory: Uncategorized
+
+	measure 'Promotores com Atividades' = EXTERNALMEASURE("Promotores com Atividades", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: e665020e-a106-4697-8e1d-1a7f810611b5
+		sourceLineageTag: 5718b522-f848-40cb-a219-ee50891cd99e
+		dataCategory: Uncategorized
+
+	measure 'Vendas (M1 x M Atual)' = EXTERNALMEASURE("Vendas (M1 x M Atual)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 579b055f-5c21-4200-b530-44b7184bdef1
+		sourceLineageTag: 975aaf8f-4795-424a-9cb9-75599a00ffc7
+		dataCategory: Uncategorized
+
+	measure 'Venda Acumulada M-Atual' = EXTERNALMEASURE("Venda Acumulada M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 2faa9fa8-4bfc-45a2-841a-5c1d9b1f5274
+		sourceLineageTag: c2fbfaec-0498-417e-8ee8-790250503ce7
+		dataCategory: Uncategorized
+
+	measure '% Representatividade Venda (Qtd.) M-Atual' = EXTERNALMEASURE("% Representatividade Venda (Qtd.) M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 12cebb23-f4b3-4c43-adf4-df4673472846
+		sourceLineageTag: 5535c905-0b6a-4f82-871a-2f22bf1d4fa8
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto M-2' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 3e4618de-27df-413e-9830-b11f4c80ca06
+		sourceLineageTag: 5c62de5b-1ecd-4ab5-ae61-2165f06f9ea0
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto M-2' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: e8d1c0e3-df9b-407f-ad19-29ee5b385a93
+		sourceLineageTag: 77fc58ed-d635-4744-9ab8-6f4b8218d780
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Comercial (R$) Projeto M-Atual' = EXTERNALMEASURE("Ruptura Comercial (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 19ed1ab6-6325-4bad-ab4f-17d5de1d172d
+		sourceLineageTag: 449f8d21-b67b-43bb-ab5b-ceccad2cca88
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Comercial (R$) Projeto M-Atual' = EXTERNALMEASURE("% Ruptura Comercial (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: b4ce9e4d-a735-42db-b73c-6139d88c99ed
+		sourceLineageTag: bcd177cf-d457-43a3-9e8f-968dccd40737
+		dataCategory: Uncategorized
+
+	measure 'Data Última Venda' = EXTERNALMEASURE("Data Última Venda", DATETIME, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: Short Date
+		displayFolder: Textos (Data Card)
+		lineageTag: 079aa073-be93-4292-a741-bf8f86721f9c
+		sourceLineageTag: 8a4a4b40-9c84-45b4-89bb-e3c3a06879c2
+		dataCategory: Uncategorized
+
+	measure 'Estoque Última Posição (Rup Comercial)' = EXTERNALMEASURE("Estoque Última Posição (Rup Comercial)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 44b20ff1-79bf-4464-a62d-889a80d5566c
+		sourceLineageTag: b9ec7a10-8e4b-43a1-94ff-b4f37d287496
+		dataCategory: Uncategorized
+
+	measure 'Produtos Ruptura Comercial' = EXTERNALMEASURE("Produtos Ruptura Comercial", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 03b976c1-4dab-4969-a23c-9f348f859fad
+		sourceLineageTag: 743bd75e-500c-45eb-9490-27749ce27940
+		dataCategory: Uncategorized
+
+	measure 'Horas Projetadas' = EXTERNALMEASURE("Horas Projetadas", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0.00
+		displayFolder: Cadastro / Acesso
+		lineageTag: c58278f8-e165-4137-a8e0-e9f1fa463358
+		sourceLineageTag: 6f395d2e-f325-451a-b69f-8bd4be8a9204
+		dataCategory: Uncategorized
+
+	measure 'GAP (Horas Projetadas x Horas Atendimento)' = EXTERNALMEASURE("GAP (Horas Projetadas x Horas Atendimento)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: 5faede40-1b5a-40de-a6e0-d6c53bf02c22
+		sourceLineageTag: be3b0b43-cc6f-4ab4-b264-06184289ac1f
+		dataCategory: Uncategorized
+
+	measure 'Produtos Ruptura Operacional' = EXTERNALMEASURE("Produtos Ruptura Operacional", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 209dc512-9d06-4603-8cd7-7dbe513abe49
+		sourceLineageTag: c0455902-679e-42ba-bac9-ad3efafc1ec2
+		dataCategory: Uncategorized
+
+	measure 'Qtd fornecedores/lojas (Projeto)' = EXTERNALMEASURE("Qtd fornecedores/lojas (Projeto)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: b7a82df6-fd56-4a87-b097-4e8fac9568d9
+		sourceLineageTag: e387a41f-e5ef-4967-9e51-c380c01d9b3a
+		dataCategory: Uncategorized
+
+	measure 'Qtd fornecedores/lojas (Atendimento)' = EXTERNALMEASURE("Qtd fornecedores/lojas (Atendimento)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: d6d682f9-7e45-4aa4-8437-724341004c88
+		sourceLineageTag: bbcdb6a6-672b-4eca-b504-d3cce57f8221
+		dataCategory: Uncategorized
+
+	measure '% Atendimento (Projeto/Loja)' = EXTERNALMEASURE("% Atendimento (Projeto/Loja)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cadastro / Acesso
+		lineageTag: 82c4f2c3-a921-4a19-b8bc-53a0653c8a74
+		sourceLineageTag: e736e13f-3578-41fd-9a05-534b36c8a613
+		dataCategory: Uncategorized
+
+	measure '% Horas Atend. (Projeto/Loja)' = EXTERNALMEASURE("% Horas Atend. (Projeto/Loja)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Cadastro / Acesso
+		lineageTag: 1380ae64-dff9-4e9e-92f0-9dbc169d1923
+		sourceLineageTag: e56b0189-20cc-4286-af70-86d5bc3b4168
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto M-Atual' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 830a53e4-5d79-40e4-806c-535278497bb5
+		sourceLineageTag: 74e0a218-d2f6-48db-b178-75bd9f923655
+		dataCategory: Uncategorized
+
+	measure 'Ruptura Operacional (R$) Projeto M-2' = EXTERNALMEASURE("Ruptura Operacional (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: ef5fae42-db7c-4524-bc1e-bd2a53ee1b7d
+		sourceLineageTag: 7713a2e9-3c15-46da-b989-b5c781b7ebc8
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto M-Atual' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-Atual", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: a239e9f3-8844-4838-a08d-7600e3347161
+		sourceLineageTag: 305d2956-c0ba-4095-996b-a60b5088a624
+		dataCategory: Uncategorized
+
+	measure '% Ruptura Operacional (R$) Projeto M-2' = EXTERNALMEASURE("% Ruptura Operacional (R$) Projeto M-2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.0%;-0.0%;0.0%
+		displayFolder: Cálculos (%, GAP)
+		lineageTag: e77a32ce-85e6-44cd-a0e2-6c12dea2946d
+		sourceLineageTag: 57fda6ed-cc2e-4e62-b364-3d6baa89d783
+		dataCategory: Uncategorized
+
+	measure 'Lojas com Atividades' = EXTERNALMEASURE("Lojas com Atividades", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: e21ecf30-d9aa-4472-a40b-55a332f85c8c
+		sourceLineageTag: 8943bac7-83f9-4225-974f-776dfec2e985
+		dataCategory: Uncategorized
+
+	measure 'Dias no mês Atual D-1' = EXTERNALMEASURE("Dias no mês Atual D-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 8e406d64-209b-4166-9922-68cf795540db
+		sourceLineageTag: 29108243-a413-42a7-a737-a491ce107e86
+		dataCategory: Uncategorized
+
+	measure 'Índice de Confiabilidade Rede' = EXTERNALMEASURE("Índice de Confiabilidade Rede", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0%;-0%;0%
+		displayFolder: Textos (Data Card)
+		lineageTag: 84ec8fa7-a82a-4d89-8b8d-bfeef2cc9b99
+		sourceLineageTag: 5b448251-6647-49cf-88e8-81eb6bafd0f2
+		dataCategory: Uncategorized
+
+	measure 'Texto Índice de Confiabilidade' = EXTERNALMEASURE("Texto Índice de Confiabilidade", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Textos (Data Card)
+		lineageTag: 6fc706f9-959a-4820-afc2-5f44e6563a05
+		sourceLineageTag: 4aea1f22-f722-4edc-a6a1-c9bafb8f33d9
+		dataCategory: Uncategorized
+
+	measure 'Dias com vendas mês Atual D-1' = EXTERNALMEASURE("Dias com vendas mês Atual D-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 52cc8213-9932-4674-b2e1-7e1ce3e2fcd0
+		sourceLineageTag: cafdd61a-2343-4acf-81fd-8987dd3ab59d
+		dataCategory: Uncategorized
+
+	measure 'Dias sem vendas mês Atual D-1' = EXTERNALMEASURE("Dias sem vendas mês Atual D-1", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: 2b563ba3-aaaa-4d27-ba40-97ec367b37eb
+		sourceLineageTag: e14adc5e-7409-4500-8aa6-cc9ee5d3ca6c
+		dataCategory: Uncategorized
+
+	measure 'Meses com vendas' = EXTERNALMEASURE("Meses com vendas", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Sell Out
+		lineageTag: 01f7924d-8889-4cdf-aa6a-e91bdb32f06d
+		sourceLineageTag: 69aac88d-3d36-478a-a02c-6861042b8370
+		dataCategory: Uncategorized
+
+	measure 'Média de Vendas / Mês' = EXTERNALMEASURE("Média de Vendas / Mês", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: 1c39e88e-b604-4a18-b422-b76fae9d16c4
+		sourceLineageTag: 548ef11c-af8d-488a-920b-52df8959880c
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 1' = EXTERNALMEASURE("Formatação Gatilho 1", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 7370f138-5799-4b5e-9b80-bba208648a29
+		sourceLineageTag: 0a6ba979-a0c1-45d9-881f-d2bbef9df4f7
+		dataCategory: Uncategorized
+
+	measure 'Gatilho 1' = EXTERNALMEASURE("Gatilho 1", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 07d79e50-fd52-44a0-8884-6009c971db88
+		sourceLineageTag: 92f97738-e18a-4b6b-96f6-a74826cffb4a
+		dataCategory: Uncategorized
+
+	measure 'Gatilho 2' = EXTERNALMEASURE("Gatilho 2", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 855a4a1b-df81-4199-b32b-98d38e10b4e5
+		sourceLineageTag: f22de195-34bd-459e-afa9-92bc50078432
+		dataCategory: Uncategorized
+
+	measure 'Gatilho 3' = EXTERNALMEASURE("Gatilho 3", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 6eedd470-b548-409b-a0f5-3ef4bf29f079
+		sourceLineageTag: ac305a80-420e-4af8-b4c1-0df8e31484d9
+		dataCategory: Uncategorized
+
+	measure 'Gatilho 4' = EXTERNALMEASURE("Gatilho 4", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 264ad460-c264-4e18-8091-256f30a41e7c
+		sourceLineageTag: 8f279fcb-1f27-4991-8170-789806d5cbf5
+		dataCategory: Uncategorized
+
+	measure 'Gatilho 5' = EXTERNALMEASURE("Gatilho 5", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 40cfa534-1aee-4ce2-be3b-c0e3f87cd487
+		sourceLineageTag: 8a23a713-76b5-488b-9a46-e227a8a036e5
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 2' = EXTERNALMEASURE("Formatação Gatilho 2", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 6e7bf329-b18a-47f4-b2ef-e289de02c6af
+		sourceLineageTag: b2180e60-0a51-46be-a5b9-4cb9c77f9f4a
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 3' = EXTERNALMEASURE("Formatação Gatilho 3", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 6b75583e-33c8-49f2-b80d-291ac99e611f
+		sourceLineageTag: b7c6ec15-58b9-4cf1-a924-f31d6d77a5ae
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 0' = EXTERNALMEASURE("Formatação Gatilho 0", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 32cd5bdb-0fc1-4b41-8437-52a0194c649a
+		sourceLineageTag: f730e4c3-8530-4318-ad17-f510e0196177
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 4' = EXTERNALMEASURE("Formatação Gatilho 4", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 4204600d-c107-45f6-8b1a-265a28d069a2
+		sourceLineageTag: 2b686516-410e-40ef-b889-cb2174a7b091
+		dataCategory: Uncategorized
+
+	measure 'Formatação Gatilho 5' = EXTERNALMEASURE("Formatação Gatilho 5", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Gestão RG
+		lineageTag: 0892575e-168e-4088-9757-a01f27973238
+		sourceLineageTag: f6a9107f-a69e-45c8-971e-92512082a198
+		dataCategory: Uncategorized
+
+	measure 'Dias com vendas mês (Anterior)' = EXTERNALMEASURE("Dias com vendas mês (Anterior)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: Textos (Data Card)
+		lineageTag: db468788-962d-42aa-bb79-a86287a516bf
+		sourceLineageTag: 9f70ed00-ced4-40ea-803b-d8933bad0703
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M1 x M Atual)' = EXTERNALMEASURE("Vendas (R$) (M1 x M Atual)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 2cb91560-c3c5-4b74-b5b4-f76bc57cc441
+		sourceLineageTag: 7a852274-3783-43cc-b3d5-31c0e7e2decc
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M2 x M1)' = EXTERNALMEASURE("Vendas (R$) (M2 x M1)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: 496150b4-5747-4d66-9032-28efad27a1a8
+		sourceLineageTag: baab92b8-8b18-4b2a-93d7-40fe3e50682c
+		dataCategory: Uncategorized
+
+	measure 'Vendas (R$) (M3 x M2)' = EXTERNALMEASURE("Vendas (R$) (M3 x M2)", DOUBLE, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Sell Out
+		lineageTag: aad5b336-fd1e-4505-b3ab-ed13aa155269
+		sourceLineageTag: 9ac53083-a6c7-407d-86ed-ff374c40ab12
+		dataCategory: Uncategorized
+
+	measure 'Visitas Planejadas (Qtd)' = EXTERNALMEASURE("Visitas Planejadas (Qtd)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: 0
+		displayFolder: MobConnect
+		lineageTag: 5df2c2f2-aa82-4289-8a8b-186684da3ef7
+		sourceLineageTag: e4b80de5-60c6-44c5-b520-49a21f7d9625
+		dataCategory: Uncategorized
+
+	measure 'Visitas Realizadas (Qtd)' = EXTERNALMEASURE("Visitas Realizadas (Qtd)", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: MobConnect
+		lineageTag: 353b5576-e709-4f98-9e0a-42206b281023
+		sourceLineageTag: 01bcbfeb-952b-4194-abfa-ce0861983487
+		dataCategory: Uncategorized
+
+	measure 'Horas Atendimento (HH:MM)' = EXTERNALMEASURE("Horas Atendimento (HH:MM)", STRING, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: MobConnect
+		lineageTag: ef81efcb-34fc-43c8-aa0c-202818c4ebbf
+		sourceLineageTag: 073ab481-ae8c-4f06-8546-4ffac31135fc
+		dataCategory: Uncategorized
+
+	measure Medida = EXTERNALMEASURE("Medida", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		displayFolder: Sell Out
+		lineageTag: d1335ebf-667b-4ba1-a474-b825e2141b12
+		sourceLineageTag: da67207d-f484-4df0-8b4a-ebd0be2c64d7
+		dataCategory: Uncategorized
+
+	measure fato_acesso = EXTERNALMEASURE("fato_acesso", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: 3f69c9c8-9312-4f10-89c7-cf34ec5d1cb7
+		sourceLineageTag: cdf034c0-0b2e-4054-a050-f6cc06ead7c5
+		dataCategory: Uncategorized
+
+	measure fato_horas_ideais = EXTERNALMEASURE("fato_horas_ideais", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: 5a64b100-c284-4596-8e99-f47e6c582951
+		sourceLineageTag: c3564f23-93fa-4d7a-8812-832f8c8820ab
+		dataCategory: Uncategorized
+
+	measure fato_mobconnect_atendimento_fornecedores = EXTERNALMEASURE("fato_mobconnect_atendimento_fornecedores", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: d085f97d-6d25-4370-94d2-1c37918fa3dd
+		sourceLineageTag: 5caf4ab3-708b-4277-b528-209605121d6e
+		dataCategory: Uncategorized
+
+	measure fato_mobconnect_atividades = EXTERNALMEASURE("fato_mobconnect_atividades", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: 35cf14aa-c34e-46fb-9ea3-6e7a23f21006
+		sourceLineageTag: 1823ff4a-844c-47dc-a38d-b7f478e610c2
+		dataCategory: Uncategorized
+
+	measure fato_mobconnect_movimento = EXTERNALMEASURE("fato_mobconnect_movimento", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: b761fe21-8108-48fc-93aa-99d94f420504
+		sourceLineageTag: f523c200-fd4d-40ce-a402-9783724cc657
+		dataCategory: Uncategorized
+
+	measure fato_mobconnect_movimento_mensal = EXTERNALMEASURE("fato_mobconnect_movimento_mensal", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: 00422437-4713-4044-bc9e-c98980c47b06
+		sourceLineageTag: 8235dc06-9166-4032-895b-f7e028670266
+		dataCategory: Uncategorized
+
+	measure fato_mobconnect_visitas = EXTERNALMEASURE("fato_mobconnect_visitas", INTEGER, "DirectQuery para AS – Base Indicadores RG 2.0 - Projetos")
+		formatString: #,0
+		displayFolder: * Métricas dataset
+		lineageTag: a85ca1c7-0531-4714-8339-97123a712ff6
+		sourceLineageTag: 85a51458-919e-4151-a914-c252cc86b38c
+		dataCategory: Uncategorized
+
+	/// Horas Ideais para gauge de eficiência
+	measure 'NE | Horas Ideais (Gauge)' = [NE | Horas Ideais]
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: b4afa2c4-7e76-42fb-871e-9c3ae168b242
+
+	/// Meta 100% para gauge de visitas
+	measure 'NE | Meta 100%' = 1
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 244cf067-5e69-41ba-be5e-ed930b8849d7
+
+	/// Meta 80% para gauge de produtividade
+	measure 'NE | Meta 80%' = 0.8
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: e52c619e-d6f3-4102-8b49-d1867ea69025
+
+	/// Valor atual para gauge de eficiência de horas (0-1)
+	measure 'NE | Gauge - % Eficiência Horas' = [NE | % Eficiência Horas]
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 243955ac-82d7-48c6-bdaf-69c54614c6d2
+
+	/// Valor atual para gauge de execução de visitas (0-1)
+	measure 'NE | Gauge - % Execução Visitas' = [NE | % Execução Visitas]
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 63d3d412-bba7-4e45-8cc2-412290727385
+
+	/// Valor atual para gauge de tarefas concluídas (0-1)
+	measure 'NE | Gauge - % Tarefas Concluídas' = [NE | % Tarefas Concluídas]
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 9c76de34-fcd6-47d2-ac20-39a419acba5c
+
+	/// Valor atual para gauge de cobertura de lojas (0-1)
+	measure 'NE | Gauge - % Cobertura Lojas' = [NE | % Cobertura Lojas]
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 91a60193-398f-4be8-a887-23847dc1af00
+
+	/// Label formatado do score de saúde operacional
+	measure 'NE | Label Score Saúde' = FORMAT([NE | Score Saúde Operacional], "0.0") & " / 100 — " & [NE | Faixa Saúde Operacional]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 49b063f0-a7a1-46d0-a550-3a68ecebad89
+
+	/// Label consolidado de ruptura total com semáforo
+	measure 'NE | Label Ruptura Total' = [NE | Semáforo Ruptura Op] & "  Ruptura Op: " & FORMAT([NE | % Ruptura Operacional], "0.0%") & "  |  Comercial: " & FORMAT([NE | % Ruptura Comercial], "0.0%")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 61c672ca-c34c-45ad-84f0-2e7fabe7e346
+
+	/// Label de variação MoM com ícone de tendência
+	measure 'MoM %' = VAR v = [NE | Variação Vendas MoM] RETURN IF(ISBLANK(v), "—", IF(v >= 0, "▲ " & FORMAT(v, "0.0%"), "▼ " & FORMAT(ABS(v), "0.0%")))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: c2e00bd2-3c39-4f80-af2c-7cd8797c0884
+
+	/// % ruptura operacional sobre venda M-1 para uso em gauge
+	measure 'NE | % Ruptura Op sobre Venda' = DIVIDE([NE | Ruptura Operacional (R$)], [Venda M-1])
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: a0b50e39-311c-4bce-8346-eec4c0f73283
+
+	/// Receita total em risco (ruptura op + com + adm)
+	measure 'NE | Receita em Risco Total' = [NE | Ruptura Total (R$)]
+		formatString: R$ #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 4fdfa879-032f-4dde-be86-c699e00e2fae
+
+	/// Promotores com acesso e com atividades no período
+	measure 'NE | KPI Promotores Ativos' = VAR comAcesso = [NE | Promotores com Acesso] VAR comAtiv = [NE | Atividades (Qtd)] RETURN comAcesso
+		formatString: #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 0f87a3f9-b19e-4d68-ab07-82f540b1694c
+
+	/// Total de produtos com algum problema de estoque (zero + negativo + avariado + fora validade)
+	measure 'NE | Total Produtos Problema' = VAR zero = [NE | Produtos Estoque Zero] VAR neg = [NE | Produtos Estoque Negativo] VAR avar = [NE | Produto Avariado] VAR val = [NE | Fora de Validade] RETURN zero + neg + avar + val
+		formatString: #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: ba09e4a1-e71d-4a55-9ce3-3f7095d46315
+
+	/// Card resumo de estoque para visual de texto
+	measure 'NE | Card Resumo Estoque' = "DDE: " & FORMAT([NE | Dias de Estoque (DDE)], "0.0") & " dias  |  Estoque Zero: " & FORMAT([NE | Produtos Estoque Zero], "#,##0") & "  |  Negativo: " & FORMAT([NE | Produtos Estoque Negativo], "#,##0")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 6469325b-7dfb-4220-be8f-e030054cf2ab
+
+	/// Classifica DDE em faixas de alerta
+	measure 'NE | Semaforo DDE' = VAR dde = [NE | Dias de Estoque (DDE)] RETURN SWITCH(TRUE(), ISBLANK(dde), "—", dde <= 7, "🔴 Crítico (≤ 7 dias)", dde <= 15, "🟡 Atenção (8-15 dias)", "🟢 Adequado (> 15 dias)")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 3e40eb28-803f-454d-ad59-48ced42e67be
+
+	/// Score de produtividade formatado com faixa
+	measure 'NE | Label Score Produtividade' = FORMAT([NE | Prod - Score Produtividade], "0.0") & " / 100 — " & [NE | Prod - Faixa Produtividade]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 00f37c59-cabb-48eb-962b-ce512edfd19d
+
+	/// Resumo de impacto financeiro da produtividade
+	measure 'NE | Card Impacto Financeiro Prod' = "ROI/hora: " & FORMAT([NE | Sim - ROI por Hora de Promotor], "R$ #,##0") & "  |  Pot. Meta 80%: " & FORMAT([NE | Sim - Impacto Financeiro Meta 80%], "R$ #,##0") & "  |  Pot. Meta 100%: " & FORMAT([NE | Sim - Impacto Financeiro Meta 100%], "R$ #,##0")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: f8306bc9-e238-469a-86bf-c6f7eafaf4a3
+
+	/// Resumo do contexto de feriados para card
+	measure 'NE | Card Contexto Feriados' = "Feriados no mês: " & FORMAT([NE | Fer - Feriados no Mês], "#,##0") & "  |  Dias úteis: " & FORMAT([NE | Fer - Dias Úteis no Mês], "#,##0") & "  |  Score Ajustado: " & FORMAT([NE | Fer - Score Produtividade Ajustado], "0.0")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 8ba257b7-45b3-4d8c-ba90-2bdbdb1ba968
+
+	/// Diferença entre score ajustado e original com sinal
+	measure 'NE | Label Impacto Feriado Score' = VAR impacto = [NE | Fer - Impacto Feriado no Score] RETURN IF(ISBLANK(impacto), "—", IF(impacto >= 0, "+" & FORMAT(impacto, "0.0") & " pts", FORMAT(impacto, "0.0") & " pts"))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: d9676a4b-d42c-4a7f-b075-9e1ae980ebeb
+
+	/// Venda M-1 vs M-2 vs M-3 em uma linha para tooltip
+	measure 'NE | Card Evolução Vendas 3M' = "M-1: " & FORMAT([Venda M-1], "R$ #,##0") & "  |  M-2: " & FORMAT([Venda M-2], "R$ #,##0") & "  |  M-3: " & FORMAT([Venda M-3], "R$ #,##0")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: b98853df-b3f8-42f6-b54b-5a5212216f75
+
+	/// Ruptura Op M-1 vs M-2 vs M-Atual para evolução
+	measure 'NE | Card Evolução Ruptura 3M' = "M-1: " & FORMAT([NE | Ruptura Operacional M-1 (R$)], "R$ #,##0") & "  |  M-2: " & FORMAT([NE | Ruptura Operacional M-2 (R$)], "R$ #,##0") & "  |  M-Atual: " & FORMAT([NE | Ruptura Operacional M-Atual (R$)], "R$ #,##0")
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 49cab55f-6ad9-4126-a55c-bb8e569d9c98
+
+	/// Venda por hora trabalhada formatada
+	measure 'NE | KPI Venda por Hora' = [NE | Corr - Venda por Hora Trabalhada]
+		formatString: R$ #,##0.00
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 4d0e2486-ba32-4a11-8cc1-09fcb6f97cd2
+
+	/// Top 10 lojas por ruptura operacional — para tabela de ranking
+	measure 'NE | Rank Loja Ruptura (Visual)' = RANKX(ALL(dim_loja[nm_loja]), [NE | Ruptura Operacional (R$)], , DESC, Dense)
+		formatString: #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 707fff13-dfa7-43a1-9048-da6ef86840d4
+
+	/// Top promotores por score de produtividade — para tabela de ranking
+	measure 'NE | Rank Promotor Score (Visual)' = RANKX(ALL(dim_visitante[nm_visitante_arrumado]), [NE | Prod - Score Produtividade], , DESC, Dense)
+		formatString: #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 9cfed827-3f54-4a68-a1e6-6233a153d12a
+
+	/// Top produtos por ruptura operacional — para tabela Pareto
+	measure 'NE | Rank Produto Ruptura (Visual)' = RANKX(ALL(dim_produto_rede[ds_produto_rede]), [NE | Ruptura Operacional (R$)], , DESC, Dense)
+		formatString: #,##0
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 3be02073-af55-40d1-ad3a-1596bd347fb8
+
+	/// Venda M-1 formatada em R$ milhões para KPI card
+	measure 'NE | KPI Venda M-1 Label' = VAR v = [Venda M-1] RETURN IF(ISBLANK(v), "—", IF(v >= 1000000, FORMAT(v/1000000, "R$ #,##0.0") & "M", FORMAT(v, "R$ #,##0")))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: be603575-560e-4f0f-8806-c356283597c1
+
+	/// Ruptura total formatada em R$ milhões para KPI card
+	measure 'NE | KPI Ruptura Total Label' = VAR v = [NE | Ruptura Total (R$)] RETURN IF(ISBLANK(v), "—", IF(v >= 1000000, FORMAT(v/1000000, "R$ #,##0.0") & "M", FORMAT(v, "R$ #,##0")))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 6d6df3ab-f2c8-4050-bc21-35285e6cc97f
+
+	/// Score saúde operacional normalizado 0-1 para gauge
+	measure 'NE | Gauge Score Saúde' = DIVIDE([NE | Score Saúde Operacional], 100)
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 97630fb6-3e0f-4082-a480-a3f9a542b124
+
+	/// Score produtividade normalizado 0-1 para gauge
+	measure 'NE | Gauge Score Produtividade' = DIVIDE([NE | Prod - Score Produtividade], 100)
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 0179574e-4ab6-44c7-8190-4ebac9a79b5f
+
+	/// % ruptura operacional para gauge (0-1)
+	measure 'NE | Gauge % Ruptura Op' = [NE | % Ruptura Operacional]
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: ea8f11d9-99bb-4dcc-92c7-c303a60cfce5
+
+	/// Variação YoY formatada com ícone
+	measure 'YoY %' = VAR v = [NE | Variação Vendas YoY] RETURN IF(ISBLANK(v), "—", IF(v >= 0, "▲ " & FORMAT(v, "0.0%"), "▼ " & FORMAT(ABS(v), "0.0%")))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 4ae0334c-6688-464a-9ed8-e14221371de2
+
+	/// Forecast ruptura próximo mês formatado
+	measure 'NE | Forecast Ruptura Label' = VAR v = [NE | Forecast Ruptura Op Próx. Mês] RETURN IF(ISBLANK(v), "—", FORMAT(v, "R$ #,##0"))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 09883a3a-d3db-4749-a094-3367d7e246f8
+
+	/// Título dinâmico da página Executivo com data de referência
+	measure 'NE | Título Executivo' = "Nordestão Exclusivo — Painel Executivo | Ref.: " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 0ec3a2ba-8da1-488a-8e78-5727603f4f38
+
+	/// Título dinâmico da página Vendas
+	measure 'NE | Título Vendas' = "Nordestão — Análise de Vendas | " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 742091d6-0352-4037-91ee-bb119fea5721
+
+	/// Título dinâmico da página Ruptura
+	measure 'NE | Título Ruptura' = "Nordestão — Gestão de Ruptura | " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: cd856574-6da1-494d-a36d-7aae86a43ddf
+
+	/// Título dinâmico da página Operação
+	measure 'NE | Título Operação' = "Nordestão — Operação de Campo | " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: a02f4a3e-70ad-4dbc-b296-d7213f7e0398
+
+	/// Título dinâmico da página Estoque
+	measure 'NE | Título Estoque' = "Nordestão — Gestão de Estoque | " & [Data Max Estoque]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: c62c06a9-46a6-433a-a801-bdae0364620b
+
+	/// Título dinâmico da página Produtividade
+	measure 'NE | Título Produtividade' = "Nordestão — Produtividade & Correlações | " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: 9303250c-6c20-44ef-b437-ce41a6f76244
+
+	/// Título dinâmico da página Feriados
+	measure 'NE | Título Feriados' = "Nordestão — Análise de Feriados Natal/RN | " & [Data Descrição Mês/Ano M-1]
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: aeeb598c-8257-4413-9f0b-9136ed0854bc
+
+	/// % de lojas com venda sobre total no projeto
+	measure 'NE | % Lojas com Venda' = DIVIDE([Lojas c/ Venda], [NE | Lojas no Projeto])
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: e9c36ec7-fd2a-4ca0-bab0-8d0ab5152beb
+
+	/// % de lojas sem venda sobre total no projeto
+	measure 'NE | % Lojas sem Venda' = DIVIDE([Lojas s/ Venda], [NE | Lojas no Projeto])
+		formatString: 0.0%
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: fa5aab15-261f-4092-84e9-e6219562ad74
+
+	/// Receita recuperável formatada em R$ milhões
+	measure 'NE | KPI Receita Recuperável Label' = VAR v = [NE | Receita Recuperável Total] RETURN IF(ISBLANK(v), "—", IF(v >= 1000000, FORMAT(v/1000000, "R$ #,##0.0") & "M", FORMAT(v, "R$ #,##0")))
+		formatString: @
+		displayFolder: 08 - Visuais Apoio
+		lineageTag: e11b88fc-0eaf-4ede-b621-f7905f760091
+
+	column Column
+		dataType: int64
+		isHidden
+		formatString: 0
+		displayFolder: Cadastro / Acesso
+		lineageTag: d17973b6-8503-4712-8021-dd4a8f63971b
+		sourceLineageTag: ce74e71e-fbb1-44a1-be46-4cd09f617088
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: Column
+
+		annotation SummarizationSetBy = User
+
+	partition Métricas = entity
+		mode: directQuery
+		source
+			entityName: Métricas
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

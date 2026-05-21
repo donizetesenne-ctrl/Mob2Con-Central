@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><style id="qw-theme">:root {
+  --color-bg: #19161d;
+  --color-text: #ffffff;
+  --color-navbar-bg: #211d25;
+  --color-bg-chat-view: #121218;
+  --color-bg-secondary: #211d25;
+  --color-bg-tertiary: #28242e;
+  --color-bg-hover: #352f3d;
+  --color-surface: #28242e;
+  --color-surface-hover: #352f3d;
+  --color-surface-active: #4a464f;
+  --color-border: #4a464f;
+  --color-border-light: #352f3d;
+  --color-border-strong: #4a464f;
+  --color-primary: #8575ff;
+  --color-primary-dark: #4200db;
+  --color-primary-light: #8575ff;
+  --color-primary-bg: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-hover-border: #4200db;
+  --color-nav-icon-active: #8575ff;
+  --color-nav-hover-border: #8575ff;
+  --color-primary-alpha-3: color-mix(in srgb, #8575ff 3%, transparent);
+  --color-primary-alpha-5: color-mix(in srgb, #8575ff 5%, transparent);
+  --color-primary-alpha-8: color-mix(in srgb, #8575ff 8%, transparent);
+  --color-primary-alpha-12: color-mix(in srgb, #8575ff 12%, transparent);
+  --color-primary-alpha-15: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-primary-alpha-20: color-mix(in srgb, #8575ff 20%, transparent);
+  --color-primary-alpha-25: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-alpha-30: color-mix(in srgb, #8575ff 30%, transparent);
+  --color-primary-alpha-40: color-mix(in srgb, #8575ff 40%, transparent);
+  --color-primary-alpha-50: color-mix(in srgb, #8575ff 50%, transparent);
+  --color-primary-alpha-60: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-primary-subtle: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-primary-border: #8575ff;
+  --color-focus-ring: color-mix(in srgb, #8575ff 60%, transparent);
+  --color-sidebar-hover: color-mix(in srgb, #8575ff 15%, transparent);
+  --color-accent: #8575ff;
+  --color-accent-foreground: #8575ff;
+  --color-accent-dark: #4200db;
+  --color-accent-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --color-accent-inverse: #ffffff;
+  --color-link: #8575ff;
+  --color-primary-gradient-end: #4200db;
+  --color-primary-bg-solid: #28242e;
+  --color-user-bubble: #333843;
+  --color-text-secondary: #c1bec6;
+  --color-text-tertiary: #aaa6b0;
+  --color-text-muted: #938f9b;
+  --color-text-on-primary: #f2f1f4;
+  --color-success: #4ade80;
+  --color-success-dark: #00802f;
+  --color-success-light: #d9ffd6;
+  --color-success-hover: #005c26;
+  --color-success-bg: rgba(0, 128, 47, .2);
+  --color-success-border: rgba(0, 128, 47, .4);
+  --color-success-foreground: #4ade80;
+  --color-success-dark-foreground: #00802f;
+  --color-error: #ff6b6b;
+  --color-error-dark: #db0000;
+  --color-error-light: #ffe0e0;
+  --color-error-hover: rgba(219, 0, 0, .2);
+  --color-error-bg: rgba(219, 0, 0, .2);
+  --color-error-border: rgba(219, 0, 0, .4);
+  --color-error-active-border: #db0000;
+  --color-error-foreground: #ff6b6b;
+  --color-error-dark-foreground: #db0000;
+  --color-error-inverse: #ffffff;
+  --color-warning: #fbbf24;
+  --color-warning-dark: #f2b100;
+  --color-warning-light: #fffbbd;
+  --color-warning-hover: #db9200;
+  --color-warning-bg: rgba(242, 177, 0, .2);
+  --color-warning-border: rgba(242, 177, 0, .4);
+  --color-warning-foreground: #fbbf24;
+  --color-warning-dark-foreground: #573a00;
+  --color-warning-inverse: #573a00;
+  --color-surface-warning: #fffbbd;
+  --color-text-warning: #573a00;
+  --color-info: #60a5fa;
+  --color-info-dark: #006ce0;
+  --color-info-light: #d1f1ff;
+  --color-info-hover: #003b8f;
+  --color-info-bg: rgba(0, 108, 224, .2);
+  --color-info-border: rgba(0, 108, 224, .4);
+  --color-info-foreground: #60a5fa;
+  --color-info-dark-foreground: #002a66;
+  --color-info-inverse: #ffffff;
+  --color-overlay: #19161d80;
+  --color-shadow: #19161d;
+  --color-hover: #ffffff0d;
+  --color-tooltip-bg: #352f3d;
+  --color-tooltip-text: #ffffff;
+  --color-voice-purple: #8575ff;
+  --color-voice-purple-dark: #4200db;
+  --color-voice-purple-light: #8575ff;
+  --color-voice-red: #ff6b6b;
+  --color-voice-red-dark: #db0000;
+  --color-voice-amber: #fbbf24;
+  --color-voice-purple-glow: rgba(176, 128, 255, .4);
+  --color-voice-red-glow: rgba(219, 0, 0, .4);
+  --font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SF Mono", "Monaco", "Menlo", "Consolas", monospace;
+  --text-2xs: .5625rem;
+  --text-xs: .625rem;
+  --text-sm: .6875rem;
+  --text-base: .75rem;
+  --text-md: .8125rem;
+  --text-lg: .875rem;
+  --text-xl: 1rem;
+  --text-2xl: 1.125rem;
+  --text-3xl: 1.25rem;
+  --text-4xl: 1.5rem;
+  --text-5xl: 2rem;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-card: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 8px;
+  --shadow-sm: 0 1px 2px #19161d;
+  --shadow-md: 0 4px 12px #19161d;
+  --color-success-bg-solid: rgba(0, 128, 47, .18);
+  --color-error-bg-solid: rgba(219, 0, 0, .18);
+  --color-error-border-solid: rgba(219, 0, 0, .32);
+  --color-warning-bg-solid: rgba(242, 177, 0, .2);
+  --color-warning-text: #fbbf24;
+  --color-info-bg-solid: rgba(0, 108, 224, .18);
+  --color-info-bg-solid-alt: rgba(0, 108, 224, .18);
+  --color-info-text: #60a5fa;
+  --color-info-text-alt: #60a5fa;
+  --color-emerald: #80ffb5;
+  --color-teal: #80f4ff;
+  --color-code-bg: #211d25;
+  --color-code-header-bg: #28242e;
+  --color-code-text: #ffffff;
+  --color-code-border: #352f3d;
+  --color-code-muted: #938f9b;
+  --color-inline-code-bg: #211d25;
+  --color-inline-code-text: #ffffff;
+  --color-inline-code-border: #352f3d;
+  --color-scrollbar-thumb: #4a464f;
+  --color-scrollbar-track: transparent;
+  --color-graph-node-text: #ffffff;
+  --color-graph-node-text-dim: #938f9b;
+  --color-graph-edge-default: #938f9b;
+  --color-graph-edge-cross: #ffcf99;
+  --color-graph-edge-text: #c1bec6;
+  --color-graph-edge-stroke: #19161d;
+  --color-graph-highlight-bg: #ff6b8a;
+  --color-graph-highlight-border: #e84573;
+  --color-graph-search-bg: #ffe066;
+  --color-graph-search-border: #ffc520;
+  --color-graph-focus-border: #ff5577;
+  --color-graph-external-border: #938f9b;
+  --color-graph-cat-file: #8dc8fb;
+  --color-graph-cat-folder: #c1bec6;
+  --color-graph-cat-file-aggregate: #6bb3f0;
+  --color-graph-cat-class: #b080ff;
+  --color-graph-cat-function: #80ffb5;
+  --color-graph-cat-method: #80f4ff;
+  --color-graph-cat-variable: #ffcf99;
+  --color-graph-cat-import: #ffad66;
+  --color-graph-cat-module: #a78bfa;
+  --color-graph-cat-concept: #ff8080;
+  --color-graph-cat-person: #ffd566;
+  --color-graph-cat-org: #66e0d0;
+  --color-graph-cat-organization: #66e0d0;
+  --color-graph-cat-product: #ff80d5;
+  --color-graph-cat-metric: #c8ff80;
+  --color-graph-cat-location: #7E9BB5;
+  --color-graph-cat-date: #ffe680;
+  --color-graph-cat-code: #8dc8fb;
+  --color-graph-cat-doc: #c1bec6;
+  --color-graph-cat-url: #80ffb5;
+  --color-graph-cat-email: #a78bfa;
+  --color-graph-cat-unknown: #938f9b;
+  --color-graph-rel-contains: #938f9b;
+  --color-graph-rel-extends: #b080ff;
+  --color-graph-rel-implements: #8dc8fb;
+  --color-graph-rel-imports: #ffad66;
+  --color-graph-rel-uses: #80ffb5;
+  --color-graph-rel-calls: #80ffb5;
+  --color-graph-rel-references: #ffcf99;
+  --color-graph-rel-related-to: #938f9b;
+  --color-graph-rel-works-on: #ff8080;
+  --color-graph-rel-owns: #80f4ff;
+  --color-graph-rel-depends-on: #ffad66;
+  --color-graph-rel-parent-of: #938f9b;
+  --qs-content: #211d25;
+  --qs-main: #28242e;
+  --qs-primary-foreground: #ffffff;
+  --qs-secondary-foreground: #c1bec6;
+  --qs-tertiary-foreground: #938f9b;
+  --qs-placeholder-foreground: #938f9b;
+  --qs-divider: #4a464f;
+  --qs-default-border: #4a464f;
+  --qs-neutral-soft: #4a464f;
+  --qs-neutral-gray-50: #28242e;
+  --qs-tertiary-background: #28242e;
+  --qs-action-hover: #ffffff0d;
+  --qs-primary-default: #8575ff;
+  --qs-primary-dark: #4200db;
+  --qs-primary-light: color-mix(in srgb, #8575ff 25%, transparent);
+  --qs-success-default: #4ade80;
+  --qs-error-default: #ff6b6b;
+  --qs-font-sans: "Amazon Ember", "Helvetica Neue", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --react-pdf-text-layer: 1;
+  --highlight-bg-color: rgba(180, 0, 170, 1);
+  --highlight-selected-bg-color: rgba(0, 100, 0, 1);
+  --react-pdf-annotation-layer: 1;
+  --annotation-unfocused-field-background: url("data:image/svg+xml;charset=UTF-8,<svg width='1px' height='1px' xmlns='http://www.w3.org/2000/svg'><rect width='100%' height='100%' style='fill:rgba(0, 54, 255, 0.13);'/></svg>");
+  --input-focus-border-color: Highlight;
+  --input-focus-outline: 1px solid Canvas;
+  --input-unfocused-border-color: transparent;
+  --input-disabled-border-color: transparent;
+  --input-hover-border-color: black;
+  --link-outline: none;
+}
+body { background: var(--color-bg); }</style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Relatório de Projetos e Demandas Realizadas — Mob2Con Mai/2026</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+  @import url('[REDACTED_CONN_STRING]://400;500;600;700;800&display=swap');
+  :root {
+    --mob-laranja:#F46901; --mob-grafite:#434343; --mob-preto:#111111;
+    --mob-roxo:#6F05D4; --mob-azul:#4285F4; --mob-verde:#107C41;
+    --mob-bg:#F3F6FA; --mob-surface:#ffffff; --mob-border:#E2E8F0;
+    --mob-text:#323130; --mob-text-muted:#605E5C;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Raleway',sans-serif;background:var(--mob-bg);color:var(--mob-text);padding:24px;min-height:100vh;}
+
+  .header{background:linear-gradient(135deg,var(--mob-preto) 0%,#2d2d2d 100%);border-radius:16px;padding:28px 32px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;border-left:6px solid var(--mob-laranja);opacity:0;}
+  .header-left h1{color:#fff;font-size:22px;font-weight:800;}
+  .header-left h1 span{color:var(--mob-laranja);}
+  .header-left p{color:#aaa;font-size:13px;margin-top:4px;}
+  .header-badge{background:var(--mob-laranja);color:#fff;padding:8px 20px;border-radius:100px;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px;}
+
+  .section-title{font-size:13px;font-weight:700;color:var(--mob-text-muted);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;display:flex;align-items:center;gap:8px;opacity:0;}
+  .section-title::after{content:'';flex:1;height:1px;background:var(--mob-border);}
+
+  /* FLOW */
+  .connections{background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:16px;padding:24px;margin-bottom:24px;opacity:0;}
+  .conn-title{font-size:15px;font-weight:800;margin-bottom:20px;display:flex;align-items:center;gap:10px;}
+  .flow{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap;row-gap:12px;}
+  .flow-node{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:90px;}
+  .flow-box{padding:10px 14px;border-radius:10px;font-size:12px;font-weight:700;text-align:center;color:#fff;line-height:1.3;min-width:80px;transition:transform .2s,box-shadow .2s;cursor:default;}
+  .flow-box:hover{transform:scale(1.08);box-shadow:0 6px 20px rgba(0,0,0,.15);}
+  .flow-label{font-size:10px;color:var(--mob-text-muted);font-weight:600;text-align:center;}
+  .flow-arrow{font-size:20px;color:var(--mob-text-muted);padding:0 6px;margin-top:-20px;}
+
+  /* MCP SECTION */
+  .mcp-section{background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:16px;padding:24px;margin-bottom:24px;border-left:5px solid var(--mob-laranja);opacity:0;}
+  .mcp-section h3{font-size:15px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .mcp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+  @media(max-width:700px){.mcp-grid{grid-template-columns:1fr 1fr;}}
+  @media(max-width:440px){.mcp-grid{grid-template-columns:1fr;}}
+  .mcp-card{background:var(--mob-bg);border:1px solid var(--mob-border);border-radius:10px;padding:14px;font-size:12px;transition:box-shadow .2s,transform .2s;}
+  .mcp-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.08);transform:translateY(-2px);}
+  .mcp-card .icon{font-size:22px;margin-bottom:8px;}
+  .mcp-card strong{display:block;font-weight:700;margin-bottom:4px;color:var(--mob-text);}
+  .mcp-card p{color:var(--mob-text-muted);line-height:1.5;}
+  .mcp-sub{font-size:11px;margin-top:6px;color:var(--mob-text-muted);}
+  .mcp-sub span{display:inline-block;background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:4px;padding:1px 6px;margin:2px 2px 0 0;font-family:monospace;font-size:10px;}
+  .google-integrations{background:linear-gradient(135deg,#E8F0FE,#F3E8FF);border:1px solid #C5D3FF;border-radius:12px;padding:16px 20px;margin-top:16px;}
+  .google-integrations h4{font-size:13px;font-weight:800;color:#1a1a2e;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+  .google-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+  @media(max-width:640px){.google-grid{grid-template-columns:repeat(2,1fr);}}
+  .google-item{background:#fff;border-radius:8px;padding:10px;text-align:center;font-size:11px;font-weight:600;color:var(--mob-text);border:1px solid #dce6ff;transition:transform .2s;}
+  .google-item:hover{transform:scale(1.05);}
+  .google-item .gi{font-size:20px;margin-bottom:4px;}
+
+  /* TIMELINE */
+  .timeline{position:relative;margin-bottom:32px;opacity:0;}
+  .timeline-track{position:absolute;left:20px;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--mob-laranja),var(--mob-roxo),var(--mob-azul));border-radius:4px;}
+  .timeline-item{display:flex;gap:20px;margin-bottom:16px;padding-left:54px;position:relative;}
+  .timeline-dot{position:absolute;left:11px;top:12px;width:20px;height:20px;border-radius:50%;border:3px solid var(--mob-surface);box-shadow:0 0 0 2px currentColor;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;}
+  .timeline-card{flex:1;background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:12px;padding:14px 18px;transition:box-shadow .2s,transform .2s;cursor:default;}
+  .timeline-card:hover{box-shadow:0 4px 20px rgba(0,0,0,.1);transform:translateX(4px);}
+  .timeline-card .date{font-size:11px;font-weight:700;padding:2px 8px;border-radius:100px;display:inline-block;margin-bottom:6px;}
+  .timeline-card h3{font-size:14px;font-weight:700;margin-bottom:4px;}
+  .timeline-card p{font-size:12px;color:var(--mob-text-muted);line-height:1.6;}
+  .timeline-card .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+  .tag{font-size:11px;padding:2px 8px;border-radius:100px;font-weight:600;border:1px solid currentColor;}
+
+  /* GRID BUGS/MELHORIAS */
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;opacity:0;}
+  @media(max-width:640px){.grid-2{grid-template-columns:1fr;}}
+  .card-block{background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:16px;padding:20px;}
+  .card-block h3{font-size:14px;font-weight:800;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+  .fix-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--mob-border);font-size:12px;}
+  .fix-item:last-child{border-bottom:none;}
+  .fix-badge{min-width:36px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;color:#fff;margin-top:1px;flex-shrink:0;}
+  .fix-text strong{display:block;font-weight:700;color:var(--mob-text);margin-bottom:2px;}
+  .fix-text span{color:var(--mob-text-muted);line-height:1.5;}
+
+  /* POWER BI */
+  .powerbi-section{background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:16px;padding:24px;margin-bottom:24px;border-left:5px solid #F2C811;opacity:0;}
+  .powerbi-section h3{font-size:15px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:10px;}
+  .pbi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;}
+  @media(max-width:640px){.pbi-grid{grid-template-columns:1fr;}}
+  .pbi-card{background:var(--mob-bg);border:1px solid var(--mob-border);border-radius:10px;padding:14px;font-size:12px;}
+  .pbi-card .icon{font-size:20px;margin-bottom:8px;}
+  .pbi-card strong{display:block;font-weight:700;margin-bottom:4px;color:var(--mob-text);}
+  .pbi-card p{color:var(--mob-text-muted);line-height:1.5;}
+  .pending-box{background:#FFF9F0;border:1px solid #F2C811;border-radius:10px;padding:14px 16px;}
+  .pending-box h4{font-size:13px;font-weight:700;color:#856404;margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .pending-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #fde68a;font-size:12px;}
+  .pending-item:last-child{border-bottom:none;}
+  .person-badge{padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;color:#fff;white-space:nowrap;}
+
+  /* VALIDATION */
+  .validation-bar{background:var(--mob-surface);border:1px solid var(--mob-border);border-radius:16px;padding:20px 24px;margin-bottom:24px;display:flex;align-items:center;gap:20px;flex-wrap:wrap;opacity:0;}
+  .val-score .num{font-size:36px;font-weight:800;color:var(--mob-verde);font-family:monospace;}
+  .val-score .lbl{font-size:11px;color:var(--mob-text-muted);font-weight:600;}
+  .val-checks{flex:1;display:flex;flex-wrap:wrap;gap:8px;}
+  .val-check{font-size:12px;padding:4px 12px;border-radius:100px;font-weight:600;display:flex;align-items:center;gap:6px;}
+  .val-ok{background:#D1FAE5;color:#065F46;}
+  .val-warn{background:#FEF3C7;color:#92400E;}
+  .pending-trigger{background:#FEF3C7;border:1px solid #F59E0B;border-radius:10px;padding:12px 16px;font-size:12px;margin-bottom:24px;display:flex;align-items:center;gap:12px;opacity:0;}
+  .pending-trigger i{color:#D97706;font-size:18px;}
+  .pending-trigger strong{font-weight:700;color:#92400E;display:block;margin-bottom:2px;}
+  .pending-trigger p{color:#78350F;}
+  .footer{text-align:center;padding:20px;color:var(--mob-text-muted);font-size:12px;border-top:1px solid var(--mob-border);margin-top:8px;opacity:0;}
+  .footer span{color:var(--mob-laranja);font-weight:700;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header" id="header">
+  <div class="header-left">
+    <h1>Relatório de Projetos e Demandas <span>Realizadas</span></h1>
+    <p>Período: 04/05/2026 – 14/05/2026 &nbsp;|&nbsp; Responsável: Donizete Senne &nbsp;|&nbsp; <span style="color:var(--mob-laranja)">Mob2Con</span></p>
+  </div>
+  <div class="header-badge"><i class="fa-solid fa-check-double"></i> Concluído</div>
+</div>
+
+<!-- FLUXO SISTEMA -->
+<p class="section-title" id="s0"><i class="fa-solid fa-diagram-project"></i> Arquitetura do Sistema</p>
+<div class="connections" id="connections">
+  <div class="conn-title"><i class="fa-solid fa-sitemap" style="color:var(--mob-laranja)"></i> Fluxo Sprint IC + CRM — Mob2Con</div>
+  <div class="flow">
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-roxo)"><i class="fa-solid fa-wpforms"></i><br>Form IC</div><div class="flow-label">Chamados Gerais</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-grafite)"><i class="fa-brands fa-google"></i><br>Apps Script</div><div class="flow-label">Automação</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-laranja)"><i class="fa-solid fa-table-columns"></i><br>Board</div><div class="flow-label">🗂️ Sprint IC</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-azul)"><i class="fa-brands fa-google"></i><br>Chat</div><div class="flow-label">Notificação</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-verde)"><i class="fa-solid fa-list-check"></i><br>Tasks</div><div class="flow-label">Por membro</div></div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;">
+    <div class="flow-node"><div class="flow-box" style="background:#C00000"><i class="fa-brands fa-hubspot"></i><br>Form CRM</div><div class="flow-label">Joice — HubSpot</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-grafite)"><i class="fa-brands fa-google"></i><br>Apps Script</div><div class="flow-label">onFormSubmitCRM</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-laranja)"><i class="fa-solid fa-table-columns"></i><br>Board</div><div class="flow-label">Joice Topan</div></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><div class="flow-box" style="background:var(--mob-roxo)"><i class="fa-solid fa-envelope"></i><br>Email</div><div class="flow-label">Alerta direto</div></div>
+  </div>
+</div>
+
+<!-- MCP SECTION — EXPANDIDA -->
+<p class="section-title" id="s_mcp"><i class="fa-solid fa-plug"></i> MCP — Configuração &amp; Integrações Amazon Quick</p>
+<div class="mcp-section" id="mcp">
+  <h3><i class="fa-solid fa-plug" style="color:var(--mob-laranja)"></i> Setup MCP — Ecossistema Completo Mob2Con</h3>
+  <div class="mcp-grid">
+    <div class="mcp-card">
+      <div class="icon">⚙️</div>
+      <strong>Configuração Central MCP</strong>
+      <p>Criação e ajuste dos servidores MCP no Amazon Quick via <code>mcp.json</code>. Integração com protocolo stdio, correção de erros ENOENT e autenticação OAuth.</p>
+      <div style="display:flex;align-items:center;gap:8px;margin:8px 0;background:#FFF0E6;border-radius:8px;padding:6px 10px;">
+        <span style="font-size:16px">👥</span>
+        <span style="font-size:11px;font-weight:700;color:#F46901;">Projeto em conjunto com</span>
+        <span style="background:#F46901;color:#fff;font-size:11px;font-weight:700;padding:2px 10px;border-radius:100px;">Marcelo Bora — MB</span>
+      </div>
+      <div class="mcp-sub"><span>mcp_config.json</span><span>agents.json</span><span>amazon-q-mcp-fixed.json</span></div>
+    </div>
+    <div class="mcp-card">
+      <div class="icon">🤖</div>
+      <strong>Agentes Inteligentes</strong>
+      <p>Configuração de múltiplos agentes especializados: Power BI Expert, Arquiteto de Automação, Designer Visual, Orquestrador de Sistemas — cada um com skills e contexto próprio.</p>
+      <div class="mcp-sub"><span>powerbi_expert</span><span>automation_architect</span><span>visual_designer</span><span>system_orchestrator</span></div>
+    </div>
+    <div class="mcp-card">
+      <div class="icon">🎨</div>
+      <strong>Renderização de Layout</strong>
+      <p>MCP para renderização visual de dashboards Power BI: ajuste de proporções, alinhamento de visuais, validação de layout e aplicação do brand Mob2Con automaticamente.</p>
+      <div class="mcp-sub"><span>powerbi-layout MCP</span><span>list_visuals</span><span>align_visuals</span><span>update_visual_layout</span></div>
+    </div>
+    <div class="mcp-card">
+      <div class="icon">📐</div>
+      <strong>Fórmulas &amp; DAX Automatizado</strong>
+      <p>MCP oficial Power BI para operações de medidas DAX diretamente pelo agente: criar, editar, validar e executar queries DAX sem abrir o Power BI Desktop.</p>
+      <div class="mcp-sub"><span>powerbi_official MCP</span><span>measure_operations</span><span>dax_query_operations</span><span>column_operations</span></div>
+    </div>
+    <div class="mcp-card">
+      <div class="icon">🗂️</div>
+      <strong>Controle de Arquivos &amp; Sistema</strong>
+      <p>Acesso direto ao filesystem local (Documents, Desktop, Downloads) e ao sistema operacional. Criação, edição, cópia e busca de arquivos pelo agente sem intervenção manual.</p>
+      <div class="mcp-sub"><span>filesystem MCP</span><span>universal_control MCP</span><span>shell_command MCP</span></div>
+    </div>
+    <div class="mcp-card">
+      <div class="icon">🔗</div>
+      <strong>Scripts de Deploy &amp; Fix</strong>
+      <p>Scripts PowerShell para instalação, correção automática e reset do ambiente MCP. Instalação one-click do ecossistema completo Mob2Con.</p>
+      <div class="mcp-sub"><span>fix-amazon-q-mcp.ps1</span><span>configure-amazon-q-mcp.ps1</span><span>reset-amazon-q.ps1</span><span>Instalar-Mob2Con.ps1</span></div>
+    </div>
+  </div>
+
+  <!-- GOOGLE INTEGRATIONS -->
+  <div class="google-integrations">
+    <h4><i class="fa-brands fa-google" style="color:var(--mob-azul)"></i> Integração Completa com Ecossistema Google — Tudo sem abrir o navegador!</h4>
+    <div class="google-grid">
+      <div class="google-item"><div class="gi">📧</div>Gmail<br><span style="font-size:9px;color:#888">Ler, enviar, buscar</span></div>
+      <div class="google-item"><div class="gi">📅</div>Calendar<br><span style="font-size:9px;color:#888">Eventos, agendas</span></div>
+      <div class="google-item"><div class="gi">📊</div>Sheets<br><span style="font-size:9px;color:#888">Ler, editar, criar</span></div>
+      <div class="google-item"><div class="gi">📝</div>Docs<br><span style="font-size:9px;color:#888">Criar, editar</span></div>
+      <div class="google-item"><div class="gi">📂</div>Drive<br><span style="font-size:9px;color:#888">Upload, busca</span></div>
+      <div class="google-item"><div class="gi">🎯</div>Slides<br><span style="font-size:9px;color:#888">Apresentações</span></div>
+      <div class="google-item"><div class="gi">💬</div>Chat<br><span style="font-size:9px;color:#888">Webhooks, notif.</span></div>
+      <div class="google-item"><div class="gi">✅</div>Tasks<br><span style="font-size:9px;color:#888">Por membro IC</span></div>
+    </div>
+    <p style="font-size:11px;color:#444;margin-top:12px;font-style:italic;">
+      <i class="fa-solid fa-quote-left" style="color:var(--mob-azul)"></i>
+      Basta fazer uma pergunta ao agente — ele acessa Gmail, Calendar, Drive e Sheets automaticamente, sem precisar abrir nenhuma aba no navegador.
+    </p>
+  </div>
+</div>
+
+<!-- TIMELINE -->
+<p class="section-title" id="s1"><i class="fa-solid fa-clock-rotate-left"></i> Linha do Tempo</p>
+<div class="timeline" id="timeline">
+  <div class="timeline-track"></div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="color:var(--mob-laranja);background:var(--mob-laranja)">04</div>
+    <div class="timeline-card">
+      <span class="date" style="background:#FFF0E6;color:var(--mob-laranja)">04/05</span>
+      <h3>Setup MCP &amp; Configuração Amazon Quick — Ecossistema Mob2Con</h3>
+      <p>Configuração completa dos servidores MCP (Universal Control, filesystem, shell-command, Power BI Official, Power BI Layout, aws-docs). Integração OAuth com todo o ecossistema Google. Configuração dos agentes especializados Mob2Con com skills e contexto de marca. Scripts PowerShell de instalação one-click.</p>
+      <div class="tags">
+        <span class="tag" style="color:var(--mob-laranja)">mcp_config.json</span>
+        <span class="tag" style="color:var(--mob-laranja)">agents.json</span>
+        <span class="tag" style="color:var(--mob-laranja)">OAuth Google</span>
+        <span class="tag" style="color:var(--mob-laranja)">Instalar-Mob2Con.ps1</span>
+        <span class="tag" style="color:var(--mob-laranja)">Layout MCP</span>
+        <span class="tag" style="color:var(--mob-laranja)">DAX MCP</span>
+      </div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="color:var(--mob-azul);background:var(--mob-azul)">08</div>
+    <div class="timeline-card">
+      <span class="date" style="background:#E8F0FE;color:var(--mob-azul)">08–12/05</span>
+      <h3>Power BI — RG de Conta Corrente</h3>
+      <p>Melhorias completas no relatório de Reposição Garantida: tratamento de dados, ajustes de layout via MCP e correções de DAX diretamente pelo agente. Pendências com Zelone e Gustavo para validação final.</p>
+      <div class="tags">
+        <span class="tag" style="color:#F2C811">Layout via MCP</span>
+        <span class="tag" style="color:#F2C811">DAX Automatizado</span>
+        <span class="tag" style="color:#F2C811">Tratamento Dados</span>
+        <span class="tag" style="color:#C00000">⏳ Zelone</span>
+        <span class="tag" style="color:#C00000">⏳ Gustavo</span>
+      </div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="color:var(--mob-roxo);background:var(--mob-roxo)">12</div>
+    <div class="timeline-card">
+      <span class="date" style="background:#F3E8FF;color:var(--mob-roxo)">12/05</span>
+      <h3>Correções MCP &amp; Scripts</h3>
+      <p>Correção do Amazon Q MCP, reset e reconfiguração. Scripts de automação para deploy e correção de bugs. Reconfiguração dos triggers do Apps Script.</p>
+      <div class="tags">
+        <span class="tag" style="color:var(--mob-roxo)">fix-amazon-q-mcp.ps1</span>
+        <span class="tag" style="color:var(--mob-roxo)">reset-amazon-q.ps1</span>
+        <span class="tag" style="color:var(--mob-roxo)">Correcao_Trigger.gs</span>
+      </div>
+    </div>
+  </div>
+  <div class="timeline-item">
+    <div class="timeline-dot" style="color:var(--mob-verde);background:var(--mob-verde)">14</div>
+    <div class="timeline-card">
+      <span class="date" style="background:#D1FAE5;color:var(--mob-verde)">14/05</span>
+      <h3>Apps Script Sprint IC + CRM — Auditoria Completa</h3>
+      <p>6 bugs corrigidos, 2 melhorias implementadas, validação 18/18 ✅. Script v8.0 implantado em produção.</p>
+      <div class="tags">
+        <span class="tag" style="color:var(--mob-verde)">6 bugs corrigidos</span>
+        <span class="tag" style="color:var(--mob-verde)">M1 Triagem</span>
+        <span class="tag" style="color:var(--mob-verde)">M2 Alerta Chat</span>
+        <span class="tag" style="color:var(--mob-verde)">18/18 ✅</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUGS & MELHORIAS -->
+<div class="grid-2" id="grid1">
+  <div class="card-block">
+    <h3><i class="fa-solid fa-bug" style="color:#C00000"></i> Bugs Corrigidos — Apps Script</h3>
+    <div class="fix-item"><div class="fix-badge" style="background:#C00000">B1</div><div class="fix-text"><strong>Data 31/12/1969 — Unix Epoch Zero</strong><span>KAN-101–104: timestamp nulo → usa new Date() atual como fallback</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:#D97706">B2</div><div class="fix-text"><strong>Cards inválidos sem dados obrigatórios</strong><span>Validação: Título + Solicitante obrigatórios; vazio → ignora e loga</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-roxo)">B3</div><div class="fix-text"><strong>Mapeamento errado Form CRM</strong><span>r[1]=email, r[2]=nome, r[4]=tipo, r[6]=título, r[14]=prioridade</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-azul)">B4</div><div class="fix-text"><strong>Webhook travava com URL vazia</strong><span>Guard adicionado antes de UrlFetchApp.fetch()</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-grafite)">B5</div><div class="fix-text"><strong>Aba Dashboard não encontrada</strong><span>'📈 Dashboard' → 'Dashboard' no CONFIG.ABAS</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-verde)">B6</div><div class="fix-text"><strong>Cabeçalho "ID" lido como card inválido</strong><span>.slice(2) → .slice(3) na validação e dashboard</span></div></div>
+  </div>
+  <div class="card-block">
+    <h3><i class="fa-solid fa-wand-magic-sparkles" style="color:var(--mob-laranja)"></i> Melhorias Implementadas</h3>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-laranja)">M1</div><div class="fix-text"><strong>Responsável sempre vai para triagem</strong><span>Campo r[22] removido. Atribuição só na reunião semanal. Exceção: Form CRM → sempre Joice Topan.</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-roxo)">M2</div><div class="fix-text"><strong>Alerta no Google Chat</strong><span>🟡 "Novo ticket aguardando atribuição — reunião semanal" via webhook para todo card novo sem responsável.</span></div></div>
+    <h3 style="margin-top:16px"><i class="fa-solid fa-clock" style="color:var(--mob-text-muted)"></i> Backlog — Próximas Sprints</h3>
+    <div class="fix-item"><div class="fix-badge" style="background:#C00000">M6</div><div class="fix-text"><strong>Menu de atribuição em lote</strong><span>Planning semanal — 🔴 Alta prioridade</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:#C00000">M7</div><div class="fix-text"><strong>Alerta SLA ao responsável</strong><span>Email direto quando vencer — 🔴 Alta prioridade</span></div></div>
+    <div class="fix-item"><div class="fix-badge" style="background:var(--mob-text-muted)">M3</div><div class="fix-text"><strong>SLA em dias úteis reais</strong><span>Pular sáb/dom/feriados — 🟡 Médio</span></div></div>
+  </div>
+</div>
+
+<!-- POWER BI -->
+<p class="section-title" id="s2"><i class="fa-solid fa-chart-column"></i> Power BI — RG de Conta Corrente</p>
+<div class="powerbi-section" id="pbi">
+  <h3><i class="fa-solid fa-chart-column" style="color:#F2C811"></i> Reposição Garantida — Melhorias Realizadas</h3>
+  <div class="pbi-grid">
+    <div class="pbi-card"><div class="icon">🗄️</div><strong>Tratamento de Dados</strong><p>Limpeza e padronização das fontes. Correção de relacionamentos, tipos de dados e erros de carga.</p></div>
+    <div class="pbi-card"><div class="icon">🎨</div><strong>Ajuste de Layout</strong><p>Reorganização de visuais via MCP, alinhamento ao brand Mob2Con. Paleta Laranja #F46901.</p></div>
+    <div class="pbi-card"><div class="icon">📐</div><strong>Correções DAX</strong><p>Revisão de medidas, correção de KPIs e ajuste de filtros contextuais via MCP Power BI.</p></div>
+  </div>
+  <div class="pending-box">
+    <h4><i class="fa-solid fa-triangle-exclamation"></i> Pendências — Aguardando Retorno</h4>
+    <div class="pending-item"><span class="person-badge" style="background:#6F05D4">Zelone</span><span style="color:#78350F">Validação das métricas de conta corrente e confirmação dos critérios de negócio para os filtros do relatório.</span></div>
+    <div class="pending-item"><span class="person-badge" style="background:#4285F4">Gustavo</span><span style="color:#78350F">Ajuste nas fontes de dados e confirmação das tabelas de origem para os cálculos de reposição.</span></div>
+  </div>
+</div>
+
+<!-- VALIDAÇÃO -->
+<p class="section-title" id="s3"><i class="fa-solid fa-circle-check"></i> Validação Final — Apps Script</p>
+<div class="validation-bar" id="valbar">
+  <div class="val-score"><div class="num" id="counter">0/18</div><div class="lbl">Verificações</div></div>
+  <div class="val-checks">
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> Webhook HTTP 200</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> Time 7 membros</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> Todas as abas</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> 237 registros</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> IDs únicos</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> 5 Triggers ativos</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> Dashboard corrigido</span>
+    <span class="val-check val-ok"><i class="fa-solid fa-check"></i> Status válidos</span>
+    <span class="val-check val-warn"><i class="fa-solid fa-triangle-exclamation"></i> onFormSubmit — manual</span>
+  </div>
+</div>
+<div class="pending-trigger" id="ptrigger">
+  <i class="fa-solid fa-triangle-exclamation"></i>
+  <div><strong>⚠️ Ação Manual Pendente — Trigger onFormSubmit</strong>
+  <p>Apps Script → ⏰ Triggers → + Adicionar → Função: <code>onFormSubmit</code> → Evento: On form submit (Form IC)</p></div>
+</div>
+
+<div class="footer" id="footer">
+  Gerado em 14/05/2026 &nbsp;|&nbsp; <span>Mob2Con</span> &nbsp;|&nbsp; Donizete Senne &nbsp;|&nbsp; Sprint IC + CRM v8.0 &nbsp;|&nbsp; Amazon Quick + MCP
+</div>
+
+<script>
+  const els=[
+    {id:'header',d:0},{id:'s0',d:100},{id:'connections',d:200},
+    {id:'s_mcp',d:300},{id:'mcp',d:400},
+    {id:'s1',d:500},{id:'timeline',d:600},{id:'grid1',d:700},
+    {id:'s2',d:800},{id:'pbi',d:900},
+    {id:'s3',d:1000},{id:'valbar',d:1100},{id:'ptrigger',d:1200},{id:'footer',d:1300}
+  ];
+  els.forEach(({id,d})=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.style.transform='translateY(16px)';
+    setTimeout(()=>{el.style.transition='opacity .5s ease,transform .5s ease';el.style.transform='translateY(0)';el.style.opacity='1';},d);
+  });
+  setTimeout(()=>{
+    const n=document.getElementById('counter');
+    if(!n)return;
+    let c=0;
+    const iv=setInterval(()=>{c++;n.textContent=c+'/18';if(c>=18)clearInterval(iv);},50);
+  },1150);
+</script>
+
+</body></html>

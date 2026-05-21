@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>🔍 Teste Apps Script - Diagnóstico</title>
+<style>
+body{font-family:system-ui,sans-serif;padding:20px;background:#f5f5f5}
+.box{background:#fff;border-radius:8px;padding:20px;margin:10px 0;box-shadow:0 2px 4px rgba(0,0,0,0.1)}
+h1{color:#F46901}
+.status{padding:10px;border-radius:4px;margin:10px 0}
+.success{background:#E8F5EC;color:#107C41;border-left:4px solid #107C41}
+.error{background:#FCE8E8;color:#C00000;border-left:4px solid #C00000}
+.warning{background:#FFF0E0;color:#D85901;border-left:4px solid #F46901}
+button{background:#F46901;color:#fff;border:none;padding:10px 20px;border-radius:4px;cursor:pointer;font-size:14px;font-weight:600}
+button:hover{background:#D85901}
+pre{background:#f5f5f5;padding:10px;border-radius:4px;overflow-x:auto;font-size:12px}
+.loading{display:none;color:#666}
+.loading.active{display:block}
+</style>
+</head>
+<body>
+
+<h1>🔍 Diagnóstico do Apps Script</h1>
+
+<div class="box">
+  <h3>Configuração</h3>
+  <p><strong>Apps Script URL:</strong></p>
+  <pre id="url-display"></pre>
+  <p><strong>Planilhas configuradas:</strong></p>
+  <ul>
+    <li>Dimensões: <code>1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q</code></li>
+    <li>Fatos: <code>1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs</code></li>
+    <li>Lookups: <code>1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI</code></li>
+  </ul>
+</div>
+
+<div class="box">
+  <h3>Testes</h3>
+  <button onclick="testarAppsScript()">🚀 Testar Apps Script</button>
+  <button onclick="testarGvizDireto()">📊 Testar API Gviz Direta</button>
+  <button onclick="limparLog()">🗑️ Limpar Log</button>
+  
+  <div class="loading" id="loading">⏳ Testando...</div>
+  
+  <div id="resultados"></div>
+</div>
+
+<div class="box">
+  <h3>📋 Console Log</h3>
+  <pre id="console-log"></pre>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwkF4in7_FjTDUwruBtl-LRGw5ugQcrMmdb63TbJO091MGJu4y_1keuHRrdFrLyxTrdZw/exec';
+
+const SHEETS = {
+  dimensoes: '1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q',
+  fatos:     '1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs',
+  lookups:   '1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI'
+};
+
+document.getElementById('url-display').textContent = APPS_SCRIPT_URL;
+
+let logBuffer = [];
+
+function log(msg, type='info'){
+  const timestamp = new Date().toLocaleTimeString('pt-BR');
+  const prefix = type === 'error' ? '❌' : type === 'success' ? '✅' : type === 'warning' ? '⚠️' : 'ℹ️';
+  const line = `[${timestamp}] ${prefix} ${msg}`;
+  logBuffer.push(line);
+  document.getElementById('console-log').textContent = logBuffer.join('\n');
+  console.log(line);
+}
+
+function addResult(html){
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  document.getElementById('resultados').appendChild(div);
+}
+
+function limparLog(){
+  logBuffer = [];
+  document.getElementById('console-log').textContent = '';
+  document.getElementById('resultados').innerHTML = '';
+  log('Log limpo');
+}
+
+async function testarAppsScript(){
+  document.getElementById('loading').classList.add('active');
+  log('Iniciando teste do Apps Script...');
+  
+  try {
+    // Teste 1: dim_rede
+    log('Testando aba dim_rede...');
+    const url1 = `${APPS_SCRIPT_URL}?action=getSheet&sheetId=${SHEETS.dimensoes}&sheetName=dim_rede`;
+    log(`URL: ${url1}`);
+    
+    const res1 = await fetch(url1, {
+      mode: 'cors',
+      cache: 'no-cache'
+    });
+    
+    log(`Status HTTP: ${res1.status} ${res1.statusText}`);
+    
+    if(!res1.ok){
+      log(`Erro HTTP ${res1.status}`, 'error');
+      addResult(`<div class="status error"><strong>❌ Erro HTTP ${res1.status}</strong><br>O Apps Script não está respondendo corretamente.</div>`);
+      return;
+    }
+    
+    const data1 = await res1.json();
+    log(`Resposta recebida: ${JSON.stringify(data1).substring(0, 200)}...`);
+    
+    if(data1 && data1.rows && data1.rows.length > 0){
+      log(`✅ dim_rede: ${data1.rows.length} linhas`, 'success');
+      addResult(`<div class="status success"><strong>✅ Apps Script funcionando!</strong><br>Aba dim_rede: ${data1.rows.length} linhas<br>Colunas: ${data1.cols ? data1.cols.join(', ') : 'N/A'}</div>`);
+    } else {
+      log('⚠️ dim_rede: sem dados', 'warning');
+      addResult(`<div class="status warning"><strong>⚠️ Apps Script respondeu mas sem dados</strong><br>Resposta: <pre>${JSON.stringify(data1, null, 2)}</pre></div>`);
+    }
+    
+    // Teste 2: fato_status_promotores
+    log('Testando aba fato_status_promotores...');
+    const url2 = `${APPS_SCRIPT_URL}?action=getSheet&sheetId=${SHEETS.fatos}&sheetName=fato_status_promotores`;
+    const res2 = await fetch(url2, { mode: 'cors', cache: 'no-cache' });
+    
+    if(res2.ok){
+      const data2 = await res2.json();
+      if(data2 && data2.rows){
+        log(`✅ fato_status_promotores: ${data2.rows.length} linhas`, 'success');
+        addResult(`<div class="status success"><strong>✅ Fatos OK!</strong><br>Aba fato_status_promotores: ${data2.rows.length} linhas</div>`);
+      }
+    }
+    
+  } catch(e) {
+    log(`Erro: ${e.message}`, 'error');
+    addResult(`<div class="status error"><strong>❌ Erro ao testar Apps Script</strong><br>${e.message}<br><br><strong>Possíveis causas:</strong><ul><li>Apps Script não está implantado corretamente</li><li>Permissões não foram concedidas</li><li>CORS bloqueado</li><li>URL incorreta</li></ul></div>`);
+  } finally {
+    document.getElementById('loading').classList.remove('active');
+  }
+}
+
+async function testarGvizDireto(){
+  document.getElementById('loading').classList.add('active');
+  log('Testando API Gviz direta...');
+  
+  try {
+    const url = `https://docs.google.com/spreadsheets/d/${SHEETS.dimensoes}/gviz/tq?tqx=out:json&sheet=dim_rede`;
+    log(`URL: ${url}`);
+    
+    const res = await fetch(url, {
+      mode: 'cors',
+      cache: 'no-cache'
+    });
+    
+    log(`Status HTTP: ${res.status}`);
+    
+    if(!res.ok){
+      log(`Erro HTTP ${res.status}`, 'error');
+      addResult(`<div class="status error"><strong>❌ Erro HTTP ${res.status}</strong><br>A planilha pode não estar pública.</div>`);
+      return;
+    }
+    
+    const txt = await res.text();
+    log(`Recebido ${txt.length} bytes`);
+    
+    // Parse gviz
+    let jsonStr = txt.trim();
+    if(jsonStr.includes('google.visualization.Query.setResponse')){
+      jsonStr = jsonStr.replace(/^.*?google\.visualization\.Query\.setResponse\s*\(\s*/, '');
+      jsonStr = jsonStr.replace(/\s*\)\s*;?\s*$/, '');
+    }
+    
+    const json = JSON.parse(jsonStr);
+    
+    if(json.table && json.table.rows){
+      log(`✅ Gviz: ${json.table.rows.length} linhas`, 'success');
+      addResult(`<div class="status success"><strong>✅ API Gviz funcionando!</strong><br>Linhas: ${json.table.rows.length}<br>Colunas: ${json.table.cols.length}</div>`);
+    } else {
+      log('⚠️ Gviz: estrutura inválida', 'warning');
+      addResult(`<div class="status warning"><strong>⚠️ Resposta Gviz inválida</strong></div>`);
+    }
+    
+  } catch(e) {
+    log(`Erro: ${e.message}`, 'error');
+    addResult(`<div class="status error"><strong>❌ Erro ao testar Gviz</strong><br>${e.message}</div>`);
+  } finally {
+    document.getElementById('loading').classList.remove('active');
+  }
+}
+
+// Auto-teste ao carregar
+window.addEventListener('load', () => {
+  log('Página carregada');
+  log('Pronto para testar!');
+});
+</script>
+
+</body>
+</html>

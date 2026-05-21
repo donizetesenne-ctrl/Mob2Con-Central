@@ -1,0 +1,75 @@
+table fato_acesso
+	lineageTag: 31dde266-4f94-49a4-974e-a5521e1b6bbe
+	sourceLineageTag: b10e7910-8a55-4e14-8481-35cc3cd3186c
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ab5020e-c22b-4633-982d-c82ad8885bd3
+		sourceLineageTag: 2311348b-990f-4512-8d14-cac39f74df73
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: 0ceb5281-0ea6-4fca-b594-14c40b698d66
+		sourceLineageTag: 9d86473d-eb70-4b51-b10c-f57a280b8168
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_agencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 27326392-9152-450d-b9e1-40ec66acfce1
+		sourceLineageTag: b70b3a4a-a269-4973-a59b-c44d75dce390
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_visitante
+		dataType: int64
+		formatString: 0
+		lineageTag: ac63184e-4b7a-4e4c-bd6f-13e815e17dae
+		sourceLineageTag: e4a7148a-eca0-43ac-9863-ecbc2b4eb902
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_visitante
+
+		annotation SummarizationSetBy = User
+
+	column dt_entrada
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a47a80fd-621e-4105-936c-69bd3d80ce60
+		sourceLineageTag: dd7f8f7c-4777-44d1-ba27-c6f51293048f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_entrada
+
+		annotation SummarizationSetBy = User
+
+	column qt_horas_permanencia
+		dataType: double
+		lineageTag: acabc201-4fae-41e7-9697-78d24e23a6ca
+		sourceLineageTag: 05a926be-5cc9-4a73-adff-7188e8865e51
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_horas_permanencia
+
+		annotation SummarizationSetBy = User
+
+	partition fato_acesso = entity
+		mode: directQuery
+		source
+			entityName: fato_acesso
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

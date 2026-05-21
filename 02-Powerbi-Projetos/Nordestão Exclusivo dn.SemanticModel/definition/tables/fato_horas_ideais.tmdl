@@ -1,0 +1,63 @@
+table fato_horas_ideais
+	lineageTag: 759f79eb-2505-4b08-b68a-042565dbc9c2
+	sourceLineageTag: 6a0e47f2-abf9-4b6d-b622-dd02db0dc565
+
+	column dt_referencia
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 833f6e59-97b5-4561-803a-d3ffa3ccb7e4
+		sourceLineageTag: 3de1d529-7c50-49df-87e0-950920d0734c
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_referencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: ed7373f2-7c7a-4571-ac4c-39e4b6d9ecca
+		sourceLineageTag: dd6bac52-a13c-442b-b548-3cee0bfb9bc2
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: fc38c1cd-eb10-40ab-bfde-6bdde30c00e1
+		sourceLineageTag: 91bd8a95-0d39-4f44-b45a-a1c5ae91a4ba
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column qt_horas_ideais
+		dataType: double
+		lineageTag: e1e5775c-fae6-4151-a31c-d587a6e0c129
+		sourceLineageTag: b3c2b644-c302-4af3-a3d4-131e17131c3e
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_horas_ideais
+
+		annotation SummarizationSetBy = User
+
+	column fl_projeto
+		dataType: string
+		lineageTag: a12ad41d-7316-4f94-ab33-84bb1787a89e
+		sourceLineageTag: 60d941a9-c2b5-400e-a2f1-6ad283140da9
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: fl_projeto
+
+		annotation SummarizationSetBy = User
+
+	partition fato_horas_ideais = entity
+		mode: directQuery
+		source
+			entityName: fato_horas_ideais
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

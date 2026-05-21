@@ -1,0 +1,85 @@
+{
+  "name": "Mob2Con",
+  "dataColors": ["#f46901","#6f05d4","#434343","#4285f4","#111111","#ff8c3a","#9b4dca","#666666","#5a9ff5","#333333"],
+  "background": "#FFFFFF",
+  "foreground": "#111111",
+  "tableAccent": "#f46901",
+  "textClasses": {
+    "callout": { "fontSize": 28, "fontFace": "Raleway", "color": "#111111" },
+    "title":   { "fontSize": 14, "fontFace": "Raleway", "color": "#111111", "fontWeight": "Bold" },
+    "header":  { "fontSize": 12, "fontFace": "Raleway", "color": "#434343" },
+    "label":   { "fontSize": 10, "fontFace": "Raleway", "color": "#434343" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background":  [{ "color": { "solid": { "color": "#FFFFFF" } }, "transparency": 0 }],
+        "border":      [{ "show": false }],
+        "dropShadow":  [{ "show": false }],
+        "title": [{ "show": true, "fontColor": { "solid": { "color": "#111111" } }, "fontFamily": "Raleway", "fontSize": 12, "bold": true }]
+      }
+    },
+    "card": {
+      "*": {
+        "labels":         [{ "color": { "solid": { "color": "#f46901" } }, "fontSize": 24, "fontFamily": "Raleway", "bold": true }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "multiRowCard": {
+      "*": {
+        "dataLabels":     [{ "color": { "solid": { "color": "#f46901" } }, "fontSize": 14, "fontFamily": "Raleway", "bold": true }],
+        "categoryLabels": [{ "color": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "gauge": {
+      "*": {
+        "dataLabels": [{ "color": { "solid": { "color": "#f46901" } }, "fontSize": 16, "fontFamily": "Raleway", "bold": true }]
+      }
+    },
+    "barChart": {
+      "*": {
+        "dataPoint":    [{ "defaultColor": { "solid": { "color": "#f46901" } } }],
+        "categoryAxis": [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }],
+        "valueAxis":    [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "columnChart": {
+      "*": {
+        "dataPoint":    [{ "defaultColor": { "solid": { "color": "#f46901" } } }],
+        "categoryAxis": [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }],
+        "valueAxis":    [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "lineChart": {
+      "*": {
+        "dataPoint":    [{ "defaultColor": { "solid": { "color": "#f46901" } } }],
+        "categoryAxis": [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }],
+        "valueAxis":    [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "donutChart": {
+      "*": {
+        "dataPoint": [{ "defaultColor": { "solid": { "color": "#f46901" } } }],
+        "legend":    [{ "labelColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }]
+      }
+    },
+    "scatterChart": {
+      "*": {
+        "dataPoint": [{ "defaultColor": { "solid": { "color": "#f46901" } } }]
+      }
+    },
+    "tableEx": {
+      "*": {
+        "header": [{ "fontColor": { "solid": { "color": "#FFFFFF" } }, "backColor": { "solid": { "color": "#f46901" } }, "fontSize": 11, "fontFamily": "Raleway", "bold": true }],
+        "rows":   [{ "fontColor": { "solid": { "color": "#111111" } }, "backColor": { "solid": { "color": "#FFFFFF" } }, "fontSize": 10, "fontFamily": "Raleway" }],
+        "grid":   [{ "gridVertical": false, "gridHorizontalColor": { "solid": { "color": "#f0f0f0" } } }]
+      }
+    },
+    "slicer": {
+      "*": {
+        "data":   [{ "fontColor": { "solid": { "color": "#434343" } }, "fontSize": 10, "fontFamily": "Raleway" }],
+        "header": [{ "fontColor": { "solid": { "color": "#f46901" } }, "fontSize": 11, "fontFamily": "Raleway", "bold": true }]
+      }
+    }
+  }
+}

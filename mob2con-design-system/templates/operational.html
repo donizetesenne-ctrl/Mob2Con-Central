@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Operational Dashboard — Mob2Con</title>
+<link rel="stylesheet" href="../style.css">
+<style>
+.dashboard { max-width: 1280px; margin: 0 auto; }
+.kpi-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); padding: var(--sp-2); }
+.content-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); padding: 0 var(--sp-2); }
+.panel { background: var(--white); border: 1px solid var(--gray-300); border-radius: var(--radius-lg); padding: var(--sp-2); box-shadow: var(--shadow-sm); }
+.status-list { list-style: none; }
+.status-list li { padding: 8px 0; border-bottom: 1px solid var(--gray-200); display: flex; justify-content: space-between; font-size: 12px; }
+.status-list li:last-child { border: none; }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+  <header class="header">
+    <div class="logo">Mob<span class="accent">2</span>Con</div>
+    <span style="font-size:12px;margin-left:16px;color:var(--gray-500)">Operacional — Hoje</span>
+    <div class="spacer"></div>
+    <span style="font-size:11px;color:var(--white)">🕐 Atualizado: 19/05/2026 14:32</span>
+  </header>
+
+  <div class="kpi-row">
+    <div class="card kpi">
+      <div class="kpi-label">Visitas Hoje</div>
+      <div class="kpi-value">142</div>
+      <div class="kpi-trend up">▲ 8 vs ontem</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Pendentes</div>
+      <div class="kpi-value">23</div>
+      <div class="kpi-trend down" style="color:var(--warning)">⚠ 5 atrasadas</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Concluídas</div>
+      <div class="kpi-value">119</div>
+      <div class="kpi-trend up">▲ 83.8%</div>
+    </div>
+    <div class="card kpi">
+      <div class="kpi-label">Alertas</div>
+      <div class="kpi-value" style="color:var(--danger)">3</div>
+      <div class="kpi-trend down">▼ Ruptura crítica</div>
+    </div>
+  </div>
+
+  <div class="content-row">
+    <div class="panel">
+      <h3 class="mb-2">📋 Últimas Atividades</h3>
+      <ul class="status-list">
+        <li><span>Visita Nordestão 01 — João</span><span class="badge badge-success">Concluída</span></li>
+        <li><span>Reposição Atacadão SP — Maria</span><span class="badge badge-success">Concluída</span></li>
+        <li><span>Visita Rede Sul 03 — Pedro</span><span class="badge badge-warning">Em andamento</span></li>
+        <li><span>Auditoria Loja 47 — Ana</span><span class="badge badge-danger">Atrasada</span></li>
+        <li><span>Treinamento equipe NE — Carlos</span><span class="badge badge-info">Agendada</span></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3 class="mb-2">🚨 Alertas Ativos</h3>
+      <ul class="status-list">
+        <li><span>Ruptura > 5% — Rede Sul 03</span><span class="badge badge-danger">Crítico</span></li>
+        <li><span>SLA < 90% — Loja 47</span><span class="badge badge-danger">Crítico</span></li>
+        <li><span>Estoque baixo — SKU 4421</span><span class="badge badge-warning">Atenção</span></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

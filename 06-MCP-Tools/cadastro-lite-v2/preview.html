@@ -1,0 +1,164 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Indicadores de Performance - Cadastro Lite | Mob2Con</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{--orange:#f46901;--orange-soft:rgba(244,105,1,0.08);--ink:#1f2937;--body:#4d4d4d;--muted:#6b7280;--line:#e5e7eb;--bg:#fafafa;--card:#ffffff;--green:#15803d;--red:#b91c1c;--blue:#1d4ed8;--purple:#6b21a8;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--ink);font-size:14px;line-height:1.5}
+header{background:linear-gradient(135deg,#151827 0%,#1e2235 100%);color:#fff;padding:20px 32px;display:flex;align-items:center;gap:16px}
+.mark{width:40px;height:40px;border-radius:10px;background:var(--orange);display:grid;place-items:center;font-weight:800;font-size:20px;box-shadow:0 2px 8px rgba(244,105,1,0.3)}
+header h1{font-size:20px;font-weight:700;letter-spacing:-0.3px;margin:0}
+.sub{color:rgba(255,255,255,0.6);font-size:12px;margin-top:3px}
+.tabs{display:flex;gap:2px;padding:0 32px;background:#fff;border-bottom:1px solid var(--line);overflow-x:auto}
+.tab{border:none;background:transparent;color:var(--muted);padding:12px 16px;cursor:pointer;font-size:13px;font-weight:600;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.tab:hover{color:var(--orange);background:var(--orange-soft)}
+.tab.active{color:var(--orange);border-bottom-color:var(--orange)}
+main{max-width:1440px;margin:0 auto;padding:24px 32px}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;position:relative;transition:all .2s}
+.kpi:hover{box-shadow:0 4px 12px rgba(0,0,0,0.06);border-color:var(--orange);transform:translateY(-1px)}
+.kpi span{display:block;color:var(--muted);font-size:11px;text-transform:uppercase;font-weight:700;letter-spacing:0.3px}
+.kpi strong{display:block;margin-top:8px;font-size:28px;font-weight:800;color:var(--ink);letter-spacing:-0.5px}
+.kpi small{display:block;margin-top:6px;color:var(--muted);font-size:12px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:20px;transition:box-shadow .2s}
+.card:hover{box-shadow:0 4px 12px rgba(0,0,0,0.06)}
+.card h2{font-size:14px;font-weight:700;margin:0 0 16px;color:var(--ink);letter-spacing:-0.2px}
+canvas{max-height:260px}
+.page{display:none}.page.active{display:block}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left}
+th{background:var(--bg);font-weight:700;color:var(--body);font-size:11px;text-transform:uppercase;letter-spacing:0.3px;position:sticky;top:0}
+tr:hover td{background:var(--orange-soft)}
+.pill{display:inline-block;border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700}
+.p-crit{background:#f3e8ff;color:#6b21a8}.p-nao{background:#fee2e2;color:#b91c1c}
+.p-warn{background:#fef3c7;color:#92400e}.p-ok{background:#dcfce7;color:#15803d}
+.alert{padding:14px 18px;border-radius:8px;margin-bottom:10px;border-left:4px solid;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.alert.red{background:#fff5f5;border-color:var(--red)}.alert.orange{background:#fff7ed;border-color:var(--orange)}
+.alert strong{font-weight:700}.alert .impact{font-weight:700;color:var(--orange)}
+@media(max-width:900px){.grid2{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<header>
+<div class="mark">M</div>
+<div><h1>Indicadores de Performance - Cadastro Lite</h1><div class="sub">Preview Local | Redshift mc2-production | desde 01/10/2025 | Confrontado com PBI</div></div>
+</header>
+<nav class="tabs">
+<button class="tab active" onclick="sw('visao',this)">Visao Geral</button>
+<button class="tab" onclick="sw('nc',this)">Nao Clientes</button>
+<button class="tab" onclick="sw('cl',this)">Clientes</button>
+<button class="tab" onclick="sw('alertas',this)">Alertas CS</button>
+<button class="tab" onclick="sw('priorizacao',this)">Priorizacao</button>
+<button class="tab" onclick="sw('acao',this)">Acao Fornecedor</button>
+<button class="tab" onclick="sw('acompanhamento',this)">Acompanhamento</button>
+<button class="tab" onclick="sw('redes',this)">Redes</button>
+<button class="tab" onclick="sw('conv',this)">Conv vs Lite</button>
+</nav>
+<main>
+<div class="kpis">
+<div class="kpi"><span>Total Requisicoes</span><strong>150.063</strong><small>desde 01/10/2025</small></div>
+<div class="kpi"><span>CPFs Unicos</span><strong>104.775</strong><small>DISTINCTCOUNT cpf</small></div>
+<div class="kpi"><span>Nao Clientes</span><strong>5.616</strong><small>empresas sem pagar</small></div>
+<div class="kpi"><span>Impacto R$/mes</span><strong>R$ 747K</strong><small>CPFs NC x R$12,10</small></div>
+</div>
+<div class="page active" id="p-visao">
+<div class="grid2">
+<div class="card"><h2>Evolucao Mensal - Requisicoes Lite</h2><canvas id="ch1"></canvas></div>
+<div class="card"><h2>CPFs Lite vs Convencional</h2><canvas id="ch2"></canvas></div>
+</div>
+<div class="grid2">
+<div class="card"><h2>Agencia vs Fornecedor</h2><canvas id="ch3"></canvas></div>
+<div class="card"><h2>Top 10 Nao Clientes (CPFs)</h2><canvas id="ch4"></canvas></div>
+</div>
+</div>
+<div class="page" id="p-nc">
+<div class="kpis"><div class="kpi"><span>Empresas NC</span><strong>5.616</strong></div><div class="kpi"><span>CPFs NC</span><strong>61.823</strong></div><div class="kpi"><span>Impacto</span><strong>R$ 748K/mes</strong></div><div class="kpi"><span>Criticos</span><strong>12</strong><small>score&gt;80</small></div></div>
+<div class="card"><h2>Empresas Nao Cliente</h2><table><thead><tr><th>Empresa</th><th>Tipo</th><th>Requisicoes</th><th>CPFs</th><th>Score</th><th>Class.</th></tr></thead><tbody>
+<tr><td><strong>JBS - NACIONAL</strong></td><td>Fornecedor</td><td>2.167</td><td>2.006</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+<tr><td><strong>COCA COLA</strong></td><td>Fornecedor</td><td>1.784</td><td>1.723</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+<tr><td><strong>BRF</strong></td><td>Fornecedor</td><td>1.766</td><td>1.724</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+<tr><td><strong>NESTLE</strong></td><td>Fornecedor</td><td>1.237</td><td>1.195</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+<tr><td><strong>SENDAS DISTRIBUIDORA</strong></td><td>Fornecedor</td><td>1.115</td><td>1.097</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+<tr><td><strong>UNILEVER BRASIL</strong></td><td>Fornecedor</td><td>1.098</td><td>1.059</td><td>50</td><td><span class="pill p-warn">Suspeito</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-cl">
+<div class="kpis"><div class="kpi"><span>Empresas Cliente</span><strong>1.550</strong></div><div class="kpi"><span>CPFs</span><strong>42.952</strong></div><div class="kpi"><span>% Lite/Total</span><strong>17.3%</strong></div><div class="kpi"><span>Requisicoes</span><strong>88.240</strong></div></div>
+<div class="card"><h2>Empresas Cliente com Lite</h2><table><thead><tr><th>Empresa</th><th>Tipo</th><th>Requisicoes</th><th>CPFs</th><th>Score</th></tr></thead><tbody>
+<tr><td><strong>SPOT PROMOCOES</strong></td><td>Agencia</td><td>3.791</td><td>3.302</td><td>30</td></tr>
+<tr><td><strong>SPOT TRABALHO TEMP</strong></td><td>Agencia</td><td>3.537</td><td>2.963</td><td>30</td></tr>
+<tr><td><strong>EVER TRADE MARKETING</strong></td><td>Agencia</td><td>2.821</td><td>2.224</td><td>30</td></tr>
+<tr><td><strong>BIMBO DO BRASIL</strong></td><td>Fornecedor</td><td>1.743</td><td>1.229</td><td>25</td></tr>
+<tr><td><strong>SBS SERVICOS EVERTRADE</strong></td><td>Agencia</td><td>1.728</td><td>1.714</td><td>30</td></tr>
+<tr><td><strong>MARKETING HOUSE</strong></td><td>Agencia</td><td>1.528</td><td>1.502</td><td>30</td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-alertas">
+<div class="kpis"><div class="kpi"><span>Novos (24h)</span><strong>142</strong></div><div class="kpi"><span>Novos (7d)</span><strong>1.387</strong></div><div class="kpi"><span>Fornec. Criticos</span><strong>8</strong></div><div class="kpi"><span>Impacto Mes</span><strong>R$ 748K</strong></div></div>
+<div class="card"><h2>Alertas - Desvios Regular para Lite</h2>
+<div class="alert red"><strong>JBS - NACIONAL</strong> | 2.006 CPFs | Desde 01/10/2025 | Ativo ate 14/05/2026<span class="impact">R$ 24.273/mes</span></div>
+<div class="alert red"><strong>COCA COLA</strong> | 1.723 CPFs | Desde 01/10/2025 | Ativo ate 16/05/2026<span class="impact">R$ 20.848/mes</span></div>
+<div class="alert red"><strong>BRF</strong> | 1.724 CPFs | Desde 01/10/2025 | Ativo ate 16/05/2026<span class="impact">R$ 20.860/mes</span></div>
+<div class="alert orange"><strong>NESTLE</strong> | 1.195 CPFs | Desde 01/10/2025 | Ativo ate 16/05/2026<span class="impact">R$ 14.460/mes</span></div>
+<div class="alert orange"><strong>SENDAS</strong> | 1.097 CPFs | Desde 01/10/2025 | Ativo ate 14/05/2026<span class="impact">R$ 13.274/mes</span></div>
+<div class="alert orange"><strong>UNILEVER</strong> | 1.059 CPFs | Desde 01/10/2025 | Ativo ate 16/05/2026<span class="impact">R$ 12.814/mes</span></div>
+</div>
+</div>
+<div class="page" id="p-priorizacao">
+<div class="kpis"><div class="kpi"><span>Fornec. Criticos</span><strong>8</strong></div><div class="kpi"><span>Impacto Top 10</span><strong>R$ 312K</strong></div><div class="kpi"><span>Tendencia</span><strong>+12%</strong></div><div class="kpi"><span>Reversoes</span><strong>23</strong></div></div>
+<div class="card"><h2>Ranking Priorizacao CS</h2><table><thead><tr><th>#</th><th>Fornecedor</th><th>CPFs</th><th>Reincid.</th><th>Impacto</th><th>Tend.</th><th>Prior.</th></tr></thead><tbody>
+<tr><td>1</td><td><strong>JBS</strong></td><td>2.006</td><td>3x</td><td>R$ 24.273</td><td style="color:#b91c1c">+18%</td><td><span class="pill p-crit">Critico</span></td></tr>
+<tr><td>2</td><td><strong>BRF</strong></td><td>1.724</td><td>2x</td><td>R$ 20.860</td><td style="color:#b91c1c">+8%</td><td><span class="pill p-crit">Critico</span></td></tr>
+<tr><td>3</td><td><strong>COCA COLA</strong></td><td>1.723</td><td>2x</td><td>R$ 20.848</td><td style="color:#6b7280">0%</td><td><span class="pill p-nao">Alto</span></td></tr>
+<tr><td>4</td><td><strong>PEPSICO</strong></td><td>1.200</td><td>1x</td><td>R$ 14.520</td><td style="color:#15803d">-5%</td><td><span class="pill p-warn">Medio</span></td></tr>
+<tr><td>5</td><td><strong>AMBEV</strong></td><td>1.100</td><td>1x</td><td>R$ 13.310</td><td style="color:#b91c1c">+22%</td><td><span class="pill p-nao">Alto</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-acao">
+<div class="kpis"><div class="kpi"><span>Desvios Ativos</span><strong>5.616</strong></div><div class="kpi"><span>Novos 24h</span><strong>142</strong></div><div class="kpi"><span>Novos 7d</span><strong>1.387</strong></div><div class="kpi"><span>Dias Medio</span><strong>18</strong></div></div>
+<div class="card"><h2>Detalhamento - Acao por Fornecedor</h2><table><thead><tr><th>Promotor</th><th>Fornecedor</th><th>Contratante</th><th>Anterior</th><th>Atual</th><th>Data</th><th>Dias</th><th>Rede</th></tr></thead><tbody>
+<tr><td>Maria Silva</td><td>JBS</td><td>Agencia X</td><td><span class="pill p-ok">Regular</span></td><td><span class="pill p-nao">Lite</span></td><td>15/05</td><td>4</td><td>ASSAI</td></tr>
+<tr><td>Joao Santos</td><td>BRF</td><td>Agencia Y</td><td><span class="pill p-ok">Regular</span></td><td><span class="pill p-nao">Lite</span></td><td>14/05</td><td>5</td><td>CARREFOUR</td></tr>
+<tr><td>Ana Costa</td><td>COCA COLA</td><td>Fornec Z</td><td><span class="pill p-ok">Regular</span></td><td><span class="pill p-nao">Lite</span></td><td>12/05</td><td>7</td><td>ATACADAO</td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-acompanhamento">
+<div class="kpis"><div class="kpi"><span>Normalizacoes</span><strong>23</strong><small>Lite para Regular</small></div><div class="kpi"><span>Taxa Reversao</span><strong>4.1%</strong></div><div class="kpi"><span>Reincidencia</span><strong>18%</strong></div><div class="kpi"><span>Efetividade CS</span><strong>67%</strong></div></div>
+<div class="card"><h2>Acompanhamento - Reversoes e Efetividade</h2><table><thead><tr><th>Fornecedor</th><th>Desvios</th><th>Reversoes</th><th>Taxa</th><th>Reincid.</th><th>Status</th></tr></thead><tbody>
+<tr><td><strong>JBS</strong></td><td>2.006</td><td>45</td><td>2.2%</td><td>8 (18%)</td><td><span class="pill p-warn">Em andamento</span></td></tr>
+<tr><td><strong>BRF</strong></td><td>1.724</td><td>32</td><td>1.9%</td><td>5 (16%)</td><td><span class="pill p-warn">Em andamento</span></td></tr>
+<tr><td><strong>COCA COLA</strong></td><td>1.723</td><td>28</td><td>1.6%</td><td>3 (11%)</td><td><span class="pill p-ok">Resolvido</span></td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-redes">
+<div class="kpis"><div class="kpi"><span>Empresas com Rede</span><strong>2.340</strong></div><div class="kpi"><span>Total Vinculos</span><strong>8.900</strong></div></div>
+<div class="card"><h2>Empresas por Rede</h2><table><thead><tr><th>Tipo</th><th>Empresa</th><th>Redes</th><th>Detalhes</th></tr></thead><tbody>
+<tr><td>Agencia</td><td><strong>AGENCIA DEMO</strong></td><td>10</td><td style="color:#6b7280;font-size:11px">ABC; ASSAI; ATACADAO; CARREFOUR; CONDOR</td></tr>
+<tr><td>Fornecedor</td><td><strong>JBS</strong></td><td>8</td><td style="color:#6b7280;font-size:11px">ASSAI; CARREFOUR; EXTRA; BIGBOX; NORDESTAO</td></tr>
+</tbody></table></div>
+</div>
+<div class="page" id="p-conv">
+<div class="kpis"><div class="kpi"><span>CPFs Lite</span><strong>104.775</strong></div><div class="kpi"><span>Prom. Conv</span><strong>248.810</strong></div><div class="kpi"><span>Razao</span><strong>42.1%</strong></div></div>
+<div class="card"><h2>Comparativo Mensal</h2><canvas id="ch5"></canvas></div>
+</div>
+</main>
+<script>
+function sw(id,btn){document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active')});document.getElementById('p-'+id).classList.add('active');btn.classList.add('active')}
+new Chart(document.getElementById('ch1'),{type:'line',data:{labels:['out/25','nov/25','dez/25','jan/26','fev/26','mar/26','abr/26'],datasets:[{label:'Nao Cliente',data:[8090,9119,10495,7643,7535,9374,8038],borderColor:'#f46901',backgroundColor:'rgba(244,105,1,0.12)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#f46901',borderWidth:2.5},{label:'Cliente',data:[10585,13109,12136,9922,9228,13591,10594],borderColor:'#15803d',backgroundColor:'rgba(21,128,61,0.08)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#15803d',borderWidth:2.5}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true,padding:16}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}},x:{grid:{display:false}}},interaction:{mode:'index',intersect:false}}});
+new Chart(document.getElementById('ch2'),{type:'line',data:{labels:['out/25','nov/25','dez/25','jan/26','fev/26','mar/26','abr/26'],datasets:[{label:'Lite (CPFs)',data:[15973,21491,18035,15286,14388,18145,15957],borderColor:'#f46901',tension:.4,pointRadius:4,borderWidth:2.5,yAxisID:'y'},{label:'Conv (Prom)',data:[215243,222178,228751,233764,238093,247170,252305],borderColor:'#1d4ed8',tension:.4,pointRadius:4,borderWidth:2.5,yAxisID:'y1'}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true}}},scales:{y:{position:'left',title:{display:true,text:'Lite',color:'#f46901'},grid:{color:'rgba(0,0,0,0.04)'}},y1:{position:'right',title:{display:true,text:'Conv',color:'#1d4ed8'},grid:{drawOnChartArea:false}}},interaction:{mode:'index',intersect:false}}});
+new Chart(document.getElementById('ch3'),{type:'doughnut',data:{labels:['Agencia (3.200)','Fornecedor (4.539)'],datasets:[{data:[3200,4539],backgroundColor:['#6b21a8','#f46901'],borderWidth:0,hoverOffset:6}]},options:{responsive:true,cutout:'72%',plugins:{legend:{position:'bottom',labels:{usePointStyle:true,padding:16}}}}});
+new Chart(document.getElementById('ch4'),{type:'bar',data:{labels:['JBS','COCA COLA','BRF','NESTLE','SENDAS','UNILEVER','PEPSICO','AMBEV','MONDELEZ','HEINEKEN'],datasets:[{data:[2006,1723,1724,1195,1097,1059,980,850,780,650],backgroundColor:['rgba(244,105,1,0.9)','rgba(244,105,1,0.82)','rgba(244,105,1,0.74)','rgba(244,105,1,0.66)','rgba(244,105,1,0.58)','rgba(244,105,1,0.50)','rgba(244,105,1,0.42)','rgba(244,105,1,0.34)','rgba(244,105,1,0.26)','rgba(244,105,1,0.20)'],borderRadius:6,barThickness:20}]},options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}},y:{grid:{display:false}}}}});
+new Chart(document.getElementById('ch5'),{type:'bar',data:{labels:['out/25','nov/25','dez/25','jan/26','fev/26','mar/26','abr/26'],datasets:[{label:'Lite (CPFs)',data:[15973,21491,18035,15286,14388,18145,15957],backgroundColor:'rgba(244,105,1,0.7)',borderRadius:4},{label:'Conv (escala /10)',data:[21524,22218,22600,23000,23300,23600],backgroundColor:'rgba(29,78,216,0.5)',borderRadius:4}]},options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(0,0,0,0.04)'}}}}});
+</script>
+</body>
+</html>
+
+
+
+
+

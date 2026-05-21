@@ -1,0 +1,43 @@
+table dim_mobconnect_status_atividade
+	lineageTag: de79ea44-78e1-42a5-873f-9b2be2316474
+	sourceLineageTag: 7e620d9d-4355-4a7d-a30e-dbc46b56883e
+
+	column sk_mobconnect_status_atividade
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: f5959e03-cc86-46ce-8ad0-228a7c7b4142
+		sourceLineageTag: 2a9007d8-33c2-420d-a5fd-ce185c42ec58
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_mobconnect_status_atividade
+
+		annotation SummarizationSetBy = User
+
+	column cd_status_atividade
+		dataType: string
+		lineageTag: 4cdf71e5-77b9-43eb-b842-b79de69d9774
+		sourceLineageTag: 0b95bcf6-2215-4936-bf58-0728a4ccbc79
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_status_atividade
+
+		annotation SummarizationSetBy = User
+
+	column ds_status_atividade
+		dataType: string
+		lineageTag: d7cd2abb-e539-44d3-84b2-7461381e3173
+		sourceLineageTag: b4156789-0d30-422f-b61d-6827b9cb7759
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_status_atividade
+		sortByColumn: sk_mobconnect_status_atividade
+
+		annotation SummarizationSetBy = User
+
+	partition dim_mobconnect_status_atividade = entity
+		mode: directQuery
+		source
+			entityName: dim_mobconnect_status_atividade
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

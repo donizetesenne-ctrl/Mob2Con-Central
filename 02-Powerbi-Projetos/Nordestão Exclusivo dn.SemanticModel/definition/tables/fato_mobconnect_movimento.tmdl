@@ -1,0 +1,234 @@
+table fato_mobconnect_movimento
+	lineageTag: aed60e28-6f84-4e8b-96aa-66e25bbb21cb
+	sourceLineageTag: ccdb851a-2234-4c9d-b0ae-a3eaecca9f07
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 4ba17166-8cce-4d0b-b41f-8028545f3e65
+		sourceLineageTag: aaa150c8-dd0c-4a5d-9be6-7a8da3c16c3e
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: c59648d7-8444-46c9-ae85-ceb403aea9d4
+		sourceLineageTag: f968808e-c7ff-46b9-9f4a-2edc2a44bcb6
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_rede
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: d82595d8-90c0-4fd0-815a-aa5749c41b5c
+		sourceLineageTag: 54e621a6-d107-45ea-8fbc-527f0aff02a8
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_produto_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: 4208d7aa-13c1-4ec3-9154-2fe3d76ed6e8
+		sourceLineageTag: f255ffed-ab0d-4525-a990-66fee8ea26ff
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_produto_rede
+
+		annotation SummarizationSetBy = User
+
+	column dt_movimento
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 8209613b-63fa-4026-bd96-bf7add6d6378
+		sourceLineageTag: 0faf5d02-d2c4-4559-9e17-d57781adafcd
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_movimento
+
+		annotation SummarizationSetBy = User
+
+	column qt_estoque
+		dataType: double
+		formatString: 0
+		lineageTag: 36c9bb3b-64b8-4630-a9e4-9ebc87cfa0b7
+		sourceLineageTag: eab1c297-2336-43b8-837a-d9cfa1439f03
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_estoque
+
+		annotation SummarizationSetBy = User
+
+	column qt_vendida
+		dataType: double
+		lineageTag: fab9a433-f780-49fc-b94b-9829caa94d11
+		sourceLineageTag: 03284f41-015b-48c9-9de7-c3a6fcea5980
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_vendida
+
+		annotation SummarizationSetBy = User
+
+	column vl_venda_total
+		dataType: double
+		formatString: 0
+		lineageTag: 62703bf4-2e97-4c28-ad81-e2bb6a001c0d
+		sourceLineageTag: 47fc08ac-d187-4d28-a252-c8fb23706e58
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_venda_total
+
+		annotation SummarizationSetBy = User
+
+	column qt_ruptura_operacional
+		dataType: double
+		lineageTag: a0032dcf-c7bc-4843-9fcd-250b4e21c162
+		sourceLineageTag: 09639213-2433-4cd4-a260-028eb72d88db
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_ruptura_operacional
+
+		annotation SummarizationSetBy = User
+
+	column vl_ruptura_operacional
+		dataType: double
+		formatString: 0
+		lineageTag: 31a502fa-1b18-4a9e-90fa-e0ae5506230f
+		sourceLineageTag: 004ff53f-342f-4cc6-936d-e160b590cb3d
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_ruptura_operacional
+
+		annotation SummarizationSetBy = User
+
+	column qt_ruptura_comercial
+		dataType: double
+		lineageTag: 364461e9-88fb-4519-b5f2-3fe93395dbda
+		sourceLineageTag: 18160993-cb51-4710-80a5-e512bfde9921
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_ruptura_comercial
+
+		annotation SummarizationSetBy = User
+
+	column vl_ruptura_comercial
+		dataType: double
+		formatString: 0
+		lineageTag: 6e917857-20eb-4cef-bbdf-23d938aa6661
+		sourceLineageTag: b3840f21-ab12-4713-b760-d0eb99309666
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_ruptura_comercial
+
+		annotation SummarizationSetBy = User
+
+	column qt_ruptura_administrativa
+		dataType: double
+		lineageTag: c5c7b8c2-fcfa-493c-8b04-16dab2d96877
+		sourceLineageTag: a727fcbc-f408-4f95-8e5d-0ce7417ff9aa
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_ruptura_administrativa
+
+		annotation SummarizationSetBy = User
+
+	column vl_ruptura_administrativa
+		dataType: double
+		formatString: 0
+		lineageTag: 52a106ed-f9c4-4aa8-99d5-b13c5b24a2d4
+		sourceLineageTag: 345bc5b2-0451-4dc7-a6e9-ddd1284feacd
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_ruptura_administrativa
+
+		annotation SummarizationSetBy = User
+
+	column qt_estoque_ultima_posicao_mes
+		dataType: double
+		lineageTag: eb05c093-a3a1-4c0e-ac9c-cd0901fe46cc
+		sourceLineageTag: 61ab389c-f0ba-42b7-87ea-666453556191
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_estoque_ultima_posicao_mes
+
+		annotation SummarizationSetBy = User
+
+	column vl_estoque
+		dataType: double
+		lineageTag: ee120cb6-88dc-424a-9c10-1f8679449c4e
+		sourceLineageTag: a9258185-031e-4486-b32a-c7e15b36388a
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: vl_estoque
+
+		annotation SummarizationSetBy = User
+
+	column dt_inicio_projeto
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 0b91063b-b3a6-47b0-8b79-c5eb55a3d00d
+		sourceLineageTag: 52feade7-5f42-456b-aee2-ed004faafc9f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_inicio_projeto
+
+		annotation SummarizationSetBy = User
+
+	column dt_termino_projeto
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a9b82efe-8890-487a-996a-4a142975dcc6
+		sourceLineageTag: ab742267-98ea-410a-acc8-922b20632606
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_termino_projeto
+
+		annotation SummarizationSetBy = Automatic
+
+	column dt_ultima_venda
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 7eb82e0f-93c7-47ed-a626-93e98326b144
+		sourceLineageTag: d090d3ec-3310-456d-a9db-4b3b2b7f6e78
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_ultima_venda
+
+		annotation SummarizationSetBy = User
+
+	column dt_estoque_ultima_posicao
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: b6c8c9b4-2a7b-4595-a57a-2be10af10443
+		sourceLineageTag: 9fee80a3-c3b4-42ba-9df4-7eae295ebdff
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_estoque_ultima_posicao
+
+		annotation SummarizationSetBy = User
+
+	column qt_estoque_ultima_posicao
+		dataType: double
+		lineageTag: 633378d5-36cc-4f23-b823-d247905604f2
+		sourceLineageTag: db0e4d92-f754-4a0d-8fa1-b74a1f8fade4
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_estoque_ultima_posicao
+
+		annotation SummarizationSetBy = User
+
+	partition fato_mobconnect_movimento = entity
+		mode: directQuery
+		source
+			entityName: fato_mobconnect_movimento
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

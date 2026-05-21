@@ -1,0 +1,105 @@
+table dim_user
+	lineageTag: e3f7c2b8-bdbe-4f83-ae3f-9a5536bbdcce
+	sourceLineageTag: 112d5e55-38a9-4a80-bbdc-7236f7fcec7a
+
+	column sk_user
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: 5f28c292-0a77-4291-a107-f0f3c75f6136
+		sourceLineageTag: b8e2933d-4881-402d-9968-ffd554334250
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_user
+
+		annotation SummarizationSetBy = User
+
+	column id_user
+		dataType: int64
+		formatString: 0
+		lineageTag: e46c8d3f-9dfd-4405-af3e-11ce4e5050d3
+		sourceLineageTag: 14a0aa0c-2aee-462f-ba78-994158f318de
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_user
+
+		annotation SummarizationSetBy = User
+
+	column nm_nome
+		dataType: string
+		lineageTag: a49c8e26-2447-4f62-9f59-5f17232ad132
+		sourceLineageTag: 01463281-ed3d-49ff-91d5-774336d392f6
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_nome
+
+		annotation SummarizationSetBy = User
+
+	column nm_login
+		dataType: string
+		lineageTag: c26180ba-13fc-4418-89c7-34069c246b13
+		sourceLineageTag: f5c157ea-418b-4e13-8a6e-cc01b15b03ab
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_login
+
+		annotation SummarizationSetBy = User
+
+	column nm_funcao
+		dataType: string
+		lineageTag: 17f38b60-efb9-40cc-973f-703e2ba5ae55
+		sourceLineageTag: dd73c7b1-d932-44b9-8980-5e95cdc8f9bf
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_funcao
+
+		annotation SummarizationSetBy = User
+
+	column tp_acesso
+		dataType: string
+		lineageTag: f9ca2fcb-2150-43d7-a577-993025c8c407
+		sourceLineageTag: 20c35a16-c431-49bf-8dea-18486020c06f
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tp_acesso
+
+		annotation SummarizationSetBy = User
+
+	column dt_ultimo_login
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: f5f05433-420e-49da-ade3-630ab83be171
+		sourceLineageTag: e49311e7-1df1-4fb5-a0d0-bc2c9c477335
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_ultimo_login
+
+		annotation SummarizationSetBy = User
+
+	column dt_discarded_at
+		dataType: dateTime
+		formatString: General Number
+		lineageTag: 8af5de49-77d7-4257-9fc4-7995e926662c
+		sourceLineageTag: 26b1b3f9-24f9-45dc-bffe-44c79ec1c8a9
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_discarded_at
+
+		annotation SummarizationSetBy = User
+
+	column tipo_visitante
+		dataType: string
+		lineageTag: 4e9a10e6-8140-463b-82f9-30d56fb0c50b
+		sourceLineageTag: 26912cb8-c72e-46dd-99bc-e1e3b8220633
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tipo_visitante
+
+		annotation SummarizationSetBy = User
+
+	partition dim_user = entity
+		mode: directQuery
+		source
+			entityName: dim_user
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

@@ -1,0 +1,24 @@
+/// Visão executiva completa do Nordestão
+perspective 'Nordestão - Executivo'
+
+	perspectiveTable Métricas
+		includeAll
+
+	perspectiveTable dim_rede
+		includeAll
+
+	perspectiveTable dim_loja
+		includeAll
+
+	perspectiveTable dim_fornecedor
+		includeAll
+
+	perspectiveTable dim_visitante
+		includeAll
+
+	perspectiveTable dim_produto_rede
+		includeAll
+
+	perspectiveTable Date
+		includeAll
+

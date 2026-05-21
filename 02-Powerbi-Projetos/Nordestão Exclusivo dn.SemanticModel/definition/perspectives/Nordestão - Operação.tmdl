@@ -1,0 +1,33 @@
+/// Visão operacional de promotores e visitas
+perspective 'Nordestão - Operação'
+
+	perspectiveTable dim_visitante
+		includeAll
+
+	perspectiveTable dim_user
+		includeAll
+
+	perspectiveTable fato_mobconnect_visitas
+		includeAll
+
+	perspectiveTable fato_mobconnect_atividades
+		includeAll
+
+	perspectiveTable fato_mobconnect_atendimento_fornecedores
+		includeAll
+
+	perspectiveTable dim_mobconnect_status_atividade
+		includeAll
+
+	perspectiveTable dim_mobconnect_tipo_problema
+		includeAll
+
+	perspectiveTable dim_loja
+		includeAll
+
+	perspectiveTable Date
+		includeAll
+
+	perspectiveTable Métricas
+		includeAll
+

@@ -1,0 +1,133 @@
+═══════════════════════════════════════════════════════════════
+  COMANDOS RÁPIDOS - Sincronização Redshift → Google Sheets
+═══════════════════════════════════════════════════════════════
+
+📊 LINKS DAS PLANILHAS
+═══════════════════════════════════════════════════════════════
+
+Dimensões:
+https://docs.google.com/spreadsheets/d/1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q
+
+Fatos:
+https://docs.google.com/spreadsheets/d/1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs
+
+Lookup e Tabelas:
+https://docs.google.com/spreadsheets/d/1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI
+
+
+🔄 EXECUTAR SINCRONIZAÇÃO MANUAL
+═══════════════════════════════════════════════════════════════
+
+Opção 1 (Mais Fácil):
+  → Duplo clique em: executar_sync_diario.bat
+
+Opção 2 (PowerShell):
+  Start-ScheduledTask -TaskName "Sync Redshift to Google Sheets"
+
+Opção 3 (Python):
+  cd "C:\Users\Donizete Senne\Desktop\Mob2Con-Central"
+  python sync_redshift_daily.py
+
+
+📋 VER LOG DE EXECUÇÃO
+═══════════════════════════════════════════════════════════════
+
+  type sync_log.txt
+
+Ou abra o arquivo sync_log.txt no Notepad
+
+
+⚙️ GERENCIAR AGENDAMENTO
+═══════════════════════════════════════════════════════════════
+
+Ver status:
+  Get-ScheduledTask -TaskName "Sync Redshift to Google Sheets"
+
+Executar agora:
+  Start-ScheduledTask -TaskName "Sync Redshift to Google Sheets"
+
+Desabilitar:
+  Disable-ScheduledTask -TaskName "Sync Redshift to Google Sheets"
+
+Habilitar:
+  Enable-ScheduledTask -TaskName "Sync Redshift to Google Sheets"
+
+Remover:
+  Unregister-ScheduledTask -TaskName "Sync Redshift to Google Sheets" -Confirm:$false
+
+
+🔧 RECONFIGURAR AGENDAMENTO
+═══════════════════════════════════════════════════════════════
+
+  → Clique com botão direito em: configurar_agendamento.ps1
+  → Selecione: "Executar com PowerShell"
+
+
+📊 ABRIR AGENDADOR DE TAREFAS
+═══════════════════════════════════════════════════════════════
+
+  taskschd.msc
+
+Ou:
+  Win + R → digite "taskschd.msc" → Enter
+
+
+🔍 VERIFICAR CONEXÃO REDSHIFT
+═══════════════════════════════════════════════════════════════
+
+  cd "C:\Users\Donizete Senne\Desktop\Mob2Con-Central"
+  python redshift_query.py
+
+
+📁 ARQUIVOS IMPORTANTES
+═══════════════════════════════════════════════════════════════
+
+Configuração:
+  - redshift_config.json (credenciais Redshift)
+  - spreadsheets_config.json (IDs das planilhas)
+
+Scripts:
+  - sync_redshift_daily.py (script principal)
+  - executar_sync_diario.bat (executor)
+
+Documentação:
+  - README_SYNC_REDSHIFT.md (manual completo)
+  - RESUMO_PROJETO_SYNC.md (resumo do projeto)
+  - sync_log.txt (log de execução)
+
+
+⏰ HORÁRIO DA SINCRONIZAÇÃO AUTOMÁTICA
+═══════════════════════════════════════════════════════════════
+
+  Todos os dias às 06:00
+
+Para alterar:
+  1. Abra o Agendador de Tarefas (taskschd.msc)
+  2. Localize "Sync Redshift to Google Sheets"
+  3. Botão direito → Propriedades
+  4. Aba "Gatilhos" → Editar
+  5. Altere o horário
+
+
+🆘 PROBLEMAS COMUNS
+═══════════════════════════════════════════════════════════════
+
+Erro de autenticação Google:
+  cd "C:\Users\Donizete Senne\.aws\amazonq\universal-control"
+  node google-oauth-setup.js
+
+Erro de conexão Redshift:
+  - Verifique internet
+  - Verifique se cluster está ativo
+  - Verifique redshift_config.json
+
+Sincronização não executou:
+  - Verifique se PC estava ligado às 06:00
+  - Veja histórico no Agendador de Tarefas
+  - Execute manualmente para ver erros
+
+
+═══════════════════════════════════════════════════════════════
+  Criado em: 15/05/2026
+  Versão: 1.0
+═══════════════════════════════════════════════════════════════

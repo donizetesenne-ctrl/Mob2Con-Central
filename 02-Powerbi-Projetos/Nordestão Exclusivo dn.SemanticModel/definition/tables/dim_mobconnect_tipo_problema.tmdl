@@ -1,0 +1,42 @@
+table dim_mobconnect_tipo_problema
+	lineageTag: b68835aa-aad1-4f23-a3dd-fcd255e56719
+	sourceLineageTag: 0ab64600-6813-4cce-9ddc-012dba0de421
+
+	column sk_mobconnect_tipo_problema
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: f1ae73ff-869c-4c70-8f73-4d009893b058
+		sourceLineageTag: 3f609869-df94-448e-aa3c-619577925e3d
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_mobconnect_tipo_problema
+
+		annotation SummarizationSetBy = User
+
+	column cd_tipo_problema
+		dataType: string
+		lineageTag: ecbf1aec-db87-433e-a38a-7dba286fac69
+		sourceLineageTag: 373d49bc-3f84-4a77-aa06-f6eee4dcf57b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: cd_tipo_problema
+
+		annotation SummarizationSetBy = User
+
+	column ds_tipo_problema
+		dataType: string
+		lineageTag: 8925b2d0-14e1-4a51-8531-310f9834323b
+		sourceLineageTag: 11d4b30d-1ac6-4b50-b8f7-848c8c54d685
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: ds_tipo_problema
+
+		annotation SummarizationSetBy = User
+
+	partition dim_mobconnect_tipo_problema = entity
+		mode: directQuery
+		source
+			entityName: dim_mobconnect_tipo_problema
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

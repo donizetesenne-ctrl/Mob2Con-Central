@@ -1,0 +1,24 @@
+/// Visão de ruptura e vendas do Nordestão
+perspective 'Nordestão - Vendas'
+
+	perspectiveTable fato_mobconnect_movimento
+		includeAll
+
+	perspectiveTable dim_produto_rede
+		includeAll
+
+	perspectiveTable dim_loja
+		includeAll
+
+	perspectiveTable dim_fornecedor
+		includeAll
+
+	perspectiveTable dim_rede
+		includeAll
+
+	perspectiveTable Date
+		includeAll
+
+	perspectiveTable Métricas
+		includeAll
+

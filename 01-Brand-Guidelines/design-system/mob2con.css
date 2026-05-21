@@ -1,0 +1,339 @@
+/* =============================================================
+   Mob2Con Design System — Camada 2 (CSS)
+   ============================================================
+   Espelha as variaveis de design-tokens.json em CSS custom
+   properties. Se o tema Power BI falhar, qualquer dashboard
+   HTML ou wiki interna ainda renderiza com a marca correta.
+   Atualizado: 2026-05-14
+   ============================================================ */
+
+:root {
+  /* ----- BRAND ----- */
+  --m2c-orange:       #F46901;
+  --m2c-graphite:     #434343;
+  --m2c-black:        #111111;
+  --m2c-blue-connect: #4285F4;  /* EXCLUSIVO MobConnect */
+  --m2c-purple:       #6F05D4;
+
+  /* ----- NEUTRAL ----- */
+  --m2c-white:        #FFFFFF;
+  --m2c-gray-50:      #F8F8F8;
+  --m2c-gray-100:     #F3F2F1;
+  --m2c-gray-150:     #F3F6FA;
+  --m2c-gray-200:     #E2E8F0;
+  --m2c-gray-300:     #E0E0E0;
+  --m2c-gray-400:     #F0F0F0;
+  --m2c-gray-500:     #605E5C;
+  --m2c-gray-700:     #434343;
+  --m2c-gray-900:     #111111;
+
+  /* ----- SEMANTIC ----- */
+  --m2c-success:      #107C41;
+  --m2c-warning:      #FFC107;
+  --m2c-danger:       #C00000;
+  --m2c-info:         #4285F4;
+
+  /* ----- KPI ----- */
+  --m2c-row-alt:      #FFF8F2;
+  --m2c-row-total:    #FFF0E0;
+
+  /* ----- TYPOGRAPHY ----- */
+  --m2c-font:         "Raleway", "Segoe UI", Arial, sans-serif;
+  --m2c-font-mono:    Consolas, "Courier New", monospace;
+  --m2c-weight-regular: 400;
+  --m2c-weight-bold:    700;
+  --m2c-weight-black:   900;
+  --m2c-size-xs:        9pt;
+  --m2c-size-sm:       10pt;
+  --m2c-size-base:     11pt;
+  --m2c-size-md:       12pt;
+  --m2c-size-lg:       14pt;
+  --m2c-size-xl:       18pt;
+  --m2c-size-xxl:      20pt;
+  --m2c-size-kpi:      28pt;
+
+  /* ----- SPACING (escala 8px) ----- */
+  --m2c-space-0:        0;
+  --m2c-space-1:        8px;
+  --m2c-space-2:       16px;
+  --m2c-space-3:       24px;
+  --m2c-space-4:       32px;
+  --m2c-space-6:       48px;
+  --m2c-space-8:       64px;
+
+  /* ----- RADIUS ----- */
+  --m2c-radius-sm:     4px;
+  --m2c-radius-md:     6px;
+  --m2c-radius-lg:     8px;
+
+  /* ----- SHADOW ----- */
+  --m2c-shadow-card:   0 1px 3px rgba(17, 17, 17, 0.08), 0 1px 2px rgba(17, 17, 17, 0.04);
+  --m2c-shadow-hover:  0 4px 12px rgba(244, 105, 1, 0.18);
+  --m2c-shadow-modal:  0 8px 24px rgba(17, 17, 17, 0.20);
+
+  /* ----- BORDER ----- */
+  --m2c-border-card:    1px solid var(--m2c-gray-300);
+  --m2c-border-subtle:  1px solid var(--m2c-gray-200);
+  --m2c-border-divider: 1px solid var(--m2c-gray-400);
+}
+
+/* =============================================================
+   RESET MINIMO
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--m2c-font);
+  color: var(--m2c-gray-900);
+  background: var(--m2c-gray-150);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* =============================================================
+   TIPOGRAFIA
+   ============================================================ */
+.m2c-page-title {
+  font-family: var(--m2c-font);
+  font-size: var(--m2c-size-xxl);
+  font-weight: var(--m2c-weight-black);
+  color: var(--m2c-black);
+  margin: 0;
+}
+.m2c-visual-title {
+  font-family: var(--m2c-font);
+  font-size: var(--m2c-size-lg);
+  font-weight: var(--m2c-weight-bold);
+  color: var(--m2c-graphite);
+  margin: 0;
+}
+.m2c-label {
+  font-family: var(--m2c-font);
+  font-size: var(--m2c-size-sm);
+  font-weight: var(--m2c-weight-regular);
+  color: var(--m2c-gray-500);
+}
+.m2c-text-mono { font-family: var(--m2c-font-mono); }
+
+/* =============================================================
+   COMPONENTES — CANVAS
+   ============================================================ */
+.m2c-canvas {
+  position: relative;
+  margin: 24px auto;
+  background: var(--m2c-gray-150);
+  border: var(--m2c-border-subtle);
+  box-shadow: var(--m2c-shadow-card);
+  overflow: hidden;
+}
+.m2c-canvas--executive   { width: 1600px; height: 900px; }
+.m2c-canvas--operational { width: 1280px; height: 720px; }
+.m2c-canvas--analytical  { width: 1920px; height: 1080px; }
+.m2c-canvas--cover       { width: 1600px; height: 900px; background: linear-gradient(135deg, #F46901 0%, #6F05D4 100%); }
+.m2c-canvas--mobile      { width: 320px;  height: 568px; }
+
+.m2c-visual {
+  position: absolute;
+  background: var(--m2c-white);
+  border: var(--m2c-border-card);
+  border-radius: var(--m2c-radius-lg);
+  box-shadow: var(--m2c-shadow-card);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.m2c-visual__title {
+  padding: 12px 16px 4px;
+  font-size: var(--m2c-size-base);
+  font-weight: var(--m2c-weight-bold);
+  color: var(--m2c-graphite);
+  border-bottom: var(--m2c-border-divider);
+}
+.m2c-visual__body {
+  padding: 12px 16px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--m2c-gray-500);
+}
+
+/* =============================================================
+   COMPONENTES — KPI CARD
+   ============================================================ */
+.m2c-kpi {
+  background: var(--m2c-white);
+  border: var(--m2c-border-card);
+  border-radius: var(--m2c-radius-lg);
+  box-shadow: var(--m2c-shadow-card);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.m2c-kpi:hover {
+  box-shadow: var(--m2c-shadow-hover);
+  transform: translateY(-1px);
+}
+.m2c-kpi__title {
+  font-size: var(--m2c-size-lg);
+  font-weight: var(--m2c-weight-bold);
+  color: var(--m2c-graphite);
+  margin: 0 0 8px;
+  line-height: 1.2;
+}
+.m2c-kpi__value {
+  font-size: var(--m2c-size-kpi);
+  font-weight: var(--m2c-weight-black);
+  color: var(--m2c-black);
+  line-height: 1;
+  letter-spacing: -0.5px;
+}
+.m2c-kpi__delta {
+  font-size: var(--m2c-size-base);
+  margin-top: 8px;
+  font-weight: var(--m2c-weight-regular);
+}
+.m2c-kpi__delta--up   { color: var(--m2c-success); }
+.m2c-kpi__delta--down { color: var(--m2c-danger); }
+.m2c-kpi__delta--flat { color: var(--m2c-gray-500); }
+
+/* Variantes de cor de KPI */
+.m2c-kpi--orange { border-top: 3px solid var(--m2c-orange); }
+.m2c-kpi--blue   { border-top: 3px solid var(--m2c-blue-connect); }
+.m2c-kpi--purple { border-top: 3px solid var(--m2c-purple); }
+.m2c-kpi--success { border-top: 3px solid var(--m2c-success); }
+
+/* =============================================================
+   COMPONENTES — HEADER
+   ============================================================ */
+.m2c-header {
+  height: var(--m2c-space-8);
+  padding: 0 var(--m2c-space-2);
+  background: var(--m2c-white);
+  border-bottom: var(--m2c-border-card);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.m2c-header__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--m2c-space-2);
+}
+.m2c-header__logo {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--m2c-radius-md);
+  background: var(--m2c-orange);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--m2c-white); font-weight: var(--m2c-weight-black);
+  font-size: var(--m2c-size-xl);
+}
+
+/* =============================================================
+   COMPONENTES — BOTOES DE NAVEGACAO
+   ============================================================ */
+.m2c-btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  height: 40px;
+  padding: 0 16px;
+  font-family: var(--m2c-font);
+  font-size: var(--m2c-size-base);
+  font-weight: var(--m2c-weight-bold);
+  border-radius: var(--m2c-radius-md);
+  cursor: pointer;
+  background: transparent;
+  color: var(--m2c-graphite);
+  border: 1px solid var(--m2c-gray-300);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.m2c-btn:hover {
+  background: #FFE5CC;
+  color: var(--m2c-orange);
+  border-color: var(--m2c-orange);
+}
+.m2c-btn--primary,
+.m2c-btn.is-active {
+  background: var(--m2c-orange);
+  color: var(--m2c-white);
+  border-color: var(--m2c-orange);
+}
+.m2c-btn--primary:hover {
+  background: #D85901;
+  border-color: #D85901;
+  color: var(--m2c-white);
+}
+.m2c-btn--secondary {
+  background: var(--m2c-white);
+  color: var(--m2c-graphite);
+  border: 1px solid var(--m2c-gray-300);
+}
+
+/* =============================================================
+   COMPONENTES — TABELA / MATRIX
+   ============================================================ */
+.m2c-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--m2c-font);
+  font-size: var(--m2c-size-sm);
+}
+.m2c-table thead th {
+  background: var(--m2c-orange);
+  color: var(--m2c-white);
+  font-size: var(--m2c-size-base);
+  font-weight: var(--m2c-weight-bold);
+  text-align: left;
+  padding: 10px 12px;
+}
+.m2c-table tbody td {
+  padding: 8px 12px;
+  border-bottom: var(--m2c-border-divider);
+  color: var(--m2c-black);
+}
+.m2c-table tbody tr:nth-child(even) { background: var(--m2c-row-alt); }
+.m2c-table tfoot td {
+  background: var(--m2c-row-total);
+  font-weight: var(--m2c-weight-bold);
+  padding: 10px 12px;
+}
+
+/* =============================================================
+   UTILITARIOS
+   ============================================================ */
+.m2c-bg-orange  { background: var(--m2c-orange); color: var(--m2c-white); }
+.m2c-bg-blue    { background: var(--m2c-blue-connect); color: var(--m2c-white); }
+.m2c-bg-purple  { background: var(--m2c-purple); color: var(--m2c-white); }
+.m2c-bg-graphite{ background: var(--m2c-graphite); color: var(--m2c-white); }
+.m2c-text-orange{ color: var(--m2c-orange); }
+.m2c-text-graphite{ color: var(--m2c-graphite); }
+
+.m2c-grid { display: grid; gap: var(--m2c-space-2); }
+.m2c-grid--12 { grid-template-columns: repeat(12, 1fr); }
+.m2c-grid--4  { grid-template-columns: repeat(4, 1fr); }
+.m2c-grid--3  { grid-template-columns: repeat(3, 1fr); }
+.m2c-grid--2  { grid-template-columns: repeat(2, 1fr); }
+
+.m2c-stack > * + * { margin-top: var(--m2c-space-2); }
+.m2c-row   { display: flex; gap: var(--m2c-space-2); align-items: center; }
+
+/* Placeholder de visual ainda nao renderizado */
+.m2c-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--m2c-gray-100),
+    var(--m2c-gray-100) 10px,
+    var(--m2c-white) 10px,
+    var(--m2c-white) 20px
+  );
+  color: var(--m2c-gray-500);
+  font-size: var(--m2c-size-sm);
+}

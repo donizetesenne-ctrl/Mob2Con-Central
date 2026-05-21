@@ -1,0 +1,163 @@
+table fato_mobconnect_atividades
+	lineageTag: 10001708-39ce-4e26-9a8b-9ca954a12be9
+	sourceLineageTag: 8a54c47a-dd02-47db-b42d-a8a49ed8b13f
+
+	column dt_atividade
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: a24e0e74-d417-4a72-a3ec-78684cf5fe09
+		sourceLineageTag: 8e64cfe0-3461-443b-8794-4b729662b251
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_atividade
+
+		annotation SummarizationSetBy = User
+
+	column id_mobconnect_atividade
+		dataType: int64
+		formatString: 0
+		lineageTag: 96077dac-7efb-432a-9eb3-b864e955ba82
+		sourceLineageTag: 4d064afb-c8bb-417b-89ed-e942439240d1
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: id_mobconnect_atividade
+
+		annotation SummarizationSetBy = User
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 28c967c4-3d3a-416d-af5c-c3a5cb2bdad0
+		sourceLineageTag: 6945915f-dc91-411a-87fa-06584bc5f13b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_user
+		dataType: int64
+		formatString: 0
+		lineageTag: aa35285b-4173-4db6-9ebd-650c575f7b3f
+		sourceLineageTag: 445c588b-c095-438f-bbc0-9d861fe45770
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_user
+
+		annotation SummarizationSetBy = User
+
+	column tp_usuario
+		dataType: string
+		lineageTag: 7744ef48-98b0-4469-a19e-aaa7b9252120
+		sourceLineageTag: fe286b1a-d39a-4c61-9cd4-562ae0ededec
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tp_usuario
+
+		annotation SummarizationSetBy = User
+
+	column sk_visitante
+		dataType: int64
+		formatString: 0
+		lineageTag: 7873c34d-e47d-4ab6-b367-57f49a83781b
+		sourceLineageTag: 7392639f-e3eb-4273-8eb0-07b35fe32349
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_visitante
+
+		annotation SummarizationSetBy = User
+
+	column sk_contratante
+		dataType: int64
+		formatString: 0
+		lineageTag: 9fae469b-f378-49aa-b838-90eae4afa2ad
+		sourceLineageTag: a56d8e5c-6c80-4acb-b5a4-069474129d2e
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_contratante
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: a393492a-c49b-4fa1-96ec-3dc4e03eaa38
+		sourceLineageTag: 758ae243-0fe7-41a2-b6ab-001e291e6a78
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column sk_produto_rede
+		dataType: int64
+		formatString: 0
+		lineageTag: 3dc81d6d-2e27-4fd2-bbe0-d0266913d82e
+		sourceLineageTag: bf8934ac-e55d-4d4e-81cd-a2e98027b949
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_produto_rede
+
+		annotation SummarizationSetBy = User
+
+	column sk_mobconnect_tag
+		dataType: int64
+		formatString: 0
+		lineageTag: bf6ea8db-d8cf-4e65-940a-e55265885516
+		sourceLineageTag: 6e23c5c8-9797-41c8-b32c-3724fec6d932
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_mobconnect_tag
+
+		annotation SummarizationSetBy = User
+
+	column sk_mobconnect_status_atividade
+		dataType: int64
+		formatString: 0
+		lineageTag: 0dfc87bc-8b1f-46c1-a7c1-8a60acdbd344
+		sourceLineageTag: b72127fe-87bf-4576-8e64-8e11b3aa1cd8
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_mobconnect_status_atividade
+
+		annotation SummarizationSetBy = User
+
+	column sk_mobconnect_tipo_problema
+		dataType: int64
+		formatString: 0
+		lineageTag: 3cbf5f04-dd3c-483f-903b-f2d9d1226252
+		sourceLineageTag: a2512454-3e6c-4b89-bc49-70fbc35844ba
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_mobconnect_tipo_problema
+
+		annotation SummarizationSetBy = User
+
+	column qt_atividades
+		dataType: int64
+		formatString: 0
+		lineageTag: 53d88630-7724-4687-9737-ef1c8f119bb9
+		sourceLineageTag: ce819c1b-9cfc-41b6-8552-20550105d54f
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_atividades
+
+		annotation SummarizationSetBy = User
+
+	column sk_mobconnect_destino_problema
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e4cbd21-ab19-4a52-ac8e-79932c1d31c0
+		sourceLineageTag: e3fc79db-0580-44bb-a3ec-29f616b8eadf
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_mobconnect_destino_problema
+
+		annotation SummarizationSetBy = User
+
+	partition fato_mobconnect_atividades = entity
+		mode: directQuery
+		source
+			entityName: fato_mobconnect_atividades
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

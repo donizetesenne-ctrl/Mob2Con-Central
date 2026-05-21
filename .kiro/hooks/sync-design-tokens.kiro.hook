@@ -1,0 +1,16 @@
+{
+  "enabled": true,
+  "name": "Sync Design Tokens",
+  "description": "Quando o design-tokens.json é editado, executa o sync-tokens.js para manter CSS e tema Power BI sincronizados com a fonte de verdade.",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/design-tokens.json"
+    ]
+  },
+  "then": {
+    "type": "runCommand",
+    "command": "node 01-Brand-Guidelines/design-system/sync-tokens.js"
+  }
+}

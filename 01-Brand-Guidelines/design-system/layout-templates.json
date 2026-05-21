@@ -1,0 +1,503 @@
+{
+    "templates":  {
+                      "executive":  {
+                                        "description":  "C-suite, board, KPIs alto nivel - segue Z-Pattern",
+                                        "visuals":  [
+                                                        {
+                                                            "name":  "header_bg",
+                                                            "width":  1600,
+                                                            "role":  "background",
+                                                            "y":  0,
+                                                            "type":  "shape",
+                                                            "x":  0,
+                                                            "height":  64
+                                                        },
+                                                        {
+                                                            "name":  "logo_titulo",
+                                                            "width":  400,
+                                                            "role":  "identity",
+                                                            "y":  8,
+                                                            "type":  "image+text",
+                                                            "x":  16,
+                                                            "height":  48
+                                                        },
+                                                        {
+                                                            "name":  "filtro_periodo",
+                                                            "width":  384,
+                                                            "role":  "context",
+                                                            "y":  12,
+                                                            "type":  "slicer",
+                                                            "x":  1200,
+                                                            "height":  40
+                                                        },
+                                                        {
+                                                            "name":  "kpi_1",
+                                                            "width":  368,
+                                                            "role":  "primary",
+                                                            "y":  80,
+                                                            "type":  "card",
+                                                            "x":  16,
+                                                            "height":  140
+                                                        },
+                                                        {
+                                                            "name":  "kpi_2",
+                                                            "width":  368,
+                                                            "role":  "secondary",
+                                                            "y":  80,
+                                                            "type":  "card",
+                                                            "x":  400,
+                                                            "height":  140
+                                                        },
+                                                        {
+                                                            "name":  "kpi_3",
+                                                            "width":  368,
+                                                            "role":  "secondary",
+                                                            "y":  80,
+                                                            "type":  "card",
+                                                            "x":  784,
+                                                            "height":  140
+                                                        },
+                                                        {
+                                                            "name":  "kpi_4",
+                                                            "width":  416,
+                                                            "role":  "secondary",
+                                                            "y":  80,
+                                                            "type":  "card",
+                                                            "x":  1168,
+                                                            "height":  140
+                                                        },
+                                                        {
+                                                            "name":  "grafico_principal",
+                                                            "width":  960,
+                                                            "role":  "main-trend",
+                                                            "y":  240,
+                                                            "type":  "chart",
+                                                            "x":  16,
+                                                            "height":  380
+                                                        },
+                                                        {
+                                                            "name":  "grafico_secundario",
+                                                            "width":  592,
+                                                            "role":  "comparison",
+                                                            "y":  240,
+                                                            "type":  "chart",
+                                                            "x":  992,
+                                                            "height":  380
+                                                        },
+                                                        {
+                                                            "name":  "tabela_detalhe",
+                                                            "width":  960,
+                                                            "role":  "detail",
+                                                            "y":  640,
+                                                            "type":  "matrix",
+                                                            "x":  16,
+                                                            "height":  244
+                                                        },
+                                                        {
+                                                            "name":  "grafico_complementar",
+                                                            "width":  592,
+                                                            "role":  "support",
+                                                            "y":  640,
+                                                            "type":  "chart",
+                                                            "x":  992,
+                                                            "height":  244
+                                                        }
+                                                    ],
+                                        "canvas":  {
+                                                       "height":  900,
+                                                       "width":  1600
+                                                   }
+                                    },
+                      "analytical":  {
+                                         "description":  "Analistas, drill-down, comparacoes detalhadas",
+                                         "visuals":  [
+                                                         {
+                                                             "name":  "header_bg",
+                                                             "width":  1920,
+                                                             "y":  0,
+                                                             "type":  "shape",
+                                                             "x":  0,
+                                                             "height":  72
+                                                         },
+                                                         {
+                                                             "name":  "logo",
+                                                             "width":  200,
+                                                             "y":  12,
+                                                             "type":  "image",
+                                                             "x":  16,
+                                                             "height":  48
+                                                         },
+                                                         {
+                                                             "name":  "titulo",
+                                                             "width":  800,
+                                                             "y":  16,
+                                                             "type":  "text",
+                                                             "x":  240,
+                                                             "height":  40
+                                                         },
+                                                         {
+                                                             "name":  "filtros_topo",
+                                                             "width":  504,
+                                                             "y":  12,
+                                                             "type":  "slicer",
+                                                             "x":  1400,
+                                                             "height":  48
+                                                         },
+                                                         {
+                                                             "name":  "kpi_1",
+                                                             "width":  358,
+                                                             "y":  88,
+                                                             "type":  "card",
+                                                             "x":  16,
+                                                             "height":  160
+                                                         },
+                                                         {
+                                                             "name":  "kpi_2",
+                                                             "width":  358,
+                                                             "y":  88,
+                                                             "type":  "card",
+                                                             "x":  390,
+                                                             "height":  160
+                                                         },
+                                                         {
+                                                             "name":  "kpi_3",
+                                                             "width":  358,
+                                                             "y":  88,
+                                                             "type":  "card",
+                                                             "x":  764,
+                                                             "height":  160
+                                                         },
+                                                         {
+                                                             "name":  "kpi_4",
+                                                             "width":  358,
+                                                             "y":  88,
+                                                             "type":  "card",
+                                                             "x":  1138,
+                                                             "height":  160
+                                                         },
+                                                         {
+                                                             "name":  "kpi_5",
+                                                             "width":  392,
+                                                             "y":  88,
+                                                             "type":  "card",
+                                                             "x":  1512,
+                                                             "height":  160
+                                                         },
+                                                         {
+                                                             "name":  "grafico_1",
+                                                             "width":  608,
+                                                             "y":  264,
+                                                             "type":  "chart",
+                                                             "x":  16,
+                                                             "height":  420
+                                                         },
+                                                         {
+                                                             "name":  "grafico_2",
+                                                             "width":  608,
+                                                             "y":  264,
+                                                             "type":  "chart",
+                                                             "x":  640,
+                                                             "height":  420
+                                                         },
+                                                         {
+                                                             "name":  "grafico_3",
+                                                             "width":  640,
+                                                             "y":  264,
+                                                             "type":  "chart",
+                                                             "x":  1264,
+                                                             "height":  420
+                                                         },
+                                                         {
+                                                             "name":  "tabela_grande",
+                                                             "width":  1248,
+                                                             "y":  700,
+                                                             "type":  "matrix",
+                                                             "x":  16,
+                                                             "height":  364
+                                                         },
+                                                         {
+                                                             "name":  "painel_lateral",
+                                                             "width":  624,
+                                                             "y":  700,
+                                                             "type":  "chart",
+                                                             "x":  1280,
+                                                             "height":  364
+                                                         }
+                                                     ],
+                                         "canvas":  {
+                                                        "height":  1080,
+                                                        "width":  1920
+                                                    }
+                                     },
+                      "operational":  {
+                                          "description":  "Monitoramento diario, equipes operacionais",
+                                          "visuals":  [
+                                                          {
+                                                              "name":  "header",
+                                                              "width":  1280,
+                                                              "y":  0,
+                                                              "type":  "header",
+                                                              "x":  0,
+                                                              "height":  80
+                                                          },
+                                                          {
+                                                              "name":  "logo",
+                                                              "width":  80,
+                                                              "y":  20,
+                                                              "type":  "image",
+                                                              "x":  20,
+                                                              "height":  40
+                                                          },
+                                                          {
+                                                              "name":  "titulo_pagina",
+                                                              "width":  600,
+                                                              "y":  20,
+                                                              "type":  "text",
+                                                              "x":  120,
+                                                              "height":  40
+                                                          },
+                                                          {
+                                                              "name":  "slicer_global1",
+                                                              "width":  200,
+                                                              "y":  20,
+                                                              "type":  "slicer",
+                                                              "x":  760,
+                                                              "height":  40
+                                                          },
+                                                          {
+                                                              "name":  "slicer_global2",
+                                                              "width":  280,
+                                                              "y":  20,
+                                                              "type":  "slicer",
+                                                              "x":  980,
+                                                              "height":  40
+                                                          },
+                                                          {
+                                                              "name":  "kpi_1",
+                                                              "width":  308,
+                                                              "y":  80,
+                                                              "type":  "card",
+                                                              "x":  20,
+                                                              "height":  120
+                                                          },
+                                                          {
+                                                              "name":  "kpi_2",
+                                                              "width":  308,
+                                                              "y":  80,
+                                                              "type":  "card",
+                                                              "x":  340,
+                                                              "height":  120
+                                                          },
+                                                          {
+                                                              "name":  "kpi_3",
+                                                              "width":  308,
+                                                              "y":  80,
+                                                              "type":  "card",
+                                                              "x":  660,
+                                                              "height":  120
+                                                          },
+                                                          {
+                                                              "name":  "kpi_4",
+                                                              "width":  280,
+                                                              "y":  80,
+                                                              "type":  "card",
+                                                              "x":  980,
+                                                              "height":  120
+                                                          },
+                                                          {
+                                                              "name":  "grafico_main",
+                                                              "width":  620,
+                                                              "y":  216,
+                                                              "type":  "chart",
+                                                              "x":  20,
+                                                              "height":  340
+                                                          },
+                                                          {
+                                                              "name":  "tabela_lateral",
+                                                              "width":  604,
+                                                              "y":  216,
+                                                              "type":  "matrix",
+                                                              "x":  656,
+                                                              "height":  340
+                                                          },
+                                                          {
+                                                              "name":  "rodape_1",
+                                                              "width":  620,
+                                                              "y":  572,
+                                                              "type":  "chart",
+                                                              "x":  20,
+                                                              "height":  130
+                                                          },
+                                                          {
+                                                              "name":  "rodape_2",
+                                                              "width":  604,
+                                                              "y":  572,
+                                                              "type":  "chart",
+                                                              "x":  656,
+                                                              "height":  130
+                                                          }
+                                                      ],
+                                          "canvas":  {
+                                                         "height":  720,
+                                                         "width":  1280
+                                                     }
+                                      },
+                      "cover":  {
+                                    "description":  "Pagina inicial de navegacao",
+                                    "visuals":  [
+                                                    {
+                                                        "name":  "fundo",
+                                                        "width":  1600,
+                                                        "y":  0,
+                                                        "type":  "shape",
+                                                        "x":  0,
+                                                        "height":  900
+                                                    },
+                                                    {
+                                                        "name":  "logo_grande",
+                                                        "width":  400,
+                                                        "y":  80,
+                                                        "type":  "image",
+                                                        "x":  600,
+                                                        "height":  120
+                                                    },
+                                                    {
+                                                        "name":  "titulo",
+                                                        "width":  800,
+                                                        "y":  240,
+                                                        "type":  "text",
+                                                        "x":  400,
+                                                        "height":  60
+                                                    },
+                                                    {
+                                                        "name":  "subtitulo",
+                                                        "width":  600,
+                                                        "y":  320,
+                                                        "type":  "text",
+                                                        "x":  500,
+                                                        "height":  40
+                                                    },
+                                                    {
+                                                        "name":  "btn_nav_1",
+                                                        "width":  240,
+                                                        "y":  440,
+                                                        "type":  "button",
+                                                        "x":  200,
+                                                        "height":  80
+                                                    },
+                                                    {
+                                                        "name":  "btn_nav_2",
+                                                        "width":  240,
+                                                        "y":  440,
+                                                        "type":  "button",
+                                                        "x":  480,
+                                                        "height":  80
+                                                    },
+                                                    {
+                                                        "name":  "btn_nav_3",
+                                                        "width":  240,
+                                                        "y":  440,
+                                                        "type":  "button",
+                                                        "x":  760,
+                                                        "height":  80
+                                                    },
+                                                    {
+                                                        "name":  "btn_nav_4",
+                                                        "width":  240,
+                                                        "y":  440,
+                                                        "type":  "button",
+                                                        "x":  1040,
+                                                        "height":  80
+                                                    },
+                                                    {
+                                                        "name":  "linha",
+                                                        "width":  1200,
+                                                        "y":  560,
+                                                        "type":  "shape",
+                                                        "x":  200,
+                                                        "height":  2
+                                                    },
+                                                    {
+                                                        "name":  "rodape",
+                                                        "width":  800,
+                                                        "y":  820,
+                                                        "type":  "text",
+                                                        "x":  400,
+                                                        "height":  32
+                                                    }
+                                                ],
+                                    "canvas":  {
+                                                   "height":  900,
+                                                   "width":  1600
+                                               }
+                                },
+                      "mobile":  {
+                                     "description":  "Power BI Mobile",
+                                     "visuals":  [
+                                                     {
+                                                         "name":  "header",
+                                                         "width":  320,
+                                                         "y":  0,
+                                                         "type":  "header",
+                                                         "x":  0,
+                                                         "height":  48
+                                                     },
+                                                     {
+                                                         "name":  "kpi_1",
+                                                         "width":  304,
+                                                         "y":  56,
+                                                         "type":  "card",
+                                                         "x":  8,
+                                                         "height":  100
+                                                     },
+                                                     {
+                                                         "name":  "kpi_2",
+                                                         "width":  144,
+                                                         "y":  164,
+                                                         "type":  "card",
+                                                         "x":  8,
+                                                         "height":  80
+                                                     },
+                                                     {
+                                                         "name":  "kpi_3",
+                                                         "width":  152,
+                                                         "y":  164,
+                                                         "type":  "card",
+                                                         "x":  160,
+                                                         "height":  80
+                                                     },
+                                                     {
+                                                         "name":  "grafico",
+                                                         "width":  304,
+                                                         "y":  252,
+                                                         "type":  "chart",
+                                                         "x":  8,
+                                                         "height":  200
+                                                     },
+                                                     {
+                                                         "name":  "tabela",
+                                                         "width":  304,
+                                                         "y":  460,
+                                                         "type":  "matrix",
+                                                         "x":  8,
+                                                         "height":  100
+                                                     }
+                                                 ],
+                                     "canvas":  {
+                                                    "height":  568,
+                                                    "width":  320
+                                                }
+                                 }
+                  },
+    "_meta":  {
+                  "consumers":  [
+                                    "powerbi-layout MCP",
+                                    "powerbi-bridge MCP",
+                                    "preview HTML em design-system/index.html"
+                                ],
+                  "description":  "Coordenadas exatas (x, y, width, height) prontas para o MCP powerbi-layout. Camada 1 (JSON) do sistema complementar.",
+                  "name":  "Mob2Con Layout Templates",
+                  "version":  "1.0.0",
+                  "updated":  "2026-05-14"
+              }
+}

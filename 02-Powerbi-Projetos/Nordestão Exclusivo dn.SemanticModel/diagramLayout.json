@@ -1,0 +1,422 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 532.31416112145166
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 3932.1455685329656,
+            "y": 1015.3188537600033
+          },
+          "nodeIndex": "Feriados Natal RN",
+          "nodeLineageTag": "9a85c7dc-f2e1-4474-b70e-aeb2950a8d61",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1305.551223100997,
+            "y": 946.58455187544268
+          },
+          "nodeIndex": "Date",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3899.6368429892391,
+            "y": 994.61948945530662
+          },
+          "nodeIndex": "Métricas",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1478.9643859978223,
+            "y": 1578.0905251620279
+          },
+          "nodeIndex": "dim_visitante",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1856.9168309004785,
+            "y": 1084.4442539042354
+          },
+          "nodeIndex": "fato_mobconnect_movimento",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1189.7186003953134,
+            "y": 1690.6325268379164
+          },
+          "nodeIndex": "fato_mobconnect_atividades",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 969.04847641451693,
+            "y": 2046.487389672355
+          },
+          "nodeIndex": "dim_mobconnect_tipo_problema",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1479.1018969738825,
+            "y": 1857.337831876278
+          },
+          "nodeIndex": "dim_mobconnect_status_atividade",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 660.5523760965574,
+            "y": 1220.8007307888552
+          },
+          "nodeIndex": "fato_mobconnect_atendimento_fornecedores",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 251.49127445627357,
+            "y": 73.352860628864846
+          },
+          "nodeIndex": "dim_rede",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1119.841399816487,
+            "y": 589.46153413568686
+          },
+          "nodeIndex": "dim_loja",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 830.0806631235929,
+            "y": 863.62563654776181
+          },
+          "nodeIndex": "dim_fornecedor",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1121.1593993257507,
+            "y": 360.128250470231
+          },
+          "nodeIndex": "fato_horas_ideais",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1804.3095048282471,
+            "y": 1436.69280407931
+          },
+          "nodeIndex": "dim_produto_rede",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1487.4965759707434,
+            "y": 763.18447664892824
+          },
+          "nodeIndex": "dim_agencia",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1142.8219721988476,
+            "y": 1333.4546012863668
+          },
+          "nodeIndex": "fato_mobconnect_visitas",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 450.48674946281403,
+            "y": 1577.9975045984288
+          },
+          "nodeIndex": "dim_user",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 3964.6542940766922,
+            "y": 987.0182180647
+          },
+          "nodeIndex": "controle_data_source",
+          "nodeLineageTag": "4b28e193-4b21-4076-8cee-e1b53243633a",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4248.6542940766922,
+            "y": 937.0182180647
+          },
+          "nodeIndex": "DateAutoTemplate",
+          "nodeLineageTag": "1e127d8d-b285-46e9-9eac-3aad2c069a06",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4532.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "doc_metricas",
+          "nodeLineageTag": "31f49ebf-5e41-4f84-9cb1-df7b49caff1b",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 4816.6542940766922,
+            "y": 975.0182180647
+          },
+          "nodeIndex": "fato_acesso",
+          "nodeLineageTag": "31dde266-4f94-49a4-974e-a5521e1b6bbe",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5100.6542940766922,
+            "y": 937.0182180647
+          },
+          "nodeIndex": "fato_mobconnect_movimento_mensal",
+          "nodeLineageTag": "d1abb56f-3c47-46e9-87fb-28c67e305b56",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5384.6542940766922,
+            "y": 939.0182180647
+          },
+          "nodeIndex": "fato_projeto_agencia_fornecedor",
+          "nodeLineageTag": "8a0495fb-062f-4fce-ae56-38df7ae2b8c9",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5668.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "Holidays",
+          "nodeLineageTag": "47bacee3-c241-4417-89f8-690fc8a0a8bc",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 5952.6542940766922,
+            "y": 937.0182180647
+          },
+          "nodeIndex": "HolidaysDefinition",
+          "nodeLineageTag": "bb8763ac-9b47-4ff3-8718-d2ab659d741c",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 6236.6542940766922,
+            "y": 951.0182180647
+          },
+          "nodeIndex": "input_manual_base_projetos",
+          "nodeLineageTag": "fcba1f73-4d78-4a48-90b3-8ebce5a190ae",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 6520.6542940766922,
+            "y": 999.0182180647
+          },
+          "nodeIndex": "lkp_cadastro_agencia_fornecedor",
+          "nodeLineageTag": "66eeaf29-1ea8-4159-9151-fea221e81d76",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 6804.6542940766922,
+            "y": 1011.0182180647
+          },
+          "nodeIndex": "lkp_status_cadastro_projeto",
+          "nodeLineageTag": "d167b61c-46a1-41b6-a811-dba775ed006c",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7088.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "Measure Selection Estoque",
+          "nodeLineageTag": "24f1a394-1ed5-4ba8-b858-3b5944c97033",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7372.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "Measure Selection Ruptura",
+          "nodeLineageTag": "5f4b2408-fdba-4412-90b5-5cd21924460e",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7656.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "Measure Selection Ruptura (Fornecedor)",
+          "nodeLineageTag": "73dcda1f-fe7e-4087-ab30-a9fadb310aa0",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 7940.6542940766922,
+            "y": 1023.0182180647
+          },
+          "nodeIndex": "Measure Selection Tipo Projeto",
+          "nodeLineageTag": "ecc80df0-6f5f-4dda-9fe0-a76c74ce7df3",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Todas as tabelas",
+      "zoomValue": 24.672146232289617,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Todas as tabelas",
+  "defaultDiagram": "Todas as tabelas"
+}

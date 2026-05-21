@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Teste Conexão Sheets - Dashboard Mob2Con</title>
+<style>
+body{font-family:'Inter',sans-serif;padding:40px;background:#f5f5f5;max-width:1200px;margin:0 auto}
+.status{padding:20px;margin:10px 0;border-radius:8px;border-left:4px solid}
+.ok{background:#E8F5EC;border-color:#107C41;color:#107C41}
+.erro{background:#FCE8E8;border-color:#C00000;color:#C00000}
+.info{background:#E8F1FE;border-color:#4285F4;color:#4285F4}
+h1{color:#111;font-size:24px;margin-bottom:20px}
+h2{color:#434343;font-size:18px;margin-top:30px}
+pre{background:#fff;padding:15px;border-radius:6px;overflow-x:auto;font-size:12px;border:1px solid #E0E0E0}
+.loading{text-align:center;padding:40px;font-size:16px;color:#595959}
+</style>
+</head>
+<body>
+
+<h1>🔍 Teste de Conexão - Google Sheets Dashboard</h1>
+<div id="status" class="loading">⏳ Testando conexão com as planilhas...</div>
+<div id="resultados"></div>
+
+<script>
+const SHEETS = {
+  dimensoes: '1r0K7XJ1XFjVPlXXFNoN33ZRFW8EXwoK3gYqeEZpRe8Q',
+  fatos:     '1LdJvbwsOhBh11Xgd5oUeQPaL4J_JTVfOgDMnM0EXJxs',
+  lookups:   '1g0jg93WC2axeyrzNHYhxsljrtXQLhdZwMPbbpnemJFI'
+};
+
+function sheetsUrl(id, sheet){
+  return 'https://docs.google.com/spreadsheets/d/'+id+'/gviz/tq?tqx=out:json&sheet='+encodeURIComponent(sheet);
+}
+
+function parseGviz(raw){
+  try{
+    const json = JSON.parse(raw.replace(/^.*?\(/, '').replace(/\);?$/, ''));
+    const cols = json.table.cols.map(c=>c.label||c.id);
+    const rows = (json.table.rows||[]).map(r=>{
+      const obj={};
+      r.c.forEach((cell,i)=>{ obj[cols[i]] = cell ? cell.v : null; });
+      return obj;
+    });
+    return { cols, rows, ok: true };
+  }catch(e){ 
+    return { cols:[], rows:[], ok: false, erro: e.message }; 
+  }
+}
+
+async function testarSheet(nome, id, aba){
+  try{
+    const res = await fetch(sheetsUrl(id, aba), {signal: AbortSignal.timeout(8000)});
+    const txt = await res.text();
+    const data = parseGviz(txt);
+    
+    if(data.ok && data.rows.length > 0){
+      return {
+        ok: true,
+        nome,
+        aba,
+        colunas: data.cols.length,
+        linhas: data.rows.length,
+        amostra: data.rows.slice(0,3)
+      };
+    } else {
+      return {
+        ok: false,
+        nome,
+        aba,
+        erro: data.erro || 'Sem dados retornados'
+      };
+    }
+  }catch(e){
+    return {
+      ok: false,
+      nome,
+      aba,
+      erro: e.message
+    };
+  }
+}
+
+async function executarTestes(){
+  const statusDiv = document.getElementById('status');
+  const resultDiv = document.getElementById('resultados');
+  
+  const testes = [
+    { nome: 'Dimensões', id: SHEETS.dimensoes, aba: 'dim_rede' },
+    { nome: 'Fatos - Promotores', id: SHEETS.fatos, aba: 'fato_status_promotores' },
+    { nome: 'Fatos - Contratos', id: SHEETS.fatos, aba: 'fato_contrato_pontual' },
+    { nome: 'Fatos - Documentação', id: SHEETS.fatos, aba: 'fato_agg_status_documentacao_redes' },
+    { nome: 'Lookups - Scores', id: SHEETS.lookups, aba: 'tbl_scores_redes' }
+  ];
+  
+  let html = '<h2>📊 Resultados dos Testes</h2>';
+  let sucessos = 0;
+  let falhas = 0;
+  
+  for(const teste of testes){
+    statusDiv.innerHTML = '⏳ Testando: <strong>' + teste.nome + '</strong> (aba: ' + teste.aba + ')...';
+    
+    const resultado = await testarSheet(teste.nome, teste.id, teste.aba);
+    
+    if(resultado.ok){
+      sucessos++;
+      html += '<div class="status ok">';
+      html += '<strong>✅ ' + resultado.nome + '</strong><br>';
+      html += 'Aba: <code>' + resultado.aba + '</code><br>';
+      html += 'Colunas: <strong>' + resultado.colunas + '</strong> | ';
+      html += 'Linhas: <strong>' + resultado.linhas + '</strong><br>';
+      html += '<details style="margin-top:10px"><summary style="cursor:pointer;color:#107C41;font-weight:600">Ver amostra (3 primeiras linhas)</summary>';
+      html += '<pre>' + JSON.stringify(resultado.amostra, null, 2) + '</pre>';
+      html += '</details>';
+      html += '</div>';
+    } else {
+      falhas++;
+      html += '<div class="status erro">';
+      html += '<strong>❌ ' + resultado.nome + '</strong><br>';
+      html += 'Aba: <code>' + resultado.aba + '</code><br>';
+      html += 'Erro: <strong>' + resultado.erro + '</strong>';
+      html += '</div>';
+    }
+  }
+  
+  // Resumo final
+  if(falhas === 0){
+    statusDiv.innerHTML = '<div class="status ok"><strong>✅ Todos os testes passaram!</strong><br>' +
+      'Total: ' + sucessos + ' planilhas acessíveis<br>' +
+      'O dashboard está pronto para funcionar com dados ao vivo.</div>';
+  } else {
+    statusDiv.innerHTML = '<div class="status erro"><strong>⚠️ Alguns testes falharam</strong><br>' +
+      'Sucessos: ' + sucessos + ' | Falhas: ' + falhas + '<br>' +
+      'Verifique as permissões das planilhas abaixo.</div>';
+  }
+  
+  resultDiv.innerHTML = html;
+  
+  // Teste do arquivo HTML
+  html += '<h2>📄 Teste do Arquivo HTML</h2>';
+  try{
+    const htmlRes = await fetch('https://drive.google.com/uc?export=download&id=1dnUoVDNuBkk_0IRF32kod8K5gEO-31cc');
+    if(htmlRes.ok){
+      const size = htmlRes.headers.get('content-length');
+      html += '<div class="status ok"><strong>✅ Arquivo HTML acessível</strong><br>';
+      html += 'ID: <code>1dnUoVDNuBkk_0IRF32kod8K5gEO-31cc</code><br>';
+      html += 'Tamanho: ' + (size ? (parseInt(size)/1024).toFixed(1) + ' KB' : 'desconhecido') + '</div>';
+    } else {
+      html += '<div class="status erro"><strong>❌ Arquivo HTML não acessível</strong><br>';
+      html += 'Status: ' + htmlRes.status + '</div>';
+    }
+  }catch(e){
+    html += '<div class="status erro"><strong>❌ Erro ao acessar arquivo HTML</strong><br>';
+    html += 'Erro: ' + e.message + '</div>';
+  }
+  
+  resultDiv.innerHTML = html;
+}
+
+// Executar testes ao carregar
+executarTestes();
+</script>
+
+</body>
+</html>

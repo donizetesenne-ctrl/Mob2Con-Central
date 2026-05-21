@@ -1,0 +1,6 @@
+/// Acesso de leitura ao modelo Nordestão filtrado por rede.
+role 'Nordestão - Gerente'
+	modelPermission: read
+
+	annotation PBI_Id = 2f5e285c2f364d1bb80abf33c3322a5a
+

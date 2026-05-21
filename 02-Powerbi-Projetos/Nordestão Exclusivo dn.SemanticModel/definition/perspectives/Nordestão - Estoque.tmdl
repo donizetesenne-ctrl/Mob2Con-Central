@@ -1,0 +1,21 @@
+/// Visão de estoque e produtos do Nordestão
+perspective 'Nordestão - Estoque'
+
+	perspectiveTable dim_produto_rede
+		includeAll
+
+	perspectiveTable fato_mobconnect_movimento
+		includeAll
+
+	perspectiveTable dim_loja
+		includeAll
+
+	perspectiveTable dim_fornecedor
+		includeAll
+
+	perspectiveTable Date
+		includeAll
+
+	perspectiveTable Métricas
+		includeAll
+

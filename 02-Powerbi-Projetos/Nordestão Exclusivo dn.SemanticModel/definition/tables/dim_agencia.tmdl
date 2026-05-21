@@ -1,0 +1,32 @@
+table dim_agencia
+	lineageTag: 7f7fb01f-6e01-47fa-88ef-f45dd46ba3ff
+	sourceLineageTag: 970b709e-217a-4729-9c7c-e17c71247737
+
+	column sk_agencia
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		lineageTag: b213ebee-0a47-40a2-90a3-789e9536fb69
+		sourceLineageTag: 820dd193-5f79-4ca8-8f83-5cd115d671ae
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column nm_agencia
+		dataType: string
+		lineageTag: f8505a12-a6ca-4d42-bfac-eafeb40b68ee
+		sourceLineageTag: 1d5b0889-ba30-471b-92ad-349805438034
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: nm_agencia
+
+		annotation SummarizationSetBy = User
+
+	partition dim_agencia = entity
+		mode: directQuery
+		source
+			entityName: dim_agencia
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

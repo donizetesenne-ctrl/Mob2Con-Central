@@ -1,0 +1,3810 @@
+cultureInfo pt-BR
+
+	linguisticMetadata =
+			{
+			  "Version": "4.1.0",
+			  "Language": "en-US",
+			  "DynamicImprovement": {
+			    "RuntimeUnderstanding": "Full"
+			  },
+			  "Entities": {
+			    "tb_Dashboard_estudo_RG": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "tb_Dashboard estudo RG": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.cliente": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "CLIENTE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "cliente": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Fornecedor": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.produto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "PRODUTO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "produto": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.forma_pgto": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "FORMA PGTO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "forma pgto": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.qt_hora": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "Qt Horas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "qt hora": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.rede_atendida": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "REDE ATENDIDA"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "rede atendida": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Rede": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.quantidade_de_licença": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "QUANTIDADE DE LICENÇAS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "quantidade de licença": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.desistência_de_negócio": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "DESISTÊNCIA DE NEGÓCIOS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "desistência de negócio": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.preço": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "PREÇO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "preço": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Rentabilidade": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "MÊS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Mês": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        },
+			        {
+			          "Meses": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "ANO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ano": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.nu_mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "NU_MÊS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nu mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NU_MÊS": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG.soma_preço": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Dashboard estudo RG",
+			          "ConceptualProperty": "SOMA_PREÇO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "soma preço": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "SOMA_PREÇO": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "tb_Relatório financeiro - RG": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "tb_Relatório financeiro RG": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.rede": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Rede"
+			        }
+			      },
+			      "State": "Generated",
+			      "Visibility": {
+			        "Value": "Hidden"
+			      },
+			      "Terms": [
+			        {
+			          "rede": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Mês"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "VariationSource": "Mês",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "hierarquia de data": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "hierarquia de information": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de fact": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de info": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de statistic": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de document": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "hierarquia de figure": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "hierarquia de record": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mê.ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "VariationSource": "Mês",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Ano"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ano": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê ano": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mê.trimestre": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "VariationSource": "Mês",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Trimestre"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "trimestre": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê trimestre": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mê.mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "VariationSource": "Mês",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Mês"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê mê": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mê.dia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "VariationSource": "Mês",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Dia"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "dia": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê dia": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.nu_mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "NU_MÊS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nu mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NU_MÊS": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.nm_mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "NM_MÊS"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nm mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "NM_MÊS": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.arrecadação": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Arrecadação"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "arrecadação": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.agência": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Agência"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "agência": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mob_2con": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Mob2con"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mob 2con": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Mob2con": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.saldo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Saldo"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "saldo": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.número_forn": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Número Forn"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "número forn": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Qtd Fornec": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "ANO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ano": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.total_fornecedores": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Total Fornecedores"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "total fornecedores": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "aggregate fornecedore": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        },
+			        {
+			          "overall fornecedore": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.582
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mês_hierarquia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "Hierarchy": "Mês Hierarquia"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mês hierarquia": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê hierarquia": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "tb_Relatório_financeiro__RG.mês_hierarquia.mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "Hierarchy": "Mês Hierarquia",
+			          "HierarchyLevel": "Mês"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mê": {
+			            "State": "Generated"
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "tb_Relatório_financeiro__RG.nm_mês___ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "NM_MÊS / ANO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nm_mês / ano": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "nm_mê / ano": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "nm_mês ano": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "nm_mê ano": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.7566
+			          }
+			        },
+			        {
+			          "Mês/Ano": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.nm_mês_ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "NM_MÊS/ANO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "nm_mês/ano": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "nm_mês ano": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.mês_série": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "MÊS_SÉRIE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mês série": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "mê série": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.78
+			          }
+			        },
+			        {
+			          "MÊS_SÉRIE": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.QTD_Fornec_M0": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "QTD Fornec_M0"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "QTD Fornec_M0": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.QTD_Fornec_M1": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "QTD Fornec_M1"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "QTD Fornec_M1": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.saldo_mensal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Saldo_Mensal"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "saldo mensal": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Saldo_Mensal": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.saldo_acum": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Saldo Acum"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "saldo acum": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.total_acumulado_de_soma_de_saldo_em_ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Total acumulado de Soma de Saldo em Ano"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "total acumulado de soma de saldo em ano": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "tb consolidado captacao RG 20": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "tb_Consolidado_Captacao_RG_20": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "DT_REF"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "dt ref": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "DT_REF": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "date": {
+			            "State": "Generated",
+			            "Weight": 0.7
+			          }
+			        },
+			        {
+			          "dt": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "ref": {
+			            "State": "Generated",
+			            "Weight": 0.97
+			          }
+			        },
+			        {
+			          "dt arbitrator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "dt adjudicator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "dt mediator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "dt arbiter": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "arbitrator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "adjudicator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "mediator": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "arbiter": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.491
+			          }
+			        },
+			        {
+			          "dt referee": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "dt umpire": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ],
+			      "SemanticType": "Time"
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "VariationSource": "DT_REF",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "hierarquia de data": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "hierarquia de information": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de fact": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de info": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de statistic": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.762
+			          }
+			        },
+			        {
+			          "hierarquia de document": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "hierarquia de figure": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        },
+			        {
+			          "hierarquia de record": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.739
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref.ano": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "VariationSource": "DT_REF",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Ano"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ano": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "dt ref ano": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref.trimestre": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "VariationSource": "DT_REF",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Trimestre"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "trimestre": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "dt ref trimestre": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref.mê": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "VariationSource": "DT_REF",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Mês"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "mê": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "dt ref mê": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.dt_ref.dia": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "VariationSource": "DT_REF",
+			          "VariationSet": "Variation",
+			          "Hierarchy": "Hierarquia de datas",
+			          "HierarchyLevel": "Dia"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "dia": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "dt ref dia": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.rede": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "REDE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "rede": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.perdido": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "PERDIDO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "perdido": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.arrecadado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "ARRECADADO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "arrecadado": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.planejado": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "PLANEJADO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "planejado": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20.faltante": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Consolidado_Captacao_RG_20",
+			          "ConceptualProperty": "FALTANTE"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "faltante": {
+			            "State": "Generated"
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.fat_Ñ_comercial": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Fat_Ñ_Comercial"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "fat Ñ comercial": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Fat_Ñ_Comercial": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.saldo_final_2": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Saldo_Final2"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "saldo final 2": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Saldo_Final2": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG.saldo_mob": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Relatório Financeiro - RG",
+			          "ConceptualProperty": "Saldo_Mob"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "saldo mob": {
+			            "State": "Generated"
+			          }
+			        },
+			        {
+			          "Saldo_Mob": {
+			            "Type": "Noun",
+			            "State": "Generated",
+			            "Weight": 0.99
+			          }
+			        },
+			        {
+			          "saldo horde": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "saldo multitude": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.5
+			          }
+			        },
+			        {
+			          "saldo crowd": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo mass": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo throng": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo gang": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo pack": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo flock": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo crush": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        },
+			        {
+			          "saldo herd": {
+			            "Type": "Noun",
+			            "State": "Suggested",
+			            "Source": {
+			              "Agent": "Thesaurus"
+			            },
+			            "Weight": 0.485
+			          }
+			        }
+			      ]
+			    },
+			    "tb_lista_target.status_categoria": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Lista_Target",
+			          "ConceptualProperty": "Status_Categoria"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "tb_lista_target.ticket_medio_horasideais_multiplo": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Lista_Target",
+			          "ConceptualProperty": "Ticket_medio_HorasIdeais_Multiplo"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "tb_lista_target.ticket_medio_vlrfinal": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "tb_Lista_Target",
+			          "ConceptualProperty": "Ticket_medio_VLRFINAL"
+			        }
+			      },
+			      "State": "Generated"
+			    },
+			    "dim_rede.nm_rede": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_rede",
+			          "ConceptualProperty": "nm_rede"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rede": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  },
+			  "Relationships": {
+			    "tb_consolidado_captacao_RG_20_dt_ref_mê_has_tb_consolidado_captacao_RG_20_dt_ref_dia": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.mê": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.dia": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_have_dias"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dias_have_mê"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dias_are_in_mê1"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_trimestre_has_tb_consolidado_captacao_RG_20_dt_ref_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.trimestre": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.mê": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_have_mê"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_have_trimestres"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_are_in_trimestres1"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_ano_has_tb_consolidado_captacao_RG_20_dt_ref_trimestre": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.ano": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.trimestre": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "anos_have_trimestres"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_have_anos"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_are_in_anos1"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_hierarquia_de_data_has_tb_consolidado_captacao_RG_20_dt_ref_dia": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.dia": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.dia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_dias"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_hierarquia_de_data_has_tb_consolidado_captacao_RG_20_dt_ref_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.mê": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_mê"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_hierarquia_de_data_has_tb_consolidado_captacao_RG_20_dt_ref_trimestre": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.trimestre": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_trimestres"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_hierarquia_de_data_has_tb_consolidado_captacao_RG_20_dt_ref_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.ano": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_anos"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_dt_ref_has_hierarquia_de_data": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20.dt_ref": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref.hierarquia_de_data"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dt_refs_have_hierarquia_de_data"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mês_hierarquia_has_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mês_hierarquia": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mês_hierarquia"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mês_hierarquia.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mês_hierarquia.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mês_hierarquia"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mês_hierarquia.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mês_hierarquias_have_mê"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_mê_has_tb_Relatório_financeiro__RG_mê_dia": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.mê"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.dia": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.dia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.dia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_have_dias1"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.dia"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dias_have_mê1"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.dia"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dias_are_in_mê"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_trimestre_has_tb_Relatório_financeiro__RG_mê_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.trimestre": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.trimestre"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_have_mê1"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_have_trimestres1"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_are_in_trimestres"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_ano_has_tb_Relatório_financeiro__RG_mê_trimestre": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.ano"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.trimestre": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.trimestre"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.ano"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "anos_have_trimestres1"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_have_anos1"
+			        },
+			        {
+			          "Preposition": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            },
+			            "Prepositions": [
+			              {
+			                "in": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "trimestres_are_in_anos"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_hierarquia_de_data_has_tb_Relatório_financeiro__RG_mê_dia": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.dia": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.dia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.dia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_dias1"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_hierarquia_de_data_has_tb_Relatório_financeiro__RG_mê_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_mê1"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_hierarquia_de_data_has_tb_Relatório_financeiro__RG_mê_trimestre": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.trimestre": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.trimestre"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.trimestre"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_trimestres1"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_hierarquia_de_data_has_tb_Relatório_financeiro__RG_mê_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "hierarquia_de_data_have_anos1"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_mê_has_hierarquia_de_data": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê.hierarquia_de_data": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG.mê"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê.hierarquia_de_data"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "mê_have_hierarquia_de_data"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_tb_consolidado_captacao_RG_20": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_tb_consolidado_captacao_RG_20"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_tb_Relatório_financeiro__RGs"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_dim_rede": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "dim_rede": {
+			          "Target": {
+			            "Entity": "dim_rede"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "dim_rede"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_dim_redes"
+			        },
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "dim_rede"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "dim_redes_have_tb_Dashboard_estudo_RGs"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_saldo_mob": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.saldo_mob": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.saldo_mob"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.saldo_mob"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_saldo_mob"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_saldo_final_2": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.saldo_final_2": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.saldo_final_2"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.saldo_final_2"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_saldo_final_2"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_fat_Ñ_comercial": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.fat_Ñ_comercial": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.fat_Ñ_comercial"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.fat_Ñ_comercial"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_fat_Ñ_comercials"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_faltante": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.faltante": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.faltante"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.faltante"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_faltantes"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_planejado": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.planejado": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.planejado"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.planejado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_planejados"
+			        },
+			        {
+			          "Adjective": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Adjectives": [
+			              {
+			                "expensive": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Antonyms": [
+			              {
+			                "cheap": {
+			                  "State": "Generated"
+			                }
+			              }
+			            ],
+			            "Measurement": {
+			              "Role": "tb_consolidado_captacao_RG_20.planejado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "planejado_indicates_how_expensive_tb_consolidado_captacao_RG_20_are"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_arrecadado": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.arrecadado": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.arrecadado"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.arrecadado"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_arrecadados"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_perdido": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.perdido": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.perdido"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.perdido"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_perdidos"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_rede": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.rede": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.rede"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.rede"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_redes"
+			        }
+			      ]
+			    },
+			    "tb_consolidado_captacao_RG_20_has_dt_ref": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Consolidado_Captacao_RG_20"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_consolidado_captacao_RG_20": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20"
+			          }
+			        },
+			        "tb_consolidado_captacao_RG_20.dt_ref": {
+			          "Target": {
+			            "Entity": "tb_consolidado_captacao_RG_20.dt_ref"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_consolidado_captacao_RG_20"
+			            },
+			            "Object": {
+			              "Role": "tb_consolidado_captacao_RG_20.dt_ref"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_consolidado_captacao_RG_20_have_dt_refs"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_total_acumulado_de_soma_de_saldo_em_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.total_acumulado_de_soma_de_saldo_em_ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.total_acumulado_de_soma_de_saldo_em_ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.total_acumulado_de_soma_de_saldo_em_ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_total_acumulado_de_soma_de_saldo_em_ano"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_saldo_acum": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.saldo_acum": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.saldo_acum"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.saldo_acum"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_saldo_acum"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_saldo_mensal": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.saldo_mensal": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.saldo_mensal"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.saldo_mensal"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_saldo_mensal"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_QTD_Fornec_M1": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.QTD_Fornec_M1": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.QTD_Fornec_M1"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.QTD_Fornec_M1"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_QTD_Fornec_M1"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_var_real_fornec": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.var_real_fornec": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.var_real_fornec"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.var_real_fornec"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_var_real_fornec"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_QTD_Fornec_M0": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.QTD_Fornec_M0": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.QTD_Fornec_M0"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.QTD_Fornec_M0"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_QTD_Fornec_M0"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_mês_série": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mês_série": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mês_série"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mês_série"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_mês_séries"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_nm_mês_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.nm_mês_ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.nm_mês_ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.nm_mês_ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_nm_mês_ano"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_nm_mês___ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.nm_mês___ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.nm_mês___ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.nm_mês___ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_nm_mês___anos"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_mês_hierarquia": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mês_hierarquia": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mês_hierarquia"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mês_hierarquia"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_mês_hierarquias"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_total_fornecedores": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.total_fornecedores": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.total_fornecedores"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.total_fornecedores"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_total_fornecedores"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.ano": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_anos"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_número_forn": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.número_forn": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.número_forn"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.número_forn"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_número_forns"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_saldo": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.saldo": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.saldo"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.saldo"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_saldos"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_mob_2con": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mob_2con": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mob_2con"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mob_2con"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_mob_2cons"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_agência": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.agência": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.agência"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.agência"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_agências"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_arrecadação": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.arrecadação": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.arrecadação"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.arrecadação"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_arrecadaçãos"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_nm_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.nm_mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.nm_mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.nm_mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_nm_mê"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_nu_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.nu_mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.nu_mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.nu_mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_nu_mê"
+			        }
+			      ]
+			    },
+			    "tb_Relatório_financeiro__RG_has_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Relatório Financeiro - RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Relatório_financeiro__RG": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG"
+			          }
+			        },
+			        "tb_Relatório_financeiro__RG.mê": {
+			          "Target": {
+			            "Entity": "tb_Relatório_financeiro__RG.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Relatório_financeiro__RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Relatório_financeiro__RG.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Relatório_financeiro__RGs_have_mê"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_soma_preço": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.soma_preço": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.soma_preço"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.soma_preço"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_soma_preço"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_nu_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.nu_mê": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.nu_mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.nu_mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_nu_mê"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_ano": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.ano": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.ano"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.ano"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_anos"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_mê": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.mê": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.mê"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.mê"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_mê"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_preço": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.preço": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.preço"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.preço"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_preços"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_desistência_de_negócio": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.desistência_de_negócio": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.desistência_de_negócio"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.desistência_de_negócio"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_desistência_de_negócios"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_quantidade_de_licença": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.quantidade_de_licença": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.quantidade_de_licença"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.quantidade_de_licença"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_quantidade_de_licenças"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_qt_hora": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.qt_hora": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.qt_hora"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.qt_hora"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_qt_horas"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_forma_pgto": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.forma_pgto": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.forma_pgto"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.forma_pgto"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_forma_pgtos"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_produto": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.produto": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.produto"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.produto"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_produtos"
+			        }
+			      ]
+			    },
+			    "tb_Dashboard_estudo_RG_has_cliente": {
+			      "Binding": {
+			        "ConceptualEntity": "tb_Dashboard estudo RG"
+			      },
+			      "State": "Generated",
+			      "Roles": {
+			        "tb_Dashboard_estudo_RG": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG"
+			          }
+			        },
+			        "tb_Dashboard_estudo_RG.cliente": {
+			          "Target": {
+			            "Entity": "tb_Dashboard_estudo_RG.cliente"
+			          }
+			        }
+			      },
+			      "Phrasings": [
+			        {
+			          "Attribute": {
+			            "Subject": {
+			              "Role": "tb_Dashboard_estudo_RG"
+			            },
+			            "Object": {
+			              "Role": "tb_Dashboard_estudo_RG.cliente"
+			            }
+			          },
+			          "State": "Generated",
+			          "Weight": 0.99,
+			          "ID": "tb_Dashboard_estudo_RGs_have_clientes"
+			        }
+			      ]
+			    }
+			  },
+			  "Agents": {
+			    "Internal": {
+			      "Version": "1.1.0"
+			    },
+			    "PowerBI.OrganizationLsdlSharing": {
+			      "LastModified": "2025-07-02T14:26:08.9092964Z"
+			    }
+			  }
+			}
+		contentType: json
+

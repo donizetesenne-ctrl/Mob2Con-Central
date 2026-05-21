@@ -1,0 +1,119 @@
+table fato_mobconnect_visitas
+	lineageTag: 98191d62-9da7-490b-bb0a-bd6105ae36a7
+	sourceLineageTag: beb39374-1b94-4101-aa65-5966e59f3bd7
+
+	column dt_visita
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 80b5ec7b-cb25-4366-8136-caa9c8e27fbc
+		sourceLineageTag: 0c8b51c8-5d33-4d5f-b474-393013964638
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: dt_visita
+
+		annotation SummarizationSetBy = User
+
+	column sk_visitante
+		dataType: int64
+		formatString: 0
+		lineageTag: 06af36b7-72a7-4c35-ad15-5cc76d9d241c
+		sourceLineageTag: 60f1fe55-3cfc-4dd5-be2f-746cfec84547
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_visitante
+
+		annotation SummarizationSetBy = User
+
+	column sk_loja
+		dataType: int64
+		formatString: 0
+		lineageTag: 75a22ef7-a015-4f01-b23c-ac46a1e8f431
+		sourceLineageTag: 70938a91-ec42-4917-96c8-2f87fec66f6b
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_loja
+
+		annotation SummarizationSetBy = User
+
+	column sk_user
+		dataType: int64
+		formatString: 0
+		lineageTag: 185c179c-9fee-4c21-90ab-272874c4d85d
+		sourceLineageTag: 8d13328e-78ad-4fa7-8eb7-2bb3226acf54
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_user
+
+		annotation SummarizationSetBy = User
+
+	column sk_agencia
+		dataType: int64
+		formatString: 0
+		lineageTag: 44da9f15-7caa-41a4-a0af-0ad78b1b07a9
+		sourceLineageTag: d32656b3-daf7-4de8-bcd6-1370d4ef9a10
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_agencia
+
+		annotation SummarizationSetBy = User
+
+	column sk_contratante
+		dataType: int64
+		formatString: 0
+		lineageTag: a83401e9-5c2e-4837-8391-7b4764da6f35
+		sourceLineageTag: ae4ad8da-d4e9-4f62-b56e-a87afd0e1bce
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: sk_contratante
+
+		annotation SummarizationSetBy = User
+
+	column sk_fornecedor
+		dataType: int64
+		formatString: 0
+		lineageTag: c7282cd9-9a1c-44ef-9f10-dc5ae66f5579
+		sourceLineageTag: 906d3ffb-a740-4aef-a4b1-74cf4f00d5bb
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: sk_fornecedor
+
+		annotation SummarizationSetBy = User
+
+	column tp_usuario
+		dataType: string
+		lineageTag: 6f8eafd2-c6cb-4204-8d09-3ae5f442a155
+		sourceLineageTag: 84ed4e07-cbc6-4fcb-ad42-cc3cf9a7dbb4
+		dataCategory: Uncategorized
+		summarizeBy: none
+		sourceColumn: tp_usuario
+
+		annotation SummarizationSetBy = User
+
+	column qt_visitas_planejadas
+		dataType: int64
+		formatString: 0
+		lineageTag: 5b488877-b72c-49c4-b57b-34ac43f015e6
+		sourceLineageTag: 36be01dd-93b1-447d-8066-61005cd2b1cf
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_visitas_planejadas
+
+		annotation SummarizationSetBy = User
+
+	column qt_visitas_realizadas
+		dataType: int64
+		formatString: 0
+		lineageTag: c0515a91-f094-4087-8449-3c8962148ce9
+		sourceLineageTag: daa32709-2740-4a0b-bcf0-ab8a2ec29a9b
+		dataCategory: Uncategorized
+		summarizeBy: sum
+		sourceColumn: qt_visitas_realizadas
+
+		annotation SummarizationSetBy = User
+
+	partition fato_mobconnect_visitas = entity
+		mode: directQuery
+		source
+			entityName: fato_mobconnect_visitas
+			expressionSource: 'DirectQuery para AS – Base Indicadores RG 2.0 - Projetos'
+

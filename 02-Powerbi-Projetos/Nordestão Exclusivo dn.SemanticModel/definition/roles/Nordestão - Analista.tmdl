@@ -1,0 +1,6 @@
+/// Acesso somente leitura para analistas do Nordestão.
+role 'Nordestão - Analista'
+	modelPermission: read
+
+	annotation PBI_Id = 57f453325de542148d1e7ad01e0d0591
+

@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Nordestão Exclusivo dn"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "be8b6e84-27f4-414c-8038-21a1df516d29"
+  }
+}

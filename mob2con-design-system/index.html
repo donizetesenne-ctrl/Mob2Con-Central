@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mob2Con Design System</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="logo">Mob<span class="accent">2</span>Con <span class="text-sm" style="color:var(--gray-500);margin-left:8px">Design System</span></div>
+  <div class="spacer"></div>
+  <a href="preview.html" class="nav-link">Preview Light</a>
+  <a href="preview-dark.html" class="nav-link">Preview Dark</a>
+  <a href="templates/components.html" class="nav-link">Components</a>
+  <a href="DESIGN.md" class="nav-link">DESIGN.md</a>
+</header>
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="section" style="text-align:center;padding-top:64px">
+    <h1 style="font-size:36px">Design System <span style="color:var(--primary)">Reutilizável</span></h1>
+    <p class="text-muted mt-2" style="font-size:16px;max-width:600px;margin:12px auto">
+      Copie o <code>style.css</code> + <code>DESIGN.md</code> para qualquer projeto.<br>
+      Funciona com HTML puro, React, Vue, ou qualquer agente de IA.
+    </p>
+    <div class="flex flex-center mt-3">
+      <a href="templates/components.html" class="btn btn-primary btn-lg">🧩 Ver Componentes</a>
+      <a href="preview.html" class="btn btn-secondary btn-lg">☀️ Preview Completo</a>
+    </div>
+  </section>
+
+  <!-- TEMPLATES GRID -->
+  <section class="section">
+    <h2 class="section-title">📐 Templates Prontos</h2>
+    <div class="grid grid-3">
+      <a href="templates/executive.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>📊 Executive</h3>
+        <p class="text-sm text-muted mt-1">C-suite, KPIs, Z-Pattern • 1600×900</p>
+      </a>
+      <a href="templates/operational.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>⚙️ Operational</h3>
+        <p class="text-sm text-muted mt-1">Monitoramento diário • 1280×720</p>
+      </a>
+      <a href="templates/analytical.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>🔬 Analytical</h3>
+        <p class="text-sm text-muted mt-1">Drill-down detalhado • 1920×1080</p>
+      </a>
+      <a href="templates/cover.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>🏠 Cover</h3>
+        <p class="text-sm text-muted mt-1">Página inicial de navegação</p>
+      </a>
+      <a href="templates/mobile.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>📱 Mobile</h3>
+        <p class="text-sm text-muted mt-1">Layout mobile-first • 320×568</p>
+      </a>
+      <a href="templates/components.html" class="card" style="text-decoration:none;color:inherit">
+        <h3>🧩 Components</h3>
+        <p class="text-sm text-muted mt-1">Todos os componentes isolados</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- QUICK START -->
+  <section class="section">
+    <h2 class="section-title">🚀 Quick Start</h2>
+    <div class="card p-3">
+      <pre style="font-family:var(--font-mono);font-size:12px;overflow-x:auto"><code>&lt;!-- 1. Adicione no &lt;head&gt; do seu HTML --&gt;
+&lt;link rel="stylesheet" href="style.css"&gt;
+
+&lt;!-- 2. Use as classes --&gt;
+&lt;div class="card kpi"&gt;
+  &lt;div class="kpi-label"&gt;FATURAMENTO&lt;/div&gt;
+  &lt;div class="kpi-value"&gt;R$ 2.4M&lt;/div&gt;
+  &lt;div class="kpi-trend up"&gt;▲ 12.3%&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;!-- 3. Ou use as variáveis CSS em qualquer lugar --&gt;
+&lt;style&gt;
+  .meu-elemento {
+    color: var(--primary);
+    background: var(--bg);
+    border-radius: var(--radius-lg);
+    padding: var(--sp-2);
+  }
+&lt;/style&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- COLORS QUICK REF -->
+  <section class="section">
+    <h2 class="section-title">🎨 Cores</h2>
+    <div class="flex">
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#F46901"></div><p class="text-xs p-2">#F46901</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#434343"></div><p class="text-xs p-2">#434343</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#6F05D4"></div><p class="text-xs p-2">#6F05D4</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#107C41"></div><p class="text-xs p-2">#107C41</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#C00000"></div><p class="text-xs p-2">#C00000</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#FFC107"></div><p class="text-xs p-2">#FFC107</p></div>
+      <div class="card" style="width:100px;text-align:center;padding:0;overflow:hidden"><div style="height:50px;background:#4285F4"></div><p class="text-xs p-2">#4285F4</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  Mob2Con Design System • Copie <code>style.css</code> + <code>DESIGN.md</code> para qualquer projeto • MIT License
+</footer>
+
+</body>
+</html>

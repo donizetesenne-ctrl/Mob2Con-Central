@@ -1,0 +1,479 @@
+[2026-05-16 07:50:50] ======================================================================
+[2026-05-16 07:50:50] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-16 07:50:50] ======================================================================
+[2026-05-16 07:50:50] Carregando configurações...
+[2026-05-16 07:50:50] Conectando ao Redshift...
+[2026-05-16 07:50:51] ✅ Conectado ao Redshift
+[2026-05-16 07:50:51] Autenticando no Google...
+[2026-05-16 07:50:51] ✅ Autenticado no Google
+[2026-05-16 07:50:51] Listando tabelas do schema dw...
+[2026-05-16 07:50:52] ✅ 63 tabelas para processar
+[2026-05-16 07:50:52] 
+======================================================================
+[2026-05-16 07:50:52] Processando: ðŸ“Š Redshift - DimensÃµes
+[2026-05-16 07:50:52] Tabelas: 23
+[2026-05-16 07:50:52] ======================================================================
+[2026-05-16 07:51:00]    ❌ dim_agencia: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:03]    ❌ dim_app_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:10]    ❌ dim_contratante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:14]    ❌ dim_contrato: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:18]    ❌ dim_documento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:21]    ❌ dim_escala_trabalho: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:28]    ❌ dim_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:30]    ❌ dim_funcao_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:34]    ❌ dim_loja: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:36]    ❌ dim_mobconnect_destino_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:38]    ❌ dim_mobconnect_status_atividade: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:40]    ❌ dim_mobconnect_tag: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:41]    ❌ dim_mobconnect_tipo_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:44]    ❌ dim_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:48]    ❌ dim_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:54]    ❌ dim_produto_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:51:59]    ❌ dim_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:03]    ❌ dim_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:08]    ❌ dim_status_aprovacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:15]    ❌ dim_tempo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:20]    ❌ dim_unidade_fabril: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:31]    ❌ dim_user: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:40]    ❌ dim_visitante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:40] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-16 07:52:40] 
+======================================================================
+[2026-05-16 07:52:40] Processando: ðŸ“ˆ Redshift - Fatos
+[2026-05-16 07:52:40] Tabelas: 28
+[2026-05-16 07:52:40] ======================================================================
+[2026-05-16 07:52:50]    ❌ fato_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:52:56]    ❌ fato_acesso_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:06]    ❌ fato_acesso_validacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:11]    ❌ fato_agg_prestador_servico_diario: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:17]    ❌ fato_agg_prestador_servico_mensal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:21]    ❌ fato_agg_status_documentacao_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:24]    ❌ fato_agg_status_documentacao_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:27]    ❌ fato_contrato_pontual: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:29]    ❌ fato_contrato_semanal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:32]    ❌ fato_declaracao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:36]    ❌ fato_horas_ideais: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:41]    ❌ fato_mobconnect_atendimento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:45]    ❌ fato_mobconnect_atendimento_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:48]    ❌ fato_mobconnect_atendimento_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:51]    ❌ fato_mobconnect_atividades: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:54]    ❌ fato_mobconnect_atividades_pendentes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:53:59]    ❌ fato_mobconnect_evidencias: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:02]    ❌ fato_mobconnect_evidencias_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:07]    ❌ fato_mobconnect_ruptura_administrativa: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:11]    ❌ fato_mobconnect_visitas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:14]    ❌ fato_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:19]    ❌ fato_status_colaboradores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:23]    ❌ fato_status_contratantes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:27]    ❌ fato_status_documento_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:31]    ❌ fato_status_documento_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:35]    ❌ fato_status_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:39]    ❌ fato_status_promotores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:43]    ❌ fato_status_promotores_alocacao_vinculo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:44] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-16 07:54:44] 
+======================================================================
+[2026-05-16 07:54:44] Processando: ðŸ”— Redshift - Lookup e Tabelas
+[2026-05-16 07:54:44] Tabelas: 12
+[2026-05-16 07:54:44] ======================================================================
+[2026-05-16 07:54:46]    ❌ lkp_alocacao_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:49]    ❌ lkp_fornecedor_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:51]    ❌ lkp_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:55]    ❌ stg_yhub_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:54:57]    ❌ tbl_ajustes_codigos_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:01]    ❌ tbl_ajustes_niveis_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:05]    ❌ tbl_cnpj_inativo_mob: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:09]    ❌ tbl_cnpj_rede_cadastro: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:15]    ❌ tbl_estrutura_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:22]    ❌ tbl_mobconnect_respostas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:28]    ❌ tbl_prestador_servico_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:32]    ❌ tbl_scores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-16 07:55:33] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-16 07:55:33] 
+======================================================================
+[2026-05-16 07:55:33] ✅ SINCRONIZAÇÃO CONCLUÍDA COM SUCESSO!
+[2026-05-16 07:55:33]    Total de registros sincronizados: 0
+[2026-05-16 07:55:33]    Erros: 63
+[2026-05-16 07:55:33] ======================================================================
+[2026-05-17 09:08:55] ======================================================================
+[2026-05-17 09:08:55] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-17 09:08:55] ======================================================================
+[2026-05-17 09:08:55] Carregando configurações...
+[2026-05-17 09:08:55] Conectando ao Redshift...
+[2026-05-17 09:08:57] ✅ Conectado ao Redshift
+[2026-05-17 09:08:57] Autenticando no Google...
+[2026-05-17 09:08:57] ✅ Autenticado no Google
+[2026-05-17 09:08:58] Listando tabelas do schema dw...
+[2026-05-17 09:08:58] ✅ 63 tabelas para processar
+[2026-05-17 09:08:58] 
+======================================================================
+[2026-05-17 09:08:58] Processando: ðŸ“Š Redshift - DimensÃµes
+[2026-05-17 09:08:58] Tabelas: 23
+[2026-05-17 09:08:58] ======================================================================
+[2026-05-17 09:09:07]    ❌ dim_agencia: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:08]    ❌ dim_app_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:17]    ❌ dim_contratante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:20]    ❌ dim_contrato: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:22]    ❌ dim_documento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:24]    ❌ dim_escala_trabalho: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:35]    ❌ dim_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:38]    ❌ dim_funcao_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:42]    ❌ dim_loja: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:44]    ❌ dim_mobconnect_destino_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:46]    ❌ dim_mobconnect_status_atividade: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:48]    ❌ dim_mobconnect_tag: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:50]    ❌ dim_mobconnect_tipo_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:53]    ❌ dim_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:09:57]    ❌ dim_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:00]    ❌ dim_produto_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:04]    ❌ dim_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:07]    ❌ dim_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:09]    ❌ dim_status_aprovacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:25]    ❌ dim_tempo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:28]    ❌ dim_unidade_fabril: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:36]    ❌ dim_user: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:41]    ❌ dim_visitante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:42] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-17 09:10:42] 
+======================================================================
+[2026-05-17 09:10:42] Processando: ðŸ“ˆ Redshift - Fatos
+[2026-05-17 09:10:42] Tabelas: 28
+[2026-05-17 09:10:42] ======================================================================
+[2026-05-17 09:10:46]    ❌ fato_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:49]    ❌ fato_acesso_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:51]    ❌ fato_acesso_validacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:54]    ❌ fato_agg_prestador_servico_diario: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:10:59]    ❌ fato_agg_prestador_servico_mensal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:01]    ❌ fato_agg_status_documentacao_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:07]    ❌ fato_agg_status_documentacao_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:09]    ❌ fato_contrato_pontual: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:10]    ❌ fato_contrato_semanal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:13]    ❌ fato_declaracao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:16]    ❌ fato_horas_ideais: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:19]    ❌ fato_mobconnect_atendimento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:22]    ❌ fato_mobconnect_atendimento_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:24]    ❌ fato_mobconnect_atendimento_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:27]    ❌ fato_mobconnect_atividades: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:29]    ❌ fato_mobconnect_atividades_pendentes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:35]    ❌ fato_mobconnect_evidencias: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:38]    ❌ fato_mobconnect_evidencias_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:40]    ❌ fato_mobconnect_ruptura_administrativa: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:43]    ❌ fato_mobconnect_visitas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:45]    ❌ fato_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:47]    ❌ fato_status_colaboradores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:50]    ❌ fato_status_contratantes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:52]    ❌ fato_status_documento_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:55]    ❌ fato_status_documento_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:11:57]    ❌ fato_status_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:02]    ❌ fato_status_promotores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:06]    ❌ fato_status_promotores_alocacao_vinculo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:06] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-17 09:12:06] 
+======================================================================
+[2026-05-17 09:12:06] Processando: ðŸ”— Redshift - Lookup e Tabelas
+[2026-05-17 09:12:06] Tabelas: 12
+[2026-05-17 09:12:06] ======================================================================
+[2026-05-17 09:12:09]    ❌ lkp_alocacao_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:11]    ❌ lkp_fornecedor_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:14]    ❌ lkp_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:16]    ❌ stg_yhub_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:18]    ❌ tbl_ajustes_codigos_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:19]    ❌ tbl_ajustes_niveis_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:22]    ❌ tbl_cnpj_inativo_mob: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:24]    ❌ tbl_cnpj_rede_cadastro: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:26]    ❌ tbl_estrutura_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:29]    ❌ tbl_mobconnect_respostas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:31]    ❌ tbl_prestador_servico_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:33]    ❌ tbl_scores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-17 09:12:33] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-17 09:12:33] 
+======================================================================
+[2026-05-17 09:12:33] ✅ SINCRONIZAÇÃO CONCLUÍDA COM SUCESSO!
+[2026-05-17 09:12:33]    Total de registros sincronizados: 0
+[2026-05-17 09:12:33]    Erros: 63
+[2026-05-17 09:12:33] ======================================================================
+[2026-05-18 07:31:15] ======================================================================
+[2026-05-18 07:31:15] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-18 07:31:15] ======================================================================
+[2026-05-18 07:31:15] Carregando configurações...
+[2026-05-18 07:31:15] Conectando ao Redshift...
+[2026-05-18 07:31:20] ✅ Conectado ao Redshift
+[2026-05-18 07:31:21] Autenticando no Google...
+[2026-05-18 07:31:22] ✅ Autenticado no Google
+[2026-05-18 07:31:22] Listando tabelas do schema dw...
+[2026-05-18 07:31:23] ✅ 63 tabelas para processar
+[2026-05-18 07:31:23] 
+======================================================================
+[2026-05-18 07:31:23] Processando: ðŸ“Š Redshift - DimensÃµes
+[2026-05-18 07:31:23] Tabelas: 23
+[2026-05-18 07:31:23] ======================================================================
+[2026-05-18 07:31:35]    ❌ dim_agencia: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:31:40]    ❌ dim_app_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:31:49]    ❌ dim_contratante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:31:55]    ❌ dim_contrato: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:31:59]    ❌ dim_documento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:04]    ❌ dim_escala_trabalho: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:14]    ❌ dim_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:21]    ❌ dim_funcao_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:29]    ❌ dim_loja: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:32]    ❌ dim_mobconnect_destino_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:35]    ❌ dim_mobconnect_status_atividade: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:42]    ❌ dim_mobconnect_tag: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:46]    ❌ dim_mobconnect_tipo_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:51]    ❌ dim_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:32:56]    ❌ dim_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:03]    ❌ dim_produto_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:07]    ❌ dim_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:11]    ❌ dim_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:14]    ❌ dim_status_aprovacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:20]    ❌ dim_tempo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:25]    ❌ dim_unidade_fabril: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:32]    ❌ dim_user: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:36]    ❌ dim_visitante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:36] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-18 07:33:36] 
+======================================================================
+[2026-05-18 07:33:36] Processando: ðŸ“ˆ Redshift - Fatos
+[2026-05-18 07:33:36] Tabelas: 28
+[2026-05-18 07:33:36] ======================================================================
+[2026-05-18 07:33:41]    ❌ fato_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:45]    ❌ fato_acesso_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:50]    ❌ fato_acesso_validacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:33:54]    ❌ fato_agg_prestador_servico_diario: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:01]    ❌ fato_agg_prestador_servico_mensal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:08]    ❌ fato_agg_status_documentacao_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:14]    ❌ fato_agg_status_documentacao_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:20]    ❌ fato_contrato_pontual: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:24]    ❌ fato_contrato_semanal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:29]    ❌ fato_declaracao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:35]    ❌ fato_horas_ideais: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:41]    ❌ fato_mobconnect_atendimento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:45]    ❌ fato_mobconnect_atendimento_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:50]    ❌ fato_mobconnect_atendimento_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:55]    ❌ fato_mobconnect_atividades: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:34:58]    ❌ fato_mobconnect_atividades_pendentes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:03]    ❌ fato_mobconnect_evidencias: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:07]    ❌ fato_mobconnect_evidencias_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:10]    ❌ fato_mobconnect_ruptura_administrativa: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:13]    ❌ fato_mobconnect_visitas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:18]    ❌ fato_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:21]    ❌ fato_status_colaboradores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:26]    ❌ fato_status_contratantes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:32]    ❌ fato_status_documento_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:37]    ❌ fato_status_documento_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:43]    ❌ fato_status_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:50]    ❌ fato_status_promotores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:56]    ❌ fato_status_promotores_alocacao_vinculo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:35:56] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-18 07:35:56] 
+======================================================================
+[2026-05-18 07:35:56] Processando: ðŸ”— Redshift - Lookup e Tabelas
+[2026-05-18 07:35:56] Tabelas: 12
+[2026-05-18 07:35:56] ======================================================================
+[2026-05-18 07:36:03]    ❌ lkp_alocacao_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:06]    ❌ lkp_fornecedor_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:11]    ❌ lkp_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:17]    ❌ stg_yhub_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:20]    ❌ tbl_ajustes_codigos_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:23]    ❌ tbl_ajustes_niveis_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:28]    ❌ tbl_cnpj_inativo_mob: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:34]    ❌ tbl_cnpj_rede_cadastro: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:39]    ❌ tbl_estrutura_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:46]    ❌ tbl_mobconnect_respostas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:51]    ❌ tbl_prestador_servico_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:55]    ❌ tbl_scores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-18 07:36:55] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-18 07:36:55] 
+======================================================================
+[2026-05-18 07:36:55] ✅ SINCRONIZAÇÃO CONCLUÍDA COM SUCESSO!
+[2026-05-18 07:36:55]    Total de registros sincronizados: 0
+[2026-05-18 07:36:55]    Erros: 63
+[2026-05-18 07:36:55] ======================================================================
+[2026-05-19 08:02:53] ======================================================================
+[2026-05-19 08:02:53] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-19 08:02:53] ======================================================================
+[2026-05-19 08:02:53] Carregando configurações...
+[2026-05-19 08:02:53] Conectando ao Redshift...
+[2026-05-19 08:02:56] ✅ Conectado ao Redshift
+[2026-05-19 08:02:56] Autenticando no Google...
+[2026-05-19 08:02:56] ✅ Autenticado no Google
+[2026-05-19 08:02:56] Listando tabelas do schema dw...
+[2026-05-19 08:02:57] ✅ 63 tabelas para processar
+[2026-05-19 08:02:57] 
+======================================================================
+[2026-05-19 08:02:57] Processando: ðŸ“Š Redshift - DimensÃµes
+[2026-05-19 08:02:57] Tabelas: 23
+[2026-05-19 08:02:57] ======================================================================
+[2026-05-19 08:03:07]    ❌ dim_agencia: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:12]    ❌ dim_app_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:22]    ❌ dim_contratante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:25]    ❌ dim_contrato: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:29]    ❌ dim_documento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:32]    ❌ dim_escala_trabalho: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:41]    ❌ dim_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:45]    ❌ dim_funcao_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:50]    ❌ dim_loja: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:53]    ❌ dim_mobconnect_destino_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:03:56]    ❌ dim_mobconnect_status_atividade: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:00]    ❌ dim_mobconnect_tag: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:03]    ❌ dim_mobconnect_tipo_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:08]    ❌ dim_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:14]    ❌ dim_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:18]    ❌ dim_produto_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:22]    ❌ dim_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:29]    ❌ dim_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:31]    ❌ dim_status_aprovacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:36]    ❌ dim_tempo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:41]    ❌ dim_unidade_fabril: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:46]    ❌ dim_user: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:51]    ❌ dim_visitante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:51] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-19 08:04:51] 
+======================================================================
+[2026-05-19 08:04:51] Processando: ðŸ“ˆ Redshift - Fatos
+[2026-05-19 08:04:51] Tabelas: 28
+[2026-05-19 08:04:51] ======================================================================
+[2026-05-19 08:04:54]    ❌ fato_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:04:57]    ❌ fato_acesso_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:01]    ❌ fato_acesso_validacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:05]    ❌ fato_agg_prestador_servico_diario: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:09]    ❌ fato_agg_prestador_servico_mensal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:14]    ❌ fato_agg_status_documentacao_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:19]    ❌ fato_agg_status_documentacao_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:22]    ❌ fato_contrato_pontual: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:25]    ❌ fato_contrato_semanal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:29]    ❌ fato_declaracao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:32]    ❌ fato_horas_ideais: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:35]    ❌ fato_mobconnect_atendimento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:38]    ❌ fato_mobconnect_atendimento_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:42]    ❌ fato_mobconnect_atendimento_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:45]    ❌ fato_mobconnect_atividades: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:47]    ❌ fato_mobconnect_atividades_pendentes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:52]    ❌ fato_mobconnect_evidencias: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:05:56]    ❌ fato_mobconnect_evidencias_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:00]    ❌ fato_mobconnect_ruptura_administrativa: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:05]    ❌ fato_mobconnect_visitas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:08]    ❌ fato_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:11]    ❌ fato_status_colaboradores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:15]    ❌ fato_status_contratantes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:17]    ❌ fato_status_documento_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:22]    ❌ fato_status_documento_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:25]    ❌ fato_status_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:29]    ❌ fato_status_promotores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:35]    ❌ fato_status_promotores_alocacao_vinculo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:35] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-19 08:06:35] 
+======================================================================
+[2026-05-19 08:06:35] Processando: ðŸ”— Redshift - Lookup e Tabelas
+[2026-05-19 08:06:35] Tabelas: 12
+[2026-05-19 08:06:35] ======================================================================
+[2026-05-19 08:06:41]    ❌ lkp_alocacao_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:47]    ❌ lkp_fornecedor_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:06:54]    ❌ lkp_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:02]    ❌ stg_yhub_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:07]    ❌ tbl_ajustes_codigos_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:11]    ❌ tbl_ajustes_niveis_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:19]    ❌ tbl_cnpj_inativo_mob: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:28]    ❌ tbl_cnpj_rede_cadastro: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:38]    ❌ tbl_estrutura_mercadologica: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:48]    ❌ tbl_mobconnect_respostas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:07:56]    ❌ tbl_prestador_servico_promotor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:08:04]    ❌ tbl_scores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-19 08:08:04] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-19 08:08:04] 
+======================================================================
+[2026-05-19 08:08:04] ✅ SINCRONIZAÇÃO CONCLUÍDA COM SUCESSO!
+[2026-05-19 08:08:04]    Total de registros sincronizados: 0
+[2026-05-19 08:08:04]    Erros: 63
+[2026-05-19 08:08:04] ======================================================================
+[2026-05-20 07:31:00] ======================================================================
+[2026-05-20 07:31:00] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-20 07:31:00] ======================================================================
+[2026-05-20 07:31:00] Carregando configurações...
+[2026-05-20 07:31:00] Conectando ao Redshift...
+[2026-05-20 07:31:00] 
+❌ ERRO CRÍTICO: could not translate host name "m2c-redshift-cluster-1.cdsdjzdiml9e.us-west-2.redshift.amazonaws.com" to address: Name or service not known
+
+[2026-05-20 07:31:00] Traceback (most recent call last):
+  File "C:\Users\Donizete Senne\Desktop\Mob2Con-Central\sync_redshift_daily.py", line 45, in main
+    conn = psycopg2.connect(
+        host=redshift_cfg['host'],
+    ...<5 lines>...
+        connect_timeout=15
+    )
+  File "C:\Users\Donizete Senne\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.13_qbz5n2kfra8p0\LocalCache\local-packages\Python313\site-packages\psycopg2\__init__.py", line 135, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: could not translate host name "m2c-redshift-cluster-1.cdsdjzdiml9e.us-west-2.redshift.amazonaws.com" to address: Name or service not known
+
+
+[2026-05-21 08:14:39] ======================================================================
+[2026-05-21 08:14:39] SINCRONIZAÇÃO DIÁRIA INICIADA
+[2026-05-21 08:14:39] ======================================================================
+[2026-05-21 08:14:39] Carregando configurações...
+[2026-05-21 08:14:39] Conectando ao Redshift...
+[2026-05-21 08:14:41] ✅ Conectado ao Redshift
+[2026-05-21 08:14:41] Autenticando no Google...
+[2026-05-21 08:14:42] ✅ Autenticado no Google
+[2026-05-21 08:14:42] Listando tabelas do schema dw...
+[2026-05-21 08:14:42] ✅ 63 tabelas para processar
+[2026-05-21 08:14:42] 
+======================================================================
+[2026-05-21 08:14:42] Processando: ðŸ“Š Redshift - DimensÃµes
+[2026-05-21 08:14:42] Tabelas: 23
+[2026-05-21 08:14:42] ======================================================================
+[2026-05-21 08:14:51]    ❌ dim_agencia: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:14:54]    ❌ dim_app_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:15:14]    ❌ dim_contratante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:15:18]    ❌ dim_contrato: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:15:21]    ❌ dim_documento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:15:24]    ❌ dim_escala_trabalho: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:01]    ❌ dim_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:04]    ❌ dim_funcao_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:24]    ❌ dim_loja: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:25]    ❌ dim_mobconnect_destino_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:27]    ❌ dim_mobconnect_status_atividade: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:29]    ❌ dim_mobconnect_tag: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:31]    ❌ dim_mobconnect_tipo_problema: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:33]    ❌ dim_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:36]    ❌ dim_produto: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:39]    ❌ dim_produto_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:43]    ❌ dim_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:46]    ❌ dim_rede: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:48]    ❌ dim_status_aprovacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:52]    ❌ dim_tempo: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:16:56]    ❌ dim_unidade_fabril: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:03]    ❌ dim_user: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:08]    ❌ dim_visitante: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:08] ⚠️  Erro ao atualizar índice: The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.
+[2026-05-21 08:17:08] 
+======================================================================
+[2026-05-21 08:17:08] Processando: ðŸ“ˆ Redshift - Fatos
+[2026-05-21 08:17:08] Tabelas: 28
+[2026-05-21 08:17:08] ======================================================================
+[2026-05-21 08:17:12]    ❌ fato_acesso: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:15]    ❌ fato_acesso_prestador_servico: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:19]    ❌ fato_acesso_validacao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:23]    ❌ fato_agg_prestador_servico_diario: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:26]    ❌ fato_agg_prestador_servico_mensal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:28]    ❌ fato_agg_status_documentacao_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:31]    ❌ fato_agg_status_documentacao_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:34]    ❌ fato_contrato_pontual: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:36]    ❌ fato_contrato_semanal: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:40]    ❌ fato_declaracao: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:43]    ❌ fato_horas_ideais: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:46]    ❌ fato_mobconnect_atendimento: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:48]    ❌ fato_mobconnect_atendimento_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:51]    ❌ fato_mobconnect_atendimento_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:54]    ❌ fato_mobconnect_atividades: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:17:57]    ❌ fato_mobconnect_atividades_pendentes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:01]    ❌ fato_mobconnect_evidencias: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:04]    ❌ fato_mobconnect_evidencias_fornecedores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:07]    ❌ fato_mobconnect_ruptura_administrativa: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:10]    ❌ fato_mobconnect_visitas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:12]    ❌ fato_projeto_agencia_fornecedor: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:15]    ❌ fato_status_colaboradores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:19]    ❌ fato_status_contratantes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:22]    ❌ fato_status_documento_colaboradores_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:25]    ❌ fato_status_documento_redes: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:28]    ❌ fato_status_lojas: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
+[2026-05-21 08:18:33]    ❌ fato_status_promotores: ERRO - The credentials do not contain the necessary fields need to refresh the access token. You must speci
