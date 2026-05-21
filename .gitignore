@@ -4,6 +4,7 @@
 
 # ZIPs e instaladores grandes
 06-MCP-Tools/zips-instaladores/*.zip
+07-AI-Tools/zips-repos/
 
 # Arquivos Power BI compilados
 *.pbix
