@@ -29,6 +29,16 @@ node_modules/
 07-AI-Tools/semantic-cache-py/
 agent-manager-for-q-cli/
 
+# ZIPs grandes (frameworks externos)
+SurfSense-main.zip
+airbyte-master.zip
+adk-python-main.zip
+deer-flow-main.zip
+E2B-main.zip
+SuperAGI-main.zip
+mempalace-main.zip
+onyx-main.zip
+
 # Credenciais
 *.credentials*
 token.json
