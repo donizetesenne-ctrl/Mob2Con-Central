@@ -1,7 +1,0 @@
-{
-  "host": "m2c-redshift-cluster-1.cdsdjzdiml9e.us-west-2.redshift.amazonaws.com",
-  "port": 5439,
-  "database": "rg_bi",
-  "user": "marcelo.prado",
-  "password": "Fb14FfBPpsXTw0Yuyjxr"
-}
