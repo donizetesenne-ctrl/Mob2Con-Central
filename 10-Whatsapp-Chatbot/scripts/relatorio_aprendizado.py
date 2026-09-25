@@ -4,6 +4,7 @@ Uso:
     python scripts/relatorio_aprendizado.py
     python scripts/relatorio_aprendizado.py --limite 50 --json
     python scripts/relatorio_aprendizado.py --resolver 12
+    python scripts/relatorio_aprendizado.py --revalidar
 """
 
 from __future__ import annotations
@@ -19,6 +20,8 @@ RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ))
 
 from bot.config import carregar_config  # noqa: E402
+from bot.fluxo import MotorFluxo  # noqa: E402
+from bot.sessao import Sessao  # noqa: E402
 
 
 def argumentos() -> argparse.Namespace:
@@ -28,6 +31,11 @@ def argumentos() -> argparse.Namespace:
     grupo = parser.add_mutually_exclusive_group()
     grupo.add_argument("--resolver", type=int, metavar="ID")
     grupo.add_argument("--ignorar", type=int, metavar="ID")
+    grupo.add_argument(
+        "--revalidar",
+        action="store_true",
+        help="retesta pendências contra o fluxo atual e limpa casos já aprendidos",
+    )
     return parser.parse_args()
 
 
@@ -37,7 +45,8 @@ def horario(valor: float) -> str:
 
 def main() -> int:
     args = argumentos()
-    caminho = carregar_config().sqlite_path
+    config = carregar_config()
+    caminho = config.sqlite_path
     if str(caminho) == ":memory:" or not caminho.exists():
         print(f"Banco ainda não existe: {caminho}")
         return 0
@@ -45,6 +54,37 @@ def main() -> int:
     conexao = sqlite3.connect(caminho, timeout=5.0)
     conexao.row_factory = sqlite3.Row
     try:
+        if args.revalidar:
+            motor = MotorFluxo(config.caminho_fluxo, config.atendimento)
+            linhas = conexao.execute(
+                "SELECT id, pergunta FROM perguntas_nao_respondidas WHERE status = 'pendente'"
+            ).fetchall()
+            resolvidas = ignoradas = mantidas = 0
+            for linha in linhas:
+                pergunta = str(linha["pergunta"] or "").strip()
+                if motor.apenas_saudacao(pergunta):
+                    novo_status = "ignorada"
+                    ignoradas += 1
+                else:
+                    sessao = Sessao(numero="revalidacao")
+                    motor.iniciar(sessao, dentro_do_horario=True)
+                    resposta = motor.processar(sessao, pergunta)
+                    if resposta.usar_llm or resposta.transferir:
+                        mantidas += 1
+                        continue
+                    novo_status = "resolvida"
+                    resolvidas += 1
+                conexao.execute(
+                    "UPDATE perguntas_nao_respondidas SET status = ? WHERE id = ?",
+                    (novo_status, int(linha["id"])),
+                )
+            conexao.commit()
+            print(
+                f"Revalidação concluída: {resolvidas} resolvida(s), "
+                f"{ignoradas} saudação(ões) ignorada(s), {mantidas} ainda pendente(s)."
+            )
+            return 0
+
         if args.resolver is not None or args.ignorar is not None:
             identificador = args.resolver if args.resolver is not None else args.ignorar
             status = "resolvida" if args.resolver is not None else "ignorada"

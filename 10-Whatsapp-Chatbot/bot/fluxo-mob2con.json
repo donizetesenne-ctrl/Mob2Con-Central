@@ -194,7 +194,7 @@
     },
 
     "acesso_motivos": {
-      "mensagem": "São três motivos, quase sempre:\n\n**Documento vencido ou faltando.** Cada rede varejista define a própria lista de exigências, então o mesmo promotor pode estar liberado numa rede e barrado em outra.\n\n**Falta de alocação.** Você precisa estar vinculado àquela rede e àquela loja. Documento em ordem sem alocação não libera a entrada.\n\n**Contratante bloqueado.** A rede pode ter bloqueado a empresa que te envia, e aí nenhum promotor dela entra.\n\nNos três casos quem resolve é a empresa que te emprega. Leve esses três itens para o seu supervisor.",
+      "mensagem": "São três motivos, quase sempre:\n\n**Documento vencido ou faltando.** Cada rede varejista define a própria lista de exigências, então o mesmo promotor pode estar liberado numa rede e barrado em outra.\n\n**Falta de alocação.** Você precisa estar vinculado àquela rede e àquela loja. Documento em ordem sem alocação não libera a entrada.\n\n**Contratante bloqueado.** A rede pode ter bloqueado a empresa que te envia, e aí nenhum promotor dela entra.\n\nNos três casos quem resolve é a empresa que te emprega. Leve esses três itens para o seu supervisor.\n\nSe quiser tratar outro assunto, digite *0* para voltar ao menu. Se precisar de uma pessoa do time, digite *9*.",
       "opcoes": {},
       "sinonimos": {}
     },

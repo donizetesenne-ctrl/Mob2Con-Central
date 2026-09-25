@@ -223,6 +223,22 @@ class MotorFluxo:
             logger.warning("Estado desconhecido '%s'; voltando ao menu.", sessao.estado)
             return self._entrar(sessao, ESTADO_INICIAL)
 
+        # Cumprimentos durante uma conversa não são erro de entendimento.
+        # Mantém o usuário no ponto atual sem consumir tentativa nem alimentar
+        # a fila de aprendizado com "oi", "opa", "bom dia" etc.
+        if self.apenas_saudacao(texto):
+            sessao.tentativas_invalidas = 0
+            if sessao.estado == ESTADO_INICIAL:
+                return Resposta(mensagens=[self._mensagem_do_estado(estado, sessao)])
+            if estado.get("opcoes") or estado.get("capturar"):
+                return Resposta(
+                    mensagens=[
+                        "Oi! Podemos continuar de onde paramos.",
+                        self._mensagem_do_estado(estado, sessao),
+                    ]
+                )
+            return self._entrar(sessao, ESTADO_INICIAL)
+
         campo = estado.get("capturar")
         if campo:
             return self._capturar(sessao, estado, campo, texto)

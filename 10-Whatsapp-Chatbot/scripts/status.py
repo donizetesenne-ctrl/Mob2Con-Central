@@ -101,12 +101,8 @@ async def executar() -> int:
             "ativo - so responde " + ", ".join(sorted(atendimento.numeros_permitidos)),
         )
     else:
-        _linha("MODO TESTE", "DESLIGADO - responde qualquer numero")
-        if conectado and bot_online:
-            alertas.append(
-                "O bot esta ATENDENDO TODO MUNDO que mandar mensagem para este numero. "
-                "Para testar com seguranca, preencha NUMEROS_PERMITIDOS no .env."
-            )
+        _linha("MODO TESTE", "ABERTO - responde qualquer numero")
+        _linha("coleta de casos reais", "ativa - todos podem testar o fluxo")
 
     notificacao = os.environ.get("NUMERO_NOTIFICACAO", "").strip()
     _linha("aviso interno de lead", f"+{notificacao}" if notificacao else "nao configurado")

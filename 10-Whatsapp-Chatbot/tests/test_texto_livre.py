@@ -91,6 +91,28 @@ class TestTextoLivre(unittest.TestCase):
 
         self.assertIn("Não identifiquei essa opção", "\n".join(resposta.mensagens))
 
+    def test_saudacao_no_meio_da_conversa_nao_vira_erro(self) -> None:
+        sessao = self.nova_sessao()
+        self.motor.processar(sessao, "1")
+        self.assertEqual(sessao.estado, "acesso_quem")
+
+        resposta = self.motor.processar(sessao, "opa")
+
+        self.assertEqual(sessao.estado, "acesso_quem")
+        self.assertEqual(sessao.tentativas_invalidas, 0)
+        self.assertFalse(resposta.usar_llm)
+        self.assertIn("continuar de onde paramos", "\n".join(resposta.mensagens).lower())
+
+    def test_saudacao_depois_de_estado_final_volta_ao_menu(self) -> None:
+        sessao = self.nova_sessao()
+        sessao.estado = "acesso_motivos"
+
+        resposta = self.motor.processar(sessao, "bom dia")
+
+        self.assertEqual(sessao.estado, "menu")
+        self.assertFalse(resposta.usar_llm)
+        self.assertIn("Me diga o que está acontecendo", "\n".join(resposta.mensagens))
+
 
 if __name__ == "__main__":
     unittest.main()
