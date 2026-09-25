@@ -160,6 +160,26 @@ class TestTextoLivre(unittest.TestCase):
         self.assertIn("10 promotores", sessao.dados.get("porte", ""))
         self.assertIn("uma loja", sessao.dados.get("porte", ""))
         self.assertIn("MobConnect", sessao.dados.get("contexto_comercial", ""))
+        self.assertIn("cenário da *Uau*", resposta.mensagens[0])
+        self.assertIn("10 promotores", resposta.mensagens[0])
+
+    def test_menu_mobconnect_continua_aceitando_numero_e_sinonimo(self) -> None:
+        sessao = self.nova_sessao()
+        self.motor.processar(
+            sessao,
+            "Sou da Uau, temos 10 promotores em uma loja e queria entender "
+            "se o MobConnect ajudaria a acompanhar execução.",
+        )
+
+        resposta_numero = self.motor.processar(sessao, "1")
+        self.assertEqual(sessao.estado, "mobconnect_seg_rede")
+        self.assertIn("rede varejista", "\n".join(resposta_numero.mensagens).lower())
+
+        sessao = self.nova_sessao()
+        self.motor.processar(sessao, "como funciona mobconnect")
+        resposta_texto = self.motor.processar(sessao, "industria")
+        self.assertEqual(sessao.estado, "mobconnect_seg_industria")
+        self.assertIn("indústria", "\n".join(resposta_texto.mensagens).lower())
 
     def test_contexto_espontaneo_nao_e_pedido_de_novo_no_comercial(self) -> None:
         sessao = self.nova_sessao()

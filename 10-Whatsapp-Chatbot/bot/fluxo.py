@@ -154,6 +154,24 @@ class MotorFluxo:
         abertura = "%02d:%02d" % self._atendimento.hora_abertura
         fechamento = "%02d:%02d" % self._atendimento.hora_fechamento
         contexto = _ContextoTolerante(sessao.dados)
+        empresa_contato = str(sessao.dados.get("empresa_contato") or "").strip()
+        porte = str(sessao.dados.get("porte") or "").strip()
+        if empresa_contato and porte:
+            cenario_mobconnect = (
+                f"No cenário da *{empresa_contato}*, com {porte}, já dá para "
+                "pensar no MobConnect de forma bem prática.\n\n"
+            )
+        elif empresa_contato:
+            cenario_mobconnect = (
+                f"Pensando especificamente no cenário da *{empresa_contato}*, "
+                "o MobConnect funciona assim.\n\n"
+            )
+        elif porte:
+            cenario_mobconnect = (
+                f"Para uma operação com {porte}, o MobConnect funciona assim.\n\n"
+            )
+        else:
+            cenario_mobconnect = ""
         contexto.update(
             {
                 "empresa": self._atendimento.nome_empresa,
@@ -162,6 +180,7 @@ class MotorFluxo:
                 "abertura": abertura,
                 "fechamento": fechamento,
                 "dias": self._descrever_dias(),
+                "cenario_mobconnect": cenario_mobconnect,
             }
         )
         return contexto
@@ -291,7 +310,15 @@ class MotorFluxo:
         normalizado: str,
     ) -> Resposta | None:
         """Entende intenções comuns de MobConnect sem depender de LLM."""
-        if "mobconnect" not in normalizado:
+        em_contexto = sessao.estado in {
+            "mobconnect_intencao",
+            "mobconnect_comercial",
+            "mobconnect_seg_rede",
+            "mobconnect_seg_industria",
+            "mobconnect_seg_agencia",
+            "mobconnect_exemplo",
+        }
+        if "mobconnect" not in normalizado and not em_contexto:
             return None
 
         suporte = any(
@@ -388,6 +415,11 @@ class MotorFluxo:
             return self._entrar(sessao, "mobconnect_comercial")
         if operacional:
             return self._entrar(sessao, "mobconnect")
+
+        # Dentro de uma tela MobConnect, números e palavras como "rede" precisam
+        # continuar sendo resolvidos pelas opções/sinônimos daquele estado.
+        if em_contexto and "mobconnect" not in normalizado:
+            return None
         return self._entrar(sessao, "mobconnect_intencao")
 
     def _capturar(
