@@ -318,6 +318,10 @@ class MotorFluxo:
 
         return resolver_gatilhos(normalizado, sinonimos, opcoes)
 
+    def ir_para(self, sessao: Sessao, nome_estado: str) -> Resposta:
+        """Entrada pública controlada em um estado conhecido do fluxo."""
+        return self._entrar(sessao, nome_estado)
+
     def _entrar(self, sessao: Sessao, nome_estado: str) -> Resposta:
         estado = self._estados.get(nome_estado)
         if estado is None:
@@ -413,6 +417,7 @@ class MotorFluxo:
             "redes_atendidas": "Redes envolvidas",
             "porte": "Operação",
             "necessidade": "Necessidade",
+            "contexto_comercial": "Contexto comercial",
             "descricao_suporte": "Descrição do problema",
             "motivo_handoff": "Motivo da transferência",
         }

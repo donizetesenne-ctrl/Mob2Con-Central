@@ -80,6 +80,9 @@
         "implantar mobconnect": "6",
         "demonstracao mobconnect": "6",
         "quero saber mais do mobconnect": "6",
+        "como funciona mobconnect": "6",
+        "quero entender o mobconnect": "6",
+        "curiosidade sobre mobconnect": "6",
         "quanto custa mobconnect": "6",
         "valor mobconnect": "6",
         "mobconnect": "7",
@@ -290,7 +293,7 @@
     },
 
     "mobconnect_intencao": {
-      "mensagem": "O MobConnect cobre execução de campo: roteiro, sortimento, pesquisas, atividades e alertas de ruptura.\n\nVocê já usa o produto e precisa de ajuda, ou quer conhecer e contratar?\n\n*1* — Já uso e preciso de suporte\n*2* — Quero conhecer ou contratar",
+      "mensagem": "O MobConnect é a parte da Mob2Con voltada à **execução em campo**. Ele organiza o que precisa acontecer na loja e transforma a visita do promotor em informação para gestão.\n\nSe você já usa o produto e tem um problema operacional, eu sigo pelo suporte. Se está conhecendo agora, eu te explico antes de falar em proposta.\n\n*1* — Já uso e preciso de suporte\n*2* — Quero entender como o MobConnect funciona",
       "opcoes": {
         "1": "mobconnect",
         "2": "mobconnect_comercial"
@@ -301,6 +304,9 @@
         "ja uso": "1",
         "problema": "1",
         "conhecer": "2",
+        "curiosidade": "2",
+        "como funciona": "2",
+        "quero entender": "2",
         "contratar": "2",
         "comercial": "2",
         "proposta": "2"
@@ -309,43 +315,94 @@
 
     "mobconnect_comercial": {
       "definir": { "frente": "comercial_mobconnect" },
-      "mensagem": "Quem cuida do MobConnect é o **Matheus**. Posso encaminhar seu caso com o contexto pronto; o canal público é **(19) 99926-7104** ou **comercial@mob2con.com.br**.\n\nPara eu enviar corretamente, você é de qual segmento?\n\n*1* — Rede varejista\n*2* — Indústria ou fornecedor\n*3* — Agência de promotores",
+      "mensagem": "Claro. Pense no MobConnect como um ciclo de **planejar → executar → comprovar → analisar**.\n\nAntes da visita, a operação organiza roteiro, lojas, produtos, pesquisas e atividades. Em campo, o promotor vê o que precisa fazer e registra a execução. Depois, gestores acompanham cobertura, visitas, atividades e os sinais gerados pela operação em dashboards. Quando há dados da rede e isso faz parte do escopo, também podem existir indicadores e alertas ligados a ruptura.\n\nUma diferença importante: **MobConnect cuida da execução em campo; MobControl cuida de cadastro, documentos e acesso às lojas.**\n\nSe quiser, eu aprofundo para o seu cenário:\n\n*1* — Rede varejista\n*2* — Indústria ou fornecedor\n*3* — Agência de promotores\n*4* — Quero um exemplo prático do fluxo\n*5* — Quero conversar com o comercial\n*0* — Voltar ao menu",
       "opcoes": {
         "1": "mobconnect_seg_rede",
         "2": "mobconnect_seg_industria",
-        "3": "mobconnect_seg_agencia"
+        "3": "mobconnect_seg_agencia",
+        "4": "mobconnect_exemplo",
+        "5": "lead_contexto_comercial"
       },
       "sinonimos": {
         "rede": "1",
+        "rede varejista": "1",
         "varejo": "1",
         "supermercado": "1",
         "industria": "2",
         "fornecedor": "2",
         "marca": "2",
         "agencia": "3",
-        "promotores": "3"
+        "promotores": "3",
+        "exemplo": "4",
+        "na pratica": "4",
+        "como funciona": "4",
+        "comercial": "5",
+        "proposta": "5",
+        "contratar": "5",
+        "quero falar": "5"
       }
     },
 
     "mobconnect_seg_rede": {
       "definir": { "segmento": "Rede varejista", "frente": "comercial_mobconnect" },
-      "mensagem": "Qual é o seu nome?",
-      "capturar": "nome_contato",
-      "proximo": "lead_empresa"
+      "mensagem": "Para uma **rede varejista**, o MobConnect dá visibilidade sobre a execução nas lojas. A rede consegue acompanhar visitas e atividades realizadas, pesquisas, execução por loja e fornecedor e, quando existem dados e escopo para isso, sinais relacionados a disponibilidade e ruptura.\n\nO ganho é sair de uma operação baseada só em mensagem e planilha para uma visão estruturada do que estava planejado e do que realmente aconteceu em campo.\n\n*1* — Ver um exemplo prático\n*2* — Falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "mobconnect_exemplo",
+        "2": "lead_contexto_comercial"
+      },
+      "sinonimos": {
+        "exemplo": "1",
+        "na pratica": "1",
+        "comercial": "2",
+        "proposta": "2",
+        "contratar": "2"
+      }
     },
 
     "mobconnect_seg_industria": {
       "definir": { "segmento": "Indústria ou fornecedor", "frente": "comercial_mobconnect" },
-      "mensagem": "Qual é o seu nome?",
-      "capturar": "nome_contato",
-      "proximo": "lead_empresa"
+      "mensagem": "Para **indústria e fornecedores**, o MobConnect ajuda a transformar investimento em campo em evidência de execução. É possível organizar o trabalho esperado nas lojas e acompanhar cobertura, visitas, atividades, pesquisas e execução por equipe ou agência.\n\nNa prática, fica mais fácil comparar o que foi planejado com o que aconteceu e identificar onde a operação precisa de atenção. Indicadores ligados a estoque ou ruptura dependem dos dados disponibilizados pela rede e do escopo contratado.\n\n*1* — Ver um exemplo prático\n*2* — Falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "mobconnect_exemplo",
+        "2": "lead_contexto_comercial"
+      },
+      "sinonimos": {
+        "exemplo": "1",
+        "na pratica": "1",
+        "comercial": "2",
+        "proposta": "2",
+        "contratar": "2"
+      }
     },
 
     "mobconnect_seg_agencia": {
       "definir": { "segmento": "Agência de promotores", "frente": "comercial_mobconnect" },
-      "mensagem": "Qual é o seu nome?",
-      "capturar": "nome_contato",
-      "proximo": "lead_empresa"
+      "mensagem": "Para uma **agência de promotores**, o MobConnect organiza a execução da equipe em campo: roteiro, visitas, atividades, pesquisas e o que precisa ser realizado em cada loja. O gestor acompanha o andamento da operação e consegue apresentar ao cliente evidências do que foi executado.\n\nCadastro, documentação e liberação de acesso ficam no MobControl; o MobConnect entra principalmente depois, na gestão do trabalho que acontece dentro da loja.\n\n*1* — Ver um exemplo prático\n*2* — Falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "mobconnect_exemplo",
+        "2": "lead_contexto_comercial"
+      },
+      "sinonimos": {
+        "exemplo": "1",
+        "na pratica": "1",
+        "comercial": "2",
+        "proposta": "2",
+        "contratar": "2"
+      }
+    },
+
+    "mobconnect_exemplo": {
+      "definir": { "frente": "comercial_mobconnect" },
+      "mensagem": "Um exemplo simples: uma operação precisa visitar 80 lojas na semana. O gestor organiza os roteiros e define atividades ou pesquisas. O promotor abre o MobConnect, vê as lojas e tarefas do dia e registra o que executou. Depois, o time acompanha quais visitas aconteceram, o que ficou pendente e os resultados registrados em campo.\n\nOu seja, o MobConnect conecta o **planejamento do gestor** com a **execução do promotor** e a **leitura dos resultados**.\n\n*1* — Quero conversar com o comercial sobre meu cenário\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "lead_contexto_comercial"
+      },
+      "sinonimos": {
+        "comercial": "1",
+        "meu cenario": "1",
+        "proposta": "1",
+        "contratar": "1"
+      }
     },
 
     "mobconnect": {
@@ -435,7 +492,7 @@
       "definir": { "segmento": "Rede varejista", "frente": "comercial_varejo" },
       "mensagem": "Para a rede, a ideia é simples: **quem entra na sua loja, e o que sai da gôndola.**\n\nVocê define as regras de acesso e a lista de documentos que exige. A plataforma confere os documentos, registra a entrada do promotor na portaria e mostra como a reposição andou em cada loja. Passa a ser possível ver quem está em cada loja agora com documento válido, presença e permanência por fornecedor, pendências que estão bloqueando entrada e sinais de falha no abastecimento.\n\nDentro da rede quem usa normalmente é gerente de loja, prevenção de perdas, comercial e operações. O modelo é contratado pela rede, com acesso liberado aos fornecedores atendidos.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
       "opcoes": {
-        "1": "lead_nome"
+        "1": "lead_contexto_comercial"
       },
       "sinonimos": {
         "comercial": "1",
@@ -449,7 +506,7 @@
       "definir": { "segmento": "Indústria ou fornecedor", "frente": "comercial_industria" },
       "mensagem": "Para a indústria, a ideia é: **seu investimento em campo com evidência de execução.**\n\nVocê acompanha onde a marca foi atendida, por quanto tempo e com qual resultado na gôndola, seja com equipe própria ou com agência terceirizada. Na prática: cobertura de lojas planejada contra realizada, permanência da equipe por loja e região, execução por agência contratada com comparativo, e indicadores de estoque e ruptura quando a rede compartilha.\n\nQuem usa normalmente é trade marketing, gerência regional de vendas e inteligência de mercado.\n\nUm ponto que evita expectativa errada: isso funciona **nas redes que já operam com a Mob2Con**, então a cobertura da sua carteira precisa ser consultada.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
       "opcoes": {
-        "1": "lead_nome"
+        "1": "lead_contexto_comercial"
       },
       "sinonimos": {
         "comercial": "1",
@@ -463,7 +520,7 @@
       "definir": { "segmento": "Agência de promotores", "frente": "comercial_industria" },
       "mensagem": "Para a agência, a ideia é: **promotor liberado na loja sem correr atrás de papel.**\n\nVocê cadastra a equipe uma vez, atende a exigência documental de cada rede e comprova ao seu cliente o que foi executado em campo. O que passa a ficar visível: situação de cada promotor — apto, pendente ou bloqueado —, os documentos exigidos por rede com validade, roteiro do dia com visitas realizadas e ausências, e relatórios de execução para apresentar ao cliente.\n\nQuem usa normalmente é coordenação de campo, departamento pessoal e atendimento ao cliente.\n\nVale lembrar que a liberação depende das regras da rede atendida.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
       "opcoes": {
-        "1": "lead_nome"
+        "1": "lead_contexto_comercial"
       },
       "sinonimos": {
         "comercial": "1",
@@ -471,6 +528,12 @@
         "proposta": "1",
         "contratar": "1"
       }
+    },
+
+    "lead_contexto_comercial": {
+      "mensagem": "Se fizer sentido conversar com o comercial, eu consigo encaminhar sem transformar isso em formulário.\n\nEm **uma única mensagem**, me diga a empresa e o cenário que você quer avaliar. Pode incluir, se souber, quantidade de lojas ou promotores, redes/regiões envolvidas e o principal objetivo. Não precisa preencher tudo.\n\nSe preferir falar com o time sem acrescentar contexto, digite *9*.",
+      "capturar": "contexto_comercial",
+      "proximo": "atendente"
     },
 
     "lead_nome": {

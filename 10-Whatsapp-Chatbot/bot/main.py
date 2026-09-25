@@ -22,7 +22,7 @@ from .config import Config, carregar_config
 from .conhecimento import IndiceManuais
 from .evolution import ClienteEvolution, ErroEvolution, normalizar_numero
 from .fluxo import ROTULOS_FRENTE, MotorFluxo, Resposta, normalizar
-from .llm import ClienteLLM
+from .llm import AnaliseConversa, ClienteLLM
 from .mensagem import MensagemRecebida, interpretar
 from .persistencia import BancoSQLite
 from .sessao import Sessao, criar_repositorio
@@ -31,6 +31,15 @@ logger = logging.getLogger("chatbot")
 
 RETOMAR_BOT = {"menu", "bot", "0", "voltar", "inicio", "atendimento automatico"}
 LIMITE_DEDUPE = 2000
+ESTADOS_IA_MOBCONNECT = {
+    "mobconnect_intencao",
+    "mobconnect_comercial",
+    "mobconnect_seg_rede",
+    "mobconnect_seg_industria",
+    "mobconnect_seg_agencia",
+    "mobconnect_exemplo",
+    "lead_contexto_comercial",
+}
 
 
 class ControleDuplicidade:
@@ -283,6 +292,137 @@ class Aplicacao:
         logger.info("Pergunta respondida pela busca local nos manuais.")
         return Resposta(mensagens=mensagens)
 
+    def _deve_usar_ia_estruturada(self, sessao: Sessao, texto: str) -> bool:
+        """IA atua onde agrega contexto; números/menu continuam determinísticos."""
+        if not self.llm.ativo:
+            return False
+        normalizado = normalizar(texto)
+        if not normalizado:
+            return False
+        if normalizado in RETOMAR_BOT or normalizado in {
+            "9",
+            "atendente",
+            "humano",
+            "pessoa",
+            "time",
+        }:
+            return False
+        if normalizado.isdigit():
+            return False
+        return (
+            "mobconnect" in normalizado
+            or sessao.estado in ESTADOS_IA_MOBCONNECT
+        )
+
+    def _contexto_manuais_para_ia(self, sessao: Sessao, pergunta: str) -> str:
+        """Recupera evidência curta dos manuais para aterrar a análise da IA."""
+        if self.manuais is None:
+            return ""
+        persona = self._persona_para_manuais(sessao)
+        if persona is None:
+            return ""
+        try:
+            resultados = self.manuais.buscar(pergunta, persona=persona, limite=2)
+        except (OSError, sqlite3.Error, RuntimeError) as erro:
+            logger.error("Falha ao montar contexto da IA: %s", erro)
+            return ""
+        blocos: list[str] = []
+        for item in resultados:
+            blocos.append(
+                f"Documento: {item.titulo}\n"
+                f"Seção: {item.secao}\n"
+                f"Trecho: {item.conteudo[:1800]}"
+            )
+        return "\n\n".join(blocos)[:5000]
+
+    @staticmethod
+    def _aplicar_campos_ia(sessao: Sessao, analise: AnaliseConversa) -> None:
+        """Guarda somente contexto novo; a IA não sobrescreve dado confirmado."""
+        for campo, valor in analise.campos.items():
+            atual = str(sessao.dados.get(campo) or "").strip()
+            if not atual and valor.strip():
+                sessao.dados[campo] = valor.strip()[:600]
+
+    async def _tentar_ia_estruturada(
+        self,
+        sessao: Sessao,
+        pergunta: str,
+    ) -> Resposta | None:
+        """Usa IA como roteador seguro; fluxo tradicional é o fallback."""
+        if not self._deve_usar_ia_estruturada(sessao, pergunta):
+            return None
+        analise = await self.llm.analisar(
+            pergunta,
+            estado=sessao.estado,
+            dados_sessao=sessao.dados,
+            historico=sessao.historico,
+            contexto_conhecimento=self._contexto_manuais_para_ia(sessao, pergunta),
+        )
+        if analise is None or analise.confianca < 0.58:
+            return None
+
+        self._aplicar_campos_ia(sessao, analise)
+        logger.info(
+            "IA estruturada | intenção=%s | ação=%s | confiança=%.2f",
+            analise.intencao,
+            analise.acao,
+            analise.confianca,
+        )
+
+        if analise.acao == "continuar_fluxo":
+            return None
+
+        if analise.acao == "responder":
+            # Mantém o estado coerente com a conversa para que a próxima
+            # mensagem continue no contexto MobConnect, em vez de voltar ao menu.
+            if analise.intencao == "mobconnect_conhecer":
+                self.motor.ir_para(sessao, "mobconnect_comercial")
+            texto = analise.resposta.strip()
+            pergunta_faltante = analise.pergunta_faltante.strip()
+            if pergunta_faltante and pergunta_faltante.lower() not in texto.lower():
+                texto = f"{texto}\n\n{pergunta_faltante}".strip()
+            if not texto:
+                return None
+            sessao.tentativas_invalidas = 0
+            return Resposta(mensagens=[texto])
+
+        if analise.acao == "suporte_mobconnect":
+            resposta = self.motor.ir_para(sessao, "mobconnect")
+            if analise.resposta:
+                resposta.mensagens.insert(0, analise.resposta)
+            return resposta
+
+        if analise.acao == "encaminhar_comercial":
+            sessao.dados["frente"] = "comercial_mobconnect"
+            campos_contexto = {
+                "empresa_contato",
+                "segmento",
+                "redes_atendidas",
+                "porte",
+                "necessidade",
+            }
+            tem_contexto = any(
+                str(sessao.dados.get(campo) or "").strip()
+                for campo in campos_contexto
+            )
+            if not tem_contexto:
+                resposta = self.motor.ir_para(sessao, "lead_contexto_comercial")
+                if analise.resposta:
+                    resposta.mensagens.insert(0, analise.resposta)
+                return resposta
+            sessao.dados.setdefault("contexto_comercial", pergunta[:600])
+            mensagens = [analise.resposta] if analise.resposta else []
+            mensagens.append(self.motor.texto("transferido", sessao))
+            return Resposta(mensagens=mensagens, transferir=True)
+
+        if analise.acao == "humano":
+            resposta = self.motor.ir_para(sessao, "atendente")
+            if analise.resposta:
+                resposta.mensagens.insert(0, analise.resposta)
+            return resposta
+
+        return None
+
     async def _registrar_pergunta_nao_respondida(
         self,
         sessao: Sessao,
@@ -356,21 +496,36 @@ class Aplicacao:
         abertura: list[str] = []
         inicial: Resposta | None = None
         primeiro_texto_nao_reconhecido = False
+        resposta_ia: Resposta | None = None
+
         if nova:
             inicial = self.motor.iniciar(
                 sessao, dentro_do_horario=self.dentro_do_horario()
             )
             if mensagem.texto and not self.motor.apenas_saudacao(mensagem.texto):
-                # A primeira mensagem também é conteúdo. Quem já descreveu o
-                # problema merece resposta, não um menu pedindo para repetir.
-                # Guardamos só a saudação e deixamos o texto ser interpretado.
+                # A primeira mensagem também é conteúdo. A IA estruturada pode
+                # responder/rotear direto; se não assumir, o fluxo tradicional
+                # continua exatamente como antes.
                 abertura = inicial.mensagens[:1]
-                resposta = self.motor.processar(sessao, mensagem.texto)
-                primeiro_texto_nao_reconhecido = resposta.usar_llm
+                resposta_ia = await self._tentar_ia_estruturada(
+                    sessao, mensagem.texto
+                )
+                if resposta_ia is not None:
+                    resposta = resposta_ia
+                else:
+                    resposta = self.motor.processar(sessao, mensagem.texto)
+                    primeiro_texto_nao_reconhecido = resposta.usar_llm
             else:
                 resposta = inicial
         else:
-            resposta = self.motor.processar(sessao, mensagem.texto)
+            resposta_ia = await self._tentar_ia_estruturada(
+                sessao, mensagem.texto
+            )
+            resposta = (
+                resposta_ia
+                if resposta_ia is not None
+                else self.motor.processar(sessao, mensagem.texto)
+            )
 
         if resposta.usar_llm:
             resposta_manual = self._responder_com_manuais(sessao, mensagem.texto)

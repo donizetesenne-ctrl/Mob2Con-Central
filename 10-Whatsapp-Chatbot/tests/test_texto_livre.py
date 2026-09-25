@@ -113,6 +113,36 @@ class TestTextoLivre(unittest.TestCase):
         self.assertFalse(resposta.usar_llm)
         self.assertIn("Me diga o que está acontecendo", "\n".join(resposta.mensagens))
 
+    def test_conhecer_mobconnect_explica_antes_de_qualificar(self) -> None:
+        sessao = self.nova_sessao()
+
+        resposta = self.motor.processar(sessao, "como funciona mobconnect")
+        texto = "\n".join(resposta.mensagens).lower()
+
+        self.assertEqual(sessao.estado, "mobconnect_comercial")
+        self.assertIn("planejar", texto)
+        self.assertIn("mobcontrol", texto)
+        self.assertNotIn("qual é o seu nome", texto)
+        self.assertNotIn("nome da sua empresa", texto)
+
+    def test_interesse_comercial_pede_contexto_em_uma_mensagem(self) -> None:
+        sessao = self.nova_sessao()
+        self.motor.processar(sessao, "como funciona mobconnect")
+        resposta = self.motor.processar(sessao, "5")
+
+        self.assertEqual(sessao.estado, "lead_contexto_comercial")
+        texto = "\n".join(resposta.mensagens).lower()
+        self.assertIn("uma única mensagem", texto)
+        self.assertNotIn("qual é o seu nome", texto)
+
+        resposta = self.motor.processar(
+            sessao,
+            "Uau Supermarket, 1 loja, 10 promotores. Quero organizar a execução.",
+        )
+        self.assertTrue(resposta.transferir)
+        self.assertEqual(sessao.estado, "atendente")
+        self.assertIn("Uau Supermarket", sessao.dados["contexto_comercial"])
+
 
 if __name__ == "__main__":
     unittest.main()

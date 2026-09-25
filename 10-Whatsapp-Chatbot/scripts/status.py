@@ -88,7 +88,12 @@ async def executar() -> int:
             _linha("servico", f"online ({corpo.get('status')})")
             _linha("motor alcancavel", str(corpo.get("evolution_alcancavel")))
             _linha("dentro do horario", str(corpo.get("dentro_do_horario")))
-            _linha("IA de fallback", "ligada" if corpo.get("ia_ativa") else "desligada")
+            if corpo.get("ia_ativa"):
+                _linha("IA conversacional", "ATIVA - interpretação semântica ligada")
+            elif config.llm.ativo:
+                _linha("IA conversacional", "PRONTA - aguardando chave ou modelo local")
+            else:
+                _linha("IA conversacional", "desligada por configuração")
             if corpo.get("status") == "degradado":
                 alertas.append("Bot vivo, mas sem alcancar o motor do WhatsApp.")
         else:

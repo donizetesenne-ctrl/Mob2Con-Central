@@ -116,24 +116,44 @@ def conversar(titulo: str, entradas: list[str], mostrar: bool = False):
     return sessao, resposta
 
 
-# lead de industria pelo menu numerado
-sessao, resposta = conversar(
-    "Lead industria (menu numerado)",
-    ["5", "2", "1", "Donizete", "Acme Alimentos", "Carrefour e Pao de Acucar",
-     "300 lojas em SP e MG", "Queremos evidencia de execucao", "1"],
+# lead de industria: explica primeiro e coleta contexto em uma mensagem
+contexto_lead = (
+    "Acme Alimentos. Atendemos Carrefour e Pao de Acucar, "
+    "300 lojas em SP e MG. Queremos evidência de execução."
 )
-checar(resposta.transferir, "lead industria transfere ao final")
+sessao, resposta = conversar(
+    "Lead industria sem formulario sequencial",
+    ["5", "2", "1", contexto_lead],
+)
+checar(resposta.transferir, "lead industria transfere apos contexto unico")
 checar(
     sessao.dados.get("segmento") == "Indústria ou fornecedor",
     "segmento gravado pelo menu",
     f"veio {sessao.dados.get('segmento')!r}",
 )
+checar(
+    sessao.dados.get("contexto_comercial") == contexto_lead,
+    "contexto comercial preservado integralmente",
+)
 resumo = motor.resumo_para_atendente(sessao)
-for campo in ("Segmento", "Redes envolvidas", "Operação", "Necessidade", "Empresa"):
+for campo in ("Segmento", "Contexto comercial"):
     checar(campo in resumo, f"handoff traz {campo}")
+checar("Acme Alimentos" in resumo, "handoff leva empresa dentro do contexto")
+checar("300 lojas" in resumo, "handoff leva porte dentro do contexto")
 print("\n    --- resumo entregue ao time ---")
 for linha in resumo.splitlines():
     print(f"    | {linha}")
+
+# curiosidade sobre MobConnect precisa ensinar antes de vender
+sessao, resposta = conversar(
+    "Curiosidade sobre MobConnect",
+    ["como funciona mobconnect"],
+)
+texto_mobconnect = " ".join(resposta.mensagens).lower()
+checar(sessao.estado == "mobconnect_comercial", "curiosidade entra na explicacao")
+checar("planejar" in texto_mobconnect, "explicacao cobre planejamento")
+checar("mobcontrol" in texto_mobconnect, "explicacao diferencia MobControl")
+checar("qual é o seu nome" not in texto_mobconnect, "curiosidade nao vira formulario")
 
 # texto livre cai no sinonimo certo, e promotor recebe o caminho dele
 sessao, resposta = conversar(
