@@ -142,6 +142,48 @@ class TestTextoLivre(unittest.TestCase):
         self.assertTrue(resposta.transferir)
         self.assertEqual(sessao.estado, "atendente")
         self.assertIn("Uau Supermarket", sessao.dados["contexto_comercial"])
+    def test_frase_real_da_uau_entende_mobconnect_sem_ia(self) -> None:
+        sessao = self.nova_sessao()
+        resposta = self.motor.processar(
+            sessao,
+            "Sou da Uau, temos 10 promotores em uma loja e queria entender "
+            "se o MobConnect ajudaria a acompanhar execução.",
+        )
+        texto = "\n".join(resposta.mensagens).lower()
+
+        self.assertEqual(sessao.estado, "mobconnect_comercial")
+        self.assertFalse(resposta.usar_llm)
+        self.assertIn("planejar", texto)
+        self.assertIn("mobcontrol", texto)
+        self.assertNotIn("me diga o que está acontecendo", texto)
+        self.assertEqual(sessao.dados.get("empresa_contato"), "Uau")
+        self.assertIn("10 promotores", sessao.dados.get("porte", ""))
+        self.assertIn("uma loja", sessao.dados.get("porte", ""))
+        self.assertIn("MobConnect", sessao.dados.get("contexto_comercial", ""))
+
+    def test_contexto_espontaneo_nao_e_pedido_de_novo_no_comercial(self) -> None:
+        sessao = self.nova_sessao()
+        self.motor.processar(
+            sessao,
+            "Sou da Uau, temos 10 promotores em uma loja e queria entender "
+            "se o MobConnect ajudaria a acompanhar execução.",
+        )
+
+        resposta = self.motor.processar(sessao, "5")
+
+        self.assertTrue(resposta.transferir)
+        self.assertEqual(sessao.estado, "atendente")
+
+    def test_mobconnect_com_problema_continua_no_suporte(self) -> None:
+        sessao = self.nova_sessao()
+        resposta = self.motor.processar(
+            sessao,
+            "Já uso MobConnect e não consigo abrir meu roteiro.",
+        )
+
+        self.assertEqual(sessao.estado, "mobconnect")
+        self.assertFalse(resposta.usar_llm)
+        self.assertIn("roteiro", "\n".join(resposta.mensagens).lower())
 
 
 if __name__ == "__main__":

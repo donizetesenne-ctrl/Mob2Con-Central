@@ -223,6 +223,15 @@ class MotorFluxo:
             logger.warning("Estado desconhecido '%s'; voltando ao menu.", sessao.estado)
             return self._entrar(sessao, ESTADO_INICIAL)
 
+        # MobConnect precisa de leitura composicional: a mesma frase pode conter
+        # "execução" e "MobConnect" sem significar suporte. Ex.: "queria entender
+        # se o MobConnect ajudaria a acompanhar execução" é descoberta do produto.
+        # Esta camada local funciona mesmo sem LLM e evita cair no menu por
+        # ambiguidade entre gatilhos isolados.
+        resposta_mobconnect = self._rotear_mobconnect_local(sessao, texto, normalizado)
+        if resposta_mobconnect is not None:
+            return resposta_mobconnect
+
         # Cumprimentos durante uma conversa não são erro de entendimento.
         # Mantém o usuário no ponto atual sem consumir tentativa nem alimentar
         # a fila de aprendizado com "oi", "opa", "bom dia" etc.
@@ -274,6 +283,112 @@ class MotorFluxo:
                 return self._entrar(sessao, menu["opcoes"][chave_menu])
 
         return self._nao_entendi(sessao, estado)
+
+    def _rotear_mobconnect_local(
+        self,
+        sessao: Sessao,
+        texto: str,
+        normalizado: str,
+    ) -> Resposta | None:
+        """Entende intenções comuns de MobConnect sem depender de LLM."""
+        if "mobconnect" not in normalizado:
+            return None
+
+        suporte = any(
+            marca in normalizado
+            for marca in (
+                "ja uso",
+                "sou cliente",
+                "preciso de suporte",
+                "problema",
+                "erro",
+                "falha",
+                "nao consigo",
+                "nao funciona",
+                "bug",
+            )
+        )
+        comercial = any(
+            marca in normalizado
+            for marca in (
+                "quero contratar",
+                "contratar",
+                "proposta",
+                "orcamento",
+                "preco",
+                "valor",
+                "demonstracao",
+                "falar com comercial",
+                "contato comercial",
+            )
+        )
+        descoberta = any(
+            marca in normalizado
+            for marca in (
+                "como funciona",
+                "quero entender",
+                "entender",
+                "curiosidade",
+                "ajudaria",
+                "me ajudaria",
+                "serve para",
+                "acompanhar",
+                "quero conhecer",
+                "saber mais",
+                "avaliar",
+            )
+        )
+        operacional = any(
+            marca in normalizado
+            for marca in (
+                "roteiro",
+                "sortimento",
+                "pesquisa",
+                "ruptura",
+                "declaracao",
+                "atividade",
+            )
+        )
+
+        # Preserva contexto espontâneo para um eventual handoff posterior.
+        if (descoberta or comercial) and len(normalizado.split()) >= 5:
+            sessao.dados.setdefault("contexto_comercial", texto[:600])
+
+        empresa = re.search(
+            r"\b(?:sou|somos|trabalho)\s+d[ao]\s+([^,.;!?]{2,80})",
+            texto,
+            flags=re.IGNORECASE,
+        )
+        if empresa and not sessao.dados.get("empresa_contato"):
+            valor = re.split(
+                r"\s+(?:e\s+)?(?:temos|tenho|com|possui|possuo)\b",
+                empresa.group(1).strip(),
+                maxsplit=1,
+                flags=re.IGNORECASE,
+            )[0].strip()
+            if valor:
+                sessao.dados["empresa_contato"] = valor[:120]
+
+        if not sessao.dados.get("porte"):
+            quantidades = re.findall(
+                r"\b(?:\d+|um|uma)\s+(?:loja(?:s)?|promotor(?:es)?)\b",
+                texto,
+                flags=re.IGNORECASE,
+            )
+            if quantidades:
+                sessao.dados["porte"] = " e ".join(quantidades)[:200]
+
+        sessao.tentativas_invalidas = 0
+        if suporte:
+            return self._entrar(sessao, "mobconnect")
+        if comercial:
+            sessao.dados["frente"] = "comercial_mobconnect"
+            return self._entrar(sessao, "lead_contexto_comercial")
+        if descoberta:
+            return self._entrar(sessao, "mobconnect_comercial")
+        if operacional:
+            return self._entrar(sessao, "mobconnect")
+        return self._entrar(sessao, "mobconnect_intencao")
 
     def _capturar(
         self,
@@ -347,6 +462,14 @@ class MotorFluxo:
             return Resposta(
                 mensagens=[self.texto("transferido", sessao)], transferir=True
             )
+
+        # Se a conversa/IA já capturou um campo, não pergunta de novo.
+        # Isso permite que uma mensagem rica pule formulários intermediários.
+        campo = estado.get("capturar")
+        proximo = estado.get("proximo")
+        if campo and proximo and str(sessao.dados.get(str(campo)) or "").strip():
+            logger.info("Campo %s já conhecido; pulando estado %s", campo, nome_estado)
+            return self._entrar(sessao, str(proximo))
 
         return Resposta(mensagens=[self._mensagem_do_estado(estado, sessao)])
 
