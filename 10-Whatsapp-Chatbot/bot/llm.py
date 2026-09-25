@@ -36,6 +36,11 @@ CAMPOS_IA = {
     "porte",
     "necessidade",
     "contexto_comercial",
+    "produto",
+    "objetivo",
+    "regiao",
+    "qtd_lojas",
+    "qtd_promotores",
 }
 
 
@@ -62,10 +67,30 @@ class ClienteLLM:
     def ativo(self) -> bool:
         return self._config.ativo and bool(self._config.api_key or self._eh_local())
 
+    @property
+    def local(self) -> bool:
+        return self._eh_local()
+
     def _eh_local(self) -> bool:
         """Endpoints locais (Ollama, vLLM) normalmente não pedem chave."""
         return any(
-            marca in self._config.base_url for marca in ("localhost", "127.0.0.1", "host.docker.internal")
+            marca in self._config.base_url
+            for marca in ("localhost", "127.0.0.1", "host.docker.internal")
+        )
+
+    def _prompt_base(self) -> str:
+        """Prompt compacto para CPU local; completo para provedores remotos."""
+        if not self._eh_local():
+            return self._config.prompt_sistema
+        return (
+            "Você é o assistente da Mob2Con. Responda em português brasileiro, "
+            "com precisão e sem inventar. MobConnect trata execução em campo: "
+            "roteiros, lojas, produtos/sortimento, pesquisas, atividades, visitas "
+            "e leitura dos resultados. MobControl trata cadastro, documentos e "
+            "acesso às lojas. Use somente fatos presentes no contexto fornecido "
+            "ou nessas definições. Não invente preço, prazo, cliente, cobertura, "
+            "estoque ou ruptura. Se faltar evidência no modo de análise, prefira "
+            "continuar_fluxo; em resposta livre, responda exatamente NAO_SEI."
         )
 
     async def abrir(self) -> None:
@@ -107,7 +132,11 @@ class ClienteLLM:
             for chave, valor in campos_brutos.items():
                 if chave in CAMPOS_IA and valor is not None:
                     texto = str(valor).strip()
-                    if texto:
+                    vazio = texto.lower() in {
+                        "não especificado", "nao especificado", "não informado",
+                        "nao informado", "desconhecido", "n/a", "nenhum", "-",
+                    }
+                    if texto and not vazio:
                         campos[chave] = texto[:600]
 
         return AnaliseConversa(
@@ -125,6 +154,7 @@ class ClienteLLM:
         *,
         temperatura: float | None = None,
         max_tokens: int | None = None,
+        json_mode: bool = False,
     ) -> str | None:
         if not self.ativo:
             return None
@@ -143,6 +173,8 @@ class ClienteLLM:
             ),
             "stream": False,
         }
+        if json_mode and self._eh_local():
+            corpo["response_format"] = {"type": "json_object"}
         try:
             resposta = await self._cliente.post(
                 f"{self._config.base_url}/chat/completions",
@@ -170,6 +202,7 @@ class ClienteLLM:
         dados_sessao: dict[str, Any] | None = None,
         historico: list[dict[str, str]] | None = None,
         contexto_conhecimento: str = "",
+        contexto_fluxo: str = "",
     ) -> AnaliseConversa | None:
         """Entende intenção, extrai contexto e propõe a próxima ação."""
         if not self.ativo:
@@ -178,8 +211,12 @@ class ClienteLLM:
         conhecido = json.dumps(
             dados_sessao or {}, ensure_ascii=False, separators=(",", ":")
         )[:2400]
+        local = self._eh_local()
+        base_sistema = self._prompt_base()
+        limite_fluxo = 1200 if local else 2200
+        limite_conhecimento = 3200 if local else 5000
         instrucao = f"""
-{self._config.prompt_sistema}
+{base_sistema}
 
 Você também atua como cérebro de roteamento conversacional.
 Analise a última mensagem considerando o estado atual e o que já sabemos.
@@ -215,23 +252,33 @@ Retorne SOMENTE JSON válido:
     "redes_atendidas": "",
     "porte": "",
     "necessidade": "",
-    "contexto_comercial": ""
+    "contexto_comercial": "",
+    "produto": "",
+    "objetivo": "",
+    "regiao": "",
+    "qtd_lojas": "",
+    "qtd_promotores": ""
   }}
 }}
 
 ESTADO_ATUAL: {estado}
 DADOS_CONHECIDOS: {conhecido}
+CONTEXTO_DO_FLUXO_ATUAL:
+{contexto_fluxo[:limite_fluxo]}
+
 CONTEXTO_DOS_MANUAIS:
-{contexto_conhecimento[:5000]}
+{contexto_conhecimento[:limite_conhecimento]}
 """
         mensagens: list[dict[str, str]] = [{"role": "system", "content": instrucao}]
         if historico:
-            mensagens.extend(historico[-self._config.max_historico :])
+            max_hist = min(self._config.max_historico, 2) if local else self._config.max_historico
+            mensagens.extend(historico[-max_hist:])
         mensagens.append({"role": "user", "content": pergunta})
         conteudo = await self._chat(
             mensagens,
             temperatura=0.1,
-            max_tokens=max(500, self._config.max_tokens),
+            max_tokens=(420 if local else max(500, self._config.max_tokens)),
+            json_mode=True,
         )
         if not conteudo:
             return None
@@ -247,9 +294,12 @@ CONTEXTO_DOS_MANUAIS:
     ) -> str | None:
         """Devolve resposta livre da IA quando o fluxo e o RAG não resolveram."""
         mensagens: list[dict[str, str]] = [
-            {"role": "system", "content": self._config.prompt_sistema}
+            {"role": "system", "content": self._prompt_base()}
         ]
         if historico:
             mensagens.extend(historico[-self._config.max_historico :])
         mensagens.append({"role": "user", "content": pergunta})
-        return await self._chat(mensagens)
+        texto = await self._chat(mensagens)
+        if texto and texto.strip().upper().replace("Ã", "A") in {"NAO_SEI", "NÃO_SEI"}:
+            return None
+        return texto

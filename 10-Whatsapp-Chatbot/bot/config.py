@@ -118,6 +118,7 @@ class ConfigLLM:
     max_tokens: int
     temperatura: float
     timeout: int
+    timeout_local: int
     max_historico: int
 
 
@@ -188,6 +189,7 @@ def carregar_config() -> Config:
             max_tokens=_inteiro("LLM_MAX_TOKENS", 300),
             temperatura=float(_texto("LLM_TEMPERATURA", "0.3") or 0.3),
             timeout=_inteiro("LLM_TIMEOUT", 25),
+            timeout_local=_inteiro("LLM_TIMEOUT_LOCAL", 12),
             max_historico=_inteiro("LLM_MAX_HISTORICO", 6),
         ),
         manuais=ConfigManuais(

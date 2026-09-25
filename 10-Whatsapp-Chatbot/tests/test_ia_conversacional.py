@@ -23,6 +23,18 @@ class FakeLLM:
         return None
 
 
+class FakeManuais:
+    def __init__(self) -> None:
+        self.consultas: list[tuple[str, str, int | None]] = []
+
+    def buscar(self, pergunta: str, *, persona: str = "", limite: int | None = None):
+        self.consultas.append((pergunta, persona, limite))
+        return []
+
+    def fechar(self) -> None:
+        return None
+
+
 class TestParserIA(unittest.TestCase):
     def test_json_estruturado_e_tolerante_a_markdown(self) -> None:
         bruto = """```json
@@ -104,6 +116,44 @@ class TestIAEstruturadaAplicacao(unittest.IsolatedAsyncioTestCase):
         self.assertEqual(sessao.dados["empresa_contato"], "Uau Supermarket")
         self.assertIn("1 loja", sessao.dados["porte"])
         self.assertIn("Uau Supermarket", sessao.dados["contexto_comercial"])
+
+    async def test_confianca_media_pede_uma_confirmacao(self) -> None:
+        self.app.llm = FakeLLM(
+            AnaliseConversa(
+                intencao="mobconnect_comercial",
+                confianca=0.70,
+                acao="encaminhar_comercial",
+                resposta="",
+                pergunta_faltante="Você já quer falar com o comercial?",
+                campos={"empresa_contato": "Empresa Incerta"},
+            )
+        )
+        sessao = Sessao(numero="5511999999999", estado="mobconnect_comercial")
+
+        resposta = await self.app._tentar_ia_estruturada(
+            sessao, "Talvez eu queira uma proposta"
+        )
+
+        self.assertIsNotNone(resposta)
+        assert resposta is not None
+        self.assertFalse(resposta.transferir)
+        self.assertEqual(resposta.mensagens, ["Você já quer falar com o comercial?"])
+        self.assertNotIn("empresa_contato", sessao.dados)
+
+    async def test_rag_hibrido_inclui_memoria_na_consulta(self) -> None:
+        fake = FakeManuais()
+        self.app.manuais = fake
+        sessao = Sessao(numero="5511999999999", estado="mobconnect_comercial")
+        sessao.lembrar("produto", "MobConnect", origem="teste", confianca=1.0)
+        sessao.lembrar("segmento", "Rede varejista", origem="teste", confianca=1.0)
+
+        self.app._contexto_manuais_para_ia(sessao, "Como acompanho a execução?")
+
+        self.assertGreaterEqual(len(fake.consultas), 2)
+        consulta_expandida = fake.consultas[-1][0]
+        self.assertIn("MobConnect", consulta_expandida)
+        self.assertIn("Rede varejista", consulta_expandida)
+        self.assertEqual(fake.consultas[-1][1], "retailer")
 
 
 if __name__ == "__main__":

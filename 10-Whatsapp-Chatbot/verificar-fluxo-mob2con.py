@@ -388,11 +388,20 @@ from bot.main import Aplicacao  # noqa: E402
 from bot.mensagem import MensagemRecebida  # noqa: E402
 
 os.environ["NUMERO_NOTIFICACAO"] = ""
+config_real = cfg_mod.carregar_config()
 base = dataclasses.replace(
-    cfg_mod.carregar_config(), sqlite_path=Path(":memory:")
+    config_real,
+    sqlite_path=Path(":memory:"),
+    llm=dataclasses.replace(config_real.llm, ativo=False, api_key=""),
 )
 cfg_ia = dataclasses.replace(
-    base, llm=dataclasses.replace(base.llm, ativo=True, api_key="chave-de-teste")
+    base,
+    llm=dataclasses.replace(
+        base.llm,
+        ativo=True,
+        base_url="https://teste-invalido.local/v1",
+        api_key="chave-de-teste",
+    ),
 )
 
 

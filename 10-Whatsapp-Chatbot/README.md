@@ -259,9 +259,14 @@ real de conta.
 
 ## Ligar a IA (opcional)
 
-Com `LLM_ATIVO=false`, fluxo e manuais locais continuam funcionando. Ligando a
-IA, somente perguntas que nem o fluxo nem a busca documental resolveram seguem
-para o provedor configurado.
+Com `LLM_ATIVO=false`, fluxo e manuais locais continuam funcionando. Com IA
+ativa, o bot usa uma camada estruturada: intenção, memória da conversa, contexto
+do fluxo e trechos dos manuais são avaliados antes de qualquer resposta gerativa.
+
+A ordem operacional é: regras rápidas → IA estruturada quando necessário → RAG
+nos manuais → fallback seguro. Ações como handoff comercial ou humano exigem
+intenção explícita do usuário; confiança média gera no máximo uma pergunta de
+esclarecimento e confiança baixa devolve o controle ao fluxo/RAG.
 
 ```env
 LLM_ATIVO=true
@@ -277,7 +282,19 @@ LLM_MODELO=gpt-4o-mini
 | Groq | `https://api.groq.com/openai/v1` |
 | Ollama local | `http://localhost:11434/v1` |
 
-Se a IA falhar ou estourar timeout, o bot cai no menu. Nunca fica mudo.
+Se a IA falhar ou estourar timeout, o bot cai para manuais/fluxo. Nunca fica mudo.
+Para modelos locais lentos, `LLM_TIMEOUT_LOCAL` limita a tentativa estruturada;
+o mesmo modelo não é chamado duas vezes no mesmo turno.
+
+O diagnóstico operacional mostra memória estruturada, RAG, motor de confiança,
+modelo configurado e métricas das últimas 24 horas. Para replay redigido:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\relatorio_qualidade.py
+.\.venv\Scripts\python.exe scripts\relatorio_qualidade.py --horas 72 --replay 50
+```
+
+A trilha analítica usa hash do contato e redige CPF, telefone e e-mail.
 
 ---
 

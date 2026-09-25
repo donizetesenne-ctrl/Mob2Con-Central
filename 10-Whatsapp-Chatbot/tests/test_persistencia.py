@@ -112,6 +112,48 @@ class TestBancoSQLite(unittest.IsolatedAsyncioTestCase):
         )
         self.assertEqual(await self.banco.contar_perguntas_pendentes(), 0)
 
+    async def test_eventos_pseudonimizam_contato_e_redigem_pii(self) -> None:
+        await self.banco.registrar_evento(
+            numero="5511999999999",
+            estado_antes="menu",
+            estado_depois="mobconnect_comercial",
+            fonte="fluxo",
+            resultado="resposta",
+            mensagem="Meu CPF é 123.456.789-09 e email pessoa@example.com",
+            confianca=0.92,
+            latencia_ms=135,
+        )
+
+        eventos = await self.banco.listar_eventos()
+        self.assertEqual(len(eventos), 1)
+        item = eventos[0]
+        self.assertNotEqual(item["conversa_hash"], "5511999999999")
+        self.assertIn("[CPF REDIGIDO]", item["mensagem_redigida"])
+        self.assertIn("[EMAIL REDIGIDO]", item["mensagem_redigida"])
+        self.assertEqual(item["fonte"], "fluxo")
+        self.assertEqual(item["latencia_ms"], 135)
+
+    async def test_resumo_eventos_agrega_fontes_e_handoff(self) -> None:
+        for fonte, resultado in (
+            ("fluxo", "resposta"),
+            ("manual", "resposta"),
+            ("ia_estruturada", "handoff"),
+        ):
+            await self.banco.registrar_evento(
+                numero="5511888888888",
+                estado_antes="menu",
+                estado_depois="atendente" if resultado == "handoff" else "menu",
+                fonte=fonte,
+                resultado=resultado,
+                mensagem="teste",
+                latencia_ms=100,
+            )
+
+        resumo = await self.banco.resumo_eventos(24)
+        self.assertEqual(resumo["total"], 3)
+        self.assertEqual(resumo["handoffs"], 1)
+        self.assertEqual(resumo["fontes"]["fluxo"], 1)
+        self.assertEqual(resumo["fontes"]["manual"], 1)
 
 
 if __name__ == "__main__":

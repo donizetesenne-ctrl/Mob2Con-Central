@@ -17,6 +17,7 @@ from typing import Any, Protocol
 logger = logging.getLogger(__name__)
 
 ESTADO_INICIAL = "menu"
+MEMORIA_META_CHAVE = "_memoria_meta"
 
 
 @dataclass
@@ -42,6 +43,68 @@ class Sessao:
 
     def retomar(self) -> None:
         self.pausado_ate = 0.0
+
+    def lembrar(
+        self,
+        campo: str,
+        valor: Any,
+        *,
+        origem: str,
+        confianca: float = 1.0,
+        sobrescrever: bool = False,
+    ) -> bool:
+        """Guarda memória estruturada sem degradar um dado mais confiável."""
+        chave = str(campo or "").strip()
+        texto = str(valor or "").strip()
+        if not chave or not texto:
+            return False
+
+        confianca_limpa = max(0.0, min(1.0, float(confianca)))
+        meta = self.dados.get(MEMORIA_META_CHAVE)
+        if not isinstance(meta, dict):
+            meta = {}
+            self.dados[MEMORIA_META_CHAVE] = meta
+
+        atual = str(self.dados.get(chave) or "").strip()
+        meta_atual = meta.get(chave)
+        confianca_atual = 0.0
+        if isinstance(meta_atual, dict):
+            try:
+                confianca_atual = float(meta_atual.get("confianca", 0.0))
+            except (TypeError, ValueError):
+                confianca_atual = 0.0
+
+        if atual and atual != texto and not sobrescrever:
+            if confianca_atual >= confianca_limpa:
+                return False
+
+        self.dados[chave] = texto[:600]
+        meta[chave] = {
+            "origem": str(origem or "desconhecida")[:80],
+            "confianca": round(confianca_limpa, 3),
+            "atualizado_em": time.time(),
+        }
+        return True
+
+    def memoria_estruturada(self) -> dict[str, Any]:
+        """Snapshot de dados úteis para IA/RAG, excluindo chaves internas."""
+        return {
+            chave: valor
+            for chave, valor in self.dados.items()
+            if not str(chave).startswith("_") and str(valor).strip()
+        }
+
+    def confianca_campo(self, campo: str) -> float:
+        meta = self.dados.get(MEMORIA_META_CHAVE)
+        if not isinstance(meta, dict):
+            return 0.0
+        item = meta.get(campo)
+        if not isinstance(item, dict):
+            return 0.0
+        try:
+            return max(0.0, min(1.0, float(item.get("confianca", 0.0))))
+        except (TypeError, ValueError):
+            return 0.0
 
     def reiniciar(self) -> None:
         self.estado = ESTADO_INICIAL

@@ -85,6 +85,24 @@ class BancoSQLite:
 
             CREATE INDEX IF NOT EXISTS idx_perguntas_status_ultima
                 ON perguntas_nao_respondidas(status, ultima_em DESC);
+
+            CREATE TABLE IF NOT EXISTS eventos_atendimento (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                conversa_hash TEXT NOT NULL,
+                criado_em REAL NOT NULL,
+                estado_antes TEXT NOT NULL,
+                estado_depois TEXT NOT NULL,
+                fonte TEXT NOT NULL,
+                resultado TEXT NOT NULL,
+                confianca REAL,
+                latencia_ms INTEGER NOT NULL DEFAULT 0,
+                mensagem_redigida TEXT NOT NULL DEFAULT ''
+            );
+
+            CREATE INDEX IF NOT EXISTS idx_eventos_criado
+                ON eventos_atendimento(criado_em DESC);
+            CREATE INDEX IF NOT EXISTS idx_eventos_fonte
+                ON eventos_atendimento(fonte, criado_em DESC);
             """
         )
 
@@ -208,6 +226,106 @@ class BancoSQLite:
                 FROM perguntas_nao_respondidas
                 WHERE status = 'pendente'
                 ORDER BY ocorrencias DESC, ultima_em DESC
+                LIMIT ?
+                """,
+                (limite_seguro,),
+            ).fetchall()
+            return [dict(linha) for linha in linhas]
+
+    async def registrar_evento(
+        self,
+        *,
+        numero: str,
+        estado_antes: str,
+        estado_depois: str,
+        fonte: str,
+        resultado: str,
+        mensagem: str = "",
+        confianca: float | None = None,
+        latencia_ms: int = 0,
+    ) -> None:
+        """Registra replay operacional com identidade pseudonimizada."""
+        conversa_hash = hashlib.sha256(
+            (numero or "sem-numero").encode("utf-8")
+        ).hexdigest()[:16]
+        texto = self.redigir(mensagem)[:600].strip()
+        async with self._trava:
+            self._garantir_aberto()
+            self._conexao.execute(
+                """
+                INSERT INTO eventos_atendimento(
+                    conversa_hash, criado_em, estado_antes, estado_depois,
+                    fonte, resultado, confianca, latencia_ms, mensagem_redigida
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    conversa_hash,
+                    time.time(),
+                    (estado_antes or "desconhecido")[:100],
+                    (estado_depois or "desconhecido")[:100],
+                    (fonte or "desconhecida")[:80],
+                    (resultado or "desconhecido")[:80],
+                    confianca,
+                    max(0, int(latencia_ms)),
+                    texto,
+                ),
+            )
+
+    async def resumo_eventos(self, horas: int = 24) -> dict[str, Any]:
+        """Resumo agregado para observabilidade sem expor conversas inteiras."""
+        desde = time.time() - max(1, horas) * 3600
+        async with self._trava:
+            self._garantir_aberto()
+            total = self._conexao.execute(
+                "SELECT COUNT(*) AS n FROM eventos_atendimento WHERE criado_em >= ?",
+                (desde,),
+            ).fetchone()
+            fontes = self._conexao.execute(
+                """
+                SELECT fonte, COUNT(*) AS n
+                FROM eventos_atendimento
+                WHERE criado_em >= ?
+                GROUP BY fonte
+                ORDER BY n DESC
+                """,
+                (desde,),
+            ).fetchall()
+            handoffs = self._conexao.execute(
+                """
+                SELECT COUNT(*) AS n FROM eventos_atendimento
+                WHERE criado_em >= ? AND resultado = 'handoff'
+                """,
+                (desde,),
+            ).fetchone()
+            latencia = self._conexao.execute(
+                """
+                SELECT AVG(latencia_ms) AS media
+                FROM eventos_atendimento
+                WHERE criado_em >= ?
+                """,
+                (desde,),
+            ).fetchone()
+            return {
+                "horas": max(1, horas),
+                "total": int(total["n"] if total else 0),
+                "fontes": {str(l["fonte"]): int(l["n"]) for l in fontes},
+                "handoffs": int(handoffs["n"] if handoffs else 0),
+                "latencia_media_ms": round(float(latencia["media"] or 0), 1)
+                if latencia
+                else 0.0,
+            }
+
+    async def listar_eventos(self, limite: int = 50) -> list[dict[str, Any]]:
+        """Replay recente redigido para diagnóstico."""
+        limite_seguro = max(1, min(500, int(limite)))
+        async with self._trava:
+            self._garantir_aberto()
+            linhas = self._conexao.execute(
+                """
+                SELECT id, conversa_hash, criado_em, estado_antes, estado_depois,
+                       fonte, resultado, confianca, latencia_ms, mensagem_redigida
+                FROM eventos_atendimento
+                ORDER BY criado_em DESC
                 LIMIT ?
                 """,
                 (limite_seguro,),

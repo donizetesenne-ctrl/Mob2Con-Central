@@ -321,6 +321,10 @@ class MotorFluxo:
         if "mobconnect" not in normalizado and not em_contexto:
             return None
 
+        sessao.lembrar(
+            "produto", "MobConnect", origem="detector_local", confianca=1.0
+        )
+
         suporte = any(
             marca in normalizado
             for marca in (
@@ -379,7 +383,9 @@ class MotorFluxo:
 
         # Preserva contexto espontâneo para um eventual handoff posterior.
         if (descoberta or comercial) and len(normalizado.split()) >= 5:
-            sessao.dados.setdefault("contexto_comercial", texto[:600])
+            sessao.lembrar(
+                "contexto_comercial", texto[:600], origem="usuario_texto_livre", confianca=0.98
+            )
 
         empresa = re.search(
             r"\b(?:sou|somos|trabalho)\s+d[ao]\s+([^,.;!?]{2,80})",
@@ -394,7 +400,9 @@ class MotorFluxo:
                 flags=re.IGNORECASE,
             )[0].strip()
             if valor:
-                sessao.dados["empresa_contato"] = valor[:120]
+                sessao.lembrar(
+                    "empresa_contato", valor[:120], origem="usuario_texto_livre", confianca=0.95
+                )
 
         if not sessao.dados.get("porte"):
             quantidades = re.findall(
@@ -403,15 +411,47 @@ class MotorFluxo:
                 flags=re.IGNORECASE,
             )
             if quantidades:
-                sessao.dados["porte"] = " e ".join(quantidades)[:200]
+                sessao.lembrar(
+                    "porte", " e ".join(quantidades)[:200],
+                    origem="usuario_texto_livre", confianca=0.95
+                )
+                for quantidade, entidade in re.findall(
+                    r"\b(\d+|um|uma)\s+(loja(?:s)?|promotor(?:es)?)\b",
+                    texto,
+                    flags=re.IGNORECASE,
+                ):
+                    campo_quantidade = (
+                        "qtd_lojas" if entidade.lower().startswith("loja")
+                        else "qtd_promotores"
+                    )
+                    sessao.lembrar(
+                        campo_quantidade,
+                        quantidade,
+                        origem="usuario_texto_livre",
+                        confianca=0.98,
+                    )
 
         sessao.tentativas_invalidas = 0
         if suporte:
+            sessao.lembrar(
+                "objetivo", "suporte no MobConnect", origem="detector_local", confianca=0.96
+            )
             return self._entrar(sessao, "mobconnect")
         if comercial:
-            sessao.dados["frente"] = "comercial_mobconnect"
+            sessao.lembrar(
+                "objetivo", "conversar com o comercial sobre MobConnect",
+                origem="detector_local", confianca=0.96
+            )
+            sessao.lembrar(
+                "frente", "comercial_mobconnect",
+                origem="detector_local", confianca=1.0, sobrescrever=True
+            )
             return self._entrar(sessao, "lead_contexto_comercial")
         if descoberta:
+            sessao.lembrar(
+                "objetivo", "entender como o MobConnect funciona",
+                origem="detector_local", confianca=0.96
+            )
             return self._entrar(sessao, "mobconnect_comercial")
         if operacional:
             return self._entrar(sessao, "mobconnect")
@@ -436,7 +476,9 @@ class MotorFluxo:
                     self._mensagem_do_estado(estado, sessao),
                 ]
             )
-        sessao.dados[campo] = texto[:600]
+        sessao.lembrar(
+            campo, texto[:600], origem="usuario_captura", confianca=1.0, sobrescrever=True
+        )
         sessao.tentativas_invalidas = 0
         return self._entrar(sessao, estado["proximo"])
 
@@ -469,6 +511,19 @@ class MotorFluxo:
         """Entrada pública controlada em um estado conhecido do fluxo."""
         return self._entrar(sessao, nome_estado)
 
+    def contexto_para_ia(self, sessao: Sessao) -> str:
+        """Contexto curto do estado atual para a IA entender a navegação."""
+        estado = self._estados.get(sessao.estado)
+        if not isinstance(estado, dict):
+            return f"Estado atual: {sessao.estado}"
+        mensagem = self._mensagem_do_estado(estado, sessao).strip()
+        opcoes = estado.get("opcoes") or {}
+        return (
+            f"Estado atual: {sessao.estado}\n"
+            f"Mensagem/objetivo do estado: {mensagem[:1600]}\n"
+            f"Opções válidas: {', '.join(str(k) for k in opcoes.keys())}"
+        )
+
     def _entrar(self, sessao: Sessao, nome_estado: str) -> Resposta:
         estado = self._estados.get(nome_estado)
         if estado is None:
@@ -488,7 +543,10 @@ class MotorFluxo:
         fixos = estado.get("definir")
         if isinstance(fixos, dict):
             for campo, valor in fixos.items():
-                sessao.dados[str(campo)] = str(valor)[:600]
+                sessao.lembrar(
+                    str(campo), str(valor)[:600],
+                    origem="fluxo_confirmado", confianca=1.0, sobrescrever=True
+                )
 
         if estado.get("acao") == "transferir":
             return Resposta(
@@ -571,6 +629,11 @@ class MotorFluxo:
             "segmento": "Segmento",
             "redes_atendidas": "Redes envolvidas",
             "porte": "Operação",
+            "produto": "Produto",
+            "objetivo": "Objetivo",
+            "regiao": "Região",
+            "qtd_lojas": "Lojas",
+            "qtd_promotores": "Promotores",
             "necessidade": "Necessidade",
             "contexto_comercial": "Contexto comercial",
             "descricao_suporte": "Descrição do problema",

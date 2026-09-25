@@ -94,6 +94,27 @@ async def executar() -> int:
                 _linha("IA conversacional", "PRONTA - aguardando chave ou modelo local")
             else:
                 _linha("IA conversacional", "desligada por configuração")
+            inteligencia = corpo.get("inteligencia") or {}
+            if isinstance(inteligencia, dict):
+                _linha("memoria estruturada", "ativa" if inteligencia.get("memoria_estruturada") else "nao")
+                _linha("RAG hibrido", "ativo" if inteligencia.get("rag_hibrido") else "nao")
+                _linha("motor de confianca", "ativo" if inteligencia.get("motor_confianca") else "nao")
+                if inteligencia.get("modelo"):
+                    _linha("modelo configurado", str(inteligencia["modelo"]))
+            qualidade = corpo.get("qualidade_24h") or {}
+            if isinstance(qualidade, dict) and qualidade:
+                _linha("interacoes 24h", str(qualidade.get("total", 0)))
+                _linha("handoffs 24h", str(qualidade.get("handoffs", 0)))
+                _linha(
+                    "latencia media 24h",
+                    f"{qualidade.get('latencia_media_ms', 0)} ms",
+                )
+                fontes = qualidade.get("fontes") or {}
+                if isinstance(fontes, dict) and fontes:
+                    _linha(
+                        "fontes 24h",
+                        ", ".join(f"{k}={v}" for k, v in fontes.items()),
+                    )
             if corpo.get("status") == "degradado":
                 alertas.append("Bot vivo, mas sem alcancar o motor do WhatsApp.")
         else:

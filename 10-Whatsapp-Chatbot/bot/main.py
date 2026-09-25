@@ -10,6 +10,7 @@ import asyncio
 import logging
 import os
 import sqlite3
+import time
 from collections import deque
 from contextlib import asynccontextmanager
 from datetime import datetime, timedelta, timezone
@@ -22,6 +23,7 @@ from .config import Config, carregar_config
 from .conhecimento import IndiceManuais
 from .evolution import ClienteEvolution, ErroEvolution, normalizar_numero
 from .fluxo import ROTULOS_FRENTE, MotorFluxo, Resposta, normalizar
+from .inteligencia import avaliar_confianca, pergunta_de_esclarecimento
 from .llm import AnaliseConversa, ClienteLLM
 from .mensagem import MensagemRecebida, interpretar
 from .persistencia import BancoSQLite
@@ -289,6 +291,8 @@ class Aplicacao:
         if not sessao.dados.get("_dica_humano"):
             sessao.dados["_dica_humano"] = "1"
             mensagens.append("Se preferir falar com uma pessoa do time, digite *9*.")
+        sessao.dados["_ultima_fonte"] = "manual"
+        sessao.dados["_ultima_confianca"] = 1.0
         logger.info("Pergunta respondida pela busca local nos manuais.")
         return Resposta(mensagens=mensagens)
 
@@ -315,33 +319,98 @@ class Aplicacao:
         )
 
     def _contexto_manuais_para_ia(self, sessao: Sessao, pergunta: str) -> str:
-        """Recupera evidência curta dos manuais para aterrar a análise da IA."""
+        """RAG híbrido: pergunta literal + contexto estruturado da conversa."""
         if self.manuais is None:
             return ""
         persona = self._persona_para_manuais(sessao)
         if persona is None:
             return ""
+
+        memoria = sessao.memoria_estruturada()
+        termos_contexto = [
+            str(memoria.get(campo) or "").strip()
+            for campo in ("produto", "segmento", "objetivo", "necessidade", "regiao")
+            if str(memoria.get(campo) or "").strip()
+        ]
+        consulta_contextual = " ".join([pergunta, *termos_contexto]).strip()
+        consultas = [pergunta]
+        if consulta_contextual and consulta_contextual != pergunta:
+            consultas.append(consulta_contextual)
+
+        unicos: dict[tuple[str, str, str], Any] = {}
         try:
-            resultados = self.manuais.buscar(pergunta, persona=persona, limite=2)
+            for consulta in consultas:
+                for item in self.manuais.buscar(consulta, persona=persona, limite=3):
+                    chave = (item.caminho, item.secao, str(item.pagina or ""))
+                    unicos.setdefault(chave, item)
         except (OSError, sqlite3.Error, RuntimeError) as erro:
             logger.error("Falha ao montar contexto da IA: %s", erro)
             return ""
+
         blocos: list[str] = []
-        for item in resultados:
+        for item in list(unicos.values())[:3]:
             blocos.append(
                 f"Documento: {item.titulo}\n"
                 f"Seção: {item.secao}\n"
                 f"Trecho: {item.conteudo[:1800]}"
             )
-        return "\n\n".join(blocos)[:5000]
+        return "\n\n".join(blocos)[:6000]
+
+    def _aplicar_campos_ia(self, sessao: Sessao, analise: AnaliseConversa) -> None:
+        """Guarda memória da IA; modelos locais só preenchem campos de baixo risco."""
+        permitidos = set(analise.campos)
+        if getattr(self.llm, "local", False):
+            permitidos &= {
+                "produto",
+                "objetivo",
+                "necessidade",
+                "regiao",
+                "qtd_lojas",
+                "qtd_promotores",
+            }
+        for campo, valor in analise.campos.items():
+            if campo not in permitidos or not valor.strip():
+                continue
+            sessao.lembrar(
+                campo,
+                valor.strip()[:600],
+                origem="ia_estruturada_local" if getattr(self.llm, "local", False)
+                else "ia_estruturada",
+                confianca=analise.confianca,
+            )
 
     @staticmethod
-    def _aplicar_campos_ia(sessao: Sessao, analise: AnaliseConversa) -> None:
-        """Guarda somente contexto novo; a IA não sobrescreve dado confirmado."""
-        for campo, valor in analise.campos.items():
-            atual = str(sessao.dados.get(campo) or "").strip()
-            if not atual and valor.strip():
-                sessao.dados[campo] = valor.strip()[:600]
+    def _acao_ia_permitida(sessao: Sessao, pergunta: str, acao: str) -> bool:
+        """Ações irreversíveis exigem intenção explícita fora do modelo."""
+        texto = normalizar(pergunta)
+        if acao == "encaminhar_comercial":
+            return any(
+                marca in texto
+                for marca in (
+                    "proposta", "contratar", "orcamento", "demonstracao",
+                    "falar com comercial", "contato comercial", "quero comprar",
+                )
+            )
+        if acao == "humano":
+            return any(
+                marca in texto
+                for marca in (
+                    "atendente", "humano", "pessoa do time", "falar com uma pessoa",
+                    "falar com alguem", "quero falar com", "time humano",
+                )
+            )
+        if acao == "suporte_mobconnect":
+            return (
+                sessao.estado in ESTADOS_IA_MOBCONNECT
+                or any(
+                    marca in texto
+                    for marca in (
+                        "ja uso", "sou cliente", "problema", "erro", "falha",
+                        "nao consigo", "nao funciona", "suporte",
+                    )
+                )
+            )
+        return True
 
     async def _tentar_ia_estruturada(
         self,
@@ -351,26 +420,74 @@ class Aplicacao:
         """Usa IA como roteador seguro; fluxo tradicional é o fallback."""
         if not self._deve_usar_ia_estruturada(sessao, pergunta):
             return None
-        analise = await self.llm.analisar(
-            pergunta,
-            estado=sessao.estado,
-            dados_sessao=sessao.dados,
-            historico=sessao.historico,
-            contexto_conhecimento=self._contexto_manuais_para_ia(sessao, pergunta),
-        )
-        if analise is None or analise.confianca < 0.58:
+        contexto_rag = self._contexto_manuais_para_ia(sessao, pergunta)
+        try:
+            analise = await asyncio.wait_for(
+                self.llm.analisar(
+                    pergunta,
+                    estado=sessao.estado,
+                    dados_sessao=sessao.memoria_estruturada(),
+                    historico=sessao.historico,
+                    contexto_conhecimento=contexto_rag,
+                    contexto_fluxo=self.motor.contexto_para_ia(sessao),
+                ),
+                timeout=(
+                    self.config.llm.timeout_local
+                    if getattr(self.llm, "local", False)
+                    else self.config.llm.timeout
+                ),
+            )
+        except TimeoutError:
+            logger.warning(
+                "IA estruturada excedeu o timeout de %ss; usando fallback rápido.",
+                self.config.llm.timeout_local
+                if getattr(self.llm, "local", False)
+                else self.config.llm.timeout,
+            )
+            return None
+        if analise is None:
             return None
 
-        self._aplicar_campos_ia(sessao, analise)
+        if not self._acao_ia_permitida(sessao, pergunta, analise.acao):
+            logger.warning(
+                "IA sugeriu ação %s sem intenção explícita; usando fallback seguro.",
+                analise.acao,
+            )
+            return None
+
+        decisao = avaliar_confianca(
+            analise.confianca,
+            acao=analise.acao,
+            tem_evidencia=bool(contexto_rag.strip()),
+        )
         logger.info(
-            "IA estruturada | intenção=%s | ação=%s | confiança=%.2f",
+            "IA estruturada | intenção=%s | ação=%s | confiança=%.2f | faixa=%s | motivo=%s",
             analise.intencao,
             analise.acao,
             analise.confianca,
+            decisao.faixa,
+            decisao.motivo,
         )
 
-        if analise.acao == "continuar_fluxo":
+        if analise.acao == "continuar_fluxo" or decisao.usar_fallback:
             return None
+
+        if decisao.esclarecer:
+            pergunta_curta = (
+                analise.pergunta_faltante.strip()
+                or pergunta_de_esclarecimento(analise.intencao, analise.acao)
+            )
+            sessao.dados["_ultima_fonte"] = "ia_esclarecimento"
+            sessao.dados["_ultima_confianca"] = round(analise.confianca, 3)
+            sessao.tentativas_invalidas = 0
+            return Resposta(mensagens=[pergunta_curta])
+
+        if not decisao.executar:
+            return None
+
+        sessao.dados["_ultima_fonte"] = "ia_estruturada"
+        sessao.dados["_ultima_confianca"] = round(analise.confianca, 3)
+        self._aplicar_campos_ia(sessao, analise)
 
         if analise.acao == "responder":
             # Mantém o estado coerente com a conversa para que a próxima
@@ -393,7 +510,10 @@ class Aplicacao:
             return resposta
 
         if analise.acao == "encaminhar_comercial":
-            sessao.dados["frente"] = "comercial_mobconnect"
+            sessao.lembrar(
+                "frente", "comercial_mobconnect",
+                origem="ia_roteamento", confianca=analise.confianca, sobrescrever=True
+            )
             campos_contexto = {
                 "empresa_contato",
                 "segmento",
@@ -410,7 +530,10 @@ class Aplicacao:
                 if analise.resposta:
                     resposta.mensagens.insert(0, analise.resposta)
                 return resposta
-            sessao.dados.setdefault("contexto_comercial", pergunta[:600])
+            sessao.lembrar(
+                "contexto_comercial", pergunta[:600],
+                origem="usuario_texto_livre", confianca=1.0
+            )
             mensagens = [analise.resposta] if analise.resposta else []
             mensagens.append(self.motor.texto("transferido", sessao))
             return Resposta(mensagens=mensagens, transferir=True)
@@ -443,8 +566,45 @@ class Aplicacao:
             # nunca pode impedir resposta ao contato.
             logger.error("Falha ao registrar pergunta não respondida: %s", erro)
 
+    async def _registrar_evento_atendimento(
+        self,
+        *,
+        sessao: Sessao,
+        estado_antes: str,
+        mensagem: str,
+        resposta: Resposta,
+        inicio: float,
+    ) -> None:
+        if self.banco_sqlite is None:
+            return
+        fonte = str(sessao.dados.pop("_ultima_fonte", "fluxo") or "fluxo")
+        confianca_bruta = sessao.dados.pop("_ultima_confianca", None)
+        try:
+            confianca = (
+                float(confianca_bruta)
+                if confianca_bruta is not None
+                else None
+            )
+        except (TypeError, ValueError):
+            confianca = None
+        resultado = "handoff" if resposta.transferir else "resposta"
+        try:
+            await self.banco_sqlite.registrar_evento(
+                numero=sessao.numero,
+                estado_antes=estado_antes,
+                estado_depois=sessao.estado,
+                fonte=fonte,
+                resultado=resultado,
+                mensagem=mensagem,
+                confianca=confianca,
+                latencia_ms=int((time.perf_counter() - inicio) * 1000),
+            )
+        except (OSError, sqlite3.Error, RuntimeError) as erro:
+            logger.error("Falha ao registrar replay de atendimento: %s", erro)
+
     async def atender(self, mensagem: MensagemRecebida) -> None:
         """Processa uma mensagem já filtrada e responde ao contato."""
+        inicio_atendimento = time.perf_counter()
         atendimento = self.config.atendimento
         sessao = await self.sessoes.obter(mensagem.numero)
         nova = sessao is None
@@ -452,6 +612,9 @@ class Aplicacao:
             sessao = Sessao(numero=mensagem.numero)
         if mensagem.nome:
             sessao.nome = mensagem.nome
+        estado_antes = sessao.estado
+        sessao.dados["_ultima_fonte"] = "fluxo"
+        sessao.dados.pop("_ultima_confianca", None)
 
         normalizado = normalizar(mensagem.texto)
 
@@ -496,55 +659,51 @@ class Aplicacao:
         abertura: list[str] = []
         inicial: Resposta | None = None
         primeiro_texto_nao_reconhecido = False
-        resposta_ia: Resposta | None = None
 
+        # Caminho rápido primeiro: menus, sinônimos, regras e detector local
+        # resolvem o que já conhecemos sem pagar a latência do modelo.
         if nova:
             inicial = self.motor.iniciar(
                 sessao, dentro_do_horario=self.dentro_do_horario()
             )
             if mensagem.texto and not self.motor.apenas_saudacao(mensagem.texto):
-                # A primeira mensagem também é conteúdo. A IA estruturada pode
-                # responder/rotear direto; se não assumir, o fluxo tradicional
-                # continua exatamente como antes.
                 abertura = inicial.mensagens[:1]
-                resposta_ia = await self._tentar_ia_estruturada(
-                    sessao, mensagem.texto
-                )
-                if resposta_ia is not None:
-                    resposta = resposta_ia
-                else:
-                    resposta = self.motor.processar(sessao, mensagem.texto)
-                    primeiro_texto_nao_reconhecido = resposta.usar_llm
+                resposta = self.motor.processar(sessao, mensagem.texto)
+                primeiro_texto_nao_reconhecido = resposta.usar_llm
             else:
                 resposta = inicial
         else:
+            resposta = self.motor.processar(sessao, mensagem.texto)
+
+        # Só quando o caminho rápido não resolveu entram IA estruturada, RAG
+        # e, por último, o fallback generativo livre.
+        if resposta.usar_llm:
             resposta_ia = await self._tentar_ia_estruturada(
                 sessao, mensagem.texto
             )
-            resposta = (
-                resposta_ia
-                if resposta_ia is not None
-                else self.motor.processar(sessao, mensagem.texto)
-            )
-
-        if resposta.usar_llm:
-            resposta_manual = self._responder_com_manuais(sessao, mensagem.texto)
-            if resposta_manual is not None:
-                resposta = resposta_manual
-            elif primeiro_texto_nao_reconhecido and inicial and not self.llm.ativo:
-                # Sem manual relevante nem IA, a primeira mensagem que o fluxo
-                # não reconhece não merece "opção inválida": a pessoa ainda
-                # não escolheu nada. Abre com saudação e menu, sem punição.
-                await self._registrar_pergunta_nao_respondida(
-                    sessao,
-                    mensagem.texto,
-                    "primeira_mensagem_nao_classificada",
-                )
-                sessao.tentativas_invalidas = 0
-                resposta = inicial
-                abertura = []
+            if resposta_ia is not None:
+                resposta = resposta_ia
             else:
-                resposta = await self._responder_com_llm(sessao, mensagem.texto)
+                resposta_manual = self._responder_com_manuais(
+                    sessao, mensagem.texto
+                )
+                if resposta_manual is not None:
+                    resposta = resposta_manual
+                elif primeiro_texto_nao_reconhecido and inicial and not self.llm.ativo:
+                    # Sem manual relevante nem IA, a primeira mensagem que o fluxo
+                    # não reconhece abre com o menu sem punir o contato.
+                    await self._registrar_pergunta_nao_respondida(
+                        sessao,
+                        mensagem.texto,
+                        "primeira_mensagem_nao_classificada",
+                    )
+                    sessao.tentativas_invalidas = 0
+                    resposta = inicial
+                    abertura = []
+                else:
+                    resposta = await self._responder_com_llm(
+                        sessao, mensagem.texto
+                    )
 
         if abertura:
             resposta.mensagens[0:0] = abertura
@@ -563,6 +722,13 @@ class Aplicacao:
         for texto in resposta.mensagens:
             sessao.registrar_turno("assistant", texto, self.config.llm.max_historico)
 
+        await self._registrar_evento_atendimento(
+            sessao=sessao,
+            estado_antes=estado_antes,
+            mensagem=mensagem.texto,
+            resposta=resposta,
+            inicio=inicio_atendimento,
+        )
         await self.sessoes.salvar(sessao)
         await self._enviar(sessao.numero, resposta.mensagens)
 
@@ -576,7 +742,32 @@ class Aplicacao:
                 sessao, pergunta, "ia_inativa"
             )
             return self.motor.resposta_menu_apos_erro(sessao, pergunta)
-        texto = await self.llm.responder(pergunta, sessao.historico)
+        if getattr(self.llm, "local", False):
+            # O modelo local já teve uma chance estruturada com timeout curto.
+            # Não repetimos outra geração lenta no mesmo turno.
+            await self._registrar_pergunta_nao_respondida(
+                sessao, pergunta, "ia_local_sem_decisao"
+            )
+            sessao.dados["_ultima_fonte"] = "fallback_local"
+            sessao.dados["_ultima_confianca"] = None
+            return self.motor.resposta_menu_apos_erro(sessao, pergunta)
+        try:
+            texto = await asyncio.wait_for(
+                self.llm.responder(pergunta, sessao.historico),
+                timeout=(
+                    self.config.llm.timeout_local
+                    if getattr(self.llm, "local", False)
+                    else self.config.llm.timeout
+                ),
+            )
+        except TimeoutError:
+            logger.warning(
+                "IA livre excedeu o timeout de %ss; voltando ao fluxo.",
+                self.config.llm.timeout_local
+                if getattr(self.llm, "local", False)
+                else self.config.llm.timeout,
+            )
+            texto = None
         if not texto:
             await self._registrar_pergunta_nao_respondida(
                 sessao, pergunta, "ia_sem_resposta"
@@ -588,6 +779,8 @@ class Aplicacao:
         # números é transferido ao humano após MAX_TENTATIVAS_INVALIDAS trocas,
         # justamente o comportamento que se quer incentivar.
         sessao.tentativas_invalidas = 0
+        sessao.dados["_ultima_fonte"] = "ia_livre"
+        sessao.dados["_ultima_confianca"] = None
 
         mensagens = [texto]
         # A dica de atendimento humano aparece uma vez por conversa. Colada em
@@ -674,13 +867,15 @@ async def health() -> dict[str, Any]:
         alcancavel = False
         conexao = {"erro": str(erro)}
     perguntas_pendentes: int | None = None
+    qualidade_24h: dict[str, Any] = {}
     if atual.banco_sqlite is not None:
         try:
             perguntas_pendentes = (
                 await atual.banco_sqlite.contar_perguntas_pendentes()
             )
+            qualidade_24h = await atual.banco_sqlite.resumo_eventos(24)
         except (OSError, sqlite3.Error, RuntimeError) as erro:
-            logger.error("Falha ao consultar aprendizado no health: %s", erro)
+            logger.error("Falha ao consultar aprendizado/qualidade no health: %s", erro)
 
     manuais_status: dict[str, Any] = {
         "ativo": False,
@@ -700,8 +895,15 @@ async def health() -> dict[str, Any]:
         "instancia": atual.config.evolution.instancia,
         "dentro_do_horario": atual.dentro_do_horario(),
         "ia_ativa": atual.llm.ativo,
+        "inteligencia": {
+            "modelo": atual.config.llm.modelo,
+            "memoria_estruturada": True,
+            "rag_hibrido": atual.manuais is not None,
+            "motor_confianca": True,
+        },
         "persistencia_sessoes": type(atual.sessoes).__name__,
         "perguntas_pendentes": perguntas_pendentes,
+        "qualidade_24h": qualidade_24h,
         "manuais": manuais_status,
         "whatsapp": conexao,
     }
