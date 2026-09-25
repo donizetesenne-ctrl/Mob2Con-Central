@@ -50,6 +50,21 @@ async def executar() -> int:
                 _linha("numero pareado", "nao informado pelo motor")
             if instancia.get("profileName"):
                 _linha("perfil", str(instancia["profileName"]))
+            diagnostico = instancia.get("diagnostics") or estado.get("diagnostics") or {}
+            if isinstance(diagnostico, dict) and diagnostico:
+                _linha("quedas neste processo", str(diagnostico.get("quedas", 0)))
+                _linha(
+                    "tentativas reconexao",
+                    str(diagnostico.get("tentativasReconexao", 0)),
+                )
+                if diagnostico.get("ultimaConexaoEm"):
+                    _linha("ultima conexao", str(diagnostico["ultimaConexaoEm"]))
+                if diagnostico.get("ultimaQuedaEm"):
+                    _linha("ultima queda", str(diagnostico["ultimaQuedaEm"]))
+                    _linha(
+                        "motivo ultima queda",
+                        str(diagnostico.get("ultimoMotivoQueda") or "desconhecido"),
+                    )
             if not conectado:
                 alertas.append("WhatsApp nao esta conectado: o bot nao vai responder.")
         except Exception as erro:  # noqa: BLE001

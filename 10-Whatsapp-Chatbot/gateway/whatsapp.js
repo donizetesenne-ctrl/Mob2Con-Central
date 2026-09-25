@@ -79,6 +79,10 @@ export class ConexaoWhatsApp {
   #qrBase64 = null
   #tentativas = 0
   #encerrando = false
+  #quedas = 0
+  #ultimaConexaoEm = null
+  #ultimaQuedaEm = null
+  #ultimoMotivoQueda = null
   #enviadas = new Map()
   #jids = new Map()
 
@@ -109,6 +113,18 @@ export class ConexaoWhatsApp {
 
   get conectado() {
     return this.#estado === 'open'
+  }
+
+  /** Telemetria operacional sem expor credenciais da sessão. */
+  get diagnostico() {
+    return {
+      estado: this.#estado,
+      quedas: this.#quedas,
+      tentativasReconexao: this.#tentativas,
+      ultimaConexaoEm: this.#ultimaConexaoEm,
+      ultimaQuedaEm: this.#ultimaQuedaEm,
+      ultimoMotivoQueda: this.#ultimoMotivoQueda,
+    }
   }
 
   /** Número do WhatsApp pareado (só dígitos), ou null se não conectado. */
@@ -177,6 +193,7 @@ export class ConexaoWhatsApp {
 
     if (connection === 'open') {
       this.#estado = 'open'
+      this.#ultimaConexaoEm = new Date().toISOString()
       this.#tentativas = 0
       this.#qr = null
       this.#qrBase64 = null
@@ -195,6 +212,9 @@ export class ConexaoWhatsApp {
 
     this.#estado = 'close'
     const motivo = lastDisconnect?.error?.output?.statusCode
+    this.#quedas += 1
+    this.#ultimaQuedaEm = new Date().toISOString()
+    this.#ultimoMotivoQueda = motivo ?? 'desconhecido'
 
     if (this.#encerrando) {
       this.#logger.info('Conexão encerrada por pedido do processo.')

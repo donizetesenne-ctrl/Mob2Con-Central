@@ -77,6 +77,7 @@ export function criarServidor({ conexao, entregador, apiKey, porta, logger }) {
         state: conexao.estado,
         number: conexao.numero,
         profileName: conexao.nomePerfil,
+        diagnostics: conexao.diagnostico,
         webhook: entregador.url || null,
       })
     }
@@ -126,6 +127,7 @@ export function criarServidor({ conexao, entregador, apiKey, porta, logger }) {
           state: conexao.estado,
           number: conexao.numero,
           profileName: conexao.nomePerfil,
+          diagnostics: conexao.diagnostico,
         },
       })
     }
