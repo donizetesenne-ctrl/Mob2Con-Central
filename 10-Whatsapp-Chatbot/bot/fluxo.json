@@ -1,0 +1,137 @@
+{
+  "versao": 1,
+  "textos": {
+    "saudacao": "Olá{nome}! 👋 Aqui é o atendimento virtual da *{empresa}*.",
+    "fora_horario": "Olá{nome}! 👋 Nosso horário de atendimento é de {dias}, das {abertura} às {fechamento}.\n\nPode deixar sua mensagem aqui que respondemos no próximo horário útil. Se preferir, digite *1* para ver nossos serviços enquanto isso.",
+    "opcao_invalida": "Não entendi essa opção. 🤔\n\nResponda com o *número* da opção desejada, ou digite *0* para voltar ao menu.",
+    "muitas_tentativas": "Parece que o menu não está ajudando. Vou chamar alguém do time para te atender. 🙋",
+    "transferido": "Pronto! Passei sua conversa para um atendente da *{empresa}*. Em breve alguém responde por aqui. ✅\n\nSe quiser voltar ao menu automático, digite *menu*.",
+    "midia_nao_suportada": "Recebi seu arquivo, mas o atendimento automático só lê *texto*. 📎\n\nDigite *0* para ver o menu ou *9* para falar com um atendente (aí você pode reenviar o arquivo).",
+    "erro_interno": "Tive um problema técnico aqui do meu lado. 😕 Já registrei o erro.\n\nDigite *9* para falar com um atendente.",
+    "retomado": "Voltei a te atender de forma automática. 🤖"
+  },
+  "atalhos_globais": {
+    "0": "menu",
+    "menu": "menu",
+    "voltar": "menu",
+    "inicio": "menu",
+    "9": "atendente",
+    "atendente": "atendente",
+    "humano": "atendente",
+    "pessoa": "atendente"
+  },
+  "estados": {
+    "menu": {
+      "mensagem": "Como posso ajudar hoje?\n\n*1* — Dashboards e Power BI\n*2* — Automação e integração de dados\n*3* — Suporte (já sou cliente)\n*4* — Sobre a {empresa}\n*9* — Falar com um atendente\n\nResponda com o número da opção.",
+      "opcoes": {
+        "1": "servicos",
+        "2": "automacao",
+        "3": "suporte_descricao",
+        "4": "sobre"
+      },
+      "sinonimos": {
+        "dashboard": "1",
+        "dashboards": "1",
+        "power bi": "1",
+        "powerbi": "1",
+        "bi": "1",
+        "relatorio": "1",
+        "relatorios": "1",
+        "automacao": "2",
+        "automatizar": "2",
+        "integracao": "2",
+        "integrar": "2",
+        "dados": "2",
+        "pipeline": "2",
+        "suporte": "3",
+        "problema": "3",
+        "erro": "3",
+        "ajuda": "3",
+        "sobre": "4",
+        "empresa": "4",
+        "quem sao voces": "4"
+      }
+    },
+    "servicos": {
+      "mensagem": "Trabalhamos com projetos de Power BI de ponta a ponta:\n\n*1* — Criar um dashboard novo\n*2* — Revisar/otimizar um dashboard existente\n*3* — Modelagem de dados e DAX\n*4* — Pedir um orçamento\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "orcamento_nome",
+        "2": "orcamento_nome",
+        "3": "orcamento_nome",
+        "4": "orcamento_nome"
+      },
+      "sinonimos": {
+        "novo": "1",
+        "criar": "1",
+        "revisar": "2",
+        "otimizar": "2",
+        "melhorar": "2",
+        "dax": "3",
+        "modelagem": "3",
+        "medida": "3",
+        "orcamento": "4",
+        "preco": "4",
+        "valor": "4",
+        "quanto custa": "4"
+      }
+    },
+    "automacao": {
+      "mensagem": "Automatizamos o caminho do dado até a decisão:\n\n• Pipelines de ETL e integração (Redshift, SQL, APIs)\n• Google Sheets, Drive e Apps Script\n• Alertas automáticos de KPI no WhatsApp e e-mail\n• Integração entre sistemas via API\n\n*1* — Quero um orçamento\n*9* — Falar com um atendente\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "orcamento_nome"
+      },
+      "sinonimos": {
+        "orcamento": "1",
+        "proposta": "1",
+        "preco": "1"
+      }
+    },
+    "sobre": {
+      "mensagem": "A *{empresa}* é especialista em dados e dashboards para varejo e logística.\n\nAtuamos em análise de dados, modelagem dimensional, DAX avançado, design de dashboards, backend e automação.\n\n*1* — Ver serviços de Power BI\n*2* — Ver automação e integração\n*9* — Falar com um atendente\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "servicos",
+        "2": "automacao"
+      }
+    },
+    "orcamento_nome": {
+      "mensagem": "Ótimo! Vou reunir alguns dados para o time preparar sua proposta. 📋\n\nPrimeiro: qual é o seu *nome*?",
+      "capturar": "nome_contato",
+      "proximo": "orcamento_empresa"
+    },
+    "orcamento_empresa": {
+      "mensagem": "Prazer, {nome_contato}! Qual o nome da sua *empresa*?",
+      "capturar": "empresa_contato",
+      "proximo": "orcamento_necessidade"
+    },
+    "orcamento_necessidade": {
+      "mensagem": "Perfeito. Agora me conte em poucas linhas *o que você precisa*.\n\nEx: \"dashboard de vendas por loja, dados no Redshift, 3 telas\".",
+      "capturar": "necessidade",
+      "proximo": "orcamento_resumo"
+    },
+    "orcamento_resumo": {
+      "mensagem": "Fechado, {nome_contato}! Registrei assim:\n\n👤 *Contato:* {nome_contato}\n🏢 *Empresa:* {empresa_contato}\n📝 *Necessidade:* {necessidade}\n\nEstá correto?\n\n*1* — Sim, enviar para o time\n*2* — Não, quero corrigir",
+      "opcoes": {
+        "1": "atendente",
+        "2": "orcamento_nome"
+      },
+      "sinonimos": {
+        "sim": "1",
+        "isso": "1",
+        "correto": "1",
+        "ok": "1",
+        "confirmo": "1",
+        "nao": "2",
+        "corrigir": "2",
+        "errado": "2"
+      }
+    },
+    "suporte_descricao": {
+      "mensagem": "Vamos resolver. 🔧\n\nDescreva o que está acontecendo (qual relatório/processo e o que aparece de errado).",
+      "capturar": "descricao_suporte",
+      "proximo": "atendente"
+    },
+    "atendente": {
+      "acao": "transferir"
+    }
+  }
+}

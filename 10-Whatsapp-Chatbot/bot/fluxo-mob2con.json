@@ -1,0 +1,537 @@
+{
+  "versao": 1,
+  "_comentario": "Fluxo Mob2Con. Ativar com CAMINHO_FLUXO=bot/fluxo-mob2con.json no .env. O fluxo de BI continua intacto em fluxo.json. Regra de tom: sem emoji, no maximo uma pergunta por mensagem, nunca terminar com dois-pontos, nunca citar preco ou prazo.",
+  "textos": {
+    "saudacao": "Olá{nome}. Aqui é o atendimento virtual da {empresa}.",
+    "fora_horario": "Olá{nome}. Aqui é o atendimento virtual da {empresa}.\n\nEu respondo a qualquer hora. O time humano atende de {dias}, das {abertura} às {fechamento} — se precisar de uma pessoa, o retorno acontece no próximo horário comercial.",
+    "opcao_invalida": "Não identifiquei essa opção. Responda com um número disponível, ou digite *0* para voltar ao menu.",
+    "texto_livre_nao_entendido": "Ainda não consegui identificar o ponto exato. Descreva em uma frase o que aconteceu e, se apareceu, informe o nome da tela ou a mensagem de erro.",
+    "muitas_tentativas": "O menu não está dando conta do seu caso. Vou chamar alguém do time para te atender por aqui.",
+    "transferido": "Encaminhei sua conversa para o time da {empresa}. O atendimento humano é de {dias}, das {abertura} às {fechamento}.\n\nSe quiser voltar ao atendimento automático, digite *menu*.",
+    "midia_nao_suportada": "Recebi seu arquivo, mas aqui eu leio apenas texto.\n\nDescreva em poucas linhas o que precisa, ou digite *9* para falar com uma pessoa do time e reenviar o arquivo.",
+    "erro_interno": "Tive um problema técnico do meu lado e já registrei o erro.\n\nDigite *9* para falar com uma pessoa do time.",
+    "retomado": "Voltamos ao atendimento automático."
+  },
+  "atalhos_globais": {
+    "0": "menu",
+    "menu": "menu",
+    "voltar": "menu",
+    "inicio": "menu",
+    "9": "atendente",
+    "atendente": "atendente",
+    "humano": "atendente",
+    "pessoa": "atendente",
+    "time": "atendente"
+  },
+  "estados": {
+    "menu": {
+      "definir": { "frente": "" },
+      "mensagem": "Me diga o que está acontecendo que eu te oriento. Se preferir, responda com o número:\n\n*1* — Promotor não consegue entrar na loja\n*2* — Cadastro de promotores e documentos\n*3* — Fatura e cobrança\n*4* — Já uso MobConnect: roteiro, sortimento ou pesquisa\n*5* — Quero conhecer a plataforma\n*6* — Quero conhecer ou contratar o MobConnect\n*9* — Falar com uma pessoa do time",
+      "opcoes": {
+        "1": "acesso_quem",
+        "2": "cadastro",
+        "3": "financeiro",
+        "4": "mobconnect",
+        "5": "conhecer_segmento",
+        "6": "mobconnect_comercial",
+        "7": "mobconnect_intencao",
+        "8": "promotor_ajuda"
+      },
+      "sinonimos": {
+        "acesso": "1",
+        "portaria": "1",
+        "barrado": "1",
+        "bloqueado": "1",
+        "nao entra": "1",
+        "nao consegue entrar": "1",
+        "entrada": "1",
+        "catraca": "1",
+        "cadastro": "2",
+        "cadastrar": "2",
+        "documento": "2",
+        "documentos": "2",
+        "documentacao": "2",
+        "visitante": "2",
+        "alocacao": "2",
+        "fatura": "3",
+        "faturamento": "3",
+        "cobranca": "3",
+        "boleto": "3",
+        "nota fiscal": "3",
+        "financeiro": "3",
+        "pagamento": "3",
+        "problema no mobconnect": "4",
+        "ajuda com mobconnect": "4",
+        "ja uso mobconnect": "4",
+        "sou cliente mobconnect": "4",
+        "erro mobconnect": "4",
+        "roteiro": "4",
+        "sortimento": "4",
+        "pesquisa": "4",
+        "ruptura": "4",
+        "gondola": "4",
+        "execucao": "4",
+        "quero conhecer o mobconnect": "6",
+        "conhecer a plataforma mobconnect": "6",
+        "quero contratar o mobconnect": "6",
+        "contratar mobconnect": "6",
+        "comercial mobconnect": "6",
+        "proposta mobconnect": "6",
+        "implantar mobconnect": "6",
+        "demonstracao mobconnect": "6",
+        "quero saber mais do mobconnect": "6",
+        "quanto custa mobconnect": "6",
+        "valor mobconnect": "6",
+        "mobconnect": "7",
+        "quero ajudar promotor": "8",
+        "ajudar promotor": "8",
+        "ajuda para promotor": "8",
+        "promotor precisa de ajuda": "8",
+        "problema com promotor": "8",
+        "sou promotor preciso de ajuda": "8",
+        "conhecer": "5",
+        "contratar": "5",
+        "contratacao": "5",
+        "proposta": "5",
+        "comercial": "5",
+        "mobcontrol": "5",
+        "plataforma": "5",
+        "quero saber mais": "5"
+      }
+    },
+
+    "promotor_ajuda": {
+      "definir": { "frente": "suporte" },
+      "mensagem": "Entendi que você quer ajudar um promotor. O que está acontecendo com o promotor?\n\n*1* — Não consegue entrar na loja\n*2* — Cadastro, documentos ou alocação\n*3* — Roteiro, sortimento ou pesquisa no MobConnect\n*4* — É outro problema",
+      "opcoes": {
+        "1": "acesso_quem",
+        "2": "cadastro",
+        "3": "mobconnect",
+        "4": "suporte_descricao"
+      },
+      "sinonimos": {
+        "nao entra": "1",
+        "acesso": "1",
+        "barrado": "1",
+        "portaria": "1",
+        "cadastro": "2",
+        "documento": "2",
+        "documentacao": "2",
+        "alocacao": "2",
+        "roteiro": "3",
+        "sortimento": "3",
+        "pesquisa": "3",
+        "mobconnect": "3",
+        "outro": "4",
+        "outro problema": "4",
+        "nao sei": "4"
+      }
+    },
+
+    "acesso_quem": {
+      "definir": { "frente": "suporte" },
+      "mensagem": "Na grande maioria dos casos isso é documentação — vencida ou faltando algum item que aquela rede exige.\n\nAntes de te dar o caminho, preciso saber de onde você fala, porque as telas mudam:\n\n*1* — Sou da agência ou do fornecedor que envia o promotor\n*2* — Sou da loja ou da rede varejista\n*3* — Sou o próprio promotor",
+      "opcoes": {
+        "1": "acesso_gestor",
+        "2": "acesso_loja",
+        "3": "acesso_promotor"
+      },
+      "sinonimos": {
+        "agencia": "1",
+        "fornecedor": "1",
+        "industria": "1",
+        "prestador": "1",
+        "loja": "2",
+        "rede": "2",
+        "varejo": "2",
+        "supermercado": "2",
+        "sou promotor": "3",
+        "promotor": "3",
+        "eu mesmo": "3"
+      }
+    },
+
+    "acesso_gestor": {
+      "mensagem": "Siga nesta ordem, que é a ordem em que os problemas aparecem:\n\n*1.* Abra **Documentos Pendentes** e procure o promotor por nome ou CPF. Vermelho quer dizer vencido, amarelo quer dizer pendente. Regularize pelo **Anexo de Documentos**, dentro do cadastro do visitante.\n\n*2.* Confira se a **alocação** dele inclui aquela rede e aquela loja. Sem alocação não há acesso liberado, mesmo com documento em ordem.\n\n*3.* Verifique se a rede não bloqueou o acesso do contratante — ela tem a função **Bloquear Acesso**.\n\n*1* — Já conferi os três e continua barrado\n*2* — Quero entender melhor a parte de documentos\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao",
+        "2": "documentos"
+      },
+      "sinonimos": {
+        "continua": "1",
+        "nao resolveu": "1",
+        "ainda barrado": "1",
+        "chamado": "1",
+        "documento": "2",
+        "documentos": "2"
+      }
+    },
+
+    "acesso_loja": {
+      "mensagem": "Do lado da loja e da rede, o que você tem é a visão de quem chegou e em que situação:\n\nNa **Portaria**, o Registro de Entrada mostra o motivo da recusa. Em **Visitantes** você busca a pessoa e vê os detalhes, inclusive a verificação de documentos. A rede também tem **Bloquear Acesso**, que impede a entrada de um contratante inteiro — vale conferir se não é isso.\n\nSe o promotor está regular e a portaria continua recusando, é caso de chamado.\n\n*1* — Quero abrir um chamado\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "chamado": "1",
+        "suporte": "1",
+        "abrir": "1"
+      }
+    },
+
+    "acesso_promotor": {
+      "definir": { "frente": "promotor" },
+      "mensagem": "Entendo o incômodo de descobrir isso na hora de entrar.\n\nUma coisa importante: as telas de documentos e de cadastro não ficam com você, ficam com a **agência ou o fornecedor que te emprega**. É essa empresa que regulariza documento e alocação. Falar com o supervisor ou com o RH dela é o caminho mais rápido — de fora, nem eu nem a loja conseguimos liberar.\n\n*1* — Quero entender o que costuma travar\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "acesso_motivos"
+      },
+      "sinonimos": {
+        "entender": "1",
+        "motivo": "1",
+        "por que": "1",
+        "porque": "1"
+      }
+    },
+
+    "acesso_motivos": {
+      "mensagem": "São três motivos, quase sempre:\n\n**Documento vencido ou faltando.** Cada rede varejista define a própria lista de exigências, então o mesmo promotor pode estar liberado numa rede e barrado em outra.\n\n**Falta de alocação.** Você precisa estar vinculado àquela rede e àquela loja. Documento em ordem sem alocação não libera a entrada.\n\n**Contratante bloqueado.** A rede pode ter bloqueado a empresa que te envia, e aí nenhum promotor dela entra.\n\nNos três casos quem resolve é a empresa que te emprega. Leve esses três itens para o seu supervisor.",
+      "opcoes": {},
+      "sinonimos": {}
+    },
+
+    "cadastro": {
+      "definir": { "frente": "suporte" },
+      "mensagem": "Sobre qual parte você precisa?\n\n*1* — Cadastrar um promotor novo\n*2* — Enviar ou atualizar documentos\n*3* — Alocação: vincular o promotor a redes e lojas\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "cadastro_novo",
+        "2": "documentos",
+        "3": "alocacao"
+      },
+      "sinonimos": {
+        "novo": "1",
+        "criar": "1",
+        "cadastrar": "1",
+        "incluir": "1",
+        "documento": "2",
+        "documentos": "2",
+        "anexar": "2",
+        "enviar": "2",
+        "atualizar": "2",
+        "alocacao": "3",
+        "alocar": "3",
+        "vincular": "3",
+        "vinculo": "3"
+      }
+    },
+
+    "cadastro_novo": {
+      "mensagem": "O caminho é: menu lateral → **Visitantes** → **Cadastro**. Na tela de busca, botão **Novo visitante**, no canto superior direito. Preencha **Informações pessoais** e salve.\n\nObrigatórios, marcados com asterisco vermelho: **CPF**, **Nome completo** e **Função**.\n\nA Função é onde a maioria trava, porque tem regra própria.\n\n*1* — Explicar as regras de Função\n*2* — Preciso de ajuda com um cadastro específico\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "funcao_regras",
+        "2": "suporte_descricao"
+      },
+      "sinonimos": {
+        "funcao": "1",
+        "regra": "1",
+        "supervisor": "1",
+        "ajuda": "2",
+        "erro": "2"
+      }
+    },
+
+    "funcao_regras": {
+      "mensagem": "São três funções: **Promotor**, **Supervisor** e **Expositor**.\n\nPromotor e Expositor podem ser associados a **apenas um** Supervisor, e esse Supervisor precisa já estar cadastrado na mesma base, com a função Supervisor definida. Se ele não aparece na lista, é porque ainda não foi cadastrado assim.\n\nPara quem tem função Supervisor, o campo *Supervisor responsável* fica desabilitado. Um Supervisor pode ter quantos promotores forem necessários, e enquanto tiver promotores associados **a função dele não pode ser alterada** — para trocar, é preciso primeiro remanejar os promotores.\n\n*1* — Ainda estou travado num cadastro\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "travado": "1",
+        "ajuda": "1",
+        "chamado": "1"
+      }
+    },
+
+    "documentos": {
+      "mensagem": "Os documentos ficam no **Anexo de Documentos**, dentro do cadastro do visitante: Edição de Visitantes → Anexo de Documentos. Podem ser anexados e removidos a qualquer momento.\n\nPara achar quem tem pendência, use a tela **Documentos Pendentes** e filtre por nome ou CPF do visitante, por rede ou por status. **Vermelho é documento vencido, amarelo é documento pendente.**\n\nDois pontos que evitam retrabalho: **a lista de documentos é definida por cada rede varejista**, não pela Mob2Con, então redes diferentes pedem coisas diferentes. E documento vencido barra a entrada do mesmo jeito que documento ausente.\n\n*1* — Anexei o documento e continua pendente\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "continua": "1",
+        "nao atualizou": "1",
+        "anexei": "1",
+        "chamado": "1"
+      }
+    },
+
+    "alocacao": {
+      "mensagem": "Alocação é o vínculo do promotor com as redes e lojas onde ele pode atuar. É o passo que mais passa despercebido: com todos os documentos em ordem, sem alocação a portaria não libera a entrada.\n\nEla fica no cadastro do visitante. Na **Agência** o fluxo tem a etapa de **Espelhar Alocação** e aparece como *Alocação e Vínculo*; no **Fornecedor** aparece como *Alocação / Rota*, sem espelhamento. Para muitos promotores de uma vez, a Agência tem **Vínculo Massivo** de projetos.\n\n*1* — Preciso de ajuda com uma alocação\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "ajuda": "1",
+        "chamado": "1",
+        "erro": "1"
+      }
+    },
+
+    "financeiro": {
+      "definir": { "frente": "financeiro" },
+      "mensagem": "Fatura e cobrança são com o **Financeiro**, que tem canal próprio e resolve mais rápido que o atendimento geral:\n\nWhatsApp **(11) 99886-8868**\nE-mail **cr@mob2con.com.br**\n\nNa plataforma, você mesmo consulta em **Financeiro**, que tem *Resumo das Faturas* e *Detalhamento da Fatura*. Eu não tenho acesso à conta de vocês, então não consigo ver valor nem situação de pagamento daqui.\n\n*1* — Quero que o time daqui encaminhe\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "atendente"
+      },
+      "sinonimos": {
+        "encaminhar": "1",
+        "time": "1",
+        "atendente": "1"
+      }
+    },
+
+    "mobconnect_intencao": {
+      "mensagem": "O MobConnect cobre execução de campo: roteiro, sortimento, pesquisas, atividades e alertas de ruptura.\n\nVocê já usa o produto e precisa de ajuda, ou quer conhecer e contratar?\n\n*1* — Já uso e preciso de suporte\n*2* — Quero conhecer ou contratar",
+      "opcoes": {
+        "1": "mobconnect",
+        "2": "mobconnect_comercial"
+      },
+      "sinonimos": {
+        "suporte": "1",
+        "ajuda": "1",
+        "ja uso": "1",
+        "problema": "1",
+        "conhecer": "2",
+        "contratar": "2",
+        "comercial": "2",
+        "proposta": "2"
+      }
+    },
+
+    "mobconnect_comercial": {
+      "definir": { "frente": "comercial_mobconnect" },
+      "mensagem": "Quem cuida do MobConnect é o **Matheus**. Posso encaminhar seu caso com o contexto pronto; o canal público é **(19) 99926-7104** ou **comercial@mob2con.com.br**.\n\nPara eu enviar corretamente, você é de qual segmento?\n\n*1* — Rede varejista\n*2* — Indústria ou fornecedor\n*3* — Agência de promotores",
+      "opcoes": {
+        "1": "mobconnect_seg_rede",
+        "2": "mobconnect_seg_industria",
+        "3": "mobconnect_seg_agencia"
+      },
+      "sinonimos": {
+        "rede": "1",
+        "varejo": "1",
+        "supermercado": "1",
+        "industria": "2",
+        "fornecedor": "2",
+        "marca": "2",
+        "agencia": "3",
+        "promotores": "3"
+      }
+    },
+
+    "mobconnect_seg_rede": {
+      "definir": { "segmento": "Rede varejista", "frente": "comercial_mobconnect" },
+      "mensagem": "Qual é o seu nome?",
+      "capturar": "nome_contato",
+      "proximo": "lead_empresa"
+    },
+
+    "mobconnect_seg_industria": {
+      "definir": { "segmento": "Indústria ou fornecedor", "frente": "comercial_mobconnect" },
+      "mensagem": "Qual é o seu nome?",
+      "capturar": "nome_contato",
+      "proximo": "lead_empresa"
+    },
+
+    "mobconnect_seg_agencia": {
+      "definir": { "segmento": "Agência de promotores", "frente": "comercial_mobconnect" },
+      "mensagem": "Qual é o seu nome?",
+      "capturar": "nome_contato",
+      "proximo": "lead_empresa"
+    },
+
+    "mobconnect": {
+      "definir": { "frente": "suporte" },
+      "mensagem": "O MobConnect cuida do que o promotor faz dentro da loja. Sobre o que você precisa?\n\n*1* — Roteiro e sortimento\n*2* — Ruptura e alertas\n*3* — Declaração de Serviço e horas\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "roteiro_sortimento",
+        "2": "ruptura",
+        "3": "declaracao_servico"
+      },
+      "sinonimos": {
+        "roteiro": "1",
+        "rota": "1",
+        "visita": "1",
+        "sortimento": "1",
+        "produto": "1",
+        "ruptura": "2",
+        "alerta": "2",
+        "gondola": "2",
+        "falta": "2",
+        "declaracao": "3",
+        "hora": "3",
+        "horas": "3",
+        "servico": "3"
+      }
+    },
+
+    "roteiro_sortimento": {
+      "mensagem": "São duas coisas que trabalham juntas. O **roteiro** define quais lojas o promotor visita e quando. O **sortimento** define quais produtos estão sob a responsabilidade dele naquele ponto.\n\nQuem mantém isso é a agência ou o fornecedor: atualização de roteiro do promotor, manutenção de sortimentos por fornecedor, cadastro de fornecedor e produtos. As pesquisas e atividades são criadas e agendadas do mesmo lugar, e o que foi executado aparece nos dashboards.\n\n*1* — Preciso de ajuda com roteiro ou sortimento\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "ajuda": "1",
+        "chamado": "1"
+      }
+    },
+
+    "ruptura": {
+      "mensagem": "Ruptura é produto que falta na gôndola **mesmo havendo estoque** — ou seja, é problema de execução, não de compra. É justamente o que a plataforma existe para reduzir.\n\nNo MobConnect, a loja acompanha os **alertas de ruptura** pelo dashboard, junto com o status da loja. Para indústria e agência, o que aparece é a execução: cobertura planejada contra realizada, permanência por loja e o que foi registrado na visita.\n\nUma ressalva honesta: indicadores de estoque e ruptura dependem do que a rede compartilha e do escopo contratado.\n\n*1* — Quero falar com alguém sobre isso\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "atendente"
+      },
+      "sinonimos": {
+        "falar": "1",
+        "time": "1",
+        "comercial": "1"
+      }
+    },
+
+    "declaracao_servico": {
+      "mensagem": "A **Declaração de Serviço** é o registro das horas e atividades executadas. O fornecedor ajusta as horas no projeto, e a rede faz a verificação das declarações — é assim que a execução fica comprovada dos dois lados.\n\nLoja e rede consultam pelas próprias telas de Declarações de Serviço; agência e fornecedor veem as dos seus promotores.\n\n*1* — Tenho um problema numa declaração\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "suporte_descricao"
+      },
+      "sinonimos": {
+        "problema": "1",
+        "ajuda": "1",
+        "chamado": "1"
+      }
+    },
+
+    "conhecer_segmento": {
+      "mensagem": "Posso te explicar. O que muda bastante é de onde você fala:\n\n*1* — Rede varejista\n*2* — Indústria ou fornecedor\n*3* — Agência de promotores\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "seg_rede",
+        "2": "seg_industria",
+        "3": "seg_agencia"
+      },
+      "sinonimos": {
+        "rede": "1",
+        "varejo": "1",
+        "supermercado": "1",
+        "atacado": "1",
+        "industria": "2",
+        "fornecedor": "2",
+        "fabricante": "2",
+        "marca": "2",
+        "prestador": "2",
+        "agencia": "3",
+        "terceirizada": "3",
+        "promotores": "3"
+      }
+    },
+
+    "seg_rede": {
+      "definir": { "segmento": "Rede varejista", "frente": "comercial_varejo" },
+      "mensagem": "Para a rede, a ideia é simples: **quem entra na sua loja, e o que sai da gôndola.**\n\nVocê define as regras de acesso e a lista de documentos que exige. A plataforma confere os documentos, registra a entrada do promotor na portaria e mostra como a reposição andou em cada loja. Passa a ser possível ver quem está em cada loja agora com documento válido, presença e permanência por fornecedor, pendências que estão bloqueando entrada e sinais de falha no abastecimento.\n\nDentro da rede quem usa normalmente é gerente de loja, prevenção de perdas, comercial e operações. O modelo é contratado pela rede, com acesso liberado aos fornecedores atendidos.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "lead_nome"
+      },
+      "sinonimos": {
+        "comercial": "1",
+        "falar": "1",
+        "proposta": "1",
+        "contratar": "1"
+      }
+    },
+
+    "seg_industria": {
+      "definir": { "segmento": "Indústria ou fornecedor", "frente": "comercial_industria" },
+      "mensagem": "Para a indústria, a ideia é: **seu investimento em campo com evidência de execução.**\n\nVocê acompanha onde a marca foi atendida, por quanto tempo e com qual resultado na gôndola, seja com equipe própria ou com agência terceirizada. Na prática: cobertura de lojas planejada contra realizada, permanência da equipe por loja e região, execução por agência contratada com comparativo, e indicadores de estoque e ruptura quando a rede compartilha.\n\nQuem usa normalmente é trade marketing, gerência regional de vendas e inteligência de mercado.\n\nUm ponto que evita expectativa errada: isso funciona **nas redes que já operam com a Mob2Con**, então a cobertura da sua carteira precisa ser consultada.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "lead_nome"
+      },
+      "sinonimos": {
+        "comercial": "1",
+        "falar": "1",
+        "proposta": "1",
+        "contratar": "1"
+      }
+    },
+
+    "seg_agencia": {
+      "definir": { "segmento": "Agência de promotores", "frente": "comercial_industria" },
+      "mensagem": "Para a agência, a ideia é: **promotor liberado na loja sem correr atrás de papel.**\n\nVocê cadastra a equipe uma vez, atende a exigência documental de cada rede e comprova ao seu cliente o que foi executado em campo. O que passa a ficar visível: situação de cada promotor — apto, pendente ou bloqueado —, os documentos exigidos por rede com validade, roteiro do dia com visitas realizadas e ausências, e relatórios de execução para apresentar ao cliente.\n\nQuem usa normalmente é coordenação de campo, departamento pessoal e atendimento ao cliente.\n\nVale lembrar que a liberação depende das regras da rede atendida.\n\n*1* — Quero falar com o comercial\n*0* — Voltar ao menu",
+      "opcoes": {
+        "1": "lead_nome"
+      },
+      "sinonimos": {
+        "comercial": "1",
+        "falar": "1",
+        "proposta": "1",
+        "contratar": "1"
+      }
+    },
+
+    "lead_nome": {
+      "mensagem": "Vou reunir o essencial para o time chegar já sabendo do seu caso. São quatro perguntas rápidas.\n\nQual é o seu nome?",
+      "capturar": "nome_contato",
+      "proximo": "lead_empresa"
+    },
+
+    "lead_empresa": {
+      "mensagem": "Obrigado, {nome_puro}. Qual é o nome da sua empresa?",
+      "capturar": "empresa_contato",
+      "proximo": "lead_redes"
+    },
+
+    "lead_redes": {
+      "mensagem": "Quais redes varejistas estão envolvidas? A cobertura depende disso, então é a informação que mais adianta a conversa.\n\nSe ainda não souber, escreva *não sei*.",
+      "capturar": "redes_atendidas",
+      "proximo": "lead_porte"
+    },
+
+    "lead_porte": {
+      "mensagem": "Qual o tamanho da operação hoje? Quantas lojas ou quantos promotores, e em quais regiões.",
+      "capturar": "porte",
+      "proximo": "lead_necessidade"
+    },
+
+    "lead_necessidade": {
+      "mensagem": "Por último: o que motivou você a procurar a Mob2Con agora?",
+      "capturar": "necessidade",
+      "proximo": "lead_resumo"
+    },
+
+    "lead_resumo": {
+      "mensagem": "Registrei assim, {nome_puro}:\n\n*Contato:* {nome_contato}\n*Empresa:* {empresa_contato}\n*Segmento:* {segmento}\n*Redes:* {redes_atendidas}\n*Operação:* {porte}\n*Motivo:* {necessidade}\n\nEstá correto?\n\n*1* — Sim, pode enviar para o time\n*2* — Não, quero corrigir",
+      "opcoes": {
+        "1": "atendente",
+        "2": "lead_nome"
+      },
+      "sinonimos": {
+        "sim": "1",
+        "isso": "1",
+        "correto": "1",
+        "ok": "1",
+        "confirmo": "1",
+        "pode": "1",
+        "nao": "2",
+        "corrigir": "2",
+        "errado": "2",
+        "mudar": "2"
+      }
+    },
+
+    "suporte_descricao": {
+      "definir": { "frente": "suporte" },
+      "mensagem": "Para o time começar do meio e não do zero, descreva numa mensagem: qual a sua empresa, qual a rede varejista envolvida, o nome do promotor, o que você já tentou e a mensagem de erro, se apareceu alguma.",
+      "capturar": "descricao_suporte",
+      "proximo": "atendente"
+    },
+
+    "atendente": {
+      "acao": "transferir"
+    }
+  }
+}

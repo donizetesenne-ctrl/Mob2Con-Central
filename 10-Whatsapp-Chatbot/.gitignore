@@ -1,0 +1,39 @@
+# Segredos — NUNCA versionar
+.env
+.env.bak-*
+
+# Sessão do WhatsApp — contém as credenciais do dispositivo pareado.
+# Se isso vazar, a pessoa entra na sua conta.
+gateway/sessao/
+sessao/
+
+# QR Code gerado no pareamento
+qrcode*.png
+
+# Node
+gateway/node_modules/
+node_modules/
+npm-debug.log*
+
+# Volumes locais do Docker
+docker-volumes/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Logs — podem conter números e conteúdo de atendimento
+*.log
+*.log.*
+logs/
+
+
+# Persistência local — pode conter contexto de conversa
+/dados/
+*.sqlite
+*.sqlite3
+*.sqlite-wal
+*.sqlite-shm
+*.sqlite3-wal
+*.sqlite3-shm

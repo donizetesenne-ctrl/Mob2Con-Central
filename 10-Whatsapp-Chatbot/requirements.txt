@@ -1,0 +1,9 @@
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+httpx==0.28.1
+python-dotenv==1.0.1
+tzdata==2024.2
+
+# Opcional: sessões compartilhadas / persistentes.
+# Necessário só se você preencher REDIS_URL no .env.
+redis==5.2.1

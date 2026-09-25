@@ -1,0 +1,21 @@
+{
+  "name": "mob2con-whatsapp-gateway",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Gateway WhatsApp compatível com a Evolution API, sem Docker/Postgres/Redis.",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "scripts": {
+    "start": "node --env-file=../.env index.js",
+    "dev": "node --env-file=../.env --watch index.js",
+    "test": "node --test whatsapp.test.js"
+  },
+  "dependencies": {
+    "@whiskeysockets/baileys": "6.7.24",
+    "pino": "9.5.0",
+    "qrcode": "1.5.4"
+  }
+}
